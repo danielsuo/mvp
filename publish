@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+git checkout master
+
+git pull origin master
+git add .
+git commit -m "$1"
+git push origin master
+
+gulp build
+
+git checkout gh-pages
+git pull origin gh-pages
+ls | grep -v "site\|node_modules" | xargs rm -rf
+cp -R site/* .
+
+git add .
+git commit -m "$1"
+git push origin gh-pages
+
+git checkout master

@@ -1,0 +1,18 @@
+{
+  "client": "floored",
+  "project": "test",
+  "layers": [
+    {
+      "name": "benching"
+    },
+    {
+      "name": "breakout"
+    },
+    {
+      "name": "conference"
+    },
+    {
+      "name": "office"
+    }
+  ]
+}
