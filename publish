@@ -9,7 +9,7 @@ gulp build
 
 git checkout gh-pages
 git pull origin gh-pages
-git checkout master -- index.html
+git checkout master index.html
 ls | grep -v "site\|node_modules" | xargs rm -rf
 cp -R site/* .
 
