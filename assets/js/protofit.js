@@ -17,9 +17,6 @@ var data = draw.nested();
 data.enableZoom(document.getElementById('protofit'));
 data.enablePan(document.getElementById('protofit'));
 
-// Data of cells
-// state: Array of state of each cell
-// cells: Array of cells represented by array of points {x: 0, y: 0}
 var cells = {};
 
 // Grab URL query parameters into object
@@ -42,11 +39,11 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
   for (var i in config.layers) {
 
     // Load svgs
-    // require('./svg/load')(config.layers[i].svg, folder + '/' + config.layers[i].name + '.svg', function(svg) {
-    //   numLoaded++;
-    //   dataDiv.innerHTML = ['Finished loading', parseInt(numLoaded), 'of', config.layers.length, 'files'].join(' ');
-    //   console.log(svg)
-    // });
+    require('./svg/load')(config.layers[i].svg, folder + '/' + config.layers[i].name + '.svg', function(svg) {
+      numLoaded++;
+      dataDiv.innerHTML = ['Finished loading', parseInt(numLoaded), 'of', config.layers.length, 'files'].join(' ');
+      console.log(svg)
+    });
 
     config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, true);
     config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, false);
@@ -57,14 +54,14 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
   data.protofit = document.getElementById('protofit');
   data.floorplan = data.nested();
 
-  app.loadCells(data.floorplan, cells, folder + '/cells.svg');
+  app.loadCells(data.floorplan, config, folder + '/cells.svg');
 
   radio('cell-clicked').subscribe(function(i, cell) {
 
-    cells.state[i] = (cells.state[i] + 1) % (config.layers.length + 1);
+    config.state[i] = (config.state[i] + 1) % (config.layers.length + 1);
 
     // If state should be blank, delete cell from all clips
-    if (cells.state[i] == 0) {
+    if (config.state[i] == 0) {
       for (var j in config.layers) {
         var clipCellIndex = config.layers[j].clipCells.indexOf(cell);
         if (clipCellIndex > -1) {
@@ -76,7 +73,7 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
       for (var j in config.layers) {
         var clipCellIndex = config.layers[j].clipCells.indexOf(cell);
         var found = clipCellIndex > -1;
-        var currState = parseInt(j) + 1 == cells.state[i];
+        var currState = parseInt(j) + 1 == config.state[i];
 
         // If we want to expose a cell for a state, we want to add clipping
         if (!found && currState) {
@@ -109,7 +106,7 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
       return hist;
     }
 
-    dataDiv.innerHTML = histogram(cells.state).join(', ');
+    dataDiv.innerHTML = histogram(config.state).join(', ');
   });
 });
 
@@ -291,8 +288,10 @@ var trace = function(event) {
 }
 
 SVG.on(window, 'keypress', function(event) {
-  console.log(event.keyCode);
-  console.log(event)
+  if (event.charCode == 115) { // s
+    console.log(config.state)
+  }
+
 });
 
 SVG.on(window, 'click', trace);

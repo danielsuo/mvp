@@ -1,13 +1,13 @@
 var radio = require('radio');
 require('../svg/path');
 
-module.exports = function(svg, cells, url) {
+module.exports = function(svg, data, url) {
   require('../svg/load')(svg, url, function() {
-    cells.state = [];
-    cells.data = svg.children()[0].children()[0].children();
+    data.state = [];
+    data.cells = svg.children()[0].children()[0].children();
 
-    for (var i in cells.data) {
-      var cell = cells.data[i];
+    for (var i in data.cells) {
+      var cell = data.cells[i];
       var lines = cell.children();
       var path = svg.path();
 
@@ -43,12 +43,12 @@ module.exports = function(svg, cells, url) {
 
       path.Z();
 
-      cells.data[i] = points;
-      cells.state.push(0);
+      data.cells[i] = points;
+      data.state.push(0);
 
       (function(x) {
         path.click(function(event) {
-          radio('cell-clicked').broadcast(x, cells.data[x]);
+          radio('cell-clicked').broadcast(x, data.cells[x]);
         })
       })(i);
     }
