@@ -4,66 +4,56 @@ require('../util/addWheelListener');
 ;
 (function() {
 
-	SVG.extend(SVG.Element, {
-		// Enable zoom on window or element
-		enableZoom: function(zoomWindow, constraint) {
-			var zoom, element = this;
+  SVG.extend(SVG.Element, {
+    // Enable zoom on window or element
+    enableZoom: function(documentElement) {
+      var zoom, element = this;
 
-			element.zoomWindow = zoomWindow || false;
+      element.zoomElement = documentElement || element.node;
 
-			var parent = this.parent._parent(SVG.Nested) || this._parent(SVG.Doc);
+      var parent = this.parent._parent(SVG.Nested) || this._parent(SVG.Doc)
 
-			if (typeof element.disableZoom !== 'undefined') {
-				return;
-			}
+      if (typeof element.disableZoom !== 'undefined') {
+        return;
+      }
 
-			/* ensure constrain object */
-			constraint = constraint || {};
+      /* Zoom in and out relative to cursor */
+      zoom = function(event) {
+        var elRect = element.zoomElement.getBoundingClientRect();
+        event.preventDefault();
 
-			/* Zoom in and out relative to cursor */
-			zoom = function(event) {
-				event.preventDefault();
+        var x = event.clientX - elRect.left;
+        var y = event.clientY - elRect.top;
 
-				var x = event.clientX;
-				var y = event.clientY;
+        /* get element bounding box */
+        var prev = parent.viewbox();
+        var curr = {};
 
-				/* get element bounding box */
-				var prev = parent.viewbox();
-				var curr = {};
+        curr.direction = event.wheelDeltaY > 0 ? -1 : 1
+        curr.magnitude = Math.pow(1.03, curr.direction);
 
-				curr.direction = event.wheelDeltaY > 0 ? -1 : 1
-				curr.magnitude = Math.pow(1.03, curr.direction);
+        curr.width = prev.width * curr.magnitude;
+        curr.height = prev.height * curr.magnitude;
 
-				curr.width = prev.width * curr.magnitude;
-				curr.height = prev.height * curr.magnitude;
+        curr.x = prev.x - x / prev.zoom * (1 - 1 / curr.magnitude);
+        curr.y = prev.y - y / prev.zoom * (1 - 1 / curr.magnitude);
 
-				curr.x = prev.x - x / prev.zoom * (1 - 1 / curr.magnitude);
-				curr.y = prev.y - y / prev.zoom * (1 - 1 / curr.magnitude);
+        parent.viewbox(curr);
+      };
 
-				parent.viewbox(curr);
-			};
+      /* Listen on entire window for now */
+      addWheelListener(element.zoomElement, zoom, false);
 
-			/* Listen on entire window for now */
-			if (zoomWindow) {
-				addWheelListener(window, zoom, false);
-			} else {
-				addWheelListener(element.node, zoom, false);
-			}
+      /* disable zoom */
+      element.disableZoom = function() {
+        // TODO: should use polyfill here
+        element.zoomElement.removeEventListener('wheel', zoom, false);
 
-			/* disable zoom */
-			element.disableZoom = function() {
-				// TODO: should use polyfill here
-				if (zoomWindow) {
-					window.removeEventListener('wheel', zoom, false);
-				} else {
-					element.node.removeEventListener('wheel', zoom, false);
-				}
+        delete element.enableZoom;
+        delete element.disableZoom;
+      };
 
-				delete element.enableZoom;
-				delete element.disableZoom;
-			};
-
-			return this;
-		}
-	});
+      return this;
+    }
+  });
 }).call(this);

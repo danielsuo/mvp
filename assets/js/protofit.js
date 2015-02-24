@@ -3,7 +3,7 @@
 
 var SVG = require('svg.js');
 require('./ixn/zoom');
-require('./ixn/drag');
+require('./ixn/pan');
 
 var app = require('./app');
 var path = require('./util/path');
@@ -14,8 +14,8 @@ var radio = require('radio');
 var draw = SVG('protofit');
 var data = draw.nested();
 
-data.enableZoom(true);
-data.enableDrag(true);
+data.enableZoom(document.getElementById('protofit'));
+data.enablePan(document.getElementById('protofit'));
 
 // Data of cells
 // state: Array of state of each cell
@@ -42,11 +42,11 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
   for (var i in config.layers) {
 
     // Load svgs
-    require('./svg/load')(config.layers[i].svg, folder + '/' + config.layers[i].name + '.svg', function(svg) {
-      numLoaded++;
-      dataDiv.innerHTML = ['Finished loading', parseInt(numLoaded), 'of', config.layers.length, 'files'].join(' ');
-      console.log(svg)
-    });
+    // require('./svg/load')(config.layers[i].svg, folder + '/' + config.layers[i].name + '.svg', function(svg) {
+    //   numLoaded++;
+    //   dataDiv.innerHTML = ['Finished loading', parseInt(numLoaded), 'of', config.layers.length, 'files'].join(' ');
+    //   console.log(svg)
+    // });
 
     config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, true);
     config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, false);
@@ -155,11 +155,11 @@ scaleButton.onclick = function() {
   // TODO: Change 'on' to whether or not the object exists
   data.mode.scale.on = !data.mode.scale.on;
   if (data.mode.scale.on) {
-    data.disableDrag();
+    data.disablePan();
     scaleButton.style.backgroundColor = '#f06';
   } else {
     scaleButton.style.backgroundColor = '#fff';
-    data.enableDrag(true);
+    data.enablePan(true);
     delete data.scaleObj;
     delete data.mode.scale.firstClick;
   }
@@ -170,11 +170,11 @@ traceButton.onclick = function() {
   // TODO: Change 'on' to whether or not the object exists
   data.mode.trace.on = !data.mode.trace.on;
   if (data.mode.trace.on) {
-    data.disableDrag();
+    data.disablePan();
     traceButton.style.backgroundColor = '#f06';
   } else {
     traceButton.style.backgroundColor = '#fff';
-    data.enableDrag(true);
+    data.enablePan(true);
     delete data.traceObj;
     delete data.trace;
     delete data.mode.trace.firstClick;
@@ -289,6 +289,11 @@ var trace = function(event) {
     data.mode.trace.firstClick = true;
   }
 }
+
+SVG.on(window, 'keypress', function(event) {
+  console.log(event.keyCode);
+  console.log(event)
+});
 
 SVG.on(window, 'click', trace);
 // mc.on('tap press', trace)
@@ -477,11 +482,11 @@ SVG.on(window, 'keydown', function(event) {
   if (event.shiftKey) {
     data.modifier.shift = true;
 
-    data.disableDrag();
+    data.disablePan();
     data.disableZoom();
 
     data.objects.each(function(i, children) {
-      this.enableDrag();
+      this.enablePan();
     });
   }
 });
@@ -490,11 +495,11 @@ SVG.on(window, 'keyup', function(event) {
   if (!event.shiftKey && data.modifier.shift == true) {
     data.modifier.shift = false;
 
-    data.enableDrag(true);
+    data.enablePan(true);
     data.enableZoom(true);
 
     data.objects.each(function(i, children) {
-      this.disableDrag();
+      this.disablePan();
     });
   }
 });
