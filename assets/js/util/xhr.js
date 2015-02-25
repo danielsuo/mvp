@@ -1,19 +1,24 @@
+var Promise = require('promise');
+
 module.exports = {
-	get: function(url, callback, async, listeners) {
-		if (typeof async === "undefined") {
-			async = true;
-		}
+	get: function(url) {
+		return new Promise(function(resolve, reject) {
+			var req = new XMLHttpRequest();
+			req.open('GET', url);
 
-		var xhr = new XMLHttpRequest();
+			req.onload = function() {
+				if (req.status == 200) {
+					resolve(req.response);
+				} else {
+					reject(Error(req.statusText));
+				}
+			};
 
-		if (typeof listeners !== "undefined") {
-			Object.keys(listeners).map(function(listener) {
-				xhr.addEventListener(listener, listeners[listener], false);
-			});
-		}
+			req.onerror = function() {
+				reject(Error("Network Error"));
+			};
 
-		xhr.onload = callback;
-		xhr.open('get', url, async);
-		xhr.send();
+			req.send();
+		});
 	}
 };

@@ -1,3 +1,3 @@
 module.exports = {
-  loadCells: require('./loadCells')
+  Cells: require('./cells')
 };

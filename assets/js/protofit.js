@@ -1,61 +1,61 @@
 // NOTE: Everything in this file is scratch space and has not been refactored
 // into something reasonable yet.
 
-var SVG = require('svg.js');
+// SVG library
+var SVG = require('./svg');
 require('./ixn/zoom');
 require('./ixn/pan');
-
-var app = require('./app');
-var path = require('./util/path');
 
 // Pubsub library
 var radio = require('radio');
 
-var draw = SVG('protofit');
+// Promise library
+var Promise = require('promise');
+
+// Application modules
+var app = require('./app');
+var path = require('./util/path');
+var XHR = require('./util/xhr');
+
+// Utilities
+var histogram = require('./util/histogram');
+
+window.APP_NAME = 'protofit';
+
+var draw = SVG(APP_NAME);
 var data = draw.nested();
 
-data.enableZoom(document.getElementById('protofit'));
-data.enablePan(document.getElementById('protofit'));
-
-var cells = {};
-
 // Grab URL query parameters into object
-var params = require('./util/getQueryParameters')();
-var folder = ['.', 'data', params.client, params.project].join('/');
-var config;
+data.params = require('./util/getQueryParameters')();
+data.dir = ['.', 'data', data.params.client, data.params.project].join('/');
 
-data.protofit = document.getElementById('protofit');
+data[APP_NAME] = document.getElementById(APP_NAME);
 data.panel = document.getElementById('panel');
 data.info = document.getElementById('info');
 
-require('./util/xhr').get(folder + '/config.json', function(req) {
-  config = JSON.parse(req.target.response);
+data.enableZoom(data[APP_NAME]);
+data.enablePan(data[APP_NAME]);
+
+data.cells = app.Cells;
+data.selected = [];
+
+XHR.get(data.dir + '/config.json').then(function(response) {
+  var config = JSON.parse(response);
+  data.config = config;
 
   for (var i in config.layers) {
-    config.layers[i].svg = data.nested();
-    config.layers[i].mask = data.path();
-    config.layers[i].clipCells = [];
+    var layer = config.layers[i];
+    layer.url = data.dir + '/' + layer.name + '.svg';
+
+    layer.svg = data.nested();
+    layer.clipCells = [];
+
+    layer.mask = data.path();
+    layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, true);
+    layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, false);
+
+    layer.svg.clipWith(layer.mask);
   }
-
-  var numLoaded = 0;
-  for (var i in config.layers) {
-
-    // Load svgs
-    require('./svg/load')(config.layers[i].svg, folder + '/' + config.layers[i].name + '.svg', function(svg) {
-      numLoaded++;
-      data.info.innerHTML = ['Finished loading', parseInt(numLoaded), 'of', config.layers.length, 'files'].join(' ');
-      console.log(svg)
-    });
-
-    config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, true);
-    config.layers[i].mask = path.fromRect(config.layers[i].mask, 0, 0, window.innerWidth, window.innerHeight, false);
-
-    config.layers[i].svg.clipWith(config.layers[i].mask)
-  }
-
-  data.floorplan = data.nested();
-
-  app.loadCells(data.floorplan, config, folder + '/cells.svg');
 
   data.layouts = document.createElement('div');
   data.layouts.id = 'layouts';
@@ -66,90 +66,66 @@ require('./util/xhr').get(folder + '/config.json', function(req) {
     data.layouts.innerHTML += '<li id=layout-' + config.layouts[i].id + '>' + config.layouts[i].name + '</li>'
   }
   data.layouts.innerHTML += '</ul>';
+}).then(function() {
+  var numLoaded = 0;
 
-  for (var i in config.layouts) {
-    var layout = document.getElementById('layout-' + config.layouts[i].id);
+  return Promise.all(data.config.layers.map(function(layer) {
+    return SVG.load(layer.svg, layer.url).then(function(svg) {
+      numLoaded += 1;
+      data.info.innerHTML = ['Finished loading', numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
+    }, function(error) {
+      console.log(error)
+    })
+  }));
+}).then(function() {
+  data.info.innerHTML = 'Loading complete!';
+  data.floorplan = data.nested();
+
+  return data.cells.load(data.floorplan, data.dir + '/cells.svg').then(function() {
+    data.cells.reset();
+  })
+}).then(function() {
+  radio('cell-clicked').subscribe(function(i) {
+    data.selected.push(i);
+
+    data.cells.paths[i].attr({
+      stroke: '#f0f'
+    });
+
+    data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+  });
+
+  for (var i in data.config.layouts) {
+    var layout = document.getElementById('layout-' + data.config.layouts[i].id);
     (function(layoutId, layoutIndex) {
       layout.addEventListener('click', function(event) {
         console.log(layoutId)
-        for (var j in config.layers) {
-          config.layers[j].clipCells = [];
-          config.layers[j].mask = data.path();
-          config.layers[j].mask = path.fromRect(config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
-          config.layers[j].mask = path.fromRect(config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
+        for (var j in data.config.layers) {
+          data.config.layers[j].clipCells = [];
+          data.config.layers[j].mask = data.path();
+          data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
+          data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
         }
 
-        config.state = config.layouts[layoutIndex].state;
-
-        for (var j in config.state) {
-          var layer = config.state[j] - 1;
-          var cell = config.cells[j];
-
-          if (layer > -1) config.layers[layer].clipCells.push(cell);
+        data.cells.state = data.config.layouts[layoutIndex].state;
+        for (var j in data.cells.state) {
+          var layer = data.cells.state[j] - 1;
+          var cell = data.cells.coord[j];
+          if (layer > -1) data.config.layers[layer].clipCells.push(cell);
         }
 
-        console.log(config.layers.map(function(x) { return x.clipCells }));
-
-        for (var j in config.layers) {
-          for (var k in config.layers[j].clipCells) {
-            config.layers[j].mask = path.fromPoints(config.layers[j].mask, config.layers[j].clipCells[k], true);
+        for (var j in data.config.layers) {
+          for (var k in data.config.layers[j].clipCells) {
+            data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
           }
-          config.layers[j].svg.clipWith(config.layers[j].mask);
+          data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
         }
+
+        data.info.innerHTML = histogram(data.config.state, data.config.layers.length + 1).join(', ');
+        data.cells.reset();
       }, false);
-    })(layout.innerHTML, i);
+    })(data.config.layouts[i].id, i);
   }
-
-  radio('cell-clicked').subscribe(function(i, cell) {
-
-    config.state[i] = (config.state[i] + 1) % (config.layers.length + 1);
-
-    // If state should be blank, delete cell from all clips
-    if (config.state[i] == 0) {
-      for (var j in config.layers) {
-        var clipCellIndex = config.layers[j].clipCells.indexOf(cell);
-        if (clipCellIndex > -1) {
-          config.layers[j].clipCells.splice(clipCellIndex, 1);
-        }
-      }
-    } else {
-      // Loop through possible states
-      for (var j in config.layers) {
-        var clipCellIndex = config.layers[j].clipCells.indexOf(cell);
-        var found = clipCellIndex > -1;
-        var currState = parseInt(j) + 1 == config.state[i];
-
-        // If we want to expose a cell for a state, we want to add clipping
-        if (!found && currState) {
-          config.layers[j].clipCells.push(cell);
-        }
-        // Otherwise, we remove clipCell
-        else if (found && !currState) {
-          config.layers[j].clipCells.splice(clipCellIndex, 1);
-        }
-      }
-    }
-
-    for (var j in config.layers) {
-      config.layers[j].mask = data.path();
-      config.layers[j].mask = path.fromRect(config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
-      config.layers[j].mask = path.fromRect(config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
-      for (var k in config.layers[j].clipCells) {
-        config.layers[j].mask = path.fromPoints(config.layers[j].mask, config.layers[j].clipCells[k], true);
-      }
-      config.layers[j].svg.clipWith(config.layers[j].mask);
-    }
-
-    function histogram(x) {
-      var hist = Array.apply(null, new Array(config.layers.length + 1)).map(Number.prototype.valueOf, 0);
-
-      for (var i in x) {
-        hist[x[i]]++;
-      }
-
-      return hist;
-    }
-
-    data.info.innerHTML = histogram(config.state).join(', ');
-  });
+}).catch(function(error) {
+  console.log(error)
 });
