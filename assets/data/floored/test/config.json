@@ -2,12 +2,16 @@
   "client": "floored",
   "project": "test",
   "layers": [{
+    "id": "benching",
     "name": "benching"
   }, {
+    "id": "breakout",
     "name": "breakout"
   }, {
+    "id": "conference",
     "name": "conference"
   }, {
+    "id": "office",
     "name": "office"
   }],
   "layouts": [{

@@ -45,7 +45,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   for (var i in config.layers) {
     var layer = config.layers[i];
-    layer.url = data.dir + '/' + layer.name + '.svg';
+    layer.url = data.dir + '/' + layer.id + '.svg';
 
     layer.svg = data.nested();
     layer.clipCells = [];
@@ -62,8 +62,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.panel.appendChild(data.layouts);
 
   data.layouts.innerHTML += '<ul>';
-  for (var i in config.layouts) {
-    data.layouts.innerHTML += '<li id=layout-' + config.layouts[i].id + '>' + config.layouts[i].name + '</li>'
+  for (var i in data.config.layouts) {
+    data.layouts.innerHTML += '<li id=layout-' + data.config.layouts[i].id + '>' + data.config.layouts[i].name + '</li>'
   }
   data.layouts.innerHTML += '</ul>';
 }).then(function() {
@@ -86,20 +86,78 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   })
 }).then(function() {
   radio('cell-clicked').subscribe(function(i) {
-    data.selected.push(i);
+    var index = data.selected.indexOf(i);
+    if (index > -1) {
+      data.selected.splice(index, 1);
+      data.cells.paths[i].attr(data.cells.attr);
+    } else {
+      data.selected.push(i);
+      data.cells.paths[i].attr({
+        stroke: '#f0f'
+      });
+    }
 
-    data.cells.paths[i].attr({
-      stroke: '#f0f'
-    });
+    if (!data.editor) {
+      data.editor = document.createElement('div');
+      data.editor.id = 'editor';
+      data.panel.appendChild(data.editor);
+    }
+
+    data.editor.innerHTML = '';
+
+    if (data.selected.length > 0) {
+      data.editor.innerHTML += '<ul>';
+      for (var i in data.config.layers) {
+        data.editor.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
+      }
+      data.editor.innerHTML += '</ul>';
+    }
+
+    for (var i in data.config.layers) {
+      (function(layerId, layerIndex) {
+        var layer = document.getElementById('layer-' + layerId);
+        layer.addEventListener('click', function(event) {
+          for (var j in data.config.layers) {
+            data.config.layers[j].clipCells = [];
+            data.config.layers[j].mask = data.path();
+            data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
+            data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
+          }
+
+          for (var j in data.selected) {
+            data.cells.state[data.selected[j]] = parseInt(layerIndex) + 1;
+          }
+
+          for (var j in data.cells.state) {
+            var layer = data.cells.state[j] - 1;
+            var cell = data.cells.coord[j];
+
+            if (layer > -1) data.config.layers[layer].clipCells.push(cell);
+          }
+
+          for (var j in data.config.layers) {
+            for (var k in data.config.layers[j].clipCells) {
+              data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+            }
+            data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
+          }
+
+          data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+          data.selected = [];
+          data.cells.reset();
+        });
+      })(data.config.layers[i].id, i);
+    }
 
     data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+    data.info.innerHTML += '<br><br>';
+    data.info.innerHTML += data.selected.join(', ');
   });
 
   for (var i in data.config.layouts) {
-    var layout = document.getElementById('layout-' + data.config.layouts[i].id);
     (function(layoutId, layoutIndex) {
+      var layout = document.getElementById('layout-' + layoutId);
       layout.addEventListener('click', function(event) {
-        console.log(layoutId)
         for (var j in data.config.layers) {
           data.config.layers[j].clipCells = [];
           data.config.layers[j].mask = data.path();
@@ -121,7 +179,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
           data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
         }
 
-        data.info.innerHTML = histogram(data.config.state, data.config.layers.length + 1).join(', ');
+        data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
         data.cells.reset();
       }, false);
     })(data.config.layouts[i].id, i);
