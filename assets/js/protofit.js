@@ -57,15 +57,13 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     layer.svg.clipWith(layer.mask);
   }
 
-  data.layouts = document.createElement('div');
-  data.layouts.id = 'layouts';
-  data.panel.appendChild(data.layouts);
+  data.layouts = document.getElementById('layouts');
 
-  data.layouts.innerHTML += '<ul>';
+  var ul = document.createElement('ul');
   for (var i in data.config.layouts) {
-    data.layouts.innerHTML += '<li id=layout-' + data.config.layouts[i].id + '>' + data.config.layouts[i].name + '</li>'
+    ul.innerHTML += '<li id=layout-' + data.config.layouts[i].id + '>' + data.config.layouts[i].name + '</li>'
   }
-  data.layouts.innerHTML += '</ul>';
+  data.layouts.insertBefore(ul, data.layouts.firstChild);
 }).then(function() {
   var numLoaded = 0;
 
@@ -97,20 +95,16 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       });
     }
 
-    if (!data.editor) {
-      data.editor = document.createElement('div');
-      data.editor.id = 'editor';
-      data.panel.appendChild(data.editor);
-    }
 
+    data.editor = document.getElementById('editor');
     data.editor.innerHTML = '';
 
     if (data.selected.length > 0) {
-      data.editor.innerHTML += '<ul>';
+      var ul = document.createElement('ul');
       for (var i in data.config.layers) {
-        data.editor.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
+        ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
       }
-      data.editor.innerHTML += '</ul>';
+      data.editor.insertBefore(ul, data.editor.firstChild);
     }
 
     for (var i in data.config.layers) {
@@ -186,4 +180,20 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   }
 }).catch(function(error) {
   console.log(error)
+});
+
+document.getElementById('layout-next-btn').addEventListener('click', function(e){
+  document.getElementById('actions').className = 'show-benching';
+});
+
+document.getElementById('benching-back-btn').addEventListener('click', function(e){
+  document.getElementById('actions').className = '';
+});
+
+document.getElementById('benching-next-btn').addEventListener('click', function(e){
+  document.getElementById('actions').className = 'show-editor';
+});
+
+document.getElementById('editor-back-btn').addEventListener('click', function(e){
+  document.getElementById('actions').className = 'show-benching';
 });

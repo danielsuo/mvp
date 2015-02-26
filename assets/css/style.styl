@@ -1,4 +1,5 @@
 @import url('./svg.select.css');
+@import mixins
 
 panelWidth = 20%
 appWidth = 100% - panelWidth
@@ -6,22 +7,54 @@ appWidth = 100% - panelWidth
 body
   margin 0
 
-#panel
-  position absolute
-  height 100%
-  width panelWidth
-  background-color #f0f
-
-#info
-  position absolute
-  height 20%
-  width 100%
-  left 0
-  bottom 0
-  background-color #ff0
-  
 #protofit
   position absolute
   height 100%
   width appWidth
   right 0
+
+#panel
+  position absolute
+  height 100%
+  width panelWidth
+  overflow hidden
+  display flex
+  flex-direction column
+  justify-content space-between
+
+#actions 
+  display flex
+  flex-grow 1
+  width 300%
+  transform translateX(0)
+  transition transform 0.5s ease
+  
+  section
+    width 33.33%
+    box-sizing border-box
+  
+  &.show-benching
+    transform translateX(-33.33%)
+  &.show-editor
+    transform translateX(-66.66%)
+
+    
+#info
+  background-color rgba(0,0,8,0.1)
+  
+#layouts
+  background-color rgba(0,0,8,0.1)
+  border 1px solid red
+
+#benching
+  background-color rgba(0,0,8,0.2)
+  border 1px solid green
+  
+#editor
+  background-color rgba(0,0,8,0.3)
+  border 1px solid blue
+  
+.btn
+  height 4em
+  width 100%
+  background-color rgba(8,0,0,0.1)
