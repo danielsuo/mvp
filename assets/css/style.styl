@@ -33,6 +33,22 @@ body
   section
     width 33.33%
     box-sizing border-box
+    display flex
+    flex-direction column
+    ul
+      list-style none
+      margin 0
+      padding 0
+      flex-grow 1
+    li
+      margin 1em 0 0 1em
+    button
+      height 4em
+      width 100%
+      background-color rgba(8,0,0,0.1)
+      &:disabled
+        background-color red
+      
   
   &.show-benching
     transform translateX(-33.33%)
@@ -54,8 +70,3 @@ body
 #editor
   background-color rgba(0,0,8,0.3)
   border 1px solid blue
-  
-.btn
-  height 4em
-  width 100%
-  background-color rgba(8,0,0,0.1)

@@ -217,6 +217,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     (function(layoutId, layoutIndex) {
       var layout = document.getElementById('layout-' + layoutId);
       layout.addEventListener('click', function(event) {
+        document.getElementById('layout-next-btn').removeAttribute('disabled')
         for (var j in data.config.layers) {
           data.config.layers[j].clipCells = [];
           data.config.layers[j].mask = data.path();
@@ -260,5 +261,5 @@ document.getElementById('benching-next-btn').addEventListener('click', function(
 });
 
 document.getElementById('editor-back-btn').addEventListener('click', function(e){
-  document.getElementById('actions').className = 'show-benching';
+  document.getElementById('actions').className = '';
 });
