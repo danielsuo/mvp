@@ -59,11 +59,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   data.layouts = document.getElementById('layouts');
 
-  var ul = document.createElement('ul');
+  var ul = document.getElementById('layout-list');
   for (var i in data.config.layouts) {
     ul.innerHTML += '<li id=layout-' + data.config.layouts[i].id + '>' + data.config.layouts[i].name + '</li>'
   }
-  data.layouts.insertBefore(ul, data.layouts.firstChild);
 }).then(function() {
   var numLoaded = 0;
 
@@ -170,7 +169,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       for (var i in data.config.layers) {
         ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
       }
-    }
+    
 
       for (var i in data.config.layers) {
         (function(layerId, layerIndex) {
