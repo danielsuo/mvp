@@ -95,14 +95,13 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
 
     data.editor = document.getElementById('editor');
-    data.editor.innerHTML = '';
+    var ul = document.getElementById('editor-list');
+    ul.innerHTML = '';
 
     if (data.selected.length > 0) {
-      var ul = document.createElement('ul');
       for (var i in data.config.layers) {
         ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
       }
-      data.editor.insertBefore(ul, data.editor.firstChild);
     }
 
     for (var i in data.config.layers) {
