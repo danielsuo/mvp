@@ -10,6 +10,9 @@ http://localhost:3000/?client=floored&project=test
 
 ## To Do
 - Add empty cell to layers
+- Add plan background
+- Add seating data
+- Add area data
 - Use gulp-watch, not gulp.watch
 - [browser events](https://github.com/mudcube/Event.js)
 - Modules
@@ -29,3 +32,4 @@ http://localhost:3000/?client=floored&project=test
 - Use CSS to style SVG elements, rather than per-element styling
 - Cut up SVG layers into cells and only load what is needed
 - Remove unnecessary layers and paths
+- Use SVG to represent blocks and floor plan only
