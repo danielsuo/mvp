@@ -73,8 +73,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     return SVG.load(layer.svg, layer.url).then(function(svg) {
       numLoaded += 1;
       data.info.innerHTML = ['Finished loading', numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
-    }, function(error) {
-      console.log(error)
     })
   }));
 }).then(function() {

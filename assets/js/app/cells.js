@@ -26,11 +26,11 @@ Cells.load = function(svg, url) {
       var points = [];
       for (var j in lines) {
         var line = lines[j].children()[0];
+        
         var p = {
           x: line.attr('x1'),
           y: line.attr('y1')
         };
-
         if (points.reduce(function(a, b) {
           return a && (b.x != p.x || b.y != p.y);
         }, true)) {
