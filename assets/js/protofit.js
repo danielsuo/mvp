@@ -69,7 +69,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   return Promise.all(data.config.layers.map(function(layer) {
     return SVG.load(layer.svg, layer.url).then(function(svg) {
       numLoaded += 1;
-      data.info.innerHTML = ['Finished loading', numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
+      data.info.innerHTML = [numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
     })
   }));
 }).then(function() {
@@ -217,7 +217,14 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     (function(layoutId, layoutIndex) {
       var layout = document.getElementById('layout-' + layoutId);
       layout.addEventListener('click', function(event) {
-        document.getElementById('layout-next-btn').removeAttribute('disabled')
+
+        document.getElementById('layout-next-btn').removeAttribute('disabled');
+        var listItems = document.getElementById('layout-list').children
+        for (var j in listItems) {
+          listItems[j].className = '';
+        }
+        layout.className = 'active';
+
         for (var j in data.config.layers) {
           data.config.layers[j].clipCells = [];
           data.config.layers[j].mask = data.path();
