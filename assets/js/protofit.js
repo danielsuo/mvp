@@ -71,8 +71,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     return SVG.load(layer.svg, layer.url).then(function(svg) {
       numLoaded += 1;
       data.info.innerHTML = ['Finished loading', numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
-    }, function(error) {
-      console.log(error)
     })
   }));
 }).then(function() {
@@ -159,7 +157,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
           data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
         }
 
-        data.cells.state = data.config.layouts[layoutIndex].state;
+        data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
         for (var j in data.cells.state) {
           var layer = data.cells.state[j] - 1;
           var cell = data.cells.coord[j];
