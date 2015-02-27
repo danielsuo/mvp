@@ -12,8 +12,13 @@ http://localhost:3000/?client=floored&project=test
 - [√] Keep selection after picking a replacement
 - [√] Add empty cell to layers
 - [√] Add plan background
+- Color coding
+- Start with first layout selected
+- Reception & Cafe (uneditable cells)
 - Add seating data
 - Add area data
+- Fix shell SVG
+- Benching types (density)
 - Clear canvas
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)

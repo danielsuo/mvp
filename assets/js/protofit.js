@@ -286,6 +286,9 @@ document.getElementById('benching-next-btn').addEventListener('click', function(
 });
 
 document.getElementById('editor-back-btn').addEventListener('click', function(e){
+  data.selected = [];
+  data.cells.reset();
+  document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
 });
 
