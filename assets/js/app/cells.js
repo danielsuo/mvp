@@ -26,7 +26,7 @@ Cells.load = function(svg, url) {
       var points = [];
       for (var j in lines) {
         var line = lines[j].children()[0];
-        
+
         var p = {
           x: line.attr('x1'),
           y: line.attr('y1')
@@ -47,7 +47,12 @@ Cells.load = function(svg, url) {
 };
 
 Cells.draw = function(reset) {
-  if (reset) Cells.paths = [];
+  if (reset) {
+    for (var i in Cells.paths) {
+      Cells.paths[i].remove();
+    }
+    Cells.paths = [];
+  }
 
   for (var i in Cells.coord) {
     var coord = Cells.coord[i];
