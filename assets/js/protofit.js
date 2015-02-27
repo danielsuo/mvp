@@ -210,8 +210,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             }
 
             data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
-            data.selected = [];
-            data.cells.reset();
+            // data.selected = [];
+            // data.cells.reset();
           });
         })(data.config.layers[i].id, i);
       }
@@ -287,6 +287,11 @@ document.getElementById('editor-back-btn').addEventListener('click', function(e)
   document.getElementById('actions').className = '';
 });
 
+document.getElementById('editor-done-btn').addEventListener('click', function(e){
+  data.selected = [];
+  data.cells.reset();
+  document.getElementById('editor').className = 'no-selection';
+});
 
 WebFontConfig = { fontdeck: { id: '28160' } };
 

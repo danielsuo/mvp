@@ -9,13 +9,14 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Add empty cell to layers
-- Add plan background
+- [√] Keep selection after picking a replacement
+- [√] Add empty cell to layers
+- [√] Add plan background
 - Add seating data
 - Add area data
 - Clear canvas
 - Use gulp-watch, not gulp.watch
-- [browser events](https://github.com/mudcube/Event.js)
+- [Browser events](https://github.com/mudcube/Event.js)
 - Modules
 - iPad
 

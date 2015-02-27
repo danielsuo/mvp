@@ -51,6 +51,11 @@ body
   transform translateX(0)
   transition transform 0.5s ease
   
+  &.show-benching
+    transform translateX(-33.33%)
+  &.show-editor
+    transform translateX(-66.66%)
+
   section
     width 33.33%
     box-sizing border-box
@@ -130,18 +135,22 @@ body
           background-color #fff
           color #EC5C4E
           
+      &.share
+        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+        background #fbfbff
+        color #20671E
+        &:hover
+          background-color #fff
+          color #59B55C
+
+          
       &:disabled
         font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background-color transparent !important
         cursor default
         color #827CA3 !important
           
-      
-  
-  &.show-benching
-    transform translateX(-33.33%)
-  &.show-editor
-    transform translateX(-66.66%)
+
 
 #editor
   &.has-selection
