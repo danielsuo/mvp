@@ -14,20 +14,30 @@
       <div id="panel">
         <div id="actions">
           <section id="layouts">
-            <h3>Choose a Layout</h3>
             <div>
+              <h3>Choose a Layout</h3>
               <ul id="layout-list"></ul>
             </div>
             <button id="layout-next-btn" class="btn next" disabled>Next</button>
           </section>
           <section id="benching">
             <button id="benching-back-btn" class="btn back">Start Over</button>
-            <ul id="benching-list"></ul>
+            <hr />
+            <div>
+              <h3>Choose Benching Style</h3>
+              <ul id="benching-list"></ul>
+            </div>
             <button id="benching-next-btn" class="btn next">Next</button>
           </section>
-          <section id="editor">
+          <section id="editor" class="no-selection">
             <button id="editor-back-btn" class="btn back">Start Over</button>
-            <ul id="editor-list"></ul>
+            <hr />
+            <div>
+              <span class="no-selection">Click on a tile to select it.</span>
+              <h3 class="has-selection">Replace With…</h3>
+              <ul id="editor-list" class="has-selection"></ul>
+            </div>
+            <button id="editor-done-btn" class="btn next has-selection">Done</button>
           </section>
         </div>
         <div id="info"></div>

@@ -46,15 +46,17 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   for (var i in config.layers) {
     var layer = config.layers[i];
     layer.url = data.dir + '/' + layer.id + '.svg';
-
-    layer.svg = data.nested();
     layer.clipCells = [];
 
+    layer.svg = data.nested();
+    
     layer.mask = data.path();
     layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, true);
     layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, false);
 
-    layer.svg.clipWith(layer.mask);
+    if (layer.id !== 'shell') {
+      layer.svg.clipWith(layer.mask);
+    }
   }
 
   data.layouts = document.getElementById('layouts');
@@ -82,6 +84,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).then(function() {
   console.log(data.cells.paths)
 
+  // ctrl-A
   window.addEventListener('keydown', function(event) {
     if (event.which == 65 && event.ctrlKey) { // ctrl+a
       for (var i in data.cells.state) {
@@ -168,6 +171,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     ul.innerHTML = '';
 
     if (data.selected.length > 0) {
+      document.getElementById('editor').className = 'has-selection'
       for (var i in data.config.layers) {
         ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
       }
@@ -197,10 +201,12 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             }
 
             for (var j in data.config.layers) {
-              for (var k in data.config.layers[j].clipCells) {
-                data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+              if (data.config.layers[j].id !== 'shell') {
+                for (var k in data.config.layers[j].clipCells) {
+                  data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+                }
+                data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
               }
-              data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
             }
 
             data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
@@ -209,6 +215,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
           });
         })(data.config.layers[i].id, i);
       }
+    } else {
+      document.getElementById('editor').className = 'no-selection'
     }
 
     data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
@@ -228,6 +236,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
         }
         layout.className = 'active';
 
+
         for (var j in data.config.layers) {
           data.config.layers[j].clipCells = [];
           data.config.layers[j].mask.remove();
@@ -244,10 +253,12 @@ XHR.get(data.dir + '/config.json').then(function(response) {
         }
 
         for (var j in data.config.layers) {
-          for (var k in data.config.layers[j].clipCells) {
-            data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+          if (data.config.layers[j].id !== 'shell') {
+            for (var k in data.config.layers[j].clipCells) {
+              data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+            }
+            data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
           }
-          data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
         }
 
         data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
@@ -260,7 +271,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 });
 
 document.getElementById('layout-next-btn').addEventListener('click', function(e){
-  document.getElementById('actions').className = 'show-benching';
+  // document.getElementById('actions').className = 'show-benching';
+  document.getElementById('actions').className = 'show-editor';
 });
 
 document.getElementById('benching-back-btn').addEventListener('click', function(e){

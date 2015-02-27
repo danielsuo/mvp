@@ -97,6 +97,14 @@ body
       &:last-of-type
         border-width 0
         
+    hr
+      width 100%
+      border-top 1px dotted rgba(0,0,8,0.1)
+      
+    span
+      text-align center
+      transform translateY(50%)
+        
     button
       font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
       margin 1rem
@@ -107,18 +115,27 @@ body
       outline none
       font-size 1em
       cursor pointer
+      transition background-color 0.15s ease, color 0.15s ease
       &.next
         background-color #7270b1
         color #fbfbff
+        &:hover
+          background-color #8782CF
+          
       &.back
         font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background #fbfbff
         color #933E44
+        &:hover
+          background-color #fff
+          color #EC5C4E
+          
       &:disabled
         font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
-        background-color transparent
+        background-color transparent !important
         cursor default
-        color #827CA3
+        color #827CA3 !important
+          
       
   
   &.show-benching
@@ -126,6 +143,17 @@ body
   &.show-editor
     transform translateX(-66.66%)
 
+#editor
+  &.has-selection
+    .has-selection
+      display block
+    .no-selection
+      display none
+  &.no-selection
+    .has-selection
+      display none
+    .no-selection
+      display block
     
 #info
   background-color rgba(0,0,8,0.1)
