@@ -157,12 +157,14 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     var index = data.selected.indexOf(i);
     if (index > -1) {
       data.selected.splice(index, 1);
-      data.cells.paths[i].attr(data.cells.attr);
+      // remove class
+      var pathElement = document.getElementById(data.cells.paths[i].node.id);
+      pathElement.setAttribute('class', 'cell')
     } else {
       data.selected.push(i);
-      data.cells.paths[i].attr({
-        stroke: '#f0f'
-      });
+      // add class
+      var pathElement = document.getElementById(data.cells.paths[i].node.id);
+      pathElement.setAttribute('class', 'cell selected')
     }
 
 
