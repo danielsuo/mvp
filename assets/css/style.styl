@@ -6,13 +6,26 @@ appWidth = 100% - panelWidth
 
 body
   margin 0
-  font-family "Helvetica Neue", Helvetica, sans-serif
+  font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+  font-smoothing antialiased
+  text-rendering optimizeLegibility
+
+#app
+  height 100%
+  background-color #EFEFF6
 
 #protofit
   position absolute
-  height 100%
-  width appWidth
+  width calc(80% - 12px)
+  height calc(100% - 24px)
+  margin 12px 12px 12px 0
   right 0
+  box-sizing border-box
+  background #fbfbff
+  box-shadow 0 1px 6px rgba(0,0,8,0.05)
+  border 1px solid rgba(0,0,8,0.1)    
+  
+
   // svg 
   //   path, line, shape 
   //     stroke #000000
@@ -28,8 +41,8 @@ body
   display flex
   flex-direction column
   justify-content space-between
-  background-color #191926
-  color #8a8994
+  color #827CA3
+  -webkit-font-feature-settings "liga" 0
 
 #actions 
   display flex
@@ -43,32 +56,69 @@ body
     box-sizing border-box
     display flex
     flex-direction column
+    
+    h3
+      margin 0
+      padding 1.5rem 1rem 1rem 1rem
+      font-weight normal
+      text-transform uppercase
+      letter-spacing 0.2em
+      font-size 0.9em
+      text-align center
+
+    >div 
+      flex-grow 1
+
     ul
       list-style none
-      margin 0
+      margin 0.5rem 1rem
       padding 0
-      flex-grow 1
+      background-color #fbfbff
+      border 1px solid rgba(0,0,8,0.1)
+      border-radius 2px
+      box-shadow 0 1px 6px rgba(0,0,8,0.05)
+      
     li
-      padding 1em
+      padding 1rem
+      margin 0
       box-sizing border-box
-      background-color rgba(250,250,255,0.1)
-      border-bottom 1px solid #191926
+      background-color rgba(250,250,255,0.25)
+      border-bottom 1px solid rgba(0,0,8,0.1)
+      border-top 1px solid #fff
+      line-height 1.35rem
       cursor pointer
-      &:hover
-        background-color rgba(250,250,255,0.2)
-        color #ced0e8
+      transition background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease
+      &:hover, &.active
+        background-color #fff
+        color #7270b1
       &.active
-        background-color rgba(250,250,255,0.5)
-        color #fafaff
+        font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
+        font-weight bold
+      &:last-of-type
+        border-width 0
         
     button
-      height 4em
-      width 100%
-      background-color #7270b1
+      font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
+      margin 1rem
+      padding 1rem
       border none
+      border-radius 3px
+      border 1px solid rgba(0,0,8,0.1)
+      outline none
+      font-size 1em
       cursor pointer
+      &.next
+        background-color #7270b1
+        color #fbfbff
+      &.back
+        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+        background #fbfbff
+        color #933E44
       &:disabled
-        background-color rgba(250,250,255,0.2)
+        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+        background-color transparent
+        cursor default
+        color #827CA3
       
   
   &.show-benching
@@ -80,11 +130,6 @@ body
 #info
   background-color rgba(0,0,8,0.1)
   
-#layouts
-  background-color rgba(0,0,8,0.1)
-
-#benching
-  background-color rgba(0,0,8,0.2)
-  
-#editor
-  background-color rgba(0,0,8,0.3)
+// #layouts
+// #benching
+// #editor
