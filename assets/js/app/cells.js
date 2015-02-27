@@ -8,7 +8,6 @@ var Cells = {};
 
 Cells.attr = {
   stroke: '#0f0',
-  'fill-opacity': 0
 };
 
 Cells.paths = [];
@@ -67,6 +66,10 @@ Cells.draw = function(reset) {
     }
 
     path.Z();
+
+    var pathElement = document.getElementById(path.node.id)
+    pathElement.setAttribute('class', 'cell')
+
     Cells.paths.push(path);
 
     (function(x) {
