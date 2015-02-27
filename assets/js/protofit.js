@@ -80,6 +80,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     data.cells.reset();
   })
 }).then(function() {
+  console.log(data.cells.paths)
 
   window.addEventListener('keydown', function(event) {
     if (event.which == 65 && event.ctrlKey) { // ctrl+a
@@ -111,6 +112,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             layer.addEventListener('click', function(event) {
               for (var j in data.config.layers) {
                 data.config.layers[j].clipCells = [];
+                data.config.layers[j].mask.remove();
                 data.config.layers[j].mask = data.path();
                 data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
                 data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
@@ -177,6 +179,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
           layer.addEventListener('click', function(event) {
             for (var j in data.config.layers) {
               data.config.layers[j].clipCells = [];
+              data.config.layers[j].mask.remove();
               data.config.layers[j].mask = data.path();
               data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
               data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
@@ -227,6 +230,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
         for (var j in data.config.layers) {
           data.config.layers[j].clipCells = [];
+          data.config.layers[j].mask.remove();
           data.config.layers[j].mask = data.path();
           data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
           data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);

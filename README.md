@@ -13,6 +13,7 @@ http://localhost:3000/?client=floored&project=test
 - Add plan background
 - Add seating data
 - Add area data
+- Clear canvas
 - Use gulp-watch, not gulp.watch
 - [browser events](https://github.com/mudcube/Event.js)
 - Modules
