@@ -115,6 +115,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
         (function(layerId, layerIndex) {
           var layer = document.getElementById('layer-' + layerId);
           layer.addEventListener('click', function(event) {
+
             for (var j in data.config.layers) {
               data.config.layers[j].clipCells = [];
               data.config.layers[j].mask.remove();
@@ -142,6 +143,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
                 data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
               }
             }
+
+            document.getElementById('info').innerHTML = printInfo();
+
           });
         })(data.config.layers[i].id, i);
       }
