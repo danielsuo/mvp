@@ -9,23 +9,14 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- [√] Keep selection after picking a replacement
-- [√] Add empty cell to layers
-- [√] Add plan background
-- [√] Start with first layout selected
-- [√] Add headcount data
-- [√] Add area data
-- Find floor plan
 - Fix shell SVG
 - Add title to file
 - Reception & Cafe (uneditable cells)
 - Color coding + legend
-- [√] Combine concepts of 'shell' layer and 'empty cell'
 - Indicate how many people would be added / removed
 - Merge cells
 - Crop SVGs properly
 - Remove zoom / pan initially
-- Once you start clicking cells -> move over to next phase of UI
 - Benching types (density)
 - Add logo
 - Multiple clients
@@ -37,6 +28,15 @@ http://localhost:3000/?client=floored&project=test
 - Add disclaimer (close, not represent)
 - Modules
 - iPad
+- [√] Keep selection after picking a replacement
+- [√] Add empty cell to layers
+- [√] Add plan background
+- [√] Start with first layout selected
+- [√] Add headcount data
+- [√] Add area data
+- [√] Find floor plan
+- [√] Combine concepts of 'shell' layer and 'empty cell'
+- [√] Once you start clicking cells -> move over to next phase of UI
 
 # Ideas that improve file size
 - SVG defs to reuse definition of icons
