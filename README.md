@@ -13,7 +13,6 @@ http://localhost:3000/?client=floored&project=test
 - Color coding + legend
 - Indicate how many people would be added / removed
 - Crop SVGs properly
-- Remove zoom / pan initially
 - Benching types (density)
 - Add logo
 - Merge cells
@@ -27,6 +26,7 @@ http://localhost:3000/?client=floored&project=test
 - Modules
 - iPad
 - Dynamically resize svg on window
+- [√] Remove zoom / pan initially
 - [√] Fix shell SVG
 - [√] fix config.json seat and layout arrays
 - [√] Remove dummy cell from config.json
