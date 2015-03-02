@@ -15,11 +15,16 @@ http://localhost:3000/?client=floored&project=test
 - [√] Start with first layout selected
 - [√] Add headcount data
 - [√] Add area data
+- Find floor plan
+- Fix shell SVG
+- Add title to file
 - Reception & Cafe (uneditable cells)
-- Color coding
+- Color coding + legend
+- Combine concepts of 'shell' layer and 'empty cell'
 - Indicate how many people would be added / removed
 - Merge cells
-- Fix shell SVG
+- Remove zoom / pan initially
+- Once you start clicking cells -> move over to next phase of UI
 - Benching types (density)
 - Clear canvas
 - Use gulp-watch, not gulp.watch
