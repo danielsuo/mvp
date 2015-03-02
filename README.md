@@ -9,23 +9,27 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Reception & Cafe (uneditable cells)
+- Add due-north
+- Add logo
+- Add powered by Floored
 - Color coding + legend
+- Reception & Cafe (uneditable cells)
+- Multiselect
+- Benching types (density)
+- iPad
 - Indicate how many people would be added / removed
 - Crop SVGs properly
-- Benching types (density)
-- Add logo
 - Merge cells
 - Multiple clients
-- Add due-north
 - Add scale
 - Clear canvas
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)
 - Add disclaimer (close, not represent)
 - Modules
-- iPad
 - Dynamically resize svg on window
+
+## Done
 - [√] Remove zoom / pan initially
 - [√] Fix shell SVG
 - [√] fix config.json seat and layout arrays
