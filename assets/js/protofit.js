@@ -39,8 +39,10 @@ data.selected = [];
 XHR.get(data.dir + '/config.json').then(function(response) {
   var config = JSON.parse(response);
   data.config = config;
-
   data.floorplan = data.nested();
+
+  data.config.project.titleDiv = document.getElementById('project-title');
+  data.config.project.titleDiv.innerHTML = data.config.project.name + ': ' + data.config.project.address;
 
   for (var i in config.layers) {
     var layer = config.layers[i];
