@@ -28,11 +28,15 @@ http://localhost:3000/?client=floored&project=test
 - iPad
 
 # Ideas that improve file size
+- SVG defs to reuse definition of icons
 - Minify and optimize svg via svgo
 - Turn elements into a single large path
-- Render SVG icons with webfonts. Example [here](http://frozeman.de/blog/2013/08/why-is-svg-so-slow/)
 
 # Ideas that improve performance
+- Render SVG icons with icon fonts. Example [here](http://frozeman.de/blog/2013/08/why-is-svg-so-slow/).
+  - Cross-browser icon fonts [here](http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html)
+  - Pros and cons [here](http://cubicleninjas.com/icon-fonts-explained-benefits-pitfalls/)
+  - Image sprites vs icon fonts [here](http://www.jontetzlaff.com/blog/2013/04/29/image-sprites-vs-web-icon-fonts/)
 - Reduce number of redraws
 - Use CSS transforms on HTML element holding SVG, not on SVG directly
 - Use rounded coordinates. Example [here](https://www.mapbox.com/osmdev/2012/11/20/getting-serious-about-svg/)
