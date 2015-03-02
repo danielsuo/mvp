@@ -30,8 +30,8 @@ data[APP_NAME] = document.getElementById(APP_NAME);
 data.panel = document.getElementById('panel');
 data.info = document.getElementById('info');
 
-data.enableZoom(data[APP_NAME]);
-data.enablePan(data[APP_NAME]);
+// data.enableZoom(data[APP_NAME]);
+// data.enablePan(data[APP_NAME]);
 
 data.cells = app.Cells;
 data.selected = [];
