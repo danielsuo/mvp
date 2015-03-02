@@ -43,6 +43,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   var config = JSON.parse(response);
   data.config = config;
 
+  data.floorplan = data.nested();
+
   for (var i in config.layers) {
     var layer = config.layers[i];
     layer.url = data.dir + '/' + layer.id + '.svg';
@@ -70,14 +72,15 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   return Promise.all(data.config.layers.map(function(layer) {
     return SVG.load(layer.svg, layer.url).then(function(svg) {
+      svg.node.setAttribute('class', 'plan-layer ' + 'layer-' + layer.id)
+
       numLoaded += 1;
       data.info.innerHTML = [numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
     })
   }));
 }).then(function() {
   data.info.innerHTML = 'Loading complete!';
-  data.floorplan = data.nested();
-
+  
   return data.cells.load(data.floorplan, data.dir + '/cells.svg').then(function() {
     data.cells.reset();
   })
