@@ -12,11 +12,13 @@ http://localhost:3000/?client=floored&project=test
 - [√] Keep selection after picking a replacement
 - [√] Add empty cell to layers
 - [√] Add plan background
-- Color coding
 - [√] Start with first layout selected
+- [√] Add headcount data
+- [√] Add area data
 - Reception & Cafe (uneditable cells)
-- Add seating data
-- Add area data
+- Color coding
+- Indicate how many people would be added / removed
+- Merge cells
 - Fix shell SVG
 - Benching types (density)
 - Clear canvas

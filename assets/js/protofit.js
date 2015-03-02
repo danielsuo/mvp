@@ -49,7 +49,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     layer.clipCells = [];
 
     layer.svg = data.nested();
-    
+
     layer.mask = data.path();
     layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, true);
     layer.mask = path.fromRect(layer.mask, 0, 0, window.innerWidth, window.innerHeight, false);
@@ -83,75 +83,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   })
 }).then(function() {
 
-  // ctrl-A
-  window.addEventListener('keydown', function(event) {
-    if (event.which == 65 && event.ctrlKey) { // ctrl+a
-      for (var i in data.cells.state) {
-        data.selected.push(i);
-        data.cells.paths[i].attr({
-          stroke: '#f0f'
-        });
-      }
-
-      if (!data.editor) {
-        data.editor = document.createElement('div');
-        data.editor.id = 'editor';
-        data.panel.appendChild(data.editor);
-      }
-
-      data.editor.innerHTML = '';
-
-      if (data.selected.length > 0) {
-        data.editor.innerHTML += '<ul>';
-        for (var i in data.config.layers) {
-          data.editor.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
-        }
-        data.editor.innerHTML += '</ul>';
-
-        for (var i in data.config.layers) {
-          (function(layerId, layerIndex) {
-            var layer = document.getElementById('layer-' + layerId);
-            layer.addEventListener('click', function(event) {
-              for (var j in data.config.layers) {
-                data.config.layers[j].clipCells = [];
-                data.config.layers[j].mask.remove();
-                data.config.layers[j].mask = data.path();
-                data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
-                data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
-              }
-
-              for (var j in data.selected) {
-                data.cells.state[data.selected[j]] = parseInt(layerIndex) + 1;
-              }
-
-              for (var j in data.cells.state) {
-                var layer = data.cells.state[j] - 1;
-                var cell = data.cells.coord[j];
-
-                if (layer > -1) data.config.layers[layer].clipCells.push(cell);
-              }
-
-              for (var j in data.config.layers) {
-                for (var k in data.config.layers[j].clipCells) {
-                  data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
-                }
-                data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
-              }
-
-              data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
-              data.selected = [];
-              data.cells.reset();
-            });
-          })(data.config.layers[i].id, i);
-        }
-      }
-
-      data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
-      data.info.innerHTML += '<br><br>';
-      data.info.innerHTML += data.selected.join(', ');
-    }
-  }, false)
-
   radio('cell-clicked').subscribe(function(i) {
     var index = data.selected.indexOf(i);
     if (index > -1) {
@@ -176,7 +107,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       for (var i in data.config.layers) {
         ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
       }
-    
 
       for (var i in data.config.layers) {
         (function(layerId, layerIndex) {
@@ -228,7 +158,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   for (var i in data.config.layouts) {
     (function(layoutId, layoutIndex) {
       var layout = document.getElementById('layout-' + layoutId);
-      layout.addEventListener('click', function(){setLayout(layoutIndex)}, false);
+      layout.addEventListener('click', function() {
+        setLayout(layoutIndex)
+      }, false);
     })(data.config.layouts[i].id, i);
   }
 
@@ -239,7 +171,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   console.log(error)
 });
 
-var setLayout = function(layoutIndex){
+var setLayout = function(layoutIndex) {
 
   document.getElementById('layout-next-btn').removeAttribute('disabled');
   var listItems = document.getElementById('layout-list').childNodes;
@@ -275,38 +207,63 @@ var setLayout = function(layoutIndex){
   data.cells.reset();
 }
 
-document.getElementById('layout-next-btn').addEventListener('click', function(e){
+document.getElementById('layout-next-btn').addEventListener('click', function(e) {
   // document.getElementById('actions').className = 'show-benching';
   document.getElementById('actions').className = 'show-editor';
 });
 
-document.getElementById('benching-back-btn').addEventListener('click', function(e){
+document.getElementById('benching-back-btn').addEventListener('click', function(e) {
   document.getElementById('actions').className = '';
 });
 
-document.getElementById('benching-next-btn').addEventListener('click', function(e){
+document.getElementById('benching-next-btn').addEventListener('click', function(e) {
   document.getElementById('actions').className = 'show-editor';
 });
 
-document.getElementById('editor-back-btn').addEventListener('click', function(e){
+document.getElementById('editor-back-btn').addEventListener('click', function(e) {
   data.selected = [];
   data.cells.reset();
   document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
 });
 
-document.getElementById('editor-done-btn').addEventListener('click', function(e){
+document.getElementById('editor-done-btn').addEventListener('click', function(e) {
   data.selected = [];
   data.cells.reset();
   document.getElementById('editor').className = 'no-selection';
 });
 
-WebFontConfig = { fontdeck: { id: '28160' } };
+// TODO: should probably have headcount property that gets updated
+data.getHeadcount = function() {
+  var headcount = 0;
+  for (var i = 0; i < this.cells.state.length; i++) {
+    var currLayer = this.cells.state[i] - 1;
+    if (currLayer > -1) {
+      headcount += this.config.layers[currLayer].seats[i];
+    }
+  }
+  return headcount;
+}
+
+data.getArea = function() {
+  return this.config.area;
+}
+
+window.addEventListener('keypress', function(event) {
+  console.log(data.getHeadcount());
+  console.log(data.getArea());
+}, false)
+
+WebFontConfig = {
+  fontdeck: {
+    id: '28160'
+  }
+};
 
 (function() {
   var wf = document.createElement('script');
   wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-  '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
   wf.type = 'text/javascript';
   wf.async = 'true';
   var s = document.getElementsByTagName('script')[0];
