@@ -37,9 +37,27 @@ body
   .cell
     stroke #ffffff
     fill rgba(113, 111, 176, 0.1)
-    &.selected
-      fill rgba(250, 178, 53, 1)
 
+    &[data-layer="0"] //benching
+      fill #EFEEF3
+      &.selected
+        fill #CFC5C8
+        
+    &[data-layer="1"] //breakout
+      fill #EFF5EF
+      &.selected
+        fill #B6D1B6
+      
+    &[data-layer="2"] //conference
+      fill #EFF2FE
+      &.selected
+        fill #BECAE5
+      
+    &[data-layer="3"] //office
+      fill #F9F8F5
+      &.selected
+        fill #EEE6CB
+        
 #panel
   position absolute
   height 100%
@@ -55,6 +73,7 @@ body
   
   hr
     width 100%
+    border none
     border-top 1px dotted rgba(0,0,8,0.1)
     margin 0
 
@@ -64,6 +83,7 @@ body
   width 300%
   transform translateX(0)
   transition transform 0.5s ease
+  user-select none
   
   &.show-benching
     transform translateX(-33.33%)
@@ -116,12 +136,6 @@ body
       &:last-of-type
         border-width 0
         
-
-      
-    span
-      text-align center
-      transform translateY(50%)
-        
     button
       font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
       margin 1rem
@@ -165,6 +179,13 @@ body
 
 
 #editor
+  > div
+    display flex
+    flex-direction column
+    span
+      Apercu()
+      text-align center
+      margin auto
   &.has-selection
     .has-selection
       display block

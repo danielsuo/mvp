@@ -81,7 +81,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.info.innerHTML = 'Loading complete!';
 
   return data.cells.load(data.floorplan, data.dir + '/cells.svg').then(function() {
-    data.cells.reset();
+    data.cells.reset(data.cells.state);
   })
 }).then(function() {
 
@@ -134,7 +134,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             for (var j in data.cells.state) {
               var layer = data.cells.state[j];
               var cell = data.cells.coord[j];
-
+              data.cells.paths[j].node.dataset.layer = layer;
               data.config.layers[layer].clipCells.push(cell);
             }
 
@@ -146,6 +146,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
                 data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
               }
             }
+
 
             document.getElementById('info').innerHTML = printInfo();
 
@@ -224,9 +225,11 @@ var setLayout = function(layoutIndex) {
   }
 
   data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
+
   for (var j in data.cells.state) {
     var layer = data.cells.state[j];
     var cell = data.cells.coord[j];
+    var node = data.cells.paths[j].node;
     data.config.layers[layer].clipCells.push(cell);
   }
 
@@ -239,7 +242,12 @@ var setLayout = function(layoutIndex) {
     }
   }
 
-  data.cells.reset();
+  data.cells.reset(data.cells.state);
+
+  // for (var j in data.cells.state) {
+  //   var node = data.cells.paths[j].node.dataset.layer = data.cells.state[j];
+  // }
+
   document.getElementById('info').innerHTML = printInfo();
 }
 
@@ -258,14 +266,14 @@ document.getElementById('benching-next-btn').addEventListener('click', function(
 
 document.getElementById('editor-back-btn').addEventListener('click', function(e) {
   data.selected = [];
-  data.cells.reset();
+  data.cells.reset(data.cells.state);
   document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
 });
 
 document.getElementById('editor-done-btn').addEventListener('click', function(e) {
   data.selected = [];
-  data.cells.reset();
+  data.cells.reset(data.cells.state);
   document.getElementById('editor').className = 'no-selection';
 });
 
@@ -309,3 +317,4 @@ WebFontConfig = {
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(wf, s);
 })();
+

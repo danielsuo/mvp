@@ -45,8 +45,8 @@ Cells.load = function(svg, url) {
   });
 };
 
-Cells.draw = function(reset) {
-  if (reset) {
+Cells.draw = function(opts) {
+  if (opts.reset) {
     for (var i in Cells.paths) {
       Cells.paths[i].remove();
     }
@@ -57,7 +57,7 @@ Cells.draw = function(reset) {
     var coord = Cells.coord[i];
     var path = Cells.svg.path();
 
-    if (reset) {
+    if (opts.reset) {
       path.attr(Cells.attr);
       sortPoints(coord);
     }
@@ -74,6 +74,9 @@ Cells.draw = function(reset) {
 
     var pathElement = document.getElementById(path.node.id)
     pathElement.setAttribute('class', 'cell')
+    if (opts.state) {
+      pathElement.dataset.layer = opts.state[i]
+    }
 
     Cells.paths.push(path);
 
@@ -85,8 +88,8 @@ Cells.draw = function(reset) {
   }
 };
 
-Cells.reset = function() {
-  Cells.draw(true);
+Cells.reset = function(state) {
+  Cells.draw({reset:true, state:state});
 };
 
 module.exports = Cells;
