@@ -42,7 +42,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.floorplan = data.nested();
 
   data.config.project.titleDiv = document.getElementById('project-title');
-  data.config.project.titleDiv.innerHTML = data.config.project.name + ': ' + data.config.project.address;
+  data.config.project.titleDiv.innerHTML = '<h3>' + data.config.project.name + '</h3>'
+
+  data.config.project.titleDiv = document.getElementById('project-address');
+  data.config.project.titleDiv.innerHTML = data.config.project.address;
 
   for (var i in config.layers) {
     var layer = config.layers[i];

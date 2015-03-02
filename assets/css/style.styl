@@ -57,6 +57,14 @@ body
       fill #F9F8F5
       &.selected
         fill #EEE6CB
+
+h3
+  margin 0
+  padding 1rem 1rem 1rem 1rem
+  font-weight normal
+  text-transform uppercase
+  letter-spacing 0.2em
+  text-align center
         
 #panel
   position absolute
@@ -71,6 +79,9 @@ body
   -webkit-font-feature-settings 'liga' 0
   -moz-font-feature-settings 'liga' 0
   
+  h3
+    font-size 0.875em
+
   hr
     width 100%
     border none
@@ -176,8 +187,6 @@ body
         cursor default
         color #827CA3 !important
           
-
-
 #editor
   > div
     display flex
@@ -196,10 +205,6 @@ body
       display none
     .no-selection
       display block
-      
-// #layouts
-// #benching
-// #editor
 
 #info
   padding 1rem
@@ -214,3 +219,22 @@ body
     -moz-font-feature-settings 'pnum' 1, 'liga' 0
     td:last-of-type
       text-align right
+
+#project-info
+  position absolute
+  text-align center
+  background transparent
+  left: 50%;
+  transform: translateX(-50%)
+  color #6C668B
+  
+#project-title
+  ApercuLight()
+  h3
+    font-size 1.05em
+    padding-bottom 0.5rem
+    opacity 0.8
+
+#project-address
+  ApercuLight()
+  opacity .45
