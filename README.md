@@ -23,12 +23,18 @@ http://localhost:3000/?client=floored&project=test
 - [√] Combine concepts of 'shell' layer and 'empty cell'
 - Indicate how many people would be added / removed
 - Merge cells
+- Crop SVGs properly
 - Remove zoom / pan initially
 - Once you start clicking cells -> move over to next phase of UI
 - Benching types (density)
+- Add logo
+- Multiple clients
+- Add due-north
+- Add scale
 - Clear canvas
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)
+- Add disclaimer (close, not represent)
 - Modules
 - iPad
 

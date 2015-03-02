@@ -17,9 +17,6 @@ var app = require('./app');
 var path = require('./util/path');
 var XHR = require('./util/xhr');
 
-// Utilities
-var histogram = require('./util/histogram');
-
 window.APP_NAME = 'protofit';
 
 var draw = SVG(APP_NAME);
@@ -145,10 +142,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
                 data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
               }
             }
-
-            data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
-            // data.selected = [];
-            // data.cells.reset();
           });
         })(data.config.layers[i].id, i);
       }
@@ -156,10 +149,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       document.getElementById('editor').className = 'no-selection'
     }
 
-
-    console.log(data.cells.state)
-    data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
-    data.info.innerHTML += '<br><br>';
     data.info.innerHTML += data.selected.join(', ');
   });
 
@@ -180,7 +169,30 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 });
 
 var printInfo = function() {
+  var info = "<table>";
 
+  for (var i = 0; i < data.config.layers.length; i++) {
+    info += "<tr>";
+
+    info += "<td>" + data.config.layers[i].name + "</td>";
+    info += "<td>" + data.cells.state.filter(function(x) {
+      return x == i
+    }).length + "</td>";
+
+    info += "</tr>";
+  }
+
+  var headcount = data.getHeadcount();
+  info += "<td>Total headcount</td>";
+  info += "<td>" + headcount + "</td>";
+
+  var area = data.getArea();
+  info += "<td>SF per person</td>"
+  info += "<td>" + Math.round(area / headcount) + "</td>";
+
+  info += "</table>"
+
+  console.log(info);
 }
 
 var setLayout = function(layoutIndex) {
@@ -215,7 +227,6 @@ var setLayout = function(layoutIndex) {
     }
   }
 
-  data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
   data.cells.reset();
 }
 
@@ -255,12 +266,13 @@ data.getHeadcount = function() {
 }
 
 data.getArea = function() {
-  return this.config.area;
+  return this.config.project.area;
 }
 
 window.addEventListener('keypress', function(event) {
   console.log(data.getHeadcount());
   console.log(data.getArea());
+  printInfo();
 }, false)
 
 WebFontConfig = {
