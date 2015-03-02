@@ -87,6 +87,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).then(function() {
 
   radio('cell-clicked').subscribe(function(i) {
+
+    document.getElementById('actions').className = 'show-editor';
+
     var index = data.selected.indexOf(i);
     if (index > -1) {
       data.selected.splice(index, 1);
@@ -143,7 +146,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
               }
             }
 
-            data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+            data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
             // data.selected = [];
             // data.cells.reset();
           });
@@ -153,7 +156,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       document.getElementById('editor').className = 'no-selection'
     }
 
-    data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+
+    console.log(data.cells.state)
+    data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
     data.info.innerHTML += '<br><br>';
     data.info.innerHTML += data.selected.join(', ');
   });
@@ -173,6 +178,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).catch(function(error) {
   console.log(error)
 });
+
+var printInfo = function() {
+
+}
 
 var setLayout = function(layoutIndex) {
 
@@ -206,7 +215,7 @@ var setLayout = function(layoutIndex) {
     }
   }
 
-  data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+  data.info.innerHTML = histogram(data.cells.state, data.config.layers.length).join(', ');
   data.cells.reset();
 }
 
