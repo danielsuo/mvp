@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var nib = require('nib');
 var stylus = require('gulp-stylus');
 var sourcemaps = require('gulp-sourcemaps');
 
@@ -7,6 +8,6 @@ gulp.task('css', function() {
 		.pipe(gulp.dest('site/css/'));
 
   gulp.src('./assets/css/**/*.styl')
-    .pipe(stylus())
+    .pipe(stylus({ use: nib() }))
     .pipe(gulp.dest('site/css/'));
 });

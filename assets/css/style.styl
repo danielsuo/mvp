@@ -1,5 +1,7 @@
 @import url('./svg.select.css');
+@import nib
 @import mixins
+
 
 panelWidth = 20%
 appWidth = 100% - panelWidth
@@ -23,8 +25,7 @@ body
   box-sizing border-box
   background #fbfbff
   box-shadow 0 1px 6px rgba(0,0,8,0.05)
-  border 1px solid rgba(0,0,8,0.1)    
-  
+  border 1px solid rgba(0,0,8,0.1)
 
   // svg 
   //   path, line, shape 
@@ -53,6 +54,7 @@ body
   hr
     width 100%
     border-top 1px dotted rgba(0,0,8,0.1)
+    margin 0
 
 #actions 
   display flex
@@ -78,7 +80,7 @@ body
       font-weight normal
       text-transform uppercase
       letter-spacing 0.2em
-      font-size 0.9em
+      font-size 0.875em
       text-align center
 
     >div 
@@ -86,7 +88,7 @@ body
 
     ul
       list-style none
-      margin 0.5rem 1rem
+      margin 0 1rem
       padding 0
       background-color #fbfbff
       border 1px solid rgba(0,0,8,0.1)
@@ -172,11 +174,19 @@ body
     .no-selection
       display block
       
-#layouts
-  padding-top 0.5rem
+// #layouts
 // #benching
 // #editor
 
 #info
-  padding 0.25rem 1rem 1rem 1rem
+  padding 1rem
   box-sizing border-box
+
+  table
+    width 100%
+    color #827ca3
+    line-height 1.5rem
+
+  td
+    &:last-of-type
+      text-align right

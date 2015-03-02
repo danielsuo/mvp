@@ -149,7 +149,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       document.getElementById('editor').className = 'no-selection'
     }
 
-    data.info.innerHTML += data.selected.join(', ');
+
   });
 
   for (var i in data.config.layouts) {
@@ -183,16 +183,21 @@ var printInfo = function() {
   }
 
   var headcount = data.getHeadcount();
+  info += "<tr>";
   info += "<td>Total headcount</td>";
   info += "<td>" + headcount + "</td>";
+  info += "</tr>";
 
   var area = data.getArea();
+  info += "<tr>";
   info += "<td>SF per person</td>"
   info += "<td>" + Math.round(area / headcount) + "</td>";
+  info += "</tr>";
 
   info += "</table>"
 
-  console.log(info);
+  // console.log(info);
+  return info;
 }
 
 var setLayout = function(layoutIndex) {
@@ -228,6 +233,7 @@ var setLayout = function(layoutIndex) {
   }
 
   data.cells.reset();
+  document.getElementById('info').innerHTML = printInfo();
 }
 
 document.getElementById('layout-next-btn').addEventListener('click', function(e) {
