@@ -80,7 +80,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   }));
 }).then(function() {
   data.info.innerHTML = 'Loading complete!';
-  
+
   return data.cells.load(data.floorplan, data.dir + '/cells.svg').then(function() {
     data.cells.reset();
   })
@@ -127,14 +127,14 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             }
 
             for (var j in data.selected) {
-              data.cells.state[data.selected[j]] = parseInt(layerIndex) + 1;
+              data.cells.state[data.selected[j]] = parseInt(layerIndex);
             }
 
             for (var j in data.cells.state) {
-              var layer = data.cells.state[j] - 1;
+              var layer = data.cells.state[j];
               var cell = data.cells.coord[j];
 
-              if (layer > -1) data.config.layers[layer].clipCells.push(cell);
+              data.config.layers[layer].clipCells.push(cell);
             }
 
             for (var j in data.config.layers) {
@@ -201,9 +201,9 @@ var setLayout = function(layoutIndex) {
 
   data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
   for (var j in data.cells.state) {
-    var layer = data.cells.state[j] - 1;
+    var layer = data.cells.state[j];
     var cell = data.cells.coord[j];
-    if (layer > -1) data.config.layers[layer].clipCells.push(cell);
+    data.config.layers[layer].clipCells.push(cell);
   }
 
   for (var j in data.config.layers) {
@@ -249,10 +249,7 @@ document.getElementById('editor-done-btn').addEventListener('click', function(e)
 data.getHeadcount = function() {
   var headcount = 0;
   for (var i = 0; i < this.cells.state.length; i++) {
-    var currLayer = this.cells.state[i] - 1;
-    if (currLayer > -1) {
-      headcount += this.config.layers[currLayer].seats[i];
-    }
+    headcount += this.config.layers[this.cells.state[i]].seats[i];
   }
   return headcount;
 }

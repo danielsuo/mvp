@@ -20,7 +20,7 @@ http://localhost:3000/?client=floored&project=test
 - Add title to file
 - Reception & Cafe (uneditable cells)
 - Color coding + legend
-- Combine concepts of 'shell' layer and 'empty cell'
+- [√] Combine concepts of 'shell' layer and 'empty cell'
 - Indicate how many people would be added / removed
 - Merge cells
 - Remove zoom / pan initially
