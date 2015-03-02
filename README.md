@@ -9,16 +9,14 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Fix shell SVG
-- Add title to file
 - Reception & Cafe (uneditable cells)
 - Color coding + legend
 - Indicate how many people would be added / removed
-- Merge cells
 - Crop SVGs properly
 - Remove zoom / pan initially
 - Benching types (density)
 - Add logo
+- Merge cells
 - Multiple clients
 - Add due-north
 - Add scale
@@ -28,6 +26,11 @@ http://localhost:3000/?client=floored&project=test
 - Add disclaimer (close, not represent)
 - Modules
 - iPad
+- Dynamically resize svg on window
+- [√] Fix shell SVG
+- [√] fix config.json seat and layout arrays
+- [√] Remove dummy cell from config.json
+- [√] Fix merged cell in svg
 - [√] Keep selection after picking a replacement
 - [√] Add empty cell to layers
 - [√] Add plan background
@@ -37,6 +40,7 @@ http://localhost:3000/?client=floored&project=test
 - [√] Find floor plan
 - [√] Combine concepts of 'shell' layer and 'empty cell'
 - [√] Once you start clicking cells -> move over to next phase of UI
+- [√] Add title to file
 
 # Ideas that improve file size
 - SVG defs to reuse definition of icons

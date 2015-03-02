@@ -86,6 +86,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).then(function() {
 
   radio('cell-clicked').subscribe(function(i) {
+    console.log('Clicked', i);
 
     document.getElementById('actions').className = 'show-editor';
 
@@ -282,9 +283,15 @@ data.getArea = function() {
 }
 
 window.addEventListener('keypress', function(event) {
-  console.log(data.getHeadcount());
-  console.log(data.getArea());
-  printInfo();
+  console.log(event.charCode);
+  switch (event.charCode) {
+    case 115: // s: save state
+      console.log(data.cells.state);
+      break;
+    case 105: // i: info
+      console.log('No info!');
+      break;
+  }
 }, false)
 
 WebFontConfig = {
