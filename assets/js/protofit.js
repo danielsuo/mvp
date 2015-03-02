@@ -82,7 +82,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     data.cells.reset();
   })
 }).then(function() {
-  console.log(data.cells.paths)
 
   // ctrl-A
   window.addEventListener('keydown', function(event) {
@@ -229,48 +228,52 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   for (var i in data.config.layouts) {
     (function(layoutId, layoutIndex) {
       var layout = document.getElementById('layout-' + layoutId);
-      layout.addEventListener('click', function(event) {
-
-        document.getElementById('layout-next-btn').removeAttribute('disabled');
-        var listItems = document.getElementById('layout-list').children
-        for (var j in listItems) {
-          listItems[j].className = '';
-        }
-        layout.className = 'active';
-
-
-        for (var j in data.config.layers) {
-          data.config.layers[j].clipCells = [];
-          data.config.layers[j].mask.remove();
-          data.config.layers[j].mask = data.path();
-          data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
-          data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
-        }
-
-        data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
-        for (var j in data.cells.state) {
-          var layer = data.cells.state[j] - 1;
-          var cell = data.cells.coord[j];
-          if (layer > -1) data.config.layers[layer].clipCells.push(cell);
-        }
-
-        for (var j in data.config.layers) {
-          if (data.config.layers[j].id !== 'shell') {
-            for (var k in data.config.layers[j].clipCells) {
-              data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
-            }
-            data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
-          }
-        }
-
-        data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
-        data.cells.reset();
-      }, false);
+      layout.addEventListener('click', function(){setLayout(layoutIndex)}, false);
     })(data.config.layouts[i].id, i);
   }
+
+
+  setLayout(0);
+
 }).catch(function(error) {
   console.log(error)
 });
+
+var setLayout = function(layoutIndex){
+
+  document.getElementById('layout-next-btn').removeAttribute('disabled');
+  var listItems = document.getElementById('layout-list').childNodes;
+  for (var j in listItems) {
+    listItems[j].className = j == layoutIndex ? 'active' : '';
+  }
+
+  for (var j in data.config.layers) {
+    data.config.layers[j].clipCells = [];
+    data.config.layers[j].mask.remove();
+    data.config.layers[j].mask = data.path();
+    data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, true);
+    data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
+  }
+
+  data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
+  for (var j in data.cells.state) {
+    var layer = data.cells.state[j] - 1;
+    var cell = data.cells.coord[j];
+    if (layer > -1) data.config.layers[layer].clipCells.push(cell);
+  }
+
+  for (var j in data.config.layers) {
+    if (data.config.layers[j].id !== 'shell') {
+      for (var k in data.config.layers[j].clipCells) {
+        data.config.layers[j].mask = path.fromPoints(data.config.layers[j].mask, data.config.layers[j].clipCells[k], true);
+      }
+      data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
+    }
+  }
+
+  data.info.innerHTML = histogram(data.cells.state, data.config.layers.length + 1).join(', ');
+  data.cells.reset();
+}
 
 document.getElementById('layout-next-btn').addEventListener('click', function(e){
   // document.getElementById('actions').className = 'show-benching';

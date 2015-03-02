@@ -13,7 +13,7 @@ http://localhost:3000/?client=floored&project=test
 - [√] Add empty cell to layers
 - [√] Add plan background
 - Color coding
-- Start with first layout selected
+- [√] Start with first layout selected
 - Reception & Cafe (uneditable cells)
 - Add seating data
 - Add area data
