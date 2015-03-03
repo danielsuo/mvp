@@ -44,6 +44,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     url: data.dir + '/bg.svg',
     svg: data.nested()
   };
+
+  data.northArrow = document.getElementById('north-arrow');
+  data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
+
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
   });
