@@ -86,11 +86,11 @@ Cells.draw = function(opts) {
     (function(x) {
       path.mouseover(function(event) {
         if (Cells.mousedown) {
-          radio('cell-clicked').broadcast(x);
+          radio('cell-clicked').broadcast(x, true);
         }
       });
       path.mousedown(function(event) {
-        radio('cell-clicked').broadcast(x);
+        radio('cell-clicked').broadcast(x, false);
       });
     })(i);
   }

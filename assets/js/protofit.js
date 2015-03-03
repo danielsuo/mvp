@@ -50,7 +50,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
-    console.log(svg);
   });
 }).then(function() {
   data.cells.svg = data.nested();
@@ -109,19 +108,38 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
   }
 
+  // clear selection on done
+  // keep selection, but clear and create new selection on click
+  radio('cell-clicked').subscribe(function(i, dragging) {
 
-  radio('cell-clicked').subscribe(function(i) {
-    console.log('Clicked', i);
+    if (data.multiSelectClear) {
+      data.selected = [];
+      data.cells.reset(data.cells.state);
+      data.multiSelectClear = false;
+    }
+
+    var index = data.selected.indexOf(i);
+
+    if (!dragging) {
+      data.multiSelectState = index > -1;
+    }
 
     document.getElementById('actions').className = 'show-editor';
 
-    var index = data.selected.indexOf(i);
-    if (index > -1) {
+    // Unhighlight cell
+    // if we mouse down on first cell and already selected
+    // if we mouse over other selected cells and first cell was selected to begin with
+    if ((!dragging && data.multiSelectState) || (index > -1 && dragging && data.multiSelectState)) {
       data.selected.splice(index, 1);
       // remove class
       var pathElement = document.getElementById(data.cells.paths[i].node.id);
       pathElement.setAttribute('class', 'cell')
-    } else {
+    }
+
+    // Highlight cell
+    // if we mouse down on first cell and not already selected
+    // if we mouse over other selected cell and first cell was not selected to begin with
+    else if ((!dragging && !data.multiSelectState) || (index == -1 && dragging && !data.multiSelectState)) {
       data.selected.push(i);
       // add class
       var pathElement = document.getElementById(data.cells.paths[i].node.id);
@@ -137,6 +155,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
         (function(layerId, layerIndex) {
           var layer = document.getElementById('layer-' + layerId);
           layer.addEventListener('click', function(event) {
+            data.multiSelectClear = true;
 
             for (var j in data.config.layers) {
               data.config.layers[j].clipCells = [];
@@ -309,6 +328,11 @@ data.getArea = function() {
   return this.config.project.area;
 }
 
+window.addEventListener('mouseup', function(event) {
+  delete data.multiSelectState;
+  console.log('deleted')
+}, false);
+
 window.addEventListener('keypress', function(event) {
   console.log(event.charCode);
   switch (event.charCode) {
@@ -319,7 +343,7 @@ window.addEventListener('keypress', function(event) {
       console.log('No info!');
       break;
   }
-}, false)
+}, false);
 
 WebFontConfig = {
   fontdeck: {
