@@ -10,6 +10,9 @@
     "area": 16279,
     "address": "159 West 25th Street"
   },
+  "north": {
+    "direction": 0
+  },
   "last_updated": "",
   "layers": [{
     "id": "benching",
