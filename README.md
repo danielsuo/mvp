@@ -11,10 +11,8 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 - Add due-north
 - Add logo
-- Add powered by Floored
-- Color coding + legend
+- Legend for different cell types
 - Benching types (density)
-- Fill in architectural elements white
 - Reception & Cafe (uneditable cells)
 - iPad
 - Indicate how many people would be added / removed
@@ -30,6 +28,9 @@ http://localhost:3000/?client=floored&project=test
 - Dynamically resize svg on window
 
 ## Done
+- [√] Add powered by Floored
+- [√] Color coding
+- [√] Fill in architectural elements white
 - [√] Remove zoom / pan initially
 - [√] Fix shell SVG
 - [√] Multiselect
