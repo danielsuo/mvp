@@ -13,9 +13,9 @@ http://localhost:3000/?client=floored&project=test
 - Add logo
 - Add powered by Floored
 - Color coding + legend
+- Benching types (density)
 - Fill in architectural elements white
 - Reception & Cafe (uneditable cells)
-- Benching types (density)
 - iPad
 - Indicate how many people would be added / removed
 - Crop SVGs properly

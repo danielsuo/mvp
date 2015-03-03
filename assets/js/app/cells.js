@@ -16,6 +16,7 @@ Cells.mousedown = false;
 
 Cells.load = function(svg, url) {
   return SVG.load(svg, url).then(function(svg) {
+    svg.node.setAttribute('class', 'cells');
     Cells.svg = svg;
     Cells.state = [];
     Cells.coord = svg.children()[0].children()[0].children();

@@ -39,7 +39,17 @@ data.selected = [];
 XHR.get(data.dir + '/config.json').then(function(response) {
   var config = JSON.parse(response);
   data.config = config;
-  data.floorplan = data.nested();
+}).then(function() {
+  data.bg = {
+    url: data.dir + '/bg.svg',
+    svg: data.nested()
+  };
+  return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
+    svg.node.setAttribute('class', 'bg');
+    console.log(svg);
+  });
+}).then(function() {
+  data.cells.svg = data.nested();
 
   data.config.project.titleDiv = document.getElementById('project-title');
   data.config.project.titleDiv.innerHTML = '<h3>' + data.config.project.name + '</h3>'
@@ -47,8 +57,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.config.project.titleDiv = document.getElementById('project-address');
   data.config.project.titleDiv.innerHTML = data.config.project.address;
 
-  for (var i in config.layers) {
-    var layer = config.layers[i];
+  for (var i in data.config.layers) {
+    var layer = data.config.layers[i];
     layer.url = data.dir + '/' + layer.id + '.svg';
     layer.clipCells = [];
 
@@ -83,7 +93,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).then(function() {
   data.info.innerHTML = 'Loading complete!';
 
-  return data.cells.load(data.floorplan, data.dir + '/cells.svg').then(function() {
+  return data.cells.load(data.cells.svg, data.dir + '/cells.svg').then(function() {
     data.cells.reset(data.cells.state);
   })
 }).then(function() {
