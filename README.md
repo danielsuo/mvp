@@ -11,7 +11,6 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 - Reception & Cafe (uneditable cells)
 - Add logo
-- Legend for different cell types
 - Benching types (density)
 - Crop SVGs properly
 - iPad
@@ -29,6 +28,7 @@ http://localhost:3000/?client=floored&project=test
 - Dynamically resize svg on window
 
 ## Done
+- [√]Legend for different cell types
 - [√] Fix selection performance
 - [√] Add due-north
 - [√] Make sure multi-select only affects first cell
