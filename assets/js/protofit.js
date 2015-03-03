@@ -98,6 +98,14 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   })
 }).then(function() {
 
+  data.editor = document.getElementById('editor');
+
+  var ul = document.getElementById('editor-list');
+  for (var i in data.config.layers) {
+    ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
+  }
+
+
   radio('cell-clicked').subscribe(function(i) {
     console.log('Clicked', i);
 
@@ -117,15 +125,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     }
 
 
-    data.editor = document.getElementById('editor');
-    var ul = document.getElementById('editor-list');
-    ul.innerHTML = '';
 
     if (data.selected.length > 0) {
-      document.getElementById('editor').className = 'has-selection'
-      for (var i in data.config.layers) {
-        ul.innerHTML += '<li id=layer-' + data.config.layers[i].id + '>' + data.config.layers[i].name + '</li>'
-      }
+      data.editor.className = 'has-selection'
 
       for (var i in data.config.layers) {
         (function(layerId, layerIndex) {
@@ -161,13 +163,13 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             }
 
 
-            document.getElementById('info').innerHTML = printInfo();
+            data.info.innerHTML = printInfo();
 
           });
         })(data.config.layers[i].id, i);
       }
     } else {
-      document.getElementById('editor').className = 'no-selection'
+      data.editor.className = 'no-selection'
     }
 
 
