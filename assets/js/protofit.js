@@ -300,13 +300,13 @@ document.getElementById('layout-next-btn').addEventListener('click', function(e)
   document.getElementById('actions').className = 'show-editor';
 });
 
-document.getElementById('benching-back-btn').addEventListener('click', function(e) {
-  document.getElementById('actions').className = '';
-});
+// document.getElementById('benching-back-btn').addEventListener('click', function(e) {
+//   document.getElementById('actions').className = '';
+// });
 
-document.getElementById('benching-next-btn').addEventListener('click', function(e) {
-  document.getElementById('actions').className = 'show-editor';
-});
+// document.getElementById('benching-next-btn').addEventListener('click', function(e) {
+//   document.getElementById('actions').className = 'show-editor';
+// });
 
 document.getElementById('editor-back-btn').addEventListener('click', function(e) {
   data.selected = [];
