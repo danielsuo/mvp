@@ -193,6 +193,7 @@ h3
         color #827CA3 !important
           
 #editor
+  backface-visibility hidden
   > div
     display flex
     flex-direction column
@@ -200,11 +201,13 @@ h3
       Apercu()
       text-align center
       margin auto
+      
   &.has-selection
     .has-selection
       display block
     .no-selection
       display none
+
   &.no-selection
     .has-selection
       display none
