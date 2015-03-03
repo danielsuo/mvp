@@ -199,7 +199,7 @@ var printInfo = function() {
   var info = "<table>";
 
   for (var i = 0; i < data.config.layers.length; i++) {
-    info += "<tr>";
+    info += "<tr class='" + data.config.layers[i].id + "'>";
 
     info += "<td>" + data.config.layers[i].name + "</td>";
     info += "<td>" + data.cells.state.filter(function(x) {
@@ -210,13 +210,13 @@ var printInfo = function() {
   }
 
   var headcount = data.getHeadcount();
-  info += "<tr>";
+  info += "<tr class='headcount'>";
   info += "<td>Total headcount</td>";
   info += "<td>" + headcount + "</td>";
   info += "</tr>";
 
   var area = data.getArea();
-  info += "<tr>";
+  info += "<tr class='sf'>";
   info += "<td>SF per person</td>"
   info += "<td>" + Math.round(area / headcount) + "</td>";
   info += "</tr>";

@@ -9,7 +9,7 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Add due-north
+- [√] Add due-north
 - Add logo
 - Legend for different cell types
 - Benching types (density)
