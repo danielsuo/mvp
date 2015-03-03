@@ -11,6 +11,7 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 - Add due-north
 - Add logo
+- Make sure multi-select only affects first cell
 - Legend for different cell types
 - Benching types (density)
 - Reception & Cafe (uneditable cells)
@@ -20,6 +21,7 @@ http://localhost:3000/?client=floored&project=test
 - Merge cells
 - Multiple clients
 - Add scale
+- Undo / redo
 - Clear canvas
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)
