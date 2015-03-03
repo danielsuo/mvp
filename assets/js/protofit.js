@@ -217,13 +217,19 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 var printInfo = function() {
   var info = "<table>";
 
+
   for (var i = 0; i < data.config.layers.length; i++) {
     info += "<tr class='" + data.config.layers[i].id + "'>";
 
     info += "<td>" + data.config.layers[i].name + "</td>";
-    info += "<td>" + data.cells.state.filter(function(x) {
-      return x == i
-    }).length + "</td>";
+
+    if (data.config.layers[i].id === 'benching') {
+      info += "<td>" + data.getBenchingHeadcount() + "</td>"
+    } else {
+      info += "<td>" + data.cells.state.filter(function(x) {
+        return x == i
+      }).length + "</td>";
+    }
 
     info += "</tr>";
   }
@@ -320,6 +326,16 @@ data.getHeadcount = function() {
   var headcount = 0;
   for (var i = 0; i < this.cells.state.length; i++) {
     headcount += this.config.layers[this.cells.state[i]].seats[i];
+  }
+  return headcount;
+}
+
+data.getBenchingHeadcount = function() {
+  var headcount = 0;
+  for (var i = 0; i < this.cells.state.length; i++) {
+    if (this.cells.state[i] === 0) {
+      headcount += this.config.layers[this.cells.state[i]].seats[i];
+    }
   }
   return headcount;
 }
