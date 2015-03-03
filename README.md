@@ -13,8 +13,8 @@ http://localhost:3000/?client=floored&project=test
 - Add logo
 - Add powered by Floored
 - Color coding + legend
+- Fill in architectural elements white
 - Reception & Cafe (uneditable cells)
-- Multiselect
 - Benching types (density)
 - iPad
 - Indicate how many people would be added / removed
@@ -32,6 +32,7 @@ http://localhost:3000/?client=floored&project=test
 ## Done
 - [√] Remove zoom / pan initially
 - [√] Fix shell SVG
+- [√] Multiselect
 - [√] fix config.json seat and layout arrays
 - [√] Remove dummy cell from config.json
 - [√] Fix merged cell in svg
