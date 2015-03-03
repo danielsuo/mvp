@@ -27,16 +27,15 @@ body
   box-shadow 0 1px 6px rgba(0,0,8,0.05)
   border 1px solid rgba(0,0,8,0.1)
 
-  // svg 
-  //   path, line, shape 
-  //     stroke #000000
+  > svg 
+    filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.1))
+    -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.1))
     
   .plan-layer
     pointer-events none
 
   .cell
     stroke #ffffff
-    fill rgba(113, 111, 176, 0.1)
 
     &[data-layer="0"] //benching
       fill #EFEEF3
@@ -56,7 +55,12 @@ body
     &[data-layer="3"] //office
       fill #F9F8F5
       &.selected
-        fill #EEE6CB
+        fill #E8D9A4
+        
+    &[data-layer="4"] //empty
+      fill #FCF3F6
+      &.selected
+        fill #DAC2CA
 
 h3
   margin 0
@@ -179,8 +183,7 @@ h3
         &:hover
           background-color #fff
           color #59B55C
-
-          
+  
       &:disabled
         font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background-color transparent !important
@@ -224,8 +227,8 @@ h3
   position absolute
   text-align center
   background transparent
-  left: 50%;
-  transform: translateX(-50%)
+  left 50%
+  transform translateX(-50%)
   color #6C668B
   
 #project-title
@@ -238,3 +241,24 @@ h3
 #project-address
   ApercuLight()
   opacity .45
+
+#powered-by
+  position absolute
+  bottom 0
+  padding 1rem
+  text-align center
+  left 50%
+  transform translateX(-50%)
+  
+  .uppercase
+    ApercuLight()
+    text-transform uppercase
+    letter-spacing 0.2em
+    font-size 0.85em
+    opacity .35
+
+  .logotype
+    ApercuBold()
+    letter-spacing -0.02em
+    font-size 1.1em
+    opacity .25
