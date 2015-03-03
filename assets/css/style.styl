@@ -255,10 +255,31 @@ h3
     text-transform uppercase
     letter-spacing 0.2em
     font-size 0.85em
-    opacity .35
+    opacity .3
 
   .logotype
     ApercuBold()
     letter-spacing -0.02em
     font-size 1.1em
-    opacity .25
+    opacity .2
+    
+#project-north
+  position absolute
+  bottom -1rem
+  right -0.9rem
+  width 5rem
+  height 5rem
+  opacity 0.5
+
+  div
+    absolute100()
+    background-image url('/img/north-arrow.svg')
+    background-repeat no-repeat
+  
+  span
+    position absolute
+    top 50%
+    left 50%
+    transform translateX(-55%) translateY(-50%)
+    ApercuLight()
+    font-size 0.75em
