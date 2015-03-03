@@ -9,15 +9,14 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- [√] Add due-north
+- Reception & Cafe (uneditable cells)
 - Add logo
-- Make sure multi-select only affects first cell
 - Legend for different cell types
 - Benching types (density)
-- Reception & Cafe (uneditable cells)
-- iPad
-- Indicate how many people would be added / removed
 - Crop SVGs properly
+- iPad
+
+- Indicate how many people would be added / removed
 - Merge cells
 - Multiple clients
 - Add scale
@@ -30,6 +29,9 @@ http://localhost:3000/?client=floored&project=test
 - Dynamically resize svg on window
 
 ## Done
+- [√] Fix selection performance
+- [√] Add due-north
+- [√] Make sure multi-select only affects first cell
 - [√] Add powered by Floored
 - [√] Color coding
 - [√] Fill in architectural elements white
