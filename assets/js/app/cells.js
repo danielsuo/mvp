@@ -12,8 +12,11 @@ Cells.attr = {
 
 Cells.paths = [];
 
+Cells.mousedown = false;
+
 Cells.load = function(svg, url) {
   return SVG.load(svg, url).then(function(svg) {
+    svg.node.setAttribute('class', 'cells');
     Cells.svg = svg;
     Cells.state = [];
     Cells.coord = svg.children()[0].children()[0].children();
@@ -81,15 +84,31 @@ Cells.draw = function(opts) {
     Cells.paths.push(path);
 
     (function(x) {
-      path.click(function(event) {
+      path.mouseover(function(event) {
+        if (Cells.mousedown) {
+          radio('cell-clicked').broadcast(x);
+        }
+      });
+      path.mousedown(function(event) {
         radio('cell-clicked').broadcast(x);
-      })
+      });
     })(i);
   }
 };
 
 Cells.reset = function(state) {
-  Cells.draw({reset:true, state:state});
+  Cells.draw({
+    reset: true,
+    state: state
+  });
 };
+
+window.addEventListener('mousedown', function(event) {
+  Cells.mousedown = true;
+}, false);
+
+window.addEventListener('mouseup', function(event) {
+  Cells.mousedown = false;
+}, false);
 
 module.exports = Cells;
