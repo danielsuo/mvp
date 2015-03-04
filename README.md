@@ -12,6 +12,8 @@ http://localhost:3000/?client=floored&project=test
 - Add logo
 - Benching types (density)
 - Crop SVGs properly
+- Dynamically resize svg on window
+- Check performance
 - iPad
 
 - Indicate how many people would be added / removed
@@ -23,7 +25,6 @@ http://localhost:3000/?client=floored&project=test
 - Add disclaimer (close, not represent)
 - Modules
 - Don't redraw cells on reset; unclip and change color instead
-- Dynamically resize svg on window
 - Add compass [here](http://ai.github.io/compass.js/)
 
 ## Done
