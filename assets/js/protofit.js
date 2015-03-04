@@ -115,6 +115,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   // clear selection on done
   // keep selection, but clear and create new selection on click
   radio('cell-clicked').subscribe(function(i, dragging) {
+    console.log('Cell clicked', i);
+    if (data.config.cells.disabled.indexOf(parseInt(i)) > -1) {
+      return;
+    }
 
     if (data.multiSelectClear) {
       data.selected = [];
@@ -254,7 +258,6 @@ var printInfo = function() {
 
   info += "</table>"
 
-  // console.log(info);
   return info;
 }
 
@@ -353,7 +356,6 @@ data.getArea = function() {
 window.addEventListener('mouseup', function(event) {
   delete data.multiSelectState;
   data.protofit.className = '';
-  console.log('deleted')
 }, false);
 
 window.addEventListener('keypress', function(event) {
