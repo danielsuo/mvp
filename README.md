@@ -9,7 +9,6 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Reception & Cafe (uneditable cells)
 - Add logo
 - Benching types (density)
 - Crop SVGs properly
@@ -28,7 +27,8 @@ http://localhost:3000/?client=floored&project=test
 - Add compass [here](http://ai.github.io/compass.js/)
 
 ## Done
-- [√]Legend for different cell types
+- [√] Reception & Cafe (uneditable cells)
+- [√] Legend for different cell types
 - [√] Fix selection performance
 - [√] Legend for different cell types
 - [√] Add due-north
