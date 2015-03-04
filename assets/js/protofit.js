@@ -329,7 +329,7 @@ var setLayout = function(layoutIndex) {
 }
 
 data.btn = {};
-var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn'];
+var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn', 'model-view-btn'];
 for (var i = 0; i < btns.length; i++) {
   data.btn[btns[i]] = new Button(btns[i]);
 }
@@ -350,6 +350,25 @@ data.btn['editor-done-btn'].hammer.on('tap', function(event) {
   data.selected = [];
   data.cells.reset(data.cells.state);
   document.getElementById('editor').className = 'no-selection';
+});
+
+data.btn['model-view-btn'].hammer.on('tap', function(event) {
+  if (!data.iframe) {
+    data.iframe = true;
+    data.btn['model-view-btn'].node.innerHTML = 'Close 3D view';
+    var iframe = document.createElement('iframe');
+    iframe.src = data.config.models[0].url;
+    iframe.width = "100%";
+    iframe.height = "100%";
+    iframe.id = 'model-viewer';
+
+    data[APP_NAME].appendChild(iframe);
+  } else {
+    data.iframe = false;
+    data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
+    data[APP_NAME].removeChild(document.getElementById('model-viewer'));
+  }
+
 });
 
 // document.getElementById('benching-back-btn').addEventListener('click', function(e) {
