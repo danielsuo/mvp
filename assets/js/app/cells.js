@@ -3,6 +3,7 @@ var SVG = require('../svg');
 require('../svg/path');
 
 var sortPoints = require('../util/sortPoints');
+var isMobile = require('../util/mobile').any;
 
 var Cells = {};
 
@@ -84,14 +85,26 @@ Cells.draw = function(opts) {
     Cells.paths.push(path);
 
     (function(x) {
-      path.mouseover(function(event) {
-        if (Cells.mousedown) {
-          radio('cell-clicked').broadcast(x, true);
-        }
-      });
-      path.mousedown(function(event) {
-        radio('cell-clicked').broadcast(x, false);
-      });
+      if (isMobile) {
+        // path.touchenter(function(event) {
+        //   console.log(x)
+        //   if (Cells.dragStart) {
+        //     radio('cell-clicked').broadcast(x, true);
+        //   }
+        // });
+        path.touchstart(function(event) {
+          radio('cell-clicked').broadcast(x, false);
+        });
+      } else {
+        path.mouseover(function(event) {
+          if (Cells.dragStart) {
+            radio('cell-clicked').broadcast(x, true);
+          }
+        });
+        path.mousedown(function(event) {
+          radio('cell-clicked').broadcast(x, false);
+        });
+      }
     })(i);
   }
 };
@@ -103,12 +116,22 @@ Cells.reset = function(state) {
   });
 };
 
-window.addEventListener('mousedown', function(event) {
-  Cells.mousedown = true;
-}, false);
+if (isMobile) {
+  window.addEventListener('touchstart', function(event) {
+    Cells.dragStart = true;
+  }, false);
 
-window.addEventListener('mouseup', function(event) {
-  Cells.mousedown = false;
-}, false);
+  window.addEventListener('touchend', function(event) {
+    Cells.dragStart = false;
+  }, false);
+} else {
+  window.addEventListener('mousedown', function(event) {
+    Cells.dragStart = true;
+  }, false);
+
+  window.addEventListener('mouseup', function(event) {
+    Cells.dragStart = false;
+  }, false);
+}
 
 module.exports = Cells;

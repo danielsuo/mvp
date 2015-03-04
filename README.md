@@ -14,6 +14,7 @@ http://localhost:3000/?client=floored&project=test
 - Crop SVGs properly
 - Dynamically resize svg on window
 - Check performance
+- Points not sorted correctly on iPad
 - iPad
 
 - Indicate how many people would be added / removed

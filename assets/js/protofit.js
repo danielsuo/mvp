@@ -17,11 +17,17 @@ var app = require('./app');
 var path = require('./util/path');
 var XHR = require('./util/xhr');
 
-// Compass
-require('./lib/compass');
+// Touch library
+var Hammer = require('hammerjs');
+var Button = require('./ixn/button');
 
 // Fonts
 require('./util/fontdeck');
+
+// Compass
+require('./lib/compass');
+
+var isMobile = require('./util/mobile').any;
 
 window.APP_NAME = 'protofit';
 
@@ -166,8 +172,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
       for (var i in data.config.layers) {
         (function(layerId, layerIndex) {
-          var layer = document.getElementById('layer-' + layerId);
-          layer.addEventListener('click', function(event) {
+          var layer = new Button('layer-' + layerId);
+          layer.hammer.on('tap', function(event) {
             data.multiSelectClear = true;
 
             for (var j in data.config.layers) {
@@ -213,8 +219,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   for (var i in data.config.layouts) {
     (function(layoutId, layoutIndex) {
-      var layout = document.getElementById('layout-' + layoutId);
-      layout.addEventListener('click', function() {
+      var layout = new Button('layout-' + layoutId);
+      layout.hammer.on('tap', function() {
         setLayout(layoutIndex)
       }, false);
     })(data.config.layouts[i].id, i);
@@ -307,9 +313,28 @@ var setLayout = function(layoutIndex) {
   document.getElementById('info').innerHTML = printInfo();
 }
 
-document.getElementById('layout-next-btn').addEventListener('click', function(e) {
-  // document.getElementById('actions').className = 'show-benching';
+data.btn = {};
+var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn'];
+for (var i = 0; i < btns.length; i++) {
+  data.btn[btns[i]] = new Button(btns[i]);
+}
+
+data.btn['layout-next-btn'].hammer.on('tap', function(event) {
+  console.log('layout-next-btn')
   document.getElementById('actions').className = 'show-editor';
+});
+
+data.btn['editor-back-btn'].hammer.on('tap', function(event) {
+  data.selected = [];
+  data.cells.reset(data.cells.state);
+  document.getElementById('editor').className = 'no-selection';
+  document.getElementById('actions').className = '';
+});
+
+data.btn['editor-done-btn'].hammer.on('tap', function(event) {
+  data.selected = [];
+  data.cells.reset(data.cells.state);
+  document.getElementById('editor').className = 'no-selection';
 });
 
 // document.getElementById('benching-back-btn').addEventListener('click', function(e) {
@@ -319,19 +344,6 @@ document.getElementById('layout-next-btn').addEventListener('click', function(e)
 // document.getElementById('benching-next-btn').addEventListener('click', function(e) {
 //   document.getElementById('actions').className = 'show-editor';
 // });
-
-document.getElementById('editor-back-btn').addEventListener('click', function(e) {
-  data.selected = [];
-  data.cells.reset(data.cells.state);
-  document.getElementById('editor').className = 'no-selection';
-  document.getElementById('actions').className = '';
-});
-
-document.getElementById('editor-done-btn').addEventListener('click', function(e) {
-  data.selected = [];
-  data.cells.reset(data.cells.state);
-  document.getElementById('editor').className = 'no-selection';
-});
 
 // TODO: should probably have headcount property that gets updated
 data.getHeadcount = function() {
