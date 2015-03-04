@@ -17,6 +17,9 @@ var app = require('./app');
 var path = require('./util/path');
 var XHR = require('./util/xhr');
 
+// Compass
+require('./lib/compass');
+
 window.APP_NAME = 'protofit';
 
 var draw = SVG(APP_NAME);

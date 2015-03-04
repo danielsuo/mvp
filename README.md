@@ -17,19 +17,20 @@ http://localhost:3000/?client=floored&project=test
 
 - Indicate how many people would be added / removed
 - Merge cells
-- Multiple clients
 - Add scale
 - Undo / redo
-- Clear canvas
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)
 - Add disclaimer (close, not represent)
 - Modules
+- Don't redraw cells on reset; unclip and change color instead
 - Dynamically resize svg on window
+- Add compass [here](http://ai.github.io/compass.js/)
 
 ## Done
 - [√]Legend for different cell types
 - [√] Fix selection performance
+- [√] Legend for different cell types
 - [√] Add due-north
 - [√] Make sure multi-select only affects first cell
 - [√] Add powered by Floored
