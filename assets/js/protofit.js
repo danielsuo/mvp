@@ -246,8 +246,12 @@ var printInfo = function() {
 
 
   for (var i = 0; i < data.config.layers.length; i++) {
-    info += "<tr class='" + data.config.layers[i].id + "'>";
 
+    if (data.config.layers[i].id == 'shell') {
+      continue;
+    }
+
+    info += "<tr class='" + data.config.layers[i].id + "'>";
     info += "<td>" + data.config.layers[i].name + "</td>";
 
     if (data.config.layers[i].id === 'benching') {
@@ -260,6 +264,9 @@ var printInfo = function() {
 
     info += "</tr>";
   }
+
+  info += "<tr class='reception'><td>Reception</td><td>1</td></tr>"
+  info += "<tr class='pantry'><td>Pantry</td><td>1</td></tr>"
 
   var headcount = data.getHeadcount();
   info += "<tr class='headcount'>";

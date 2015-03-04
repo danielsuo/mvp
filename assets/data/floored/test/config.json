@@ -19,6 +19,19 @@
   "cells": {
     "disabled": [35, 36, 37]
   },
+  "models": [{
+    "name": "Perimeter Offices",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices"
+  }, {
+    "name": "Perimeter Offices (Corporate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Corporate"
+  }, {
+    "name": "Perimeter Offices (Alternate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Alternate"
+  }, {
+    "name": "Open Workspace",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Open-Workspace"
+  }],
   "layers": [{
     "id": "benching",
     "name": "Benching",

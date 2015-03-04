@@ -9,11 +9,10 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Benching types (density)
-- Crop SVGs properly
 - Points not sorted correctly on iPad
-- Fix squashed desks (remove two pairs on left) and move the others; update seat in config.json
+- Style picker
 
+- Benching types (density)
 - Indicate how many people would be added / removed
 - Merge cells
 - Add scale
@@ -26,8 +25,10 @@ http://localhost:3000/?client=floored&project=test
 - Add compass [here](http://ai.github.io/compass.js/)
 
 ## Done
+- [√] Fix squashed desks (remove two pairs on left) and move the others; update seat in config.json
 - [√] Add logo
 - [√] iPad
+- [√] Crop SVGs properly
 - [√] Dynamically resize svg on window
 - [√] Reception & Cafe (uneditable cells)
 - [√] Legend for different cell types
