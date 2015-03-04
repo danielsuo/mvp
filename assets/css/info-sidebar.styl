@@ -2,53 +2,79 @@
     order 2
     color #6C668B
     width 25%
+    display flex
+    flex-direction column
+    justify-content space-between
+    box-sizing border-box
+    border-left 1px dotted rgba(0,0,8,0.1)
+    hr
+      margin 1.25rem 0
+    .grow
+      flex-grow 1
 
 #project-title
   ApercuLight()
   h3
     font-size 1.05em
     padding-bottom 0.5rem
-    opacity 0.8
 
 #project-address
+  text-align center
   ApercuLight()
-  opacity .45
+  opacity .5
+  
+#project-logo
+  height 54px
+  margin 0 1rem
+  opacity 0.65
+  background-size contain
+  background-repeat no-repeat
+  background-position center center
+  
 
 #powered-by
-  padding 1rem
+  padding-bottom 1.5rem
   text-align center
-  transform translateX(-50%)
   
   .uppercase
     ApercuLight()
     text-transform uppercase
     letter-spacing 0.2em
     font-size 0.825em
-    opacity .25
+    opacity .45
 
   .logotype
     ApercuBold()
     letter-spacing -0.02em
     font-size 1.1em
-    opacity .20
+    opacity .40
     
-#project-north
-  position absolute
-  bottom -1rem
-  right -0.9rem
-  width 5rem
-  height 5rem
-  opacity 0.5
+#info
+  padding 0 1rem
+  box-sizing border-box
+  text-align center
 
-  div
-    absolute100()
-    background-image url('../img/north-arrow.svg')
-    background-repeat no-repeat
-  
-  span
-    position absolute
-    top 50%
-    left 50%
-    transform translateX(-55%) translateY(-50%)
-    ApercuLight()
-    font-size 0.75em
+  table
+    width 100%
+    color #6C668B
+    line-height 1.35rem
+    font-feature-settings 'pnum' 1, 'liga' 0
+    -webkit-font-feature-settings 'pnum' 1, 'liga' 0
+    -moz-font-feature-settings 'pnum' 1, 'liga' 0
+    td:last-of-type
+      text-align right
+      
+  .benching td:last-of-type 
+    background #EFEEF3
+    
+  .breakout td:last-of-type 
+    background #EFF5EF
+    
+  .conference td:last-of-type
+    background #EFF2FE
+    
+  .office td:last-of-type
+    background #F9F8F5
+    
+  .shell td:last-of-type
+    background #FCF3F6

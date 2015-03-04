@@ -66,6 +66,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.northArrow = document.getElementById('north-arrow');
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
 
+  data.logo = document.getElementById('project-logo')
+  data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
+
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
   });
