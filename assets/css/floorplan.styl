@@ -1,0 +1,53 @@
+#protofit
+  position absolute
+  display flex
+  width calc(80% - 1rem)
+  height calc(100% - 2rem)
+  margin 1rem 1rem 1rem 0
+  right 0
+  box-sizing border-box
+  background #fbfbff
+  box-shadow 0 1px 6px rgba(0,0,8,0.05)
+  border 1px solid rgba(0,0,8,0.1)
+  overflow hidden
+  user-select none
+
+  > svg 
+    filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+    -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+    backface-visibility hidden
+
+  .plan-layer
+    pointer-events none
+    
+  &.dragging .cell
+    transition fill 0.15s ease
+
+  .cell
+    stroke #ffffff
+    transition fill 0.4s ease
+
+    &[data-layer="0"] //benching
+      fill #EFEEF3
+      &.selected
+        fill #CFC5C8
+        
+    &[data-layer="1"] //breakout
+      fill #EFF5EF
+      &.selected
+        fill #B6D1B6
+      
+    &[data-layer="2"] //conference
+      fill #EFF2FE
+      &.selected
+        fill #BECAE5
+      
+    &[data-layer="3"] //office
+      fill #F9F8F5
+      &.selected
+        fill #E8D9A4
+        
+    &[data-layer="4"] //empty
+      fill #FCF3F6
+      &.selected
+        fill #DAC2CA
