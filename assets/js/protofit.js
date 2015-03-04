@@ -34,13 +34,16 @@ window.APP_NAME = 'protofit';
 var draw = SVG(APP_NAME);
 var data = draw.nested();
 
+// data.parentElement = document.getElementById(draw.node.id);
+// data.parentElement.setAttribute('viewBox', [0, 0, data.parentElement.clientWidth, data.parentElement.clientHeight].join(' '));
+
 // Grab URL query parameters into object
 data.params = require('./util/getQueryParameters')();
 data.dir = ['.', 'data', data.params.client, data.params.project].join('/');
 
 data[APP_NAME] = document.getElementById(APP_NAME);
 data.panel = document.getElementById('panel');
-data.protofit =  document.getElementById('protofit');
+data.protofit = document.getElementById('protofit');
 data.info = document.getElementById('info');
 
 // data.enableZoom(data[APP_NAME]);
@@ -57,6 +60,8 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     url: data.dir + '/bg.svg',
     svg: data.nested()
   };
+
+  data.viewbox(0, 0, data.config.width, data.config.height);
 
   data.northArrow = document.getElementById('north-arrow');
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');

@@ -6,30 +6,34 @@
     flex-direction column
     justify-content space-between
     box-sizing border-box
-    border 1px solid red
+    border-left 1px dotted rgba(0,0,8,0.1)
+    hr
+      margin 1.25rem 0
+    .grow
+      flex-grow 1
 
 #project-title
   ApercuLight()
   h3
     font-size 1.05em
     padding-bottom 0.5rem
-    opacity 0.8
 
 #project-address
   text-align center
   ApercuLight()
-  opacity .45
+  opacity .5
   
 #project-logo
-  height 100px
-  margin 2rem
+  height 54px
+  margin 0 1rem
+  opacity 0.65
   background-size contain
-  opacity 0.4
   background-repeat no-repeat
+  background-position center center
   
 
 #powered-by
-  padding 1rem
+  padding-bottom 1.5rem
   text-align center
   
   .uppercase
@@ -37,36 +41,18 @@
     text-transform uppercase
     letter-spacing 0.2em
     font-size 0.825em
-    opacity .25
+    opacity .45
 
   .logotype
     ApercuBold()
     letter-spacing -0.02em
     font-size 1.1em
-    opacity .20
-    
-#project-north
-  position relative
-  width 5rem
-  height 5rem
-  opacity 0.5
-
-  div
-    absolute100()
-    background-image url('../img/north-arrow.svg')
-    background-repeat no-repeat
-  
-  span
-    position absolute
-    top 50%
-    left 50%
-    transform translateX(-55%) translateY(-50%)
-    ApercuLight()
-    font-size 0.75em
+    opacity .40
     
 #info
-  padding 1rem
+  padding 0 1rem
   box-sizing border-box
+  text-align center
 
   table
     width 100%
@@ -78,7 +64,7 @@
     td:last-of-type
       text-align right
       
-  .benching
+  .benching td:last-of-type 
     background #EFEEF3
     
   .breakout td:last-of-type 
