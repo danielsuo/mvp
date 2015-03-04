@@ -28,6 +28,7 @@ data.dir = ['.', 'data', data.params.client, data.params.project].join('/');
 
 data[APP_NAME] = document.getElementById(APP_NAME);
 data.panel = document.getElementById('panel');
+data.protofit =  document.getElementById('protofit');
 data.info = document.getElementById('info');
 
 // data.enableZoom(data[APP_NAME]);
@@ -120,7 +121,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
     var index = data.selected.indexOf(i);
 
-    if (!dragging) {
+    if (dragging) {
+      data.protofit.className = 'dragging';
+    } else {
       data.multiSelectState = index > -1;
     }
 
@@ -346,6 +349,7 @@ data.getArea = function() {
 
 window.addEventListener('mouseup', function(event) {
   delete data.multiSelectState;
+  data.protofit.className = '';
   console.log('deleted')
 }, false);
 
