@@ -9,9 +9,7 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
-- Add logo
 - Benching types (density)
-- Crop SVGs properly
 - Points not sorted correctly on iPad
 - iPad
 
@@ -27,6 +25,8 @@ http://localhost:3000/?client=floored&project=test
 - Add compass [here](http://ai.github.io/compass.js/)
 
 ## Done
+- [√] Add logo
+- [√] Crop SVGs properly
 - [√] Dynamically resize svg on window
 - [√] Reception & Cafe (uneditable cells)
 - [√] Legend for different cell types
