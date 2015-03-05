@@ -9,11 +9,15 @@ http://localhost:3000/?client=floored&project=test
 ```
 
 ## To Do
+- ESB
 - Points not sorted correctly on iPad
 - Style picker
 - click outside to deselect all
 - Convert mouse gestures to tap gestures (mouse + touch)
 - Fallbacks
+- Keep iframe alive unless changing model
+- CHange model names in depot
+- Investigate pan/zoom
 
 - Benching types (density)
 - Indicate how many people would be added / removed
