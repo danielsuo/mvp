@@ -10,15 +10,14 @@ http://localhost:3000/?client=floored&project=test
 
 ## To Do
 ### Jake
+- Add dropshadow to esb
 
 ### Daniel
 
 ### Sydney
-- Fallbacks
-- Update models
-- Change model names in depot
 
 ## On the radar
+- Fallbacks
 - Custom cell type
 - Investigate pan/zoom
 - Benching types (density)
@@ -38,6 +37,8 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Change model names in depot
+- [√] Update models
 - [√] Color for reception / pantry
 - [√] Style picker
 - [√] Remove iframe when we hit start over
