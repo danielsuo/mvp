@@ -45,6 +45,10 @@ data[APP_NAME] = document.getElementById(APP_NAME);
 data.panel = document.getElementById('panel');
 data.protofit = document.getElementById('protofit');
 data.info = document.getElementById('info');
+data.loading = document.getElementById('loading');
+data.northArrow = document.getElementById('north-arrow');
+data.logo = document.getElementById('project-logo');
+data.rsfInput = document.getElementById('rsf-input');
 
 // data.enableZoom(data[APP_NAME]);
 // data.enablePan(data[APP_NAME]);
@@ -63,12 +67,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
   data.viewbox(0, 0, data.config.width, data.config.height);
 
-  data.northArrow = document.getElementById('north-arrow');
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
-
-  data.logo = document.getElementById('project-logo');
   data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
-  data.loading = document.getElementById('loading');
+  data.rsfInput.value = data.config.project.area;
+
 
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
@@ -118,6 +120,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 }).then(function() {
   // data.info.innerHTML = 'Loading complete!';
   document.getElementById('app').className = ''
+  setTimeout(function(){
+    document.getElementById('loading').className = ''
+  }, 1000);
 
   return data.cells.load(data.cells.svg, data.dir + '/cells.svg').then(function() {
     data.cells.reset(data.cells.state);
@@ -452,6 +457,9 @@ window.addEventListener('keyup', function(event) {
       break;
     case 73: // i: info
       console.log('No info!');
+      break;
+    case 13: // enter: unfocus input
+      data.rsfInput.blur();
       break;
   }
 }, false);

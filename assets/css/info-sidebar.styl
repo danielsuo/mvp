@@ -35,6 +35,53 @@
 #app.loading #project-logo
   opacity 0
 
+#rsf
+  display flex
+  justify-content space-between
+  padding 0 1rem
+  box-sizing border-box
+  transition opacity 0.33s ease-out .5s
+  
+  span
+    display block
+    flex-grow 1
+
+  input
+    border none
+    max-width 50%
+    background transparent
+    border-bottom 1px dotted rgba(113, 111, 176, 0.3)
+    ApercuLight()
+    color #6C668B
+    transition color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease
+    font-size 1rem
+    font-feature-settings 'pnum' 1
+    -webkit-font-feature-settings 'pnum' 1
+    -moz-font-feature-settings 'pnum' 1
+    padding-bottom 0.5rem
+    text-align right
+    border-radius 2px
+    &:hover
+      color #7270B1
+      background #fff
+      border-bottom 1px solid rgba(113, 111, 176, 0.6)
+      outline none
+      cursor pointer
+      ApercuRegular()
+    &:focus
+      color #7270B1
+      background #fff
+      border-bottom 1px solid #7270b1
+      outline none
+      ApercuBold()
+      text-align left
+      
+    
+
+#app.loading #rsf
+  opacity 0
+
+
 #powered-by
   padding-bottom 1.5rem
   text-align center
