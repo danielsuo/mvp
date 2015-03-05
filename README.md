@@ -12,6 +12,7 @@ http://localhost:3000/?client=floored&project=test
 ### Jake
 - ESB
 - Style picker
+- Add another
 
 ### Daniel
 - Points not sorted correctly on iPad
