@@ -163,6 +163,7 @@
     ul span
       opacity 0
       transition opacity 0.15s ease
+      pointer-events none
     li, h3, button.deselect
       transition opacity 0.15s ease 0.15s
     
@@ -170,13 +171,11 @@
   &.no-selection
     li, h3, button.deselect
       opacity 0
+      pointer-events none
     ul
       box-shadow 0 1px 6px rgba(0,0,8,0)
-      pointer-events none
       span
         transition opacity 0.15s ease 0.15s
-    button.deselect
-      pointer-events none
 
 
 
