@@ -144,3 +144,24 @@
       display none
     .no-selection
       display block
+      
+#loading
+  position absolute
+  width 4rem
+  height 4rem
+  top calc(50% - 2rem)
+  left calc(40% - 2rem)
+  background-image url('../img/loading.svg')
+  background-size contain
+  background-repeat no-repeat
+  opacity 0
+  transition opacity 0.15s ease
+  pointer-events none
+
+#app.loading #loading
+  opacity 0.4
+  animation spin 1s infinite
+
+@keyframes spin
+  from transform rotate(0deg)
+  to   transform rotate(360deg)

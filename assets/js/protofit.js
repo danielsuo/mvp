@@ -66,8 +66,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.northArrow = document.getElementById('north-arrow');
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
 
-  data.logo = document.getElementById('project-logo')
+  data.logo = document.getElementById('project-logo');
   data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
+  data.loading = document.getElementById('loading');
 
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
@@ -111,11 +112,12 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       svg.node.setAttribute('class', 'plan-layer ' + 'layer-' + layer.id)
 
       numLoaded += 1;
-      data.info.innerHTML = [numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
+      // data.info.innerHTML = [numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
     })
   }));
 }).then(function() {
-  data.info.innerHTML = 'Loading complete!';
+  // data.info.innerHTML = 'Loading complete!';
+  document.getElementById('app').className = ''
 
   return data.cells.load(data.cells.svg, data.dir + '/cells.svg').then(function() {
     data.cells.reset(data.cells.state);
