@@ -411,11 +411,25 @@ data.mousedown(function(event) {
   event.stopPropagation();
 });
 
+data.touchstart(function(event) {
+  console.log('clicked', APP_NAME);
+  event.stopPropagation();
+});
+
 document.getElementById('protofit').addEventListener('mousedown', function(event) {
   data.clearSelection();
 }, false);
 
+document.getElementById('protofit').addEventListener('touchstart', function(event) {
+  data.clearSelection();
+}, false);
+
 window.addEventListener('mouseup', function(event) {
+  delete data.multiSelectState;
+  data.protofit.className = data.protofit.className.replace(/(?:^|\s)dragging(?!\S)/, '')
+}, false);
+
+window.addEventListener('touchend', function(event) {
   delete data.multiSelectState;
   data.protofit.className = data.protofit.className.replace(/(?:^|\s)dragging(?!\S)/, '')
 }, false);
