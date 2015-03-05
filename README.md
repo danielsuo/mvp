@@ -18,7 +18,6 @@ http://localhost:3000/?client=floored&project=test
 
 ### Daniel
 - Points not sorted correctly on iPad
-- Keep iframe alive unless changing model
 - Investigate pan/zoom
 
 ### Sydney
@@ -42,6 +41,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Keep iframe alive unless changing model (hit 'd' to force delete)
 - [√] Convert mouse gestures to tap gestures (mouse + touch)
 - [√] click outside or hit escape to deselect all
 - [√] Fix squashed desks (remove two pairs on left) and move the others; update seat in config.json

@@ -356,15 +356,17 @@ data.btn['model-view-btn'].hammer.on('tap', function(event) {
     data.iframe = true;
     data.protofit.className = 'three-d';
     data.btn['model-view-btn'].node.innerHTML = 'Close 3D view';
-    var iframe = document.createElement('iframe');
-    iframe.src = data.config.models[0].url;
-    iframe.id = 'model-viewer';
-
-    data.protofit.appendChild(iframe);
+    if (document.getElementById('model-viewer') == null) {
+      var iframe = document.createElement('iframe');
+      iframe.src = data.config.models[0].url;
+      iframe.id = 'model-viewer';
+      data.protofit.appendChild(iframe);
+    }
+    document.getElementById('model-viewer').style.display = 'block';
   } else {
+    document.getElementById('model-viewer').style.display = 'none';
     data.iframe = false;
     data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
-    data.protofit.removeChild(document.getElementById('model-viewer'));
     data.protofit.className = '';
   }
 
@@ -441,6 +443,10 @@ window.addEventListener('keyup', function(event) {
       data.clearSelection();
     case 83: // s: save state
       console.log(data.cells.state);
+      break;
+    case 68: // d: delete iframe
+      data.protofit.removeChild(document.getElementById('model-viewer'));
+      data.protofit.className = '';
       break;
     case 73: // i: info
       console.log('No info!');
