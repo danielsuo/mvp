@@ -13,8 +13,8 @@
   "north": {
     "direction": -29
   },
-  "width": "740",
-  "height": "440",
+  "width": "468",
+  "height": "340",
   "last_updated": "",
   "cells": {
     "disabled": [35, 36, 37]

@@ -13,6 +13,8 @@ http://localhost:3000/?client=floored&project=test
 - ESB
 - Style picker
 - Add another
+- Add input for RSF
+- Change empty cell color
 
 ### Daniel
 - Points not sorted correctly on iPad

@@ -51,6 +51,7 @@
 	<rect x="349.1" y="98.9" fill="#FBFBFF" width="8.1" height="6.2"/>
 	<rect x="411.3" y="99" fill="#FBFBFF" width="6" height="6"/>
 </g>
+<polygon fill="#FBFBFF" points="416.2,79.4 416.2,79.4 389.6,79.4 389.6,80.5 416.2,80.5 416.2,147.6 417.3,147.6 417.3,79.4 "/>
 <g id="LINE">
 	
 		<line fill="none" stroke="#5C5B79" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="121.8" y1="170" x2="156.7" y2="170"/>
@@ -1049,7 +1050,7 @@
 </g>
 <g id="LINE_249_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="411.3" y1="99" x2="417.3" y2="99"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="411.3" y1="99" x2="416.2" y2="99"/>
 </g>
 <g id="LINE_250_">
 	
@@ -9628,7 +9629,7 @@
 </g>
 <g id="LINE_2348_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="417.3" y1="105.1" x2="411.3" y2="105.1"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.2" y1="105.1" x2="411.3" y2="105.1"/>
 </g>
 <g id="LINE_2349_">
 	
@@ -13250,67 +13251,43 @@
 </g>
 <g id="LINE_24014_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="349.5" y1="214.9" x2="349.5" y2="240.6"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="349.5" y1="214.9" x2="349.5" y2="240.6"/>
 </g>
 <g id="LINE_24013_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="349.5" y1="240.6" x2="350.6" y2="240.6"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="349.5" y1="240.6" x2="350.6" y2="240.6"/>
 </g>
 <g id="LINE_24012_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350.6" y1="240.6" x2="350.6" y2="214.9"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350.6" y1="240.6" x2="350.6" y2="214.9"/>
 </g>
 <g id="LINE_24011_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350.6" y1="214.9" x2="349.5" y2="214.9"/>
-</g>
-<g id="LINE_24010_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350" y1="240.6" x2="350" y2="214.9"/>
-</g>
-<g id="LINE_24009_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350.1" y1="240.6" x2="350.1" y2="214.9"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="350.6" y1="214.9" x2="349.5" y2="214.9"/>
 </g>
 <g id="LINE_24214_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="389.6" y1="80.5" x2="416.2" y2="80.5"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="389.6" y1="80.5" x2="416.2" y2="80.5"/>
 </g>
 <g id="LINE_24213_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="417.3" y1="79.4" x2="389.6" y2="79.4"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="417.3" y1="79.4" x2="389.6" y2="79.4"/>
 </g>
 <g id="LINE_24212_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="389.6" y1="79.4" x2="389.6" y2="80.5"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="389.6" y1="79.4" x2="389.6" y2="80.5"/>
 </g>
 <g id="LINE_24211_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.2" y1="80.5" x2="416.2" y2="147.6"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.2" y1="80.5" x2="416.2" y2="142.9"/>
 </g>
 <g id="LINE_24210_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.2" y1="147.6" x2="417.3" y2="147.6"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.8" y1="147.6" x2="417.3" y2="147.6"/>
 </g>
 <g id="LINE_24209_">
 	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.7087" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="417.3" y1="147.6" x2="417.3" y2="79.4"/>
-</g>
-<g id="LINE_24208_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.7" y1="79.9" x2="389.6" y2="79.9"/>
-</g>
-<g id="LINE_24207_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.8" y1="79.9" x2="389.6" y2="79.9"/>
-</g>
-<g id="LINE_24206_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.7" y1="147.6" x2="416.7" y2="79.9"/>
-</g>
-<g id="LINE_24205_">
-	
-		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="416.8" y1="147.6" x2="416.8" y2="79.9"/>
+		<line fill="none" stroke="#2B2A46" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="417.3" y1="147.6" x2="417.3" y2="79.4"/>
 </g>
 <g id="LINE_24204_">
 	
@@ -13656,4 +13633,5 @@
 	
 		<line fill="none" stroke="#2B2A46" stroke-width="0.2551" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="407.1" y1="137.1" x2="407.1" y2="131.7"/>
 </g>
+<rect x="349.5" y="214.9" fill="#FBFBFF" width="1" height="25.5"/>
 </svg>
