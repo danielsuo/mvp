@@ -145,7 +145,7 @@
   ul
     backface-visibility hidden
     position relative
-    transition box-shadow 0.15s ease
+    transition box-shadow 0.15s ease, border-color 0.15s ease
     span
       backface-visibility hidden
       Apercu()
@@ -166,19 +166,16 @@
       pointer-events none
     li, h3, button.deselect
       transition opacity 0.15s ease 0.15s
-    
 
   &.no-selection
     li, h3, button.deselect
       opacity 0
       pointer-events none
     ul
+      border 1px solid rgba(0,0,8,0.05)
       box-shadow 0 1px 6px rgba(0,0,8,0)
       span
         transition opacity 0.15s ease 0.15s
-
-
-
       
 #loading
   position absolute
