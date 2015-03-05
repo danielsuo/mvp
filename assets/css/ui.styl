@@ -1,3 +1,7 @@
+#app.loading #panel
+  opacity 0.33
+  pointer-events none  
+
 #panel
   position absolute
   height 100%
@@ -7,6 +11,7 @@
   flex-direction column
   justify-content space-between
   color #6C668B
+  transition opacity 0.33s ease-out
   font-feature-settings 'liga' 0
   -webkit-font-feature-settings 'liga' 0
   -moz-font-feature-settings 'liga' 0
@@ -144,3 +149,24 @@
       display none
     .no-selection
       display block
+      
+#loading
+  position absolute
+  width 4rem
+  height 4rem
+  top calc(50% - 2rem)
+  left calc(40% - 2rem)
+  background-image url('../img/loading.svg')
+  background-size contain
+  background-repeat no-repeat
+  opacity 0
+  transition opacity 0.33s ease
+  pointer-events none
+
+#app.loading #loading
+  opacity 0.4
+  animation spin 1s infinite linear
+
+@keyframes spin
+  from transform rotate(0deg)
+  to   transform rotate(360deg)
