@@ -133,6 +133,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   // keep selection, but clear and create new selection on click
   radio('cell-clicked').subscribe(function(i, dragging) {
     console.log('Cell clicked', i);
+    console.log('    Cell contents', data.cells.coord[i].reduce(function(x, y) {return x + ', ' + y.x + ' ' + y.y}, ''));
     if (data.config.cells.disabled.indexOf(parseInt(i)) > -1) {
       return;
     }
@@ -409,12 +410,10 @@ data.getArea = function() {
 };
 
 data.mousedown(function(event) {
-  console.log('clicked', APP_NAME);
   event.stopPropagation();
 });
 
 data.touchstart(function(event) {
-  console.log('clicked', APP_NAME);
   event.stopPropagation();
 });
 
