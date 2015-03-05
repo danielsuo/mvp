@@ -268,6 +268,8 @@ var printInfo = function() {
   info += "<tr class='reception'><td>Reception</td><td>1</td></tr>"
   info += "<tr class='pantry'><td>Pantry</td><td>1</td></tr>"
 
+  info += "<tr><td><br/></td><td></td></tr>"
+
   var headcount = data.getHeadcount();
   info += "<tr class='headcount'>";
   info += "<td>Total headcount</td>";
