@@ -11,6 +11,9 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 - Points not sorted correctly on iPad
 - Style picker
+- click outside to deselect all
+- Convert mouse gestures to tap gestures (mouse + touch)
+- Fallbacks
 
 - Benching types (density)
 - Indicate how many people would be added / removed
