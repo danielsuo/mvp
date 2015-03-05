@@ -29,7 +29,7 @@ require('./lib/compass');
 
 var isMobile = require('./util/mobile').any;
 
-window.APP_NAME = 'protofit';
+window.APP_NAME = 'svg-container';
 
 var draw = SVG(APP_NAME);
 var data = draw.nested();
@@ -355,18 +355,18 @@ data.btn['editor-done-btn'].hammer.on('tap', function(event) {
 data.btn['model-view-btn'].hammer.on('tap', function(event) {
   if (!data.iframe) {
     data.iframe = true;
+    data.protofit.className = 'three-d';
     data.btn['model-view-btn'].node.innerHTML = 'Close 3D view';
     var iframe = document.createElement('iframe');
     iframe.src = data.config.models[0].url;
-    iframe.width = "100%";
-    iframe.height = "100%";
     iframe.id = 'model-viewer';
 
-    data[APP_NAME].appendChild(iframe);
+    data.protofit.appendChild(iframe);
   } else {
     data.iframe = false;
     data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
-    data[APP_NAME].removeChild(document.getElementById('model-viewer'));
+    data.protofit.removeChild(document.getElementById('model-viewer'));
+    data.protofit.className = '';
   }
 
 });
@@ -404,7 +404,7 @@ data.getArea = function() {
 
 window.addEventListener('mouseup', function(event) {
   delete data.multiSelectState;
-  data.protofit.className = '';
+  data.protofit.className = data.protofit.className.replace( /(?:^|\s)dragging(?!\S)/ , '' )
 }, false);
 
 window.addEventListener('keypress', function(event) {
