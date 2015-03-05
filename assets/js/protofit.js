@@ -138,8 +138,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     }
 
     if (data.multiSelectClear) {
-      data.selected = [];
-      data.cells.reset(data.cells.state);
+      data.clearSelection();
       data.multiSelectClear = false;
     }
 
@@ -342,15 +341,13 @@ data.btn['layout-next-btn'].hammer.on('tap', function(event) {
 });
 
 data.btn['editor-back-btn'].hammer.on('tap', function(event) {
-  data.selected = [];
-  data.cells.reset(data.cells.state);
+  data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
 });
 
 data.btn['editor-done-btn'].hammer.on('tap', function(event) {
-  data.selected = [];
-  data.cells.reset(data.cells.state);
+  data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
 });
 
@@ -388,7 +385,7 @@ data.getHeadcount = function() {
     headcount += this.config.layers[this.cells.state[i]].seats[i];
   }
   return headcount;
-}
+};
 
 data.getBenchingHeadcount = function() {
   var headcount = 0;
@@ -398,28 +395,40 @@ data.getBenchingHeadcount = function() {
     }
   }
   return headcount;
-}
+};
+
+data.clearSelection = function() {
+  data.selected = [];
+  data.cells.reset(data.cells.state);
+};
 
 data.getArea = function() {
   return this.config.project.area;
-}
+};
 
-document.getElementById('protofit').addEventListener('mouseup', function(event) {
-  console.log('hello!')
+data.mousedown(function(event) {
+  console.log('clicked', APP_NAME);
+  event.stopPropagation();
+});
+
+document.getElementById('protofit').addEventListener('mousedown', function(event) {
+  data.clearSelection();
 }, false);
 
 window.addEventListener('mouseup', function(event) {
   delete data.multiSelectState;
-  data.protofit.className = data.protofit.className.replace( /(?:^|\s)dragging(?!\S)/ , '' )
+  data.protofit.className = data.protofit.className.replace(/(?:^|\s)dragging(?!\S)/, '')
 }, false);
 
-window.addEventListener('keypress', function(event) {
-  console.log(event.charCode);
-  switch (event.charCode) {
-    case 115: // s: save state
+window.addEventListener('keyup', function(event) {
+  console.log(event.which);
+  switch (event.which) {
+    case 27:
+      data.clearSelection();
+    case 83: // s: save state
       console.log(data.cells.state);
       break;
-    case 105: // i: info
+    case 73: // i: info
       console.log('No info!');
       break;
   }

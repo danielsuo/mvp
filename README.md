@@ -18,7 +18,6 @@ http://localhost:3000/?client=floored&project=test
 
 ### Daniel
 - Points not sorted correctly on iPad
-- click outside to deselect all
 - Convert mouse gestures to tap gestures (mouse + touch)
 - Keep iframe alive unless changing model
 - Investigate pan/zoom
@@ -28,6 +27,7 @@ http://localhost:3000/?client=floored&project=test
 - Update models
 - Change model names in depot
 
+## On the radar
 - Benching types (density)
 - Indicate how many people would be added / removed
 - Merge cells
@@ -39,8 +39,11 @@ http://localhost:3000/?client=floored&project=test
 - Modules
 - Don't redraw cells on reset; unclip and change color instead
 - Add compass [here](http://ai.github.io/compass.js/)
+- Share multiple floor plans
+- Measure tools for distances and areas
 
 ## Done
+- [√] click outside or hit escape to deselect all
 - [√] Fix squashed desks (remove two pairs on left) and move the others; update seat in config.json
 - [√] Add logo
 - [√] iPad

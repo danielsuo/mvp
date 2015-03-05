@@ -103,6 +103,10 @@ Cells.draw = function(opts) {
         });
         path.mousedown(function(event) {
           radio('cell-clicked').broadcast(x, false);
+          Cells.dragStart = true;
+        });
+        path.mouseup(function(event) {
+          Cells.dragStart = false;
         });
       }
     })(i);
@@ -115,23 +119,5 @@ Cells.reset = function(state) {
     state: state
   });
 };
-
-if (isMobile) {
-  window.addEventListener('touchstart', function(event) {
-    Cells.dragStart = true;
-  }, false);
-
-  window.addEventListener('touchend', function(event) {
-    Cells.dragStart = false;
-  }, false);
-} else {
-  window.addEventListener('mousedown', function(event) {
-    Cells.dragStart = true;
-  }, false);
-
-  window.addEventListener('mouseup', function(event) {
-    Cells.dragStart = false;
-  }, false);
-}
 
 module.exports = Cells;
