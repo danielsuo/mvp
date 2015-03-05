@@ -38,4 +38,18 @@ module.exports = function(points) {
     var d2 = (b.x - center.x) * (b.x - center.x) + (b.y - center.y) * (b.y - center.y);
     return d1 > d2;
   });
+
+  // for (var i = 0; i < points.length; i++) {
+  //   var currIndex = i;
+  //   var nextIndex = (i + 1) % points.length;
+
+  //   var currPoint = points[currIndex];
+  //   var nextPoint = points[nextIndex];
+
+  //   var isOrthoLine = Math.abs(currPoint.x - nextPoint.x) < 0.5 || Math.abs(currPoint.y - nextPoint.y) < 0.5;
+
+  //   if (!isOrthoLine) {
+  //     points[currIndex] = points.splice(nextIndex, 1, points[currIndex])[0];
+  //   }
+  // }
 }
