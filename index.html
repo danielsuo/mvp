@@ -24,13 +24,15 @@
             <button id="editor-back-btn" class="btn back">Start Over</button>
             <hr />
             <div>
-              <span class="no-selection">Click on a tile to select it.</span>
-              <h3 class="has-selection">Replace With…</h3>
-              <ul id="editor-list" class="has-selection"></ul>
+              <h3>Replace With…</h3>
+              <ul id="editor-list">
+                <span>Click on a tile to select it.</span>
+              </ul>
+              <button id="editor-done-btn" class="btn deselect">Deselect All</button>
             </div>
-            <button id="editor-done-btn" class="btn next has-selection">Done</button>
-            <button id="model-view-btn" class="btn model no-selection">View in 3D</button>
-            <button id="editor-share-btn" class="btn share no-selection">Share…</button>
+            <hr />
+            <button id="model-view-btn" class="btn model">View in 3D</button>
+            <button id="editor-share-btn" class="btn share">Share…</button>
           </section>
         </div>
       </div>
@@ -47,12 +49,14 @@
             <div id="project-address"></div>
             <hr />
             <div id="project-logo"></div>
-            <hr />
+            <hr class="logo-hr" />
           </div>
           <div id="rsf">
-            <div>RSF</div>
-            <span></span>
-            <input id="rsf-input" type="number" />
+            <div>
+              <span>RSF</span>
+              <input id="rsf-input" type="number" />
+            </div>
+            <hr />
           </div>
           <div id="info"></div>
           <div class="grow"></div>

@@ -445,8 +445,9 @@ window.addEventListener('touchend', function(event) {
 window.addEventListener('keyup', function(event) {
   console.log(event.which);
   switch (event.which) {
-    case 27:
+    case 27: // esc
       data.clearSelection();
+      data.rsfInput.blur();
     case 83: // s: save state
       console.log(data.cells.state);
       break;

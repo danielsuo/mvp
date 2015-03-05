@@ -17,6 +17,7 @@
   h3
     font-size 1.05em
     padding-bottom 0.5rem
+    line-height 1.3em
 
 #project-address
   text-align center
@@ -35,16 +36,24 @@
 #app.loading #project-logo
   opacity 0
 
+.logo-hr
+  transition opacity 0.33s ease-out .4s
+#app.loading .logo-hr
+  opacity 0  
+
 #rsf
-  display flex
-  justify-content space-between
-  padding 0 1rem
   box-sizing border-box
   transition opacity 0.33s ease-out .5s
+  > div   
+    padding 0 1rem
+    display flex
+    justify-content space-between
   
   span
     display block
     flex-grow 1
+    letter-spacing 0.125em
+    
 
   input
     border none
@@ -58,7 +67,6 @@
     font-feature-settings 'pnum' 1
     -webkit-font-feature-settings 'pnum' 1
     -moz-font-feature-settings 'pnum' 1
-    padding-bottom 0.5rem
     text-align right
     border-radius 2px
     &:hover
