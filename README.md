@@ -18,7 +18,6 @@ http://localhost:3000/?client=floored&project=test
 
 ### Daniel
 - Points not sorted correctly on iPad
-- Investigate pan/zoom
 
 ### Sydney
 - Fallbacks
@@ -26,7 +25,10 @@ http://localhost:3000/?client=floored&project=test
 - Change model names in depot
 
 ## On the radar
+- Investigate pan/zoom
 - Benching types (density)
+- Add pop-up when mousing over cell?
+- Debug mode that has cell #
 - Indicate how many people would be added / removed
 - Merge cells
 - Add scale
