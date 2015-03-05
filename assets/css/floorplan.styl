@@ -71,7 +71,7 @@
   box-sizing border-box 
   padding 2rem
   opacity 1
-  transition opacity 1s ease
+  transition opacity 0.66s ease 0.2s
 
 #app.loading #svg-container
   opacity 0
@@ -83,12 +83,14 @@
   width 2.5rem
   height 2.5rem
   opacity 0.5
+  transition opacity 1s ease, transform 1.66s ease-out
 
   div
     absolute100()
     background-image url('../img/north-arrow.svg')
     background-size contain
     background-repeat no-repeat
+    transition transform 2s ease-out
   
   span
     position absolute
@@ -97,3 +99,12 @@
     transform translateX(-50%) translateY(-50%)
     ApercuRegular()
     font-size 0.8em
+    
+#app.loading #project-north
+  opacity 0
+  transition opacity 1s ease, transform 1.66s ease-out
+  transform scale(0.5, 0.5)
+
+  div 
+    transform rotate(810deg) !important
+    transition transform 2s ease-out

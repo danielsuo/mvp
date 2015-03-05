@@ -12,9 +12,9 @@ http://localhost:3000/?client=floored&project=test
 ### Jake
 - ESB
 - Style picker
-- Add another
 - Add input for RSF
 - Change empty cell color
+- Reduce thrash when mode-switching in ui sidebar
 
 ### Daniel
 - Points not sorted correctly on iPad
@@ -41,6 +41,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Loading spinner
 - [√] Keep iframe alive unless changing model (hit 'd' to force delete)
 - [√] Convert mouse gestures to tap gestures (mouse + touch)
 - [√] click outside or hit escape to deselect all

@@ -1,3 +1,7 @@
+#app.loading #panel
+  opacity 0.33
+  pointer-events none  
+
 #panel
   position absolute
   height 100%
@@ -7,6 +11,7 @@
   flex-direction column
   justify-content space-between
   color #6C668B
+  transition opacity 0.33s ease-out
   font-feature-settings 'liga' 0
   -webkit-font-feature-settings 'liga' 0
   -moz-font-feature-settings 'liga' 0
@@ -155,7 +160,7 @@
   background-size contain
   background-repeat no-repeat
   opacity 0
-  transition opacity 0.15s ease
+  transition opacity 0.33s ease
   pointer-events none
 
 #app.loading #loading
