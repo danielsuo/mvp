@@ -163,21 +163,20 @@
     ul span
       opacity 0
       transition opacity 0.15s ease
+    li, h3, button.deselect
+      transition opacity 0.15s ease 0.15s
+    
 
   &.no-selection
-    h3  
+    li, h3, button.deselect
       opacity 0
     ul
-      background transparent
       box-shadow 0 1px 6px rgba(0,0,8,0)
       pointer-events none
       span
         transition opacity 0.15s ease 0.15s
-    li
-      opacity 0
     button.deselect
       pointer-events none
-      opacity 0
 
 
 
