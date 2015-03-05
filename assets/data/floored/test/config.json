@@ -11,7 +11,7 @@
     "address": "159 West 25th Street"
   },
   "north": {
-    "direction": 0
+    "direction": -29
   },
   "width": "740",
   "height": "440",
