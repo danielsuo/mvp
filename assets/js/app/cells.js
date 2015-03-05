@@ -39,6 +39,7 @@ Cells.load = function(svg, url) {
         }, true)) {
           points.push(p);
         }
+
         var p = {
           x: line.attr('x2'),
           y: line.attr('y2')
@@ -72,7 +73,7 @@ Cells.draw = function(opts) {
 
     if (opts.reset) {
       path.attr(Cells.attr);
-      sortPoints(coord);
+      sortPoints(coord, i);
     }
 
     for (var j in coord) {
@@ -95,12 +96,6 @@ Cells.draw = function(opts) {
 
     (function(x) {
       if (isMobile) {
-        // path.touchenter(function(event) {
-        //   console.log(x)
-        //   if (Cells.dragStart) {
-        //     radio('cell-clicked').broadcast(x, true);
-        //   }
-        // });
         path.touchstart(function(event) {
           radio('cell-clicked').broadcast(x, false);
         });

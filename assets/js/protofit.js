@@ -124,9 +124,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     document.getElementById('loading').className = ''
   }, 1000);
 
-  return data.cells.load(data.cells.svg, data.dir + '/cells.svg').then(function() {
-    data.cells.reset(data.cells.state);
-  })
+  return data.cells.load(data.cells.svg, data.dir + '/cells.svg')
+  // .then(function() {
+  //   data.cells.reset(data.cells.state);
+  // })
 }).then(function() {
 
   data.editor = document.getElementById('editor');
@@ -311,6 +312,7 @@ var setLayout = function(layoutIndex) {
   }
 
   data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
+  data.cells.reset(data.cells.state);
 
   for (var j in data.cells.state) {
     var layer = data.cells.state[j];
@@ -327,8 +329,6 @@ var setLayout = function(layoutIndex) {
       data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
     }
   }
-
-  data.cells.reset(data.cells.state);
 
   // for (var j in data.cells.state) {
   //   var node = data.cells.paths[j].node.dataset.layer = data.cells.state[j];
