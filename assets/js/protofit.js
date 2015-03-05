@@ -126,6 +126,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       // data.info.innerHTML = [numLoaded, 'of', data.config.layers.length, 'loaded'].join(' ');
     })
   }));
+
 }).then(function() {
   // data.info.innerHTML = 'Loading complete!';
   data.appContainer.className = ''
@@ -251,7 +252,6 @@ XHR.get(data.dir + '/config.json').then(function(response) {
     })(data.config.layouts[i].id, i);
   }
 
-
   setLayout(0);
 
 }).catch(function(error) {
@@ -338,6 +338,14 @@ var setLayout = function(layoutIndex) {
       data.config.layers[j].svg.clipWith(data.config.layers[j].mask);
     }
   }
+
+  for (var i in data.config.cells.disabled) {
+    for (var j in data.config.cells.disabled[i]) {
+      var cell = data.config.cells.disabled[i][j];
+      data.cells.paths[cell].node.dataset.layer = 5;
+    }
+  }
+
 
   // for (var j in data.cells.state) {
   //   var node = data.cells.paths[j].node.dataset.layer = data.cells.state[j];

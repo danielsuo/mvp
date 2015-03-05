@@ -10,8 +10,6 @@ http://localhost:3000/?client=floored&project=test
 
 ## To Do
 ### Jake
-- Style picker
-- Color for reception / pantry
 
 ### Daniel
 
@@ -40,6 +38,8 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Color for reception / pantry
+- [√] Style picker
 - [√] Remove iframe when we hit start over
 - [√] Escape and click outside also make side bar disappear
 - [√] Points not sorted correctly on iPad
