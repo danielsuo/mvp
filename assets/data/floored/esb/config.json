@@ -18,7 +18,10 @@
   "last_updated": "",
   "cells": {
     "length": "81",
-    "disabled": [44, 67, 68, 69]
+    "disabled": {
+      "pantry": [44],
+      "reception": [67, 68, 69]
+    }
   },
   "layers": [{
     "id": "benching",

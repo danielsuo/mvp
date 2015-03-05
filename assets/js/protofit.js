@@ -72,6 +72,14 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
   data.rsfInput.value = data.config.project.area;
 
+  var disabled = [];
+  for (var disabled_type in data.config.cells.disabled) {
+    for (var i = 0; i < data.config.cells.disabled[disabled_type].length; i++) {
+      disabled.push(data.config.cells.disabled[disabled_type][i]);
+    }
+  }
+
+  data.config.cells.disabled.total = disabled;
 
   return SVG.load(data.bg.svg, data.bg.url).then(function(svg) {
     svg.node.setAttribute('class', 'bg');
@@ -143,7 +151,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   radio('cell-clicked').subscribe(function(i, dragging) {
     console.log('Cell clicked', i);
     console.log('    Cell contents', data.cells.coord[i].reduce(function(x, y) {return x + ', ' + y.x + ' ' + y.y}, ''));
-    if (data.config.cells.disabled.indexOf(parseInt(i)) > -1) {
+    if (data.config.cells.disabled.total.indexOf(parseInt(i)) > -1) {
       return;
     }
 

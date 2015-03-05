@@ -18,7 +18,10 @@
   "last_updated": "",
   "cells": {
     "length": 46,
-    "disabled": [35, 36, 37]
+    "disabled": {
+      "pantry": [37],
+      "reception": [35, 36]
+    }
   },
   "models": [{
     "name": "Perimeter Offices",
