@@ -73,41 +73,6 @@ Cells.draw = function(opts) {
     if (opts.reset) {
       path.attr(Cells.attr);
       sortPoints(coord);
-
-      // console.log(i, coord.length, coord.reduce(function(x, y) {return x + ', ' + y.x + ' ' + y.y}, ''))
-      // for (var j = coord.length - 1; j >= 0; j--) {
-      //   var currIndex = j;
-      //   var prevIndex = j - 1 < 0 ? coord.length - 1 : j - 1;
-
-      //   var currPoint = coord[currIndex];
-      //   var prevPoint = coord[prevIndex];
-
-      //   // console.log(coord)
-      //   // console.log(currIndex, prevIndex)
-      //   // console.log(currPoint, prevPoint)
-      //   var isOrthoLine = Math.abs(currPoint.x - prevPoint.x) < 0.5 || Math.abs(currPoint.y - prevPoint.y) < 0.5;
-
-      //   if (!isOrthoLine) {
-      //     coord[currIndex] = coord.splice(prevIndex, 1, coord[currIndex])[0];
-      //   }
-      // }
-      // for (var j = 0; j < coord.length; j++) {
-      //   var currIndex = j;
-      //   var nextIndex = j - 1 < 0 ? coord.length - 1 : j - 1;
-
-      //   var currPoint = coord[currIndex];
-      //   var nextPoint = coord[nextIndex];
-
-      //   // console.log(coord)
-      //   // console.log(currIndex, nextIndex)
-      //   // console.log(currPoint, nextPoint)
-      //   var isOrthoLine = currPoint.x == nextPoint.x || currPoint.y == nextPoint.y;
-
-      //   if (!isOrthoLine) {
-      //     coord[currIndex] = coord.splice(nextIndex, 1, coord[currIndex])[0];
-      //   }
-      // }
-      // console.log(i, coord.length, coord.reduce(function(x, y) {return x + ', ' + y.x + ' ' + y.y}, ''))
     }
 
     for (var j in coord) {
@@ -143,6 +108,8 @@ Cells.draw = function(opts) {
         path.mouseover(function(event) {
           if (Cells.dragStart) {
             radio('cell-clicked').broadcast(x, true);
+          } else {
+            radio('cell-over').broadcast(x);
           }
         });
         path.mousedown(function(event) {
