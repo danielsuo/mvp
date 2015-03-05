@@ -402,6 +402,10 @@ data.getArea = function() {
   return this.config.project.area;
 }
 
+document.getElementById('protofit').addEventListener('mouseup', function(event) {
+  console.log('hello!')
+}, false);
+
 window.addEventListener('mouseup', function(event) {
   delete data.multiSelectState;
   data.protofit.className = data.protofit.className.replace( /(?:^|\s)dragging(?!\S)/ , '' )
