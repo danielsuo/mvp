@@ -1,3 +1,10 @@
+#app.three-d
+  #svg-container
+    display none
+  #project-north
+    display none
+
+
 #protofit
   position absolute
   display flex
@@ -11,13 +18,7 @@
   border 1px solid rgba(0,0,8,0.1)
   overflow hidden
   user-select none
-  
-  &.three-d
-    #svg-container
-      display none
-    #project-north
-      display none
-  
+    
   iframe
     width 100%
     height 100%
@@ -42,7 +43,7 @@
     &[data-layer="0"] //benching
       fill #EFEEF3
       &.selected
-        fill #CFC5C8
+        fill #C0C0C0
         
     &[data-layer="1"] //breakout
       fill #EFF5EF

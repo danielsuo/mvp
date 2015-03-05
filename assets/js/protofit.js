@@ -49,6 +49,7 @@ data.loading = document.getElementById('loading');
 data.northArrow = document.getElementById('north-arrow');
 data.logo = document.getElementById('project-logo');
 data.rsfInput = document.getElementById('rsf-input');
+data.appContainer = document.getElementById('app');
 
 // data.enableZoom(data[APP_NAME]);
 // data.enablePan(data[APP_NAME]);
@@ -119,7 +120,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   }));
 }).then(function() {
   // data.info.innerHTML = 'Loading complete!';
-  document.getElementById('app').className = ''
+  data.appContainer.className = ''
   setTimeout(function(){
     document.getElementById('loading').className = ''
   }, 1000);
@@ -352,6 +353,12 @@ data.btn['editor-back-btn'].hammer.on('tap', function(event) {
   data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
+  if (data.iframe) {
+    document.getElementById('model-viewer').remove()
+    data.iframe = false;
+    data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
+    data.appContainer.className = '';
+  }
 });
 
 data.btn['editor-done-btn'].hammer.on('tap', function(event) {
@@ -362,7 +369,7 @@ data.btn['editor-done-btn'].hammer.on('tap', function(event) {
 data.btn['model-view-btn'].hammer.on('tap', function(event) {
   if (!data.iframe) {
     data.iframe = true;
-    data.protofit.className = 'three-d';
+    data.appContainer.className = 'three-d';
     data.btn['model-view-btn'].node.innerHTML = 'Close 3D view';
     if (document.getElementById('model-viewer') == null) {
       var iframe = document.createElement('iframe');
@@ -375,7 +382,7 @@ data.btn['model-view-btn'].hammer.on('tap', function(event) {
     document.getElementById('model-viewer').style.display = 'none';
     data.iframe = false;
     data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
-    data.protofit.className = '';
+    data.appContainer.className = '';
   }
 
 });

@@ -135,13 +135,26 @@
         color #827CA3 !important
           
 #editor
-  > div
-    display flex
-    flex-direction column
+  > div 
+    position relative
+    > div
+      display flex
+      flex-direction column
 
   h3, button.deselect
-    transition opacity 0.15s ease
+    transition opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease
   
+  .headers
+    position relative
+    span
+      position absolute
+      width 100%
+      text-align center
+      Apercu()
+      top 50%
+      transform translateY(-50%)
+      transition opacity 0.15s ease
+      
   ul
     backface-visibility hidden
     position relative
@@ -153,29 +166,56 @@
       position absolute
       top 50%
       left 50%
+      width 100%
       transform translateX(-50%) translateY(-50%)
   
   li
     backface-visibility hidden
     transition opacity 0.15s ease
-              
+  
   &.has-selection
-    ul span
+    .headers span
       opacity 0
-      transition opacity 0.15s ease
-      pointer-events none
-    li, h3, button.deselect
+    h3
       transition opacity 0.15s ease 0.15s
-
+              
   &.no-selection
-    li, h3, button.deselect
+    .headers span
+      transition opacity 0.15s ease 0.15s
+    .replace h3
       opacity 0
-      pointer-events none
+    #editor-list li, button.deselect
+      background-color transparent !important
+      cursor default
+      color rgba(0,0,8,0.3) !important
+    #editor-list li
+      border-color rgba(0,0,8,0.1) transparent transparent transparent
+      border-width 1px 0
+      &:first-of-type
+        border-width 0 0 1px 0
+      &:last-of-type
+        border-width 1px 0 0 0
     ul
-      border 1px solid rgba(0,0,8,0.05)
       box-shadow 0 1px 6px rgba(0,0,8,0)
-      span
-        transition opacity 0.15s ease 0.15s
+
+  .replace
+    transition opacity 0.15s ease 0.15s
+    
+  .style
+    absolute100()
+    opacity 0
+    pointer-events none
+    transition opacity 0.15s ease
+
+#app.three-d #editor
+  .replace
+    opacity 0
+    pointer-events none
+    transition opacity 0.15s ease
+  .style 
+    opacity 1
+    pointer-events all
+    transition opacity 0.15s ease 0.15s
       
 #loading
   position absolute

@@ -10,8 +10,8 @@ http://localhost:3000/?client=floored&project=test
 
 ## To Do
 ### Jake
-- ESB
 - Style picker
+- Color for reception / pantry
 
 ### Daniel
 
@@ -21,6 +21,7 @@ http://localhost:3000/?client=floored&project=test
 - Change model names in depot
 
 ## On the radar
+- Custom cell type
 - Investigate pan/zoom
 - Benching types (density)
 - Add pop-up when mousing over cell?
@@ -39,6 +40,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Remove iframe when we hit start over
 - [√] Escape and click outside also make side bar disappear
 - [√] Points not sorted correctly on iPad
 - [√] Add input for RSF
