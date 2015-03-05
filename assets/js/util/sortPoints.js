@@ -39,6 +39,23 @@ module.exports = function(points) {
     return d1 > d2;
   });
 
+  for (var i = 0; i < points.length; i++) {
+    var indices = [0, 1, 2, 3].map(function(x) {
+      return (i + x) % points.length;
+    });
+
+    var pts = indices.map(function(x) {
+      return points[x];
+    });
+
+    if ((pts[1].x == pts[2].x || pts[1].y == pts[2].y) && // 1st and 2nd points are on horizontal or vertical line
+        (pts[0].x == pts[2].x || pts[0].y == pts[2].y)
+      ) {
+      console.log('hello')
+    }
+    
+  }
+
   // for (var i = 0; i < points.length; i++) {
   //   var currIndex = i;
   //   var nextIndex = (i + 1) % points.length;
