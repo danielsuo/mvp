@@ -231,6 +231,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
             }
 
 
+            data.markDisabledCells();
             data.info.innerHTML = printInfo();
 
           });
@@ -339,13 +340,7 @@ var setLayout = function(layoutIndex) {
     }
   }
 
-  for (var i in data.config.cells.disabled) {
-    for (var j in data.config.cells.disabled[i]) {
-      var cell = data.config.cells.disabled[i][j];
-      data.cells.paths[cell].node.dataset.layer = 5;
-    }
-  }
-
+  data.markDisabledCells()
 
   // for (var j in data.cells.state) {
   //   var node = data.cells.paths[j].node.dataset.layer = data.cells.state[j];
@@ -430,10 +425,21 @@ data.getBenchingHeadcount = function() {
   return headcount;
 };
 
+
 data.clearSelection = function() {
   data.selected = [];
   data.cells.reset(data.cells.state);
+  data.markDisabledCells();
 };
+
+data.markDisabledCells = function() {
+  for (var i in data.config.cells.disabled) {
+    for (var j in data.config.cells.disabled[i]) {
+      var cell = data.config.cells.disabled[i][j];
+      data.cells.paths[cell].node.dataset.layer = 5;
+    }
+  }
+}
 
 data.getArea = function() {
   return this.config.project.area;
