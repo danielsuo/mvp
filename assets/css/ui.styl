@@ -55,7 +55,6 @@
       list-style none
       margin 0 1rem
       padding 0
-      background-color #fbfbff
       border 1px solid rgba(0,0,8,0.1)
       border-radius 2px
       box-shadow 0 1px 6px rgba(0,0,8,0.05)
@@ -64,7 +63,7 @@
       padding 1rem
       margin 0
       box-sizing border-box
-      background-color rgba(250,250,255,0.25)
+      background-color #fbfbff
       border-bottom 1px solid rgba(0,0,8,0.1)
       border-top 1px solid #fff
       line-height 1.35rem
@@ -80,32 +79,40 @@
         border-width 0
         
     button
-      font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
+      ApercuLight()
       margin 1rem
       padding 1rem
       border none
-      border-radius 3px
+      border-radius 2px
       border 1px solid rgba(0,0,8,0.1)
       outline none
       font-size 1em
       cursor pointer
       transition background-color 0.15s ease, color 0.15s ease
       &.next
+        ApercuBold()
         background-color #7270b1
         color #fbfbff
         &:hover
           background-color #8782CF
           
       &.back
-        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background #fbfbff
         color #933E44
         &:hover
           background-color #fff
           color #EC5C4E
           
+      &.deselect
+        margin-top 0.5rem
+        background #fbfbff
+        color #7270B1
+        margin-bottom 0px
+        &:hover
+          background-color #fff
+          color #514AAE
+          
       &.model
-        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background #fbfbff
         color #42586C
         margin-bottom 0px
@@ -115,7 +122,6 @@
 
           
       &.share
-        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
         background #fbfbff
         color #20671E
         &:hover
@@ -123,32 +129,58 @@
           color #59B55C
   
       &:disabled
-        font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+        ApercuLight()
         background-color transparent !important
         cursor default
         color #827CA3 !important
           
 #editor
-  backface-visibility hidden
   > div
     display flex
     flex-direction column
+
+  h3, button.deselect
+    transition opacity 0.15s ease
+  
+  ul
+    backface-visibility hidden
+    position relative
+    transition box-shadow 0.15s ease
     span
+      backface-visibility hidden
       Apercu()
       text-align center
-      margin auto
-      
+      position absolute
+      top 50%
+      left 50%
+      transform translateX(-50%) translateY(-50%)
+  
+  li
+    backface-visibility hidden
+    transition opacity 0.15s ease
+              
   &.has-selection
-    .has-selection
-      display block
-    .no-selection
-      display none
+    ul span
+      opacity 0
+      transition opacity 0.15s ease
 
   &.no-selection
-    .has-selection
-      display none
-    .no-selection
-      display block
+    h3  
+      opacity 0
+    ul
+      background transparent
+      box-shadow 0 1px 6px rgba(0,0,8,0)
+      pointer-events none
+      span
+        transition opacity 0.15s ease 0.15s
+    li
+      opacity 0
+    button.deselect
+      pointer-events none
+      opacity 0
+
+
+
       
 #loading
   position absolute

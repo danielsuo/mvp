@@ -2,13 +2,13 @@
   "client": {
     "id": "floored",
     "name": "Floored",
-    "logo": ["/atlantis-logo.svg"]
+    "logo": ["/esb-logo.svg"]
   },
   "project": {
     "id": "test",
-    "name": "The Emerald",
+    "name": "Empire State Building",
     "area": 26286,
-    "address": "159 West 25th Street"
+    "address": "350 5th Avenue"
   },
   "north": {
     "direction": -29
@@ -18,7 +18,7 @@
   "last_updated": "",
   "cells": {
     "length": "86",
-    "disabled": [35, 36, 37]
+    "disabled": [44, 67, 68, 69]
   },
   "layers": [{
     "id": "benching",
