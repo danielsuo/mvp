@@ -14,7 +14,6 @@ http://localhost:3000/?client=floored&project=test
 - Style picker
 
 ### Daniel
-- Points not sorted correctly on iPad
 
 ### Sydney
 - Fallbacks
@@ -40,6 +39,8 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Escape and click outside also make side bar disappear
+- [√] Points not sorted correctly on iPad
 - [√] Add input for RSF
 - [√] Change empty cell color
 - [√] Reduce thrash when mode-switching in ui sidebar

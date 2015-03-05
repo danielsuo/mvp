@@ -426,10 +426,12 @@ data.touchstart(function(event) {
 
 document.getElementById('protofit').addEventListener('mousedown', function(event) {
   data.clearSelection();
+  document.getElementById('editor').className = 'no-selection';
 }, false);
 
 document.getElementById('protofit').addEventListener('touchstart', function(event) {
   data.clearSelection();
+  document.getElementById('editor').className = 'no-selection';
 }, false);
 
 window.addEventListener('mouseup', function(event) {
@@ -447,6 +449,7 @@ window.addEventListener('keyup', function(event) {
   switch (event.which) {
     case 27: // esc
       data.clearSelection();
+      document.getElementById('editor').className = 'no-selection';
       data.rsfInput.blur();
     case 83: // s: save state
       console.log(data.cells.state);
