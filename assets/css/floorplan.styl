@@ -73,21 +73,22 @@
 
 #project-north
   position absolute
-  bottom 0
-  right 21%
-  width 5rem
-  height 5rem
+  bottom 1rem
+  right calc(20% + 1.5rem)
+  width 2.5rem
+  height 2.5rem
   opacity 0.5
 
   div
     absolute100()
     background-image url('../img/north-arrow.svg')
+    background-size contain
     background-repeat no-repeat
   
   span
     position absolute
     top 50%
     left 50%
-    transform translateX(-55%) translateY(-50%)
-    ApercuLight()
-    font-size 0.75em
+    transform translateX(-50%) translateY(-50%)
+    ApercuRegular()
+    font-size 0.8em

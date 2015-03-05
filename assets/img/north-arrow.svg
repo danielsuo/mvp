@@ -2,11 +2,10 @@
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 81.7 81.7" enable-background="new 0 0 81.7 81.7" xml:space="preserve">
+	 width="356.4px" height="356.4px" viewBox="191.5 41.5 356.4 356.4" enable-background="new 191.5 41.5 356.4 356.4"
+	 xml:space="preserve">
 <g>
-	<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="40.8" y1="7.9" x2="40.8" y2="30.2"/>
-	<line fill="none" x1="40.8" y1="51.4" x2="40.8" y2="73.7"/>
-	<circle fill="none" stroke="#231F20" stroke-miterlimit="10" cx="40.8" cy="40.8" r="10.6"/>
-	<polyline fill="none" stroke="#231F20" stroke-miterlimit="10" points="31.9,16.8 40.8,7.9 49.7,16.8 	"/>
+	<circle fill="none" stroke="#231F20" stroke-width="10" stroke-miterlimit="10" cx="369.7" cy="219.7" r="173.7"/>
+	<line fill="none" stroke="#231F20" stroke-width="20" stroke-miterlimit="10" x1="369.7" y1="46" x2="369.7" y2="125"/>
 </g>
 </svg>
