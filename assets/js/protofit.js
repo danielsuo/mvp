@@ -50,6 +50,7 @@ data.northArrow = document.getElementById('north-arrow');
 data.logo = document.getElementById('project-logo');
 data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
+data.measurement = document.getElementById('measurement');
 
 // data.enableZoom(data[APP_NAME]);
 // data.enablePan(data[APP_NAME]);
@@ -278,6 +279,10 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   console.log(error)
 });
 
+radio('length-change').subscribe(function(e){
+  data.measurement.innerHTML = Number(e).toFixed(2);
+})
+
 var printInfo = function() {
   var info = "<table>";
 
@@ -368,7 +373,7 @@ var setLayout = function(layoutIndex) {
 }
 
 data.btn = {};
-var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn', 'model-view-btn', 'merge-btn'];
+var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn', 'model-view-btn', 'merge-btn', 'measure-btn'];
 for (var i = 0; i < btns.length; i++) {
   data.btn[btns[i]] = new Button(btns[i]);
 }
@@ -382,6 +387,9 @@ data.btn['editor-back-btn'].hammer.on('tap', function(event) {
   data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
   document.getElementById('actions').className = '';
+  data.scale.on = false;
+  data.btn['measure-btn'].node.dataset.measuring = 0;
+  delete data.scaleObj;
   if (data.iframe) {
     document.getElementById('model-viewer').remove()
     data.iframe = false;
@@ -449,6 +457,18 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
     data.btn['merge-btn'].node.innerHTML = 'Merge';
   }
 });
+
+data.btn['measure-btn'].hammer.on('tap', function(event) {
+  data.scale.on = !data.scale.on;
+  if (data.scale.on) {
+    data.btn['measure-btn'].node.dataset.measuring = 1;    
+  } else {
+    data.btn['measure-btn'].node.dataset.measuring = 0;
+    delete data.scaleObj;
+    // delete data.scale.firstClick;
+  }
+});
+
 
 // document.getElementById('benching-back-btn').addEventListener('click', function(e) {
 //   document.getElementById('actions').className = '';
@@ -583,6 +603,9 @@ var scale = function(event) {
         var length = Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
 
         radio('length-done').broadcast(length);
+        data.scale.on = false;
+        delete data.scaleObj;
+        data.btn['measure-btn'].node.dataset.measuring = 0;
         // var actual = prompt('What is the length?');
         // data.scale = parseInt(actual) / length;
       }
@@ -592,7 +615,7 @@ var scale = function(event) {
   }
 };
 
-SVG.on(window, 'click', scale);
+SVG.on(data.protofit, 'click', scale);
 
 SVG.on(window, 'mousemove', function(event) {
   if (data.scale.started) {
@@ -600,8 +623,8 @@ SVG.on(window, 'mousemove', function(event) {
     data.scaleObj = data.path();
     data.scaleObj.attr({
       'fill-opacity': 0,
-      'stroke-width': 4,
-      stroke: '#f06'
+      'stroke-width': 2.5,
+      stroke: '#7270B1'
     });
     data.scaleObj.M(data.scale.pivot.x, data.scale.pivot.y);
 
@@ -641,8 +664,9 @@ window.addEventListener('keyup', function(event) {
     case 77: // m: measure tool
       data.scale.on = !data.scale.on;
       if (data.scale.on) {
-
+        data.btn['measure-btn'].node.dataset.measuring = 1;    
       } else {
+        data.btn['measure-btn'].node.dataset.measuring = 0;
         delete data.scaleObj;
         // delete data.scale.firstClick;
       }
