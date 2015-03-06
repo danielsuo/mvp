@@ -40,6 +40,7 @@ http://localhost:3000/?client=floored&project=test
 - Don't redraw cells on reset; unclip and change color instead
 - Add compass [here](http://ai.github.io/compass.js/)
 - Share multiple floor plans
+- Fix drag out of window, still mousedown bug
 - Measure tools for distances and areas
 
 ## Done
@@ -94,6 +95,7 @@ http://localhost:3000/?client=floored&project=test
 - SVG defs to reuse definition of icons
 - Minify and optimize svg via svgo
 - Turn elements into a single large path
+- Gzip SVGs
 
 # Ideas that improve performance
 - https://blog.idrsolutions.com/2014/11/6-tips-optimising-svg-files/
@@ -105,6 +107,7 @@ http://localhost:3000/?client=floored&project=test
 - Use CSS transforms on HTML element holding SVG, not on SVG directly
 - Use rounded coordinates. Example [here](https://www.mapbox.com/osmdev/2012/11/20/getting-serious-about-svg/)
 - Use rasterized images wherever possible
+- http://calendar.perfplanet.com/2014/tips-for-optimising-svg-delivery-for-the-web/
 
 # Ideas that improve both performance and file size
 - Use CSS to style SVG elements, rather than per-element styling
