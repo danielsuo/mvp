@@ -86,6 +86,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   });
 }).then(function() {
   data.cells.svg = data.nested();
+}).then(function() {
 
   data.config.project.titleDiv = document.getElementById('project-title');
   data.config.project.titleDiv.innerHTML = '<h3>' + data.config.project.name + '</h3>'
@@ -128,16 +129,22 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   }));
 
 }).then(function() {
-  // data.info.innerHTML = 'Loading complete!';
+  if (data.config.merge) {
+    data.config.merge.svg = data.nested();
+    return SVG.load(data.config.merge.svg, data.dir + '/merge.svg');
+  }
+}).then(function() {
+  if (data.config.merge) data.config.merge.svg.hide()
+    // data.info.innerHTML = 'Loading complete!';
   data.appContainer.className = ''
-  setTimeout(function(){
+  setTimeout(function() {
     document.getElementById('loading').className = ''
   }, 1000);
 
   return data.cells.load(data.cells.svg, data.dir + '/cells.svg')
-  // .then(function() {
-  //   data.cells.reset(data.cells.state);
-  // })
+    // .then(function() {
+    //   data.cells.reset(data.cells.state);
+    // })
 }).then(function() {
 
   data.editor = document.getElementById('editor');
@@ -151,7 +158,9 @@ XHR.get(data.dir + '/config.json').then(function(response) {
   // keep selection, but clear and create new selection on click
   radio('cell-clicked').subscribe(function(i, dragging) {
     console.log('Cell clicked', i);
-    console.log('    Cell contents', data.cells.coord[i].reduce(function(x, y) {return x + ', ' + y.x + ' ' + y.y}, ''));
+    console.log('    Cell contents', data.cells.coord[i].reduce(function(x, y) {
+      return x + ', ' + y.x + ' ' + y.y
+    }, ''));
     if (data.config.cells.disabled.total.indexOf(parseInt(i)) > -1) {
       return;
     }
@@ -307,10 +316,14 @@ var printInfo = function() {
 
 var setLayout = function(layoutIndex) {
 
-  document.getElementById('layout-next-btn').removeAttribute('disabled');
-  var listItems = document.getElementById('layout-list').childNodes;
-  for (var j in listItems) {
-    listItems[j].className = j == layoutIndex ? 'active' : '';
+  if (layoutIndex > -1) {
+    document.getElementById('layout-next-btn').removeAttribute('disabled');
+    var listItems = document.getElementById('layout-list').childNodes;
+    for (var j in listItems) {
+      listItems[j].className = j == layoutIndex ? 'active' : '';
+    }
+
+    data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
   }
 
   for (var j in data.config.layers) {
@@ -321,7 +334,6 @@ var setLayout = function(layoutIndex) {
     data.config.layers[j].mask = path.fromRect(data.config.layers[j].mask, 0, 0, window.innerWidth, window.innerHeight, false);
   }
 
-  data.cells.state = data.config.layouts[layoutIndex].state.slice(0);
   data.cells.reset(data.cells.state);
 
   for (var j in data.cells.state) {
@@ -342,15 +354,11 @@ var setLayout = function(layoutIndex) {
 
   data.markDisabledCells()
 
-  // for (var j in data.cells.state) {
-  //   var node = data.cells.paths[j].node.dataset.layer = data.cells.state[j];
-  // }
-
   document.getElementById('info').innerHTML = printInfo();
 }
 
 data.btn = {};
-var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn', 'model-view-btn'];
+var btns = ['layout-next-btn', 'editor-back-btn', 'editor-done-btn', 'model-view-btn', 'merge-btn'];
 for (var i = 0; i < btns.length; i++) {
   data.btn[btns[i]] = new Button(btns[i]);
 }
@@ -395,7 +403,35 @@ data.btn['model-view-btn'].hammer.on('tap', function(event) {
     data.btn['model-view-btn'].node.innerHTML = 'View in 3D';
     data.appContainer.className = '';
   }
+});
 
+data.btn['merge-btn'].hammer.on('tap', function(event) {
+  if (!data.config.merge.merged) {
+    data.config.merge.merged = true;
+    data.config.merge.svg.show();
+    data.config.merge.state = [];
+    for (var i = 0; i < data.config.merge.cells.length; i++) {
+      data.config.merge.state.push(data.cells.state[data.config.merge.cells[i]]);
+      data.cells.state[data.config.merge.cells[i]] = data.config.layers.length - 1;
+
+      var selectIndex = data.selected.indexOf('' + data.config.merge.cells[i]);
+      if (selectIndex > -1) {
+        data.selected.splice(selectIndex, 1);
+      }
+    }
+    setLayout(-1);
+    data.btn['merge-btn'].node.innerHTML = 'Unmerge';
+  } else {
+    data.config.merge.merged = false;
+    data.config.merge.svg.hide();
+    for (var i = 0; i < data.config.merge.cells.length; i++) {
+      data.cells.state[data.config.merge.cells[i]] = data.config.merge.state[i];
+      // data.selected.push(data.config.merge.cells[i]);
+    }
+    data.config.merge.state = [];
+    setLayout(-1);
+    data.btn['merge-btn'].node.innerHTML = 'Merge';
+  }
 });
 
 // document.getElementById('benching-back-btn').addEventListener('click', function(e) {
@@ -480,9 +516,21 @@ window.addEventListener('keyup', function(event) {
       data.clearSelection();
       document.getElementById('editor').className = 'no-selection';
       data.rsfInput.blur();
+      break;
     case 83: // s: save state
       console.log(data.cells.state);
       break;
+    // case 77: // m: toggle merge button
+    //   if (data.config.merge) {
+    //     if (!data.config.merge.elementEnabled) {
+    //       data.config.merge.elementEnabled = true;
+    //       document.getElementById('merge-btn').style.display = 'block';
+    //     } else {
+    //       data.config.merge.elementEnabled = false;
+    //       document.getElementById('merge-btn').style.display = 'none';
+    //     }
+    //   }
+    //   break;
     case 68: // d: delete iframe
       data.protofit.removeChild(document.getElementById('model-viewer'));
       data.protofit.className = '';

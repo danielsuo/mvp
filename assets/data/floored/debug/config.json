@@ -27,6 +27,9 @@
     "name": "Benching",
     "url": "http://www.floored.com"
   }],
+  "merge": {
+    "cells": [7, 15, 23]
+  },
   "layers": [{
     "id": "benching",
     "name": "Benching",
