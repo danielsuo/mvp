@@ -28,7 +28,7 @@ Cells.load = function(svg, url) {
 
       var points = [];
       for (var j in lines) {
-        var line = lines[j].children()[0];
+        var line = lines[j];
 
         var p = {
           x: line.attr('x1'),
