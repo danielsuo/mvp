@@ -27,42 +27,36 @@
   .plan-layer
     pointer-events none
     
-  &.dragging .cell
+  .cell
+    backface-visibility hiddenf
+    stroke #ffffff
     transition fill 0.15s ease
 
-  .cell
-    stroke #ffffff
-    transition fill 0.4s ease
-
     &[data-layer="0"] //benching
-      fill #EFEEF3
-      &.selected
-        fill #C0C0C0
+      fill tint(#808088, 80%)
+      &[data-hover="1"]
+        fill tint(#808088, 60%)
+      &[data-selected="1"]
+        fill tint(#808088, 40%)
         
     &[data-layer="1"] //breakout
-      fill #EFF5EF
-      &.selected
-        fill #B6D1B6
-      
+      cellColors(#59B55C)
+
     &[data-layer="2"] //conference
-      fill #EFF2FE
-      &.selected
-        fill #BECAE5
+      cellColors(#4F90CD)
       
     &[data-layer="3"] //office
-      fill #F9F8F5
-      &.selected
-        fill #E8D9A4
+      fill tint(#FCBC3B, 97%)
+      &[data-hover="1"]
+        fill tint(#FCBC3B, 60%)
+      &[data-selected="1"]
+        fill tint(#FCBC3B, 20%)
                 
     &[data-layer="4"] //empty
-      fill #F6F6F6
-      &.selected
-        fill #C6C6C6
+      cellColors(#9392A3)
         
     &[data-layer="5"] //pantry / reception
-      fill #FCF3F6
-      &.selected
-        fill #DAC2CA
+      fill tint(#EC5C4E, 94%)
 
 #svg-container
   width 100%
