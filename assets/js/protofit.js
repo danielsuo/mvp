@@ -56,6 +56,9 @@ data.appContainer = document.getElementById('app');
 
 data.cells = app.Cells;
 data.selected = [];
+data.scale = {
+  on: false
+};
 
 XHR.get(data.dir + '/config.json').then(function(response) {
   var config = JSON.parse(response);
@@ -306,7 +309,7 @@ var printInfo = function() {
   var area = data.getArea();
   info += "<tr class='sf'>";
   info += "<td>SF per person</td>"
-  info += "<td>" + Math.round(area / headcount) + "</td>";
+  info += "<td id='sfpp'>" + Math.round(area / headcount) + "</td>";
   info += "</tr>";
 
   info += "</table>"
@@ -489,6 +492,10 @@ data.touchstart(function(event) {
   event.stopPropagation();
 });
 
+document.getElementById('rsf-input').onchange = function(event) {
+  document.getElementById('sfpp').innerHTML = Math.round(event.target.valueAsNumber / data.getHeadcount());
+}
+
 document.getElementById('protofit').addEventListener('mousedown', function(event) {
   data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
@@ -520,17 +527,12 @@ window.addEventListener('keyup', function(event) {
     case 83: // s: save state
       console.log(data.cells.state);
       break;
-    // case 77: // m: toggle merge button
-    //   if (data.config.merge) {
-    //     if (!data.config.merge.elementEnabled) {
-    //       data.config.merge.elementEnabled = true;
-    //       document.getElementById('merge-btn').style.display = 'block';
-    //     } else {
-    //       data.config.merge.elementEnabled = false;
-    //       document.getElementById('merge-btn').style.display = 'none';
-    //     }
-    //   }
-    //   break;
+    case 77: // m: measure tool
+      data.scale.on = !data.scale.on;
+      if (data.scale.on) {
+
+      }
+      break;
     case 68: // d: delete iframe
       data.protofit.removeChild(document.getElementById('model-viewer'));
       data.protofit.className = '';

@@ -11,14 +11,18 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 
 ### Jake
-- Realtime RSF calc for SF per person
-- Fake merge
+- Remove reception side wall
+- Make large conference room
+- Add scale (display feet)
 
 ### Daniel
+- Enable measure tool
 
 ### Sydney
 - Generic skybox
 - Another layout?
+- Remove reception side wall
+- Remove desk from reception area
 
 ## On the radar
 - Hover cell info
@@ -30,7 +34,6 @@ http://localhost:3000/?client=floored&project=test
 - Debug mode that has cell #
 - Indicate how many people would be added / removed
 - Merge cells
-- Add scale
 - Undo / redo
 - Use gulp-watch, not gulp.watch
 - [Browser events](https://github.com/mudcube/Event.js)
@@ -43,6 +46,10 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Realtime RSF calc for SF per person
+- [√] Remove desk from reception area
+- [√] Update config.json for reception
+- [√] Fake merge
 - [√] Custom cell type
 - [√] Hover states for cells
 - [√] Add dropshadow to esb

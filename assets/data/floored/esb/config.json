@@ -27,6 +27,9 @@
     "name": "Benching",
     "url": "http://depot.floored.com/scenes/Empire-State-Building_58th-Floor_Protofit"
   }],
+  "merge": {
+    "cells": [56, 57, 58]
+  },
   "layers": [{
     "id": "benching",
     "name": "Benching",
