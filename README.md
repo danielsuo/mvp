@@ -14,9 +14,9 @@ http://localhost:3000/?client=floored&project=test
 - Remove reception side wall
 - Make large conference room
 - Add scale (display feet)
+- Enable measure tool
 
 ### Daniel
-- Enable measure tool
 
 ### Sydney
 - Generic skybox
