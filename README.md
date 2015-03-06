@@ -11,8 +11,6 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 
 ### Jake
-- Add scale (display feet)
-- Enable measure tool
 
 ### Daniel
 
@@ -44,6 +42,8 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Add scale (display feet)
+- [√] Enable measure tool
 - [√] Remove reception side wall
 - [√] Make large conference room
 - [√] Realtime RSF calc for SF per person
