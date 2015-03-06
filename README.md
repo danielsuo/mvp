@@ -11,14 +11,19 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 
 ### Jake
+- Realtime RSF calc for SF per person
+- Hover cell info
 
 ### Daniel
+- Custom cell type
+- Fake merge
 
 ### Sydney
+- Generic skybox
 
 ## On the radar
 - Fallbacks
-- Custom cell type
+- Sharing (e.g., email; printable page)
 - Investigate pan/zoom
 - Benching types (density)
 - Add pop-up when mousing over cell?
