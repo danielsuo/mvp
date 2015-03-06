@@ -33,13 +33,6 @@ traceButton.onclick = function() {
   }
 };
 
-var mouse2svg = function(mouse_x, mouse_y, offset_x, offset_y, viewbox) {
-  return {
-    x: (mouse_x - offset_x) / viewbox.zoom + viewbox.x,
-    y: (mouse_y - offset_y) / viewbox.zoom + viewbox.y
-  };
-};
-
 // Assume path is closed and forms irregular polyon
 var area = function(path) {
 
@@ -67,40 +60,6 @@ var area = function(path) {
 
     return Math.abs(area / 2);
   }
-}
-
-// Really ghetto convenience function
-var m2s = function(event) {
-  return mouse2svg(
-    event.pageX,
-    event.pageY,
-    data.protofit.offsetLeft,
-    data.protofit.offsetTop,
-    data.parent.viewbox());
-};
-
-var drawVHLine = function(pivot, point) {
-  var coords = {
-    x: point.x - pivot.x,
-    y: point.y - pivot.y
-  };
-
-  var tan = coords.y / coords.x;
-
-  if (coords.y < 0 && Math.abs(tan) > 1) {
-    // +y
-    point.x = pivot.x;
-  } else if (coords.y > 0 && Math.abs(tan) > 1) {
-    // -y
-    point.x = pivot.x;
-  } else if (coords.x > 0 && Math.abs(tan) < 1) {
-    // +x
-    point.y = pivot.y;
-  } else if (coords.x < 0 && Math.abs(tan) < 1) {
-    // -x
-    point.y = pivot.y;
-  }
-  return point;
 }
 
 // TRACE

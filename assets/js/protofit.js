@@ -57,7 +57,14 @@ data.appContainer = document.getElementById('app');
 data.cells = app.Cells;
 data.selected = [];
 data.scale = {
-  on: false
+  on: false,
+  started: false
+};
+
+data.modifier = {
+  ctrl: false,
+  shift: false,
+  alt: false
 };
 
 XHR.get(data.dir + '/config.json').then(function(response) {
@@ -516,7 +523,103 @@ window.addEventListener('touchend', function(event) {
   data.protofit.className = data.protofit.className.replace(/(?:^|\s)dragging(?!\S)/, '')
 }, false);
 
+var mouse2svg = function(mouse_x, mouse_y, offset_x, offset_y, viewbox) {
+  return {
+    // x: (mouse_x - offset_x) / viewbox.zoom + viewbox.x,
+    // y: (mouse_y - offset_y) / viewbox.zoom + viewbox.y
+    x: mouse_x - offset_x,
+    y: mouse_y - offset_y
+  };
+};
+
+var m2s = function(event) {  
+  var point = data.node.createSVGPoint();
+  point.x = event.pageX;
+  point.y = event.pageY;
+
+  return point.matrixTransform(data.node.getScreenCTM().inverse());
+};
+
+var drawVHLine = function(pivot, point) {
+  var coords = {
+    x: point.x - pivot.x,
+    y: point.y - pivot.y
+  };
+
+  var tan = coords.y / coords.x;
+
+  if (coords.y < 0 && Math.abs(tan) > 1) {
+    // +y
+    point.x = pivot.x;
+  } else if (coords.y > 0 && Math.abs(tan) > 1) {
+    // -y
+    point.x = pivot.x;
+  } else if (coords.x > 0 && Math.abs(tan) < 1) {
+    // +x
+    point.y = pivot.y;
+  } else if (coords.x < 0 && Math.abs(tan) < 1) {
+    // -x
+    point.y = pivot.y;
+  }
+  return point;
+}
+
+var scale = function(event) {
+  if (data.scale.on) {
+    data.scale.started = !data.scale.started;
+    if (data.scale.started) {
+      data.scale.pivot = m2s(event);
+    } else {
+      if (data.scaleObj && data.scaleObj.getSegmentCount() == 2) {
+        var p1 = data.scaleObj.getSegment(0).coords;
+        var p2 = data.scaleObj.getSegment(1).coords;
+
+        var length = Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+        console.log(length)
+        // var actual = prompt('What is the length?');
+        // data.scale = parseInt(actual) / length;
+      }
+    }
+    // }
+    // data.scale.firstClick = true;
+  }
+};
+
+SVG.on(window, 'click', scale);
+
+SVG.on(window, 'mousemove', function(event) {
+  if (data.scale.started) {
+    if (data.scaleObj) data.scaleObj.remove();
+    data.scaleObj = data.path();
+    data.scaleObj.attr({
+      'fill-opacity': 0,
+      'stroke-width': 4,
+      stroke: '#f06'
+    });
+    data.scaleObj.M(data.scale.pivot.x, data.scale.pivot.y);
+
+    var s = m2s(event);
+    if (!data.modifier.shift) {
+      s = drawVHLine(data.scale.pivot, s);
+    }
+
+    var length = Math.sqrt(Math.pow(s.x - data.scale.pivot.x, 2) + Math.pow(s.y - data.scale.pivot.y, 2));
+    console.log(length)
+
+    data.scaleObj.L(s.x, s.y);
+  }
+});
+
+window.addEventListener('keydown', function(event) {
+  if (event.shiftKey) {
+    data.modifier.shift = true;
+  }
+});
+
 window.addEventListener('keyup', function(event) {
+  if (data.modifier.shift == true && !event.shiftKey) {
+    data.modifier.shift = false;
+  }
   console.log(event.which);
   switch (event.which) {
     case 27: // esc
@@ -531,6 +634,9 @@ window.addEventListener('keyup', function(event) {
       data.scale.on = !data.scale.on;
       if (data.scale.on) {
 
+      } else {
+        delete data.scaleObj;
+        // delete data.scale.firstClick;
       }
       break;
     case 68: // d: delete iframe
