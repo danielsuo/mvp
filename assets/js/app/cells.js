@@ -101,11 +101,15 @@ Cells.draw = function(opts) {
         });
       } else {
         path.mouseover(function(event) {
+          event.target.dataset.hover = 1;
           if (Cells.dragStart) {
             radio('cell-clicked').broadcast(x, true);
           } else {
             radio('cell-over').broadcast(x);
           }
+        });
+        path.mouseout(function(event) {
+          event.target.dataset.hover = 0;
         });
         path.mousedown(function(event) {
           radio('cell-clicked').broadcast(x, false);

@@ -178,7 +178,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       data.selected.splice(index, 1);
       // remove class
       var pathElement = document.getElementById(data.cells.paths[i].node.id);
-      pathElement.setAttribute('class', 'cell')
+      pathElement.dataset.selected = 0;
     }
 
     // Highlight cell
@@ -188,7 +188,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
       data.selected.push(i);
       // add class
       var pathElement = document.getElementById(data.cells.paths[i].node.id);
-      pathElement.setAttribute('class', 'cell selected')
+      pathElement.dataset.selected = 1;
     }
 
 

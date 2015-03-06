@@ -24,51 +24,33 @@
     height 100%
     border none
     
-
-  > svg 
-    filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
-    -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
-    backface-visibility hidden
-
   .plan-layer
     pointer-events none
     
-  &.dragging .cell
-    transition fill 0.15s ease
-
   .cell
+    backface-visibility hiddenf
     stroke #ffffff
-    transition fill 0.4s ease
+    transition fill 0.15s ease
+    cursor pointer
 
     &[data-layer="0"] //benching
-      fill #EFEEF3
-      &.selected
-        fill #C0C0C0
+      cellColors(#808088, 80, 60, 30)
         
     &[data-layer="1"] //breakout
-      fill #EFF5EF
-      &.selected
-        fill #B6D1B6
-      
+      cellColors(#59B55C)
+
     &[data-layer="2"] //conference
-      fill #EFF2FE
-      &.selected
-        fill #BECAE5
+      cellColors(#4F90CD)
       
     &[data-layer="3"] //office
-      fill #F9F8F5
-      &.selected
-        fill #E8D9A4
+      cellColors(#FCBC3B, 97, 60, 20)
                 
     &[data-layer="4"] //empty
-      fill #F6F6F6
-      &.selected
-        fill #C6C6C6
+      cellColors(#7270b1)
         
     &[data-layer="5"] //pantry / reception
-      fill #FCF3F6
-      &.selected
-        fill #DAC2CA
+      fill tint(#EC5C4E, 94%)
+      cursor default
 
 #svg-container
   width 100%
@@ -77,6 +59,11 @@
   padding 2rem
   opacity 1
   transition opacity 0.66s ease 0.2s
+  > svg 
+      filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+      -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+      backface-visibility hidden
+
 
 #app.loading #svg-container
   opacity 0
