@@ -430,6 +430,9 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
       }
     }
     setLayout(-1);
+    for (var i = 0; i < data.config.merge.cells.length; i++) {
+      data.cells.paths[data.config.merge.cells[i]].node.dataset.merged = 1;
+    }
     data.btn['merge-btn'].node.innerHTML = 'Unmerge';
   } else {
     data.config.merge.merged = false;
@@ -440,6 +443,9 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
     }
     data.config.merge.state = [];
     setLayout(-1);
+    for (var i = 0; i < data.config.merge.cells.length; i++) {
+      data.cells.paths[data.config.merge.cells[i]].node.dataset.merged = 0;
+    }
     data.btn['merge-btn'].node.innerHTML = 'Merge';
   }
 });

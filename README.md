@@ -11,8 +11,6 @@ http://localhost:3000/?client=floored&project=test
 ## To Do
 
 ### Jake
-- Remove reception side wall
-- Make large conference room
 - Add scale (display feet)
 - Enable measure tool
 
@@ -46,6 +44,8 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Remove reception side wall
+- [√] Make large conference room
 - [√] Realtime RSF calc for SF per person
 - [√] Remove desk from reception area
 - [√] Update config.json for reception
