@@ -90,6 +90,7 @@ http://localhost:3000/?client=floored&project=test
 - Turn elements into a single large path
 
 # Ideas that improve performance
+- https://blog.idrsolutions.com/2014/11/6-tips-optimising-svg-files/
 - Render SVG icons with icon fonts. Example [here](http://frozeman.de/blog/2013/08/why-is-svg-so-slow/).
   - Cross-browser icon fonts [here](http://www.filamentgroup.com/lab/bulletproof_icon_fonts.html)
   - Pros and cons [here](http://cubicleninjas.com/icon-fonts-explained-benefits-pitfalls/)
@@ -97,6 +98,7 @@ http://localhost:3000/?client=floored&project=test
 - Reduce number of redraws
 - Use CSS transforms on HTML element holding SVG, not on SVG directly
 - Use rounded coordinates. Example [here](https://www.mapbox.com/osmdev/2012/11/20/getting-serious-about-svg/)
+- Use rasterized images wherever possible
 
 # Ideas that improve both performance and file size
 - Use CSS to style SVG elements, rather than per-element styling
