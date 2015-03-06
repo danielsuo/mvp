@@ -13,13 +13,14 @@ http://localhost:3000/?client=floored&project=test
 ### Jake
 - Realtime RSF calc for SF per person
 - Hover cell info
+- Custom cell type
 
 ### Daniel
-- Custom cell type
 - Fake merge
 
 ### Sydney
 - Generic skybox
+- Another layout?
 
 ## On the radar
 - Fallbacks
