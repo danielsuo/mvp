@@ -575,7 +575,8 @@ var scale = function(event) {
         var p2 = data.scaleObj.getSegment(1).coords;
 
         var length = Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
-        console.log(length)
+
+        radio('length-done').broadcast(length);
         // var actual = prompt('What is the length?');
         // data.scale = parseInt(actual) / length;
       }
@@ -604,7 +605,8 @@ SVG.on(window, 'mousemove', function(event) {
     }
 
     var length = Math.sqrt(Math.pow(s.x - data.scale.pivot.x, 2) + Math.pow(s.y - data.scale.pivot.y, 2));
-    console.log(length)
+
+    radio('length-change').broadcast(length);
 
     data.scaleObj.L(s.x, s.y);
   }
