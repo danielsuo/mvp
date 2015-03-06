@@ -280,7 +280,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 });
 
 radio('length-change').subscribe(function(e){
-  data.measurement.innerHTML = Number(e).toFixed(2);
+  data.measurement.innerHTML = Number(e).toFixed(2) + ' ft';
 })
 
 var printInfo = function() {
