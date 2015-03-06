@@ -37,6 +37,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Hover states for cells
 - [√] Add dropshadow to esb
 - [√] Change model names in depot
 - [√] Update models

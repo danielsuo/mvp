@@ -31,13 +31,10 @@
     backface-visibility hiddenf
     stroke #ffffff
     transition fill 0.15s ease
+    cursor pointer
 
     &[data-layer="0"] //benching
-      fill tint(#808088, 80%)
-      &[data-hover="1"]
-        fill tint(#808088, 60%)
-      &[data-selected="1"]
-        fill tint(#808088, 40%)
+      cellColors(#808088, 80, 60, 30)
         
     &[data-layer="1"] //breakout
       cellColors(#59B55C)
@@ -46,17 +43,14 @@
       cellColors(#4F90CD)
       
     &[data-layer="3"] //office
-      fill tint(#FCBC3B, 97%)
-      &[data-hover="1"]
-        fill tint(#FCBC3B, 60%)
-      &[data-selected="1"]
-        fill tint(#FCBC3B, 20%)
+      cellColors(#FCBC3B, 97, 60, 20)
                 
     &[data-layer="4"] //empty
-      cellColors(#9392A3)
+      cellColors(#7270b1)
         
     &[data-layer="5"] //pantry / reception
       fill tint(#EC5C4E, 94%)
+      cursor default
 
 #svg-container
   width 100%

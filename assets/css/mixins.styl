@@ -17,10 +17,10 @@ ApercuBold()
   font-family "Apercu Bold", "Helvetica Neue", Helvetica, sans-serif
   font-weight normal
   
-cellColors(c)
-  fill tint(c, 92%)
+cellColors(c, def = 92, hov = 65, sel = 45)
+  fill tint(c, def)
   &[data-hover="1"]
-    fill tint(c, 40%)
+    fill tint(c, hov)
   &[data-selected="1"]
-    fill tint(c, 20%)
+    fill tint(c, sel)
 
