@@ -12,17 +12,16 @@ http://localhost:3000/?client=floored&project=test
 
 ### Jake
 - Realtime RSF calc for SF per person
-- Hover cell info
-- Custom cell type
+- Fake merge
 
 ### Daniel
-- Fake merge
 
 ### Sydney
 - Generic skybox
 - Another layout?
 
 ## On the radar
+- Hover cell info
 - Fallbacks
 - Sharing (e.g., email; printable page)
 - Investigate pan/zoom
@@ -44,6 +43,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Custom cell type
 - [√] Hover states for cells
 - [√] Add dropshadow to esb
 - [√] Change model names in depot
