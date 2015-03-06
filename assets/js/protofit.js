@@ -436,7 +436,7 @@ data.markDisabledCells = function() {
   for (var i in data.config.cells.disabled) {
     for (var j in data.config.cells.disabled[i]) {
       var cell = data.config.cells.disabled[i][j];
-      data.cells.paths[cell].node.dataset.layer = 5;
+      data.cells.paths[cell].node.dataset.layer = 6;
     }
   }
 }

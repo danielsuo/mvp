@@ -34,7 +34,7 @@
     cursor pointer
 
     &[data-layer="0"] //benching
-      cellColors(#808088, 80, 60, 30)
+      cellColors(#80808C, 80, 60, 35)
         
     &[data-layer="1"] //breakout
       cellColors(#59B55C)
@@ -45,11 +45,15 @@
     &[data-layer="3"] //office
       cellColors(#FCBC3B, 97, 60, 20)
                 
-    &[data-layer="4"] //empty
+    &[data-layer="4"] //special
+      cellColors(#FF6C3A)
+
+    &[data-layer="5"] //empty
       cellColors(#7270b1)
         
-    &[data-layer="5"] //pantry / reception
-      fill tint(#EC5C4E, 94%)
+    &[data-layer="6"] //pantry / reception
+      // fill tint(#EC5C4E, 94%)
+      fill tint(#A9519F, 94%)
       cursor default
 
 #svg-container
