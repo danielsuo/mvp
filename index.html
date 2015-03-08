@@ -25,13 +25,16 @@
             <hr />
             <div>
               <div class="replace">
-                <div class="headers">
-                  <h3>Replace With…</h3>
-                  <span>Click on a tile to select it.</span>
+                <div class="grow">
+                  <div class="headers">
+                    <h3>Replace With…</h3>
+                    <span>Click on a tile to select&nbsp;it.</span>
+                  </div>
+                  <ul id="editor-list">
+                  </ul>
+                  <button id="editor-done-btn" class="btn deselect">Deselect All</button>
                 </div>
-                <ul id="editor-list">
-                </ul>
-                <button id="editor-done-btn" class="btn deselect">Deselect All</button>
+                <button id="merge-btn" class="btn merge">Merge</button>
               </div>
               <div class="style">
                 <h3>Choose a Style</h3>
@@ -44,11 +47,12 @@
                 </ul>
               </div>
             </div>
-            <button id="merge-btn" class="btn merge">Merge</button>
             <hr />
             <button id="measure-btn" class="btn measure">Measure</button>
-            <button id="model-view-btn" class="btn model">View in 3D</button>
-            <button id="editor-share-btn" class="btn share">Share…</button>
+            <div class="two-up">
+              <button id="model-view-btn" class="btn model">View in 3D</button>
+              <button id="editor-share-btn" class="btn share">Share…</button>
+            </div>
           </section>
         </div>
       </div>
