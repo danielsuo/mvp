@@ -299,9 +299,13 @@ var printInfo = function() {
     if (data.config.layers[i].id === 'benching') {
       info += "<td>" + data.getBenchingHeadcount() + "</td>"
     } else {
-      info += "<td>" + data.cells.state.filter(function(x) {
+      var merged = 0;
+      if (data.config.layers[i].id === 'conference' && data.config.merge.merged) {
+        merged = 1;
+      }
+      info += "<td>" + (data.cells.state.filter(function(x) {
         return x == i
-      }).length + "</td>";
+      }).length + merged) + "</td>";
     }
 
     info += "</tr>";
@@ -390,6 +394,7 @@ data.btn['editor-back-btn'].hammer.on('tap', function(event) {
   data.scale.on = false;
   data.btn['measure-btn'].node.dataset.measuring = 0;
   delete data.scaleObj;
+  data.unmerge();
   if (data.iframe) {
     document.getElementById('model-viewer').remove()
     data.iframe = false;
@@ -425,16 +430,19 @@ data.btn['model-view-btn'].hammer.on('tap', function(event) {
 
 data.btn['merge-btn'].hammer.on('tap', function(event) {
   if (!data.config.merge.merged) {
+    data.merge();
+  } else {
+    data.unmerge();
+  }
+});
+
+data.merge = function() {
     data.config.merge.merged = true;
     data.config.merge.svg.show();
     data.config.merge.state = [];
     for (var i = 0; i < data.config.merge.cells.length; i++) {
       data.config.merge.state.push(data.cells.state[data.config.merge.cells[i]]);
       data.cells.state[data.config.merge.cells[i]] = data.config.layers.length - 1;
-
-      if (i === 0) {
-        data.cells.state[data.config.merge.cells[i]] = 2; // +1 conference room
-      }
 
       var selectIndex = data.selected.indexOf('' + data.config.merge.cells[i]);
       if (selectIndex > -1) {
@@ -446,7 +454,10 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
       data.cells.paths[data.config.merge.cells[i]].node.dataset.merged = 1;
     }
     data.btn['merge-btn'].node.innerHTML = 'Unmerge';
-  } else {
+}
+
+data.unmerge = function() {
+    if (!data.config.merge.merged) return;
     data.config.merge.merged = false;
     data.config.merge.svg.hide();
     for (var i = 0; i < data.config.merge.cells.length; i++) {
@@ -459,8 +470,7 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
       data.cells.paths[data.config.merge.cells[i]].node.dataset.merged = 0;
     }
     data.btn['merge-btn'].node.innerHTML = 'Merge';
-  }
-});
+}
 
 data.btn['measure-btn'].hammer.on('tap', function(event) {
   data.scale.on = !data.scale.on;

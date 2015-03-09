@@ -42,6 +42,7 @@ http://localhost:3000/?client=floored&project=test
 - Measure tools for distances and areas
 
 ## Done
+- [√] Start over with merge
 - [√] Add scale (display feet)
 - [√] Enable measure tool
 - [√] Remove reception side wall
