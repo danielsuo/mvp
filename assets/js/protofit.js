@@ -432,6 +432,10 @@ data.btn['merge-btn'].hammer.on('tap', function(event) {
       data.config.merge.state.push(data.cells.state[data.config.merge.cells[i]]);
       data.cells.state[data.config.merge.cells[i]] = data.config.layers.length - 1;
 
+      if (i === 0) {
+        data.cells.state[data.config.merge.cells[i]] = 2; // +1 conference room
+      }
+
       var selectIndex = data.selected.indexOf('' + data.config.merge.cells[i]);
       if (selectIndex > -1) {
         data.selected.splice(selectIndex, 1);
