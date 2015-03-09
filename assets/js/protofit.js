@@ -609,6 +609,7 @@ var scale = function(event) {
     data.scale.started = !data.scale.started;
     if (data.scale.started) {
       data.scale.pivot = m2s(event);
+      if (data.scaleObj) data.scaleObj.remove();
     } else {
       if (data.scaleObj && data.scaleObj.getSegmentCount() == 2) {
         var p1 = data.scaleObj.getSegment(0).coords;
@@ -618,7 +619,6 @@ var scale = function(event) {
 
         radio('length-done').broadcast(length);
         data.scale.on = false;
-        delete data.scaleObj;
         data.btn['measure-btn'].node.dataset.measuring = 0;
         // var actual = prompt('What is the length?');
         // data.scale = parseInt(actual) / length;
@@ -676,14 +676,14 @@ window.addEventListener('keyup', function(event) {
       console.log(data.cells.state);
       break;
     case 77: // m: measure tool
-      // data.scale.on = !data.scale.on;
-      // if (data.scale.on) {
-      //   data.btn['measure-btn'].node.dataset.measuring = 1;    
-      // } else {
-      //   data.btn['measure-btn'].node.dataset.measuring = 0;
-      //   delete data.scaleObj;
-      //   // delete data.scale.firstClick;
-      // }
+      data.scale.on = !data.scale.on;
+      if (data.scale.on) {
+        data.btn['measure-btn'].node.dataset.measuring = 1;    
+      } else {
+        data.btn['measure-btn'].node.dataset.measuring = 0;
+        delete data.scaleObj;
+        // delete data.scale.firstClick;
+      }
       break;
     case 68: // d: delete iframe
       data.protofit.removeChild(document.getElementById('model-viewer'));
