@@ -662,14 +662,14 @@ window.addEventListener('keyup', function(event) {
       console.log(data.cells.state);
       break;
     case 77: // m: measure tool
-      data.scale.on = !data.scale.on;
-      if (data.scale.on) {
-        data.btn['measure-btn'].node.dataset.measuring = 1;    
-      } else {
-        data.btn['measure-btn'].node.dataset.measuring = 0;
-        delete data.scaleObj;
-        // delete data.scale.firstClick;
-      }
+      // data.scale.on = !data.scale.on;
+      // if (data.scale.on) {
+      //   data.btn['measure-btn'].node.dataset.measuring = 1;    
+      // } else {
+      //   data.btn['measure-btn'].node.dataset.measuring = 0;
+      //   delete data.scaleObj;
+      //   // delete data.scale.firstClick;
+      // }
       break;
     case 68: // d: delete iframe
       data.protofit.removeChild(document.getElementById('model-viewer'));
