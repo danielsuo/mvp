@@ -141,6 +141,7 @@ XHR.get(data.dir + '/config.json').then(function(response) {
 
 }).then(function() {
   if (data.config.merge) {
+    data.appContainer.dataset.mergeSupported = 1;
     data.config.merge.svg = data.nested();
     return SVG.load(data.config.merge.svg, data.dir + '/merge.svg');
   }
@@ -300,7 +301,7 @@ var printInfo = function() {
       info += "<td>" + data.getBenchingHeadcount() + "</td>"
     } else {
       var merged = 0;
-      if (data.config.layers[i].id === 'conference' && data.config.merge.merged) {
+      if (data.config.merge && data.config.layers[i].id === 'conference' && data.config.merge.merged) {
         merged = 1;
       }
       info += "<td>" + (data.cells.state.filter(function(x) {
@@ -429,6 +430,7 @@ data.btn['model-view-btn'].hammer.on('tap', function(event) {
 });
 
 data.btn['merge-btn'].hammer.on('tap', function(event) {
+  if (!data.config.merge) return;
   if (!data.config.merge.merged) {
     data.merge();
   } else {
