@@ -117,6 +117,7 @@ http://localhost:3000/?client=floored&project=test
 - Use rounded coordinates. Example [here](https://www.mapbox.com/osmdev/2012/11/20/getting-serious-about-svg/)
 - Use rasterized images wherever possible
 - http://calendar.perfplanet.com/2014/tips-for-optimising-svg-delivery-for-the-web/
+- Don't parse then draw svg; draw directly when possible
 
 # Ideas that improve both performance and file size
 - Use CSS to style SVG elements, rather than per-element styling
