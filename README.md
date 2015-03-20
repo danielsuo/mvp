@@ -8,11 +8,10 @@
 ## TODO
 - Google analytics
 - Other analytics?
-- Add users + authentication
-- Create models
+- Create models (orgs, buildings, floors, suite arrangements, suites)
+- Set up s3 + authentication
 - Drop in protofit
-- Set up users (floored admin, org admin, users)
-- Set up data model (orgs, buildings, floors, suite arrangements, suites)
+- Set up user roles (floored admin, org admin, users)
 
 ## Done
 - add the badges
@@ -26,3 +25,4 @@
 - Set up environment variables
 - Set up travis
 - Set up heroku
+- Set up users 
