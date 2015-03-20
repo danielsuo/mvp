@@ -11,6 +11,8 @@
 - Add users + authentication
 - Create models
 - Drop in protofit
+- Set up users (floored admin, org admin, users)
+- Set up data model (orgs, buildings, floors, suite arrangements, suites)
 
 ## Done
 - add the badges

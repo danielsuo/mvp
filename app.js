@@ -7,6 +7,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var passport = require('passport');
+var morgan = require('morgan');
+var flash = require('connect-flash');
+var session = require('express-session');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -22,15 +27,28 @@ nunjucks.configure('views', {
   watch: true
 });
 
+require('./config/passport')(passport); // pass passport for configuration
+// required for passport
+app.use(session({
+  secret: 'flooredprotofit',
+  resave: true,
+  saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+require('./routes')(app, passport);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

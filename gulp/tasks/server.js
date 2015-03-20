@@ -12,7 +12,9 @@ gulp.task('server', function(cb) {
 
   nodemon({
     script: './bin/www',
-    ignore: config.ignore
+    ignore: config.ignore,
+    verbose: 'true',
+    ext: 'js html'
   });
 
   nodemon.on('start', function() {
