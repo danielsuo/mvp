@@ -6,7 +6,21 @@ var config = require('../config').server
 var BROWSER_SYNC_RELOAD_DELAY = 500;
 
 gulp.task('server', function(cb) {
-  // require('child_process').spawn('nodemon');
+
+  // var p;
+  // gulp.watch(config.watch, spawnChildren);
+
+  // function spawnChildren(e) {
+  //   if (p) {
+  //     p.kill();
+  //   }
+  //   p = spawn('gulp', {
+  //     stdio: 'inherit'
+  //   });
+  // };
+
+  require('child_process').spawn('mongod');
+  require('child_process').exec(__dirname + '/../../update')
 
   var nodemon = require('nodemon');
 
