@@ -8,6 +8,9 @@
 ## TODO
 - Google analytics
 - Other analytics?
+- Add users + authentication
+- Create models
+- Drop in protofit
 
 ## Done
 - add the badges
