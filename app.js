@@ -12,9 +12,12 @@ var morgan = require('morgan');
 var flash = require('connect-flash');
 var session = require('express-session');
 var ConnectRoles = require('connect-roles');
+var MongoStore = require('connect-mongo')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+var db = require('./db');
 
 var app = express();
 
@@ -35,7 +38,13 @@ require('./config/passport')(passport);
 app.use(session({
   secret: 'flooredprotofit',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: db
+  }),
+  cookie: {
+    maxAge: 3600000
+  }
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
