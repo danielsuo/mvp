@@ -15,11 +15,20 @@ module.exports = {
         entries: src + 'js/main.js',
         dest: dest + '/js/',
         outputName: 'main.js'
+      }, {
+        entries: src + 'js/protofit.js',
+        dest: dest + '/js/',
+        outputName: 'protofit.js'
       }]
     },
     css: {
       base: src,
       src: [src + 'css/**/*'],
+      dest: dest
+    },
+    data: {
+      base: src,
+      src: [src + 'data/**/*'],
       dest: dest
     }
   },

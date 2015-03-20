@@ -25,4 +25,4 @@
 - Set up environment variables
 - Set up travis
 - Set up heroku
-- Set up users 
+- Set up users

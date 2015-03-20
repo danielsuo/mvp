@@ -8,7 +8,7 @@ var reload = browserSync.reload;
 var minimist = require('minimist');
 var options = minimist(process.argv.slice(2));
 
-var tasks = ['js', 'css'];
+var tasks = ['js', 'css', 'data'];
 
 gulp.task('client', tasks, function() {
   if (!options.build) {
@@ -23,6 +23,20 @@ gulp.task('client', tasks, function() {
         stream: true
       }));
   }
+});
+
+gulp.task('data', function() {
+  config.data.dest = options.build ? './public/data/' : config.data.dest;
+  var src = options.build ? gulp.src(config.data.src) :
+    watch(config.data.src, {
+      base: config.data.base
+    });
+
+  src
+    .pipe(reload({
+      stream: true
+    }))
+    .pipe(gulp.dest(config.data.dest));
 });
 
 var nib = require('nib');
