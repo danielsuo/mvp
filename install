@@ -1,0 +1,11 @@
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install node heroku mongodb
+
+npm install -g gulp nodemon browserify browser-sync
+npm install
+
+sudo mkdir -p /data/db
+sudo chown `id -i` /data/db
+
+sudo gem install travis
+# travis encrypt $(heroku auth:token) --add deploy.api_key
