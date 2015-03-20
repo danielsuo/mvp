@@ -30,6 +30,7 @@ var stylus = require('gulp-stylus');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('css', function() {
+  config.css.dest = options.build ? './public/css/' : config.css.dest;
   var src = options.build ? gulp.src(config.css.src) :
     watch(config.css.src, {
       base: config.css.base

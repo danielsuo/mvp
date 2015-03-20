@@ -3,9 +3,10 @@ node_js:
   - "0.12"
 before_script:
   - npm install -g gulp
-script: gulp client --build
 deploy:
   provider: heroku
+  run: 
+    - "gulp client --build"
   api_key:
     secure: Yjx02TI6mr+y5ZOQE+X1p45nTsmrAkG4ZNvitPFXW9HnLw5HwxTSX668tUJbp7T6lcGPrVHLNCut8SeyVwhxaIfZti2RZlHlHxnZDzr6fNupoCRdJUDqhMOPWonOEXakKxHYmo+LwsnCUejXFsdEnuInswV0NkCxgIU9GZewSRw=
   app:
