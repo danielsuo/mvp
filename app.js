@@ -11,6 +11,7 @@ var passport = require('passport');
 var morgan = require('morgan');
 var flash = require('connect-flash');
 var session = require('express-session');
+var ConnectRoles = require('connect-roles');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,7 +28,9 @@ nunjucks.configure('views', {
   watch: true
 });
 
-require('./config/passport')(passport); // pass passport for configuration
+// pass passport for configuration
+require('./config/passport')(passport);
+
 // required for passport
 app.use(session({
   secret: 'flooredprotofit',
@@ -37,6 +40,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
+// Initialize roles
+var user = new ConnectRoles({
+  failureHandler: function (req, res, action) {
+    // optional function to customise code that runs when
+    // user fails authorisation
+    var accept = req.headers.accept || '';
+    res.status(403);
+    if (~accept.indexOf('html')) {
+      res.render('access-denied', {action: action});
+    } else {
+      res.send('Access Denied - You don\'t have permission to: ' + action);
+    }
+  }
+});
+app.use(user.middleware());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -48,7 +67,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./routes')(app, passport);
+require('./routes')(app, user, passport);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
