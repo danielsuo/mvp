@@ -4,7 +4,7 @@ brew install node heroku mongodb
 npm install -g gulp nodemon browserify browser-sync
 
 sudo mkdir -p /data/db
-sudo chown `id -i` /data/db
+sudo chown `id -u` /data/db
 
 # sudo gem install travis
 # travis encrypt $(heroku auth:token) --add deploy.api_key

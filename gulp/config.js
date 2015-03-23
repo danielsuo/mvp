@@ -36,7 +36,8 @@ module.exports = {
     ignore: [
       'node_modules/**',
       'gulp/**',
-      'src/**'
+      'src/**',
+      'public/**'
     ]
   }
 };

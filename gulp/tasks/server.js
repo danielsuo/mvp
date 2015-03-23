@@ -3,7 +3,7 @@ var nodemon = require('nodemon');
 var browserSync = require('browser-sync');
 var config = require('../config').server
 
-var BROWSER_SYNC_RELOAD_DELAY = 500;
+var BROWSER_SYNC_RELOAD_DELAY = 1500;
 
 gulp.task('server', function(cb) {
 
@@ -32,6 +32,7 @@ gulp.task('server', function(cb) {
   });
 
   nodemon.on('start', function() {
+
     console.log('App has started');
   }).on('quit', function() {
     console.log('App has quit');
@@ -42,7 +43,12 @@ gulp.task('server', function(cb) {
         stream: false //
       });
     }, BROWSER_SYNC_RELOAD_DELAY);
-  });
+  })
+  // .on('exit', function() {
+  //   console.log('App has exited');
+  // }).on('crash', function() {
+  //   console.log('App has crashed');
+  // });
   // var called = false;
   // return nodemon({
   //     tasks: [],

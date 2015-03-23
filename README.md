@@ -10,8 +10,9 @@
 - Other analytics?
 - Create models (orgs, buildings, floors, suite arrangements, suites)
 - Set up s3 + authentication
-- Drop in protofit
 - Set up user roles (floored admin, org admin, users)
+- Migrations
+- Relationships
 
 ## Done
 - add the badges
@@ -26,3 +27,4 @@
 - Set up travis
 - Set up heroku
 - Set up users
+- Drop in protofit
