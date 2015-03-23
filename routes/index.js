@@ -1,4 +1,5 @@
-// app/routes.js
+var isLoggedIn = require('./util/isLoggedIn');
+
 module.exports = function(app, user, passport) {
 
   // =====================================
@@ -73,15 +74,12 @@ module.exports = function(app, user, passport) {
     req.logout();
     res.redirect('/');
   });
-};
 
-// route middleware to make sure
-function isLoggedIn(req, res, next) {
-
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated())
-    return next();
-
-  // if they aren't redirect them to the home page
-  res.redirect('/');
+  // =====================================
+  // Routes ==============================
+  // =====================================
+  var models = ['organization', 'building', 'floor', 'demising', 'suite'];
+  for (var i = 0; i < models.length; i++) {
+    app.use('/' + require('pluralize')(models[i]), require('./util/models')(models[i]));
+  }
 };

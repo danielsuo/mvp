@@ -12,6 +12,14 @@
 - Set up s3 + authentication
 - Set up user roles (floored admin, org admin, users)
 - Migrations
+  - [mongodb-migrations](https://github.com/emirotin/mongodb-migrations)
+  - [mongo-migrate](https://github.com/afloyd/mongo-migrate)
+  - [mongoose-data-migrations](https://github.com/InterNACHI/mongoose-data-migrations)
+  - [mongoose-migrate](https://github.com/madhums/mongoose-migrate)
+  - [migrate](https://github.com/tj/node-migrate)
+  - [mongoose-rolling-migration](https://github.com/kennethklee/mongoose-rolling-migration)
+  - [mongoose-lazy-migration](http://cnpmjs.org/package/mongoose-lazy-migration)
+- Deploying migrations
 - Relationships
 
 ## Done
