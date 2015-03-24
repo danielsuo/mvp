@@ -3,7 +3,16 @@ var bcrypt = require('bcrypt-nodejs');
 var forms = require('forms-mongoose');
 
 var userSchema = mongoose.Schema({
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    forms: {
+      all:{
+        type: 'email'
+      }
+    }
+  },
   password: String,
   role: String,
   name: {
@@ -23,6 +32,10 @@ userSchema.methods.generateHash = function(password) {
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
+};
+
+userSchema.statics.createForm = function(extra) {
+  return forms.create(this, extra);
 };
 
 // create the model for users and expose it to our app

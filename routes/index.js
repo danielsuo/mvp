@@ -78,6 +78,7 @@ module.exports = function(app, user, passport) {
   // =====================================
   // Routes ==============================
   // =====================================
+  app.use('/users', require('./users'));
   app.use('/organizations', require('./organizations'));
   app.use('/buildings', require('./buildings'));
   app.use('/floors', require('./floors'));

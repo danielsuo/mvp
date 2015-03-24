@@ -7,6 +7,8 @@
 
 ## TODO
 - Trailing slash routing problem
+- Active demising checkbox
+- Set up permissions for different groups
 - Google analytics
 - Other analytics?
 - Create models (orgs, buildings, floors, suite arrangements, suites)
