@@ -4,17 +4,17 @@
 
 {% block body %}
   <table>
-    <th>
-      <td>Name</td>
-      <td>Organization</td>
-      <td>Address</td>
-    <th>
+    <tr>
+      <th>Name</th>
+      <th>Owner</th>
+      <th>Address</th>
+    </tr>
     {% for model in models %}
       <tr>
-        <td>{{model.name}}</td>
-        <td>{{model.organization}}</td>
+        <td><a href='{{ model._id }}'>{{model.name}}</a></td>
+        <td>{{model.owner}}</td>
         <td>{{model.address}}</td>
-      <tr>
+      </tr>
     {% endfor %}
   <table>
 {% endblock %}

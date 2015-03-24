@@ -1,19 +1,31 @@
 panelWidth = 20%
-appWidth = 100% - panelWidth
+appWidth = 100% - panelWidth  
+
+html, body
+  width 100%
+  height 100%
+
+html
+  font-size 100%
 
 body
   margin 0
-  font-family "Apercu Light", "Helvetica Neue", Helvetica, sans-serif
+  font-size 16px
+  ApercuLight()
   font-smoothing antialiased
   text-rendering optimizeLegibility
 
 #app
   height 100%
   background-color #EFEFF6
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
+  Apercu()
   
 h3
+  ApercuLight()
   margin 0
-  padding 1rem 1rem 1rem 1rem
+  padding 1rem
   font-weight normal
   text-transform uppercase
   letter-spacing 0.2em

@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "test": "echo \"Warning: no test specified\" && exit 0",
-    "postinstall": "npm install -g gulp && gulp client --build"
+    "test": "echo \"Warning: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
