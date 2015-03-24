@@ -4,29 +4,32 @@
 
 {% block body %}
   
-  <header>
-    <h1>{{ organization.name }}</h1>
-    <div>
-      <p><span>Owner </span><span>{{ organization.owner }}</span></p>
-      <p><span>Address </span><span>{{ organization.address }}</span></p>
-    </div>
+  <div class="show-page">
+
+    <header>
+      <h1>{{ organization.name }}</h1>
+      <div>
+        <p><span>Owner </span><span>{{ organization.owner }}</span></p>
+        <p><span>Address </span><span>{{ organization.address }}</span></p>
+      </div>
+    </header>
 
     <h3>Buildings</h3>
     <a href='buildings/new'>Add new</a>
-    <div>
-      <table>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+      {% for building in organization.buildings %}
         <tr>
-          <th>Name</th>
-          <th>Address</th>
+          <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
+          <td>{{ building.address }}</td>
         </tr>
-        {% for building in organization.buildings %}
-          <tr>
-            <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
-            <td>{{ building.address }}</td>
-          </tr>
-        {% endfor %}
-      <table>
-    </div>
-  </header>
+      {% endfor %}
+    </table>
+
+  </div>
 
 {% endblock %}
