@@ -78,8 +78,11 @@ module.exports = function(app, user, passport) {
   // =====================================
   // Routes ==============================
   // =====================================
-  var models = ['organization', 'building', 'floor', 'demising', 'suite'];
-  for (var i = 0; i < models.length; i++) {
-    app.use('/' + require('pluralize')(models[i]), require('./util/models')(models[i]));
-  }
+  app.use('/organizations', require('./organizations'));
+  app.use('/buildings', require('./buildings'));
+  require('../models/floor');
+  // var models = ['organization', 'building', 'floor', 'demising', 'suite'];
+  // for (var i = 0; i < models.length; i++) {
+  //   app.use('/' + require('pluralize')(models[i]), require('./util/models')(models[i]));
+  // }
 };

@@ -1,0 +1,15 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+  
+  <header>
+    <h1>{{ building.name }}</h1>
+    <div>
+      <p><span>Name </span><span>{{ building.name }}</span></p>
+      <p><span>Address </span><span>{{ building.address }}</span></p>
+    </div>
+  </header>
+
+{% endblock %}
