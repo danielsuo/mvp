@@ -9,11 +9,11 @@
       <th>Owner</th>
       <th>Address</th>
     </tr>
-    {% for model in models %}
+    {% for organization in organizations %}
       <tr>
-        <td><a href='{{ model._id }}'>{{ model.name }}</a></td>
-        <td>{{ model.owner }}</td>
-        <td>{{ model.address }}</td>
+        <td><a href='{{ organization._id }}'>{{ organization.name }}</a></td>
+        <td>{{ organization.owner }}</td>
+        <td>{{ organization.address }}</td>
       </tr>
     {% endfor %}
   <table>

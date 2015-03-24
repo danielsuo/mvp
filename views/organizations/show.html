@@ -5,10 +5,27 @@
 {% block body %}
   
   <header>
-    <h1>{{ model.name }}</h1>
+    <h1>{{ organization.name }}</h1>
     <div>
-      <p><span>Owner </span><span>{{ model.owner }}</span></p>
-      <p><span>Address </span><span>{{ model.address }}</span></p>
+      <p><span>Owner </span><span>{{ organization.owner }}</span></p>
+      <p><span>Address </span><span>{{ organization.address }}</span></p>
+    </div>
+
+    <h3>Buildings</h3>
+    <a href='buildings/new'>Add new</a>
+    <div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+        </tr>
+        {% for building in organization.buildings %}
+          <tr>
+            <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
+            <td>{{ organization.address }}</td>
+          </tr>
+        {% endfor %}
+      <table>
     </div>
   </header>
 
