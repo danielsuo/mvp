@@ -3,5 +3,18 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-  Hello, world!
+  <table>
+    <th>
+      <td>Name</td>
+      <td>Organization</td>
+      <td>Address</td>
+    <th>
+    {% for model in models %}
+      <tr>
+        <td>{{model.name}}</td>
+        <td>{{model.organization}}</td>
+        <td>{{model.address}}</td>
+      <tr>
+    {% endfor %}
+  <table>
 {% endblock %}

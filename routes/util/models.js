@@ -3,18 +3,36 @@ module.exports = function(modelName) {
   var router = express.Router();
 
   var isLoggedIn = require('./isLoggedIn');
-  
-  var Model = require('../../models/' + modelName);
 
-  /* GET users listing. */
+  var Model = require('../../models/' + modelName);
+  var pluralName = require('pluralize')(modelName);
+
+  var form = Model.createForm();
+
   router.get('/', isLoggedIn, function(req, res, next) {
+    Model.find(function(err, models) {
+      if (err) return next(err);
+      res.render(pluralName + '/index.html', {
+        models: models
+      });
+    })
+  });
+
+  router.get('/list', isLoggedIn, function(req, res, next) {
     Model.find(function(err, models) {
       if (err) return next(err);
       res.json(models)
     })
   });
 
-  router.post('/', isLoggedIn, function(req, res, next) {
+  router.get('/new', isLoggedIn, function(req, res, next) {
+    res.render(pluralName + '/new.html', {
+      form: form.toHTML()
+    });
+  });
+
+  router.post('/new', isLoggedIn, function(req, res, next) {
+    console.log('posted')
     Model.create(req.body, function(err, model) {
       if (err) return next(err);
       res.json(model);
