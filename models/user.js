@@ -1,11 +1,17 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var forms = require('forms-mongoose');
 
 var userSchema = mongoose.Schema({
   email: String,
   password: String,
   role: String,
-  name: String
+  name: {
+    type: String,
+    forms: {
+      all: {}
+    }
+  }
 });
 
 // methods ======================

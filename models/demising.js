@@ -1,8 +1,14 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship')
+var forms = require('forms-mongoose');
 
 var demisingSchema = mongoose.Schema({
-  number: String,
+  number: {
+    type: String,
+    forms: {
+      all: {}
+    }
+  },
   floor: {
     type: mongoose.Schema.ObjectId,
     ref: 'Floor',
@@ -18,8 +24,8 @@ demisingSchema.plugin(relationship, {
   relationshipPathName: 'floor'
 });
 
-demisingSchema.statics.createForm = function() {
-  return 1;
+demisingSchema.statics.createForm = function(extra) {
+  return forms.create(this, extra);
 };
 
 // create the model for users and expose it to our app

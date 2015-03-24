@@ -1,9 +1,20 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship')
+var forms = require('forms-mongoose');
 
 var buildingSchema = mongoose.Schema({
-  name: String,
-  address: String,
+  name: {
+    type: String,
+    forms: {
+      all: {}
+    }
+  },
+  address: {
+    type: String,
+    forms: {
+      all: {}
+    }
+  },
   organizations: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Organization',
@@ -19,8 +30,8 @@ buildingSchema.plugin(relationship, {
   relationshipPathName: 'organizations'
 });
 
-buildingSchema.statics.createForm = function() {
-  return 1;
+buildingSchema.statics.createForm = function(extra) {
+  return forms.create(this, extra);
 };
 
 // create the model for users and expose it to our app
