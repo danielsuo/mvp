@@ -24,7 +24,7 @@ module.exports = {
     css: {
       base: src,
       src: [src + 'css/**/*'],
-      dest: dest
+      dest: dest + 'css/'
     },
     data: {
       base: src,

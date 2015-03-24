@@ -45,19 +45,25 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('css', function() {
   config.css.dest = options.build ? './public/css/' : config.css.dest;
-  var src = options.build ? gulp.src(config.css.src) :
+
+  var build = function() {
+    gulp.src(config.css.src)
+      .pipe(stylus({
+        use: nib()
+      }))
+      .pipe(gulp.dest(config.css.dest))
+      .pipe(reload({
+        stream: true
+      }));
+  };
+
+  if (options.build) {
+    build();
+  } else {
     watch(config.css.src, {
       base: config.css.base
-    });
-
-  src
-    .pipe(stylus({
-      use: nib()
-    }))
-    .pipe(reload({
-      stream: true
-    }))
-    .pipe(gulp.dest(config.css.dest));
+    }, build);
+  }
 });
 
 var browserify = require('browserify');
