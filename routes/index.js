@@ -80,7 +80,8 @@ module.exports = function(app, user, passport) {
   // =====================================
   app.use('/organizations', require('./organizations'));
   app.use('/buildings', require('./buildings'));
-  require('../models/floor');
+  app.use('/floors', require('./floors'));
+  require('../models/demising');
   // var models = ['organization', 'building', 'floor', 'demising', 'suite'];
   // for (var i = 0; i < models.length; i++) {
   //   app.use('/' + require('pluralize')(models[i]), require('./util/models')(models[i]));

@@ -8,27 +8,33 @@
 
     <header>
       <h1>{{ organization.name }}</h1>
-      <div>
-        <p><span>Owner </span><span>{{ organization.owner }}</span></p>
-        <p><span>Address </span><span>{{ organization.address }}</span></p>
-      </div>
+      <table>
+        <tr>
+          <td>Owner</td> <td>{{ organization.owner }}</td>
+        </tr>
+        <tr>
+          <td>Address</td> <td>{{ organization.address }}</td>
+        </tr>
+      </table>
     </header>
 
-    <h3>Buildings</h3>
-    <a href='buildings/new'>Add new</a>
+    <div>
+      <h2>Buildings</h2>
+      <a href='buildings/new'>Add new</a>
 
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Address</th>
-      </tr>
-      {% for building in organization.buildings %}
+      <table>
         <tr>
-          <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
-          <td>{{ building.address }}</td>
+          <th>Name</th>
+          <th>Address</th>
         </tr>
-      {% endfor %}
-    </table>
+        {% for building in organization.buildings %}
+          <tr>
+            <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
+            <td>{{ organization.address }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
 
   </div>
 

@@ -3,13 +3,33 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-  
+
   <header>
     <h1>{{ building.name }}</h1>
-    <div>
-      <p><span>Name </span><span>{{ building.name }}</span></p>
-      <p><span>Address </span><span>{{ building.address }}</span></p>
-    </div>
+    <table>
+      <tr>
+        <td>Name</td> <td>{{ buliding.name }}</td>
+      </tr>
+      <tr>
+        <td>Address</td> <td>{{ building.address }}</td>
+      </tr>
+    </table>
   </header>
+
+  <div>
+    <h2>Floors</h2>
+    <a href='floors/new'>Add new</a>
+
+    <table>
+      <tr>
+        <th>Number</th>
+      </tr>
+      {% for floor in building.floors %}
+        <tr>
+          <td>{{ floor.number }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 
 {% endblock %}
