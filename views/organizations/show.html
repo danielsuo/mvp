@@ -4,12 +4,16 @@
 
 {% block body %}
   
-  <header>
-    <h1>{{ model.name }}</h1>
-    <div>
-      <p><span>Owner </span><span>{{ model.owner }}</span></p>
-      <p><span>Address </span><span>{{ model.address }}</span></p>
-    </div>
-  </header>
+  <div class="show-page">
+
+    <header>
+      <h1>{{ model.name }}</h1>
+      <div>
+        <p><span>Owner </span><span>{{ model.owner }}</span></p>
+        <p><span>Address </span><span>{{ model.address }}</span></p>
+      </div>
+    </header>
+
+  </div>
 
 {% endblock %}

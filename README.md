@@ -6,6 +6,7 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
+- Trailing slash routing problem
 - Google analytics
 - Other analytics?
 - Create models (orgs, buildings, floors, suite arrangements, suites)
