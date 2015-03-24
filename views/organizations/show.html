@@ -3,7 +3,13 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-  Name: {{ model.name }}<br>
-  Organization: {{ model.name }}<br>
-  Address: {{ model.address }}<br>
+  
+  <header>
+    <h1>{{ model.name }}</h1>
+    <div>
+      <p><span>Owner </span><span>{{ model.owner }}</span></p>
+      <p><span>Address </span><span>{{ model.address }}</span></p>
+    </div>
+  </header>
+
 {% endblock %}
