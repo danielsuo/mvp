@@ -42,7 +42,9 @@ module.exports = function(modelName) {
   router.get('/:id', isLoggedIn, function(req, res, next) {
     Model.findById(req.params.id, function(err, model) {
       if (err) return next(err);
-      res.json(model);
+      res.render(pluralName + '/show.html', {
+        model: model
+      });
     });
   });
 
