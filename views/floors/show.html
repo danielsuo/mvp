@@ -1,0 +1,28 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+
+<div class="show-page">
+  
+  <header>
+    <h1>Floor {{ floor.number }}</h1>
+  </header>
+
+
+  <div>
+    <h2>Demisings</h2>
+    <a href='demisings/new'>Add new</a>
+
+    <table>
+      {% for demising in floor.demisings %}
+        <tr>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}

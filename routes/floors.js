@@ -4,10 +4,8 @@ var mongoose = require('mongoose');
 
 var isLoggedIn = require('./util/isLoggedIn');
 
-var Building = require('../models/building');
 var Floor = require('../models/floor');
 
-var buildingForm = Building.createForm();
 var floorForm = Floor.createForm();
 
 // router.get('/', isLoggedIn, function(req, res, next) {
@@ -40,30 +38,30 @@ var floorForm = Floor.createForm();
 // });
 
 router.get('/:id', isLoggedIn, function(req, res, next) {
-  Building.findById(req.params.id)
-    .populate('floors')
-    .exec(function(err, building) {
-      console.log(building)
+  Floor.findById(req.params.id)
+    .populate('demisings')
+    .exec(function(err, floor) {
+      console.log(floor)
       if (err) return next(err);
-      res.render('buildings/show.html', {
-        building: building
+      res.render('floors/show.html', {
+        floor: floor
       })
     })
 });
 
-router.get('/:id/floors/new', isLoggedIn, function(req, res, next) {
-  res.render('floors/new.html', {
-    form: floorForm.toHTML()
-  });
-});
+// router.get('/:id/buildings/new', isLoggedIn, function(req, res, next) {
+//   res.render('buildings/new.html', {
+//     form: buildingForm.toHTML()
+//   });
+// });
 
-router.post('/:id/floors/new', isLoggedIn, function(req, res, next) {
-  req.body.building = mongoose.Types.ObjectId(req.params.id);
-  Floor.create(req.body, function(err, floor) {
-    if (err) return next(err);
-    res.redirect('/buildings/' + req.params.id + '/');
-  });
-});
+// router.post('/:id/buildings/new', isLoggedIn, function(req, res, next) {
+//   req.body.organizations = [mongoose.Types.ObjectId(req.params.id)];
+//   Building.create(req.body, function(err, building) {
+//     if (err) return next(err);
+//     res.json(building);
+//   });
+// });
 
 // router.put('/:id', isLoggedIn, function(req, res, next) {
 //   Organization.findByIdAndUpdate(req.params.id, req.body, function(err, organization) {
