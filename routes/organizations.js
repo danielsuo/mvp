@@ -61,7 +61,7 @@ router.post('/:id/buildings/new', isLoggedIn, function(req, res, next) {
   req.body.organizations = [mongoose.Types.ObjectId(req.params.id)];
   Building.create(req.body, function(err, building) {
     if (err) return next(err);
-    res.json(building);
+    res.redirect('/organizations/' + req.params.id + '/');
   });
 });
 

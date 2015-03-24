@@ -11,7 +11,7 @@
     </tr>
     {% for organization in organizations %}
       <tr>
-        <td><a href='{{ organization._id }}'>{{ organization.name }}</a></td>
+        <td><a href='{{ organization._id }}/'>{{ organization.name }}</a></td>
         <td>{{ organization.owner }}</td>
         <td>{{ organization.address }}</td>
       </tr>
