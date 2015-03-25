@@ -4,58 +4,59 @@
 
 {% block body %}
   
-  <div class="show-page">
+  <div class="page-wrap">
 
-    <header>
-      <h1>{{ organization.name }}</h1>
-      <table>
-        <tr>
-          <td>Owner</td> <td>{{ organization.owner }}</td>
-        </tr>
-        <tr>
-          <td>Address</td> <td>{{ organization.address }}</td>
-        </tr>
-      </table>
-    </header>
+    <aside class="sidebar"></aside>
 
-    <div class="flex-row">
-      <div>
-        <h2>Buildings</h2>
-        <a href='buildings/new'>Add new</a>
+    <div class="show-page organizations">
 
+      <header>
+        <h1>{{ organization.name }}</h1>
         <table>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
+            <td>Owner</td> <td>{{ organization.owner }}</td>
           </tr>
-          {% for building in organization.buildings %}
-            <tr>
-              <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
-              <td>{{ organization.address }}</td>
-            </tr>
-          {% endfor %}
+          <tr>
+            <td>Address</td> <td>{{ organization.address }}</td>
+          </tr>
         </table>
-      </div>
+      </header>
 
       <div>
-        <h2>Users</h2>
-        <a href='users/new'>Add new</a>
+        <header class="flex-row">
+          <h2 class="grow">Buildings</h2>
+          <a href='buildings/new'>Add new</a>
+        </header>
 
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Email</th>
-          </tr>
-          {% for user in organization.users %}
-            <tr>
-              <td><a href='/users/{{ user._id }}'>{{ user.name }}</a></td>
-              <td>{{ user.role }}</td>
-              <td>{{ user.email }}</td>
-            </tr>
-          {% endfor %}
-        </table>
+        {% for building in organization.buildings %}
+          <div class="building">
+            <header>
+              <a href='/buildings/{{ building._id }}'>{{ building.name }}</a>
+              <p>{{ building.address }}</p>
+            </header>
+
+            <table>
+            {% for floor in building.floors %}
+            
+              <tr class="floor">
+                <td>Floor {{floor.number}}</td>
+            
+                {% if floor.demisings.length > 0 %}
+                  {% for suite in floor.demisings[0].suites %}
+            
+                    <td><a href="/suites/{{ suite.id }}">{{ suite.number }}</a></td>
+            
+                  {% endfor %}
+                {% endif %}
+            
+              </tr>
+    
+            {% endfor %}
+            </table>
+          </div>
+        {% endfor %}
       </div>
+
     </div>
 
   </div>

@@ -1,15 +1,47 @@
+.page-wrap
+  display flex
+  flex-direction row
+  min-height 100% 
+
+aside.sidebar
+  width 10vw
+  background #242137
+
 .show-page
+  background #fafaff
+  flex-grow 1
+  height 100%
+  padding 2rem
+
   > header, > div, > table
-    padding 1rem
+    padding 0 0 1rem 0
     
+  header h1, h2
+    margin-top 0
+
   table
     margin-top 1rem
     th, td 
-      padding .5rem 1rem .5rem 0
+      padding 0 1rem .5rem 0
 
   .flex-row
     display flex
     flex-direction row
+    align-items center
+    
+    >h1, >h2
+      margin 0
     > div
       margin-right 2rem
-    
+    .grow 
+      flex-grow 1
+
+
+.organizations  
+  .building
+    margin-bottom 1rem
+    padding .5rem
+    box-sizing border-box
+    border 1px solid rgba(0,0,10, 0.2)
+    &:first-of-type
+      margin-top 1rem

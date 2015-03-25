@@ -6,3 +6,5 @@
 // var style = window.getComputedStyle(document.body).getPropertyValue('background-color');
 // test2.innerHTML = style == 'rgb(255, 0, 102)' ? 'Stylus & CSS successfully compiled!' : 'Stylus fail :(';
 // document.body.appendChild(test2);
+
+require('./util/fontdeck');
