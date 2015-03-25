@@ -39,36 +39,12 @@ router.post('/new', isLoggedIn, function(req, res, next) {
   });
 });
 
-var types = ['buildings', 'floors', 'demisings', 'suites', 'testfits'];
-
-var deep = function(err, modelNames, parent, cb) {
-  parent = parent.constructor === Array ? parent : [parent];
-
-  var currentModelName = modelNames.shift();
-  var currentModel = require('../models/' + currentModelName.slice(0, -1));
-
-  if (parent.length > 0 && modelNames[0]) {
-    for (var i = 0; i < parent.length; i++) {
-      currentModel.populate(parent[i][currentModelName], {
-        path: modelNames[0]
-      }, function(err, currents) {
-        deep(err, modelNames, currents, cb);
-      })
-    }
-  } else {
-    cb();
-  }
-}
-
 router.get('/:id', isLoggedIn, function(req, res, next) {
   Organization.findById(req.params.id)
-    .lean()
-    .populate('buildings')
+    .deepPopulate('buildings.floors.demisings.suites.testfits')
     .exec(function(err, organization) {
-      deep(err, types.slice(0), organization, function() {
-        res.render('organizations/show.html', {
-          organization: organization
-        });
+      res.render('organizations/show.html', {
+        organization: organization
       });
     });
 });

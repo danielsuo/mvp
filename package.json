@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/floored/protofit",
   "dependencies": {
+    "async": "^0.9.0",
     "bcrypt": "^0.8.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.12.0",
@@ -52,6 +53,7 @@
     "jade": "~1.9.2",
     "minimist": "^1.1.1",
     "mongoose": "^3.8.25",
+    "mongoose-deep-populate": "^1.0.2",
     "mongoose-migrate": "^0.2.3",
     "mongoose-relationship": "^0.1.4",
     "morgan": "^1.5.2",
