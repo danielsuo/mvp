@@ -6,6 +6,12 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
+- Support merging in data structure (not necessarily implement)
+- Users
+  - Floored admin: can do everything
+  - Org admin: can do everything within organization
+  - User: can do everything but add other users within organization (can we kill?)
+  - Users belong to organizations; permissions check if in organization and role
 - Trailing slash routing problem
 - Active demising checkbox
 - Set up permissions for different groups

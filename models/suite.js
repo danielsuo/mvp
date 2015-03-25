@@ -13,7 +13,11 @@ var suiteSchema = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Demising',
     childPath: 'suites'
-  }
+  },
+  testfits: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Testfit'
+  }]
 });
 
 suiteSchema.plugin(relationship, {
