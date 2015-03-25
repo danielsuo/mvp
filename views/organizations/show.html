@@ -24,14 +24,14 @@
 
       <div>
         <header class="flex-row">
-          <h2 class="grow">Buildings</h2>
+          <h4 class="grow">Buildings</h4>
           <a href='buildings/new'>Add new</a>
         </header>
 
         {% for building in organization.buildings %}
           <div class="building">
             <header>
-              <a href='/buildings/{{ building._id }}'><h3>{{ building.name }}</h3></a>
+              <a href='/buildings/{{ building._id }}'><h2>{{ building.name }}</h2></a>
               <p>{{ building.address }}</p>
             </header>
 
