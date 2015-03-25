@@ -16,11 +16,15 @@
     <a href='demisings/new'>Add new</a>
 
     <table>
-      {% for demising in floor.demisings %}
         <tr>
+          <th>Name</th>
         </tr>
-      {% endfor %}
-    </table>
+        {% for demising in floor.demisings %}
+          <tr>
+            <td><a href='/demisings/{{ demising._id }}/'>{{ demising.name }}</a></td>
+          </tr>
+        {% endfor %}
+      </table>
   </div>
 
 </div>

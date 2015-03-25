@@ -4,10 +4,7 @@ var mongoose = require('mongoose');
 
 var isLoggedIn = require('./util/isLoggedIn');
 
-var Floor = require('../models/floor');
-var Demising = require('../models/demising');
-
-var demisingForm = Demising.createForm();
+var Testfit = require('../models/testfit');
 
 // router.get('/', isLoggedIn, function(req, res, next) {
 //   Organization.find(function(err, organizations) {
@@ -39,29 +36,29 @@ var demisingForm = Demising.createForm();
 // });
 
 router.get('/:id', isLoggedIn, function(req, res, next) {
-  Floor.findById(req.params.id)
-    .populate('demisings')
-    .exec(function(err, floor) {
+  Testfit.findById(req.params.id)
+    .exec(function(err, testfit) {
+      console.log(testfit)
       if (err) return next(err);
-      res.render('floors/show.html', {
-        floor: floor
+      res.render('testfits/show.html', {
+        testfit: testfit
       })
     })
 });
 
-router.get('/:id/demisings/new', isLoggedIn, function(req, res, next) {
-  res.render('demisings/new.html', {
-    form: demisingForm.toHTML()
-  });
-});
+// router.get('/:id/floors/new', isLoggedIn, function(req, res, next) {
+//   res.render('floors/new.html', {
+//     form: floorForm.toHTML()
+//   });
+// });
 
-router.post('/:id/demisings/new', isLoggedIn, function(req, res, next) {
-  req.body.floor = mongoose.Types.ObjectId(req.params.id);
-  Demising.create(req.body, function(err, demising) {
-    if (err) return next(err);
-    res.redirect('/floors/' + req.params.id + '/');
-  });
-});
+// router.post('/:id/floors/new', isLoggedIn, function(req, res, next) {
+//   req.body.building = mongoose.Types.ObjectId(req.params.id);
+//   Floor.create(req.body, function(err, floor) {
+//     if (err) return next(err);
+//     res.redirect('/buildings/' + req.params.id + '/');
+//   });
+// });
 
 // router.put('/:id', isLoggedIn, function(req, res, next) {
 //   Organization.findByIdAndUpdate(req.params.id, req.body, function(err, organization) {

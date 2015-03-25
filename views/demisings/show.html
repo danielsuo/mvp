@@ -7,28 +7,25 @@
 <div class="show-page">
 
   <header>
-    <h1>{{ building.name }}</h1>
+    <h1>{{ demising.name }}</h1>
     <table>
       <tr>
-        <td>Name</td> <td>{{ buliding.name }}</td>
-      </tr>
-      <tr>
-        <td>Address</td> <td>{{ building.address }}</td>
+        <td>Name</td> <td>{{ demising.name }}</td>
       </tr>
     </table>
   </header>
 
   <div>
-    <h2>Floors</h2>
-    <a href='floors/new'>Add new</a>
+    <h2>Suites</h2>
+    <a href='suites/new'>Add new</a>
 
     <table>
       <tr>
         <th>Number</th>
       </tr>
-      {% for floor in building.floors %}
+      {% for suite in demising.suites %}
         <tr>
-          <td><a href='/floors/{{ floor._id }}/'>{{ floor.number }}</a></td>
+          <td><a href='/suites/{{ suite._id }}/'>{{ suite.number }}</a></td>
         </tr>
       {% endfor %}
     </table>

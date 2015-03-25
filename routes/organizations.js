@@ -43,7 +43,6 @@ router.get('/:id', isLoggedIn, function(req, res, next) {
   Organization.findById(req.params.id)
     .populate('buildings')
     .exec(function(err, organization) {
-      console.log(organization)
       if (err) return next(err);
       res.render('organizations/show.html', {
         organization: organization

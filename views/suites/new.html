@@ -1,0 +1,10 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+  <form method='POST'>
+    {{ form | safe }}
+    <input type='submit'>
+  <form>
+{% endblock %}

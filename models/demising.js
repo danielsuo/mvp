@@ -3,7 +3,7 @@ var relationship = require('mongoose-relationship')
 var forms = require('forms-mongoose');
 
 var demisingSchema = mongoose.Schema({
-  number: {
+  name: {
     type: String,
     forms: {
       all: {}

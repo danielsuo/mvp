@@ -7,7 +7,6 @@ var isLoggedIn = require('./util/isLoggedIn');
 var Building = require('../models/building');
 var Floor = require('../models/floor');
 
-var buildingForm = Building.createForm();
 var floorForm = Floor.createForm();
 
 // router.get('/', isLoggedIn, function(req, res, next) {
@@ -43,7 +42,6 @@ router.get('/:id', isLoggedIn, function(req, res, next) {
   Building.findById(req.params.id)
     .populate('floors')
     .exec(function(err, building) {
-      console.log(building)
       if (err) return next(err);
       res.render('buildings/show.html', {
         building: building

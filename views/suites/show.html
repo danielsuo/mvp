@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+
+<div class="show-page">
+
+  <header>
+    <h1>{{ suite.number }}</h1>
+  </header>
+
+  <div>
+    <h2>Test Fits</h2>
+    <a href='testfits/new'>Add new</a>
+
+    <table>
+      <tr>
+        <th>Name</th>
+      </tr>
+      {% for testfit in suite.testfits %}
+        <tr>
+          <td><a href='/testfits/{{ testfit._id }}/'>{{ testfit.name }}</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+<div class="show-page">
+
+{% endblock %}

@@ -29,7 +29,7 @@
         </tr>
         {% for building in organization.buildings %}
           <tr>
-            <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
+            <td><a href='/buildings/{{ building._id }}/'>{{ building.name }}</a></td>
             <td>{{ organization.address }}</td>
           </tr>
         {% endfor %}
