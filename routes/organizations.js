@@ -39,42 +39,37 @@ router.post('/new', isLoggedIn, function(req, res, next) {
   });
 });
 
-var Floor = require('../models/floor');
-var Demising = require('../models/demising');
-var Suite = require('../models/suite');
-var Testfit = require('../models/testfit');
+var types = ['buildings', 'floors', 'demisings', 'suites', 'testfits'];
+
+var deep = function(err, modelNames, parent, cb) {
+  parent = parent.constructor === Array ? parent : [parent];
+
+  var currentModelName = modelNames.shift();
+  var currentModel = require('../models/' + currentModelName.slice(0, -1));
+
+  if (parent.length > 0 && modelNames[0]) {
+    for (var i = 0; i < parent.length; i++) {
+      currentModel.populate(parent[i][currentModelName], {
+        path: modelNames[0]
+      }, function(err, currents) {
+        deep(err, modelNames, currents, cb);
+      })
+    }
+  } else {
+    cb();
+  }
+}
 
 router.get('/:id', isLoggedIn, function(req, res, next) {
   Organization.findById(req.params.id)
     .lean()
     .populate('buildings')
     .exec(function(err, organization) {
-      Building.populate(organization.buildings, {
-        path: 'floors'
-      }, function(err, buildings) {
-        for (var i = 0; i < buildings.length; i++) {
-          Floor.populate(buildings[i].floors, {
-            path: 'demisings'
-          }, function(err, floors) {
-            for (var j = 0; j < floors.length; j++) {
-              Demising.populate(floors[j].demisings, {
-                path: 'suites'
-              }, function(err, demisings) {
-                for (var k = 0; k < demisings.length; k++) {
-                  Suite.populate(demisings[k].suites, {
-                    path: 'testfits'
-                  }, function(err, suites) {
-                    if (err) return next(err);
-                    res.render('organizations/show.html', {
-                      organization: organization
-                    });
-                  })
-                }
-              })
-            }
-          })
-        }
-      })
+      deep(err, types.slice(0), organization, function() {
+        res.render('organizations/show.html', {
+          organization: organization
+        });
+      });
     });
 });
 
