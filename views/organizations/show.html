@@ -18,22 +18,44 @@
       </table>
     </header>
 
-    <div>
-      <h2>Buildings</h2>
-      <a href='buildings/new'>Add new</a>
+    <div class="flex-row">
+      <div>
+        <h2>Buildings</h2>
+        <a href='buildings/new'>Add new</a>
 
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Address</th>
-        </tr>
-        {% for building in organization.buildings %}
+        <table>
           <tr>
-            <td><a href='/buildings/{{ building._id }}/'>{{ building.name }}</a></td>
-            <td>{{ organization.address }}</td>
+            <th>Name</th>
+            <th>Address</th>
           </tr>
-        {% endfor %}
-      </table>
+          {% for building in organization.buildings %}
+            <tr>
+              <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
+              <td>{{ organization.address }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <div>
+        <h2>Users</h2>
+        <a href='users/new'>Add new</a>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+          </tr>
+          {% for user in organization.users %}
+            <tr>
+              <td><a href='/users/{{ user._id }}'>{{ user.name }}</a></td>
+              <td>{{ user.role }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
     </div>
 
   </div>
