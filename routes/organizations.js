@@ -35,7 +35,7 @@ router.get('/new', isLoggedIn, function(req, res, next) {
 router.post('/new', isLoggedIn, function(req, res, next) {
   Organization.create(req.body, function(err, organization) {
     if (err) return next(err);
-    res.json(organization);
+    res.redirect('/organizations/');
   });
 });
 
