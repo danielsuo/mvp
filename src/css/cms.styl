@@ -1,3 +1,6 @@
+a
+  color #7270b1
+
 .page-wrap
   display flex
   flex-direction row
@@ -11,10 +14,13 @@ aside.sidebar
   background #fafaff
   flex-grow 1
   height 100%
-  padding 2rem
+  padding 2rem 4rem
 
-  > header, > div, > table
+  > div, > table
     padding 0 0 1rem 0
+
+  > header
+    margin-bottom 3rem
     
   header h1, h2
     margin-top 0
@@ -38,10 +44,18 @@ aside.sidebar
 
 
 .organizations  
+    
   .building
     margin-bottom 1rem
-    padding .5rem
-    box-sizing border-box
-    border 1px solid rgba(0,0,10, 0.2)
+    padding .5rem 0
+    border-bottom 1px solid rgba(0,0,10, 0.1)
     &:first-of-type
       margin-top 1rem
+    &:hover 
+      background #fff
+    
+    table
+      margin-left .75rem
+  
+  .floor td:first-child
+    padding-right 1.5rem  
