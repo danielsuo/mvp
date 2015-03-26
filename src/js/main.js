@@ -36,8 +36,6 @@ XHR.get(data.dir + '/config.json')
   data.$element = $('#' + data.element.id);
   data.$element.css({
     // 'position': 'absolute',
-    'width': '100%',
-    'height': 'auto',
     'backface-visibility': 'hidden'
   });
 
