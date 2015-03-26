@@ -8,7 +8,7 @@ var reload = browserSync.reload;
 var minimist = require('minimist');
 var options = minimist(process.argv.slice(2));
 
-var tasks = ['js', 'css', 'data'];
+var tasks = ['js', 'css', 'img', 'data'];
 
 gulp.task('client', tasks, function() {
   if (!options.build) {
@@ -47,6 +47,20 @@ gulp.task('data', function() {
       stream: true
     }))
     .pipe(gulp.dest(config.data.dest));
+});
+
+gulp.task('img', function() {
+  config.img.dest = options.build ? './public/img/' : config.img.dest;
+  var src = options.build ? gulp.src(config.img.src) :
+    watch(config.img.src, {
+      base: config.img.base
+    });
+
+  src
+    .pipe(reload({
+      stream: true
+    }))
+    .pipe(gulp.dest(config.img.dest));
 });
 
 var nib = require('nib');

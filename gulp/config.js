@@ -30,6 +30,11 @@ module.exports = {
       base: src,
       src: [src + 'data/**/*'],
       dest: dest
+    },
+    img: {
+      base: src,
+      src: [src + 'img/**/*'],
+      dest: dest
     }
   },
   server: {
