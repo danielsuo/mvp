@@ -6,9 +6,9 @@ var _ = require('lodash');
 
 var sortPoints = require('./util/sortPoints');
 
-data = SVG('cells').nested();
+data = SVG('svg');
 data.dir = '/data/floored/test/';
-data.element = document.getElementById('cells');
+data.element = document.getElementById('svg');
 data.panel = document.getElementById('panel');
 data.protofit = document.getElementById('protofit');
 data.info = document.getElementById('info');
@@ -35,9 +35,9 @@ XHR.get(data.dir + '/config.json')
 
   data.$element = $('#' + data.element.id);
   data.$element.css({
-    'position': 'absolute',
-    'width': data.config.width,
-    'height': data.config.height,
+    // 'position': 'absolute',
+    'width': '100%',
+    'height': 'auto',
     'backface-visibility': 'hidden'
   });
 
@@ -58,13 +58,10 @@ XHR.get(data.dir + '/config.json')
 
     layer.$element = $('#' + layer.id);
     layer.$element.css({
-      'position': 'absolute',
-      'width': data.config.width,
-      'height': data.config.height,
+      // 'position': 'absolute',
+      // 'width': data.config.width,
+      // 'height': data.config.height,
       'background-image': 'url(' + layer.file_path + ')',
-      'background-size': 'contain',
-      'background-repeat': 'no-repeat',
-      'pointer-events': 'none',
     });
   });
 })
@@ -143,6 +140,10 @@ XHR.get(data.dir + '/config.json')
       radio('cell-mouseout').broadcast(cell);
     });
   })
+})
+
+.then(function() {
+  $(data.appContainer).removeClass('loading');
 }, function(error) {
   console.log(error);
 });
