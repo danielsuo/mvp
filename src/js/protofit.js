@@ -3,8 +3,6 @@
 
 // SVG library
 var SVG = require('./svg');
-require('./ixn/zoom');
-require('./ixn/pan');
 
 // Pubsub library
 var radio = require('radio');

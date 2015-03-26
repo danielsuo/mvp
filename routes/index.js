@@ -78,6 +78,11 @@ module.exports = function(app, user, passport) {
   // =====================================
   // Routes ==============================
   // =====================================
+  app.get('/test', function(req, res) {
+    res.render('test.html', {
+      
+    });
+  });
   app.use('/users', require('./users'));
   app.use('/organizations', require('./organizations'));
   app.use('/buildings', require('./buildings'));

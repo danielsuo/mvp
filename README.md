@@ -7,6 +7,7 @@
 
 ## TODO
 - Support merging in data structure (not necessarily implement)
+- Deal with window resizing
 - Users
   - Floored admin: can do everything
   - Org admin: can do everything within organization

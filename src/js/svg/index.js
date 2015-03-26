@@ -2,6 +2,8 @@ var SVG = require('svg.js');
 require('../ixn/draggable');
 require('../ixn/select');
 require('../ixn/resize');
+require('../ixn/zoom');
+require('../ixn/pan');
 require('./path');
 require('./topath');
 require('./parser');

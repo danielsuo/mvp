@@ -22,7 +22,17 @@ gulp.task('client', tasks, function() {
       .pipe(reload({
         stream: true
       }));
+
+    gulp.watch(config.js.watch, ['js', 'reload']);
   }
+});
+
+gulp.task('reload', function() {
+  setTimeout(function reload() {
+    browserSync.reload({
+      stream: false //
+    });
+  }, 1000);
 });
 
 gulp.task('data', function() {
@@ -73,6 +83,7 @@ var bundleLogger = require('../util/bundleLogger');
 var handleErrors = require('../util/handleErrors');
 
 gulp.task('js', function(callback) {
+
   var bundleQueue = config.js.bundleConfigs.length;
 
   var browserifyThis = function(bundleConfig) {
@@ -107,11 +118,9 @@ gulp.task('js', function(callback) {
         .on('end', reportFinished);
     };
 
-    if (!options.build) {
+    if (global.isWatching) {
       // Wrap with watchify and rebundle on changes
-      bundler = watchify(bundler, {
-        glob: config.js.watch
-      });
+      bundler = watchify(bundler);
       // Rebundle on update
       bundler.on('update', bundle);
     }
