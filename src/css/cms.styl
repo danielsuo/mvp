@@ -9,58 +9,103 @@ a
   min-height 100% 
 
 aside.sidebar
-  width 10vw
-  background #242137
+  width 70px
+  background #CDCBD7
 
 .show-page
-  background #fafaff
+  background #F0F0F8
   flex-grow 1
   height 100%
-  padding 2rem 4rem
-
-  > div, > table
-    padding 0 0 1rem 0
-
-  > header
-    margin-bottom 3rem
-    h1
-      margin-top 0
-      color #B8B5CF
-    
-  header h2
-    margin-top 0
 
   table
-    margin-top 1rem
     th, td 
       padding 0 1rem .5rem 0
 
-  .flex-row
+  // Page header
+  > header
+    box-sizing border-box
+    padding 0 3rem 2.5rem 3rem
+    border-bottom 1px solid alpha(#151523 0.05)
+    h1
+      color purple60
+      margin 1.5rem 0
+    table
+      color purple70
+    td:last-of-type
+      font-size 1.125rem
+
+
+  // Section header
+  > section > header
     display flex
     flex-direction row
     align-items center
-    
-    >h1, >h2
-      margin 0
-    > div
-      margin-right 2rem
-    .grow 
+    box-sizing border-box
+    padding 2rem 3rem
+    h3
       flex-grow 1
+      color purple70
+      margin 0
 
-
-.organizations  
-    
   .building
-    margin-bottom 1rem
-    padding .5rem 0
-    border-bottom 1px solid rgba(0,0,10, 0.1)
-    &:first-of-type
-      margin-top 1rem
-    &:hover 
-      background #fff
-    
-    table
-      margin-left .75rem
+    box-sizing border-box
+    margin 0 3rem 2.5rem 3rem
+    padding 1.5rem 1.45rem
+    background #FAFAFF
+    border 1px solid #E5E5E8
+    display flex
+    flex-direction flex-row
   
-  .floor td:first-child
-    padding-right 1.5rem  
+    header
+      width 33%
+      max-width 220px
+      margin-right 2rem
+      padding-bottom 3.25rem
+      border-bottom 2px solid purple60
+      align-self flex-start
+      h2, a h2
+        margin-top 0
+        color purple60
+      p
+        color purple70
+    
+    .floors
+      flex-grow 1
+      h4
+        color purple70
+        margin-bottom 1rem
+      
+      ul
+        list-style none
+        margin 0
+        padding 0
+      > ul > li
+        display flex
+        flex-direction row
+        align-items baseline
+        padding-top 0.77em
+        border solid #ECECEE
+        border-width 1px 0 0 0
+        box-sizing border-box
+        FranklinBold()
+        color purple70
+        min-height 48px
+        &:last-of-type
+          border-width 1px 0
+        > ul
+          font-size 1.125em
+          margin-left 1rem
+          width 100%
+          > li
+            box-sizing border-box
+            padding 0.75rem 0
+            max-height 2.66em
+            border solid #ECECEE
+            border-width 0 0 1px 0
+            FranklinMedium()
+            &:first-of-type
+              padding-top 0
+            &:last-of-type
+              border-width 0
+            a
+              color purple45

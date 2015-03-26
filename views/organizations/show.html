@@ -14,48 +14,47 @@
         <h1>{{ organization.name }}</h1>
         <table>
           <tr>
-            <td>Owner</td> <td>{{ organization.owner }}</td>
+            <td><h4>Owner</h4></td> <td>{{ organization.owner }}</td>
           </tr>
           <tr>
-            <td>Address</td> <td>{{ organization.address }}</td>
+            <td><h4>Address</h4></td> <td>{{ organization.address }}</td>
           </tr>
         </table>
       </header>
 
-      <div>
-        <header class="flex-row">
-          <h4 class="grow">Buildings</h4>
+      <section>
+        <header>
+          <h3 class="grow">Buildings</h3>
           <a href='buildings/new'>Add new</a>
         </header>
 
         {% for building in organization.buildings %}
-          <div class="building">
-            <header>
-              <a href='/buildings/{{ building._id }}'><h2>{{ building.name }}</h2></a>
-              <p>{{ building.address }}</p>
-            </header>
+        <div class="building">
+          <header>
+            <a href='/buildings/{{ building._id }}/'><h2>{{ building.name }}</h2></a>
+            <p>{{ building.address }}</p>
+          </header>
 
-            <table>
-            {% for floor in building.floors %}
-            
-              <tr class="floor">
-                <td>Floor {{floor.number}}</td>
-            
+          <div class="floors">
+            <h4>Floors</h4>
+            <ul>
+              {% for floor in building.floors %}
+              <li class="floor">
+                {{floor.number}}
                 {% if floor.demisings.length > 0 %}
+                <ul>
                   {% for suite in floor.demisings[0].suites %}
-            
-                    <td><a href="/suites/{{ suite.id }}">{{ suite.number }}</a></td>
-            
+                  <li><a href="/suites/{{ suite.id }}/">{{ suite.number }}</a></li>
                   {% endfor %}
-                {% endif %}
-            
-              </tr>
-    
-            {% endfor %}
-            </table>
+                </ul>
+                {% endif %}   
+              </li>
+              {% endfor %}
+            </ul>
           </div>
+        </div>
         {% endfor %}
-      </div>
+      </section>
 
     </div>
 

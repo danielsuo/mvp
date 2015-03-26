@@ -6,6 +6,7 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
+- Multiline addresses
 - Support merging in data structure (not necessarily implement)
 - Users
   - Floored admin: can do everything
