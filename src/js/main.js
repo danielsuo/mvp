@@ -6,21 +6,59 @@ var _ = require('lodash');
 
 var sortPoints = require('./util/sortPoints');
 
-data = SVG('clips').nested();
-data.dir = '/data/floored/test';
-data.cells = require('./app/cells');
+data = SVG('cells').nested();
+data.dir = '/data/floored/test/';
+data.element = document.getElementById('cells');
 
 XHR.get(data.dir + '/config.json')
 
-// Parse config file
+// Parse config file and configure SVG canvas
 .then(function(response) {
   data.config = JSON.parse(response);
+
+  // Give the SVG a size
+  data.viewbox(0, 0, data.config.width, data.config.height);
+
+  // Make sure we preserve the aspect ratio and hug (0, 0)
+  data.attr({
+    'preserveAspectRatio': 'xMinYMin'
+  });
+
+  data.$element = $('#' + data.element.id);
+  data.$element.css({
+    'position': 'absolute',
+    'width': data.config.width,
+    'height': data.config.height,
+    'backface-visibility': 'hidden'
+  });
+})
+
+// Create layers
+.then(function() {
+  data.config.layers.map(function(layer, index) {
+    layer.file_path = data.dir + layer.id + '.svg';
+    layer.element = document.createElement('div');
+    layer.element.id = layer.id;
+
+    document.getElementById('svg').appendChild(layer.element);
+
+    layer.$element = $('#' + layer.id);
+    layer.$element.css({
+      'position': 'absolute',
+      'width': data.config.width,
+      'height': data.config.height,
+      'background-image': 'url(' + layer.file_path + ')',
+      'background-size': 'contain',
+      'background-repeat': 'no-repeat',
+      'pointer-events': 'none',
+    });
+  });
 })
 
 // Load cell data
 .then(function() {
   // return data.cells.load(data.cells.svg, data.dir + '/cells.svg');
-  return XHR.get(data.dir + '/cells.svg');
+  return XHR.get(data.dir + 'cells.svg');
 })
 
 // Process cell data
@@ -65,10 +103,7 @@ XHR.get(data.dir + '/config.json')
 })
 
 .then(function() {
-  data.viewbox(0, 0, data.config.width, data.config.height);
-  data.attr({
-    'preserveAspectRatio': 'xMinYMin'
-  })
+
   // data.size(1000, 500)
 
   data.cells.map(function(cell) {
@@ -88,15 +123,33 @@ XHR.get(data.dir + '/config.json')
     cell.path.Z();
 
     cell.path.click(function(event) {
-      radio('cell-clicked').broadcast(cell);
-    })
+      radio('cell-click').broadcast(cell);
+    });
+    cell.path.mouseover(function(event) {
+      radio('cell-mouseover').broadcast(cell);
+    });
+    cell.path.mouseout(function(event) {
+      radio('cell-mouseout').broadcast(cell);
+    });
   })
 }, function(error) {
   console.log(error);
 });
 
-radio('cell-clicked').subscribe(function(cell) {
+radio('cell-click').subscribe(function(cell) {
   console.log(cell)
+});
+
+radio('cell-mouseover').subscribe(function(cell) {
+  cell.path.attr({
+    'fill-opacity': 0.8
+  });
+});
+
+radio('cell-mouseout').subscribe(function(cell) {
+  cell.path.attr({
+    'fill-opacity': 0.2
+  });
 });
 
 

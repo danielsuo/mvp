@@ -93,6 +93,6 @@
 - Cut up SVG layers into cells and only load what is needed
 - Remove unnecessary layers and paths
 - Use SVG to represent blocks and floor plan only
-- Draw background as image / don't use SVG.js to render -> use browser to render
+- [√] Draw background as image / don't use SVG.js to render -> use browser to render
 - Store object locations rather than all data for how an object looks (lends well to using SVG refs)
 - Canvas?
