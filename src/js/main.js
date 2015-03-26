@@ -9,6 +9,15 @@ var sortPoints = require('./util/sortPoints');
 data = SVG('cells').nested();
 data.dir = '/data/floored/test/';
 data.element = document.getElementById('cells');
+data.panel = document.getElementById('panel');
+data.protofit = document.getElementById('protofit');
+data.info = document.getElementById('info');
+data.loading = document.getElementById('loading');
+data.northArrow = document.getElementById('north-arrow');
+data.logo = document.getElementById('project-logo');
+data.rsfInput = document.getElementById('rsf-input');
+data.appContainer = document.getElementById('app');
+data.measurement = document.getElementById('measurement');
 
 XHR.get(data.dir + '/config.json')
 
@@ -31,6 +40,11 @@ XHR.get(data.dir + '/config.json')
     'height': data.config.height,
     'backface-visibility': 'hidden'
   });
+
+  // Set up UI elements
+  data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
+  data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
+  data.rsfInput.value = data.config.project.area;
 })
 
 // Create layers
@@ -57,7 +71,6 @@ XHR.get(data.dir + '/config.json')
 
 // Load cell data
 .then(function() {
-  // return data.cells.load(data.cells.svg, data.dir + '/cells.svg');
   return XHR.get(data.dir + 'cells.svg');
 })
 
@@ -103,8 +116,6 @@ XHR.get(data.dir + '/config.json')
 })
 
 .then(function() {
-
-  // data.size(1000, 500)
 
   data.cells.map(function(cell) {
     cell.path = data.path();
