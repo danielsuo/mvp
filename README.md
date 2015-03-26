@@ -6,6 +6,9 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
+- Pre-configured merge
+- White-box button
+- Add special be able to change it
 - Support merging in data structure (not necessarily implement)
 - Deal with window resizing
 - Users

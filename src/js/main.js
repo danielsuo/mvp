@@ -100,9 +100,21 @@ XHR.get(data.dir + '/config.json')
     // Sort points in clockwise order
     sortPoints(corners);
 
+    var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
+
+    transformedCorners = corners.map(function(corner) {
+      return {
+        x: corner.x * ratio,
+        y: corner.y * ratio
+      };
+    });
+
+    console.log(corners, transformedCorners)
+
     return {
       index: index,
-      corners: corners
+      corners: corners,
+      transformedCorners: transformedCorners
     };
   })
 
@@ -128,6 +140,18 @@ XHR.get(data.dir + '/config.json')
     });
     cell.path.Z();
 
+    cell.clip = data.clip();
+    var path = data.path();
+    cell.transformedCorners.map(function(corner, index) {
+      if (index == 0) {
+        path.M(corner.x, corner.y);
+      } else {
+        path.L(corner.x, corner.y);
+      }
+    });
+    path.Z();
+    cell.clip.add(path);
+
     cell.path.click(function(event) {
       radio('cell-click').broadcast(cell);
     });
@@ -140,6 +164,33 @@ XHR.get(data.dir + '/config.json')
   })
 })
 
+.then(function() {
+
+  var setClip = function($element, svg) {
+    $element.css({
+      '-webkit-clip-path': 'url(#' + svg.node.id + ')',
+      'clip-path': 'url(#' + svg.node.id + ')'
+    });
+    console.log(svg.node.id)
+  }
+
+  for (var i = 0; i < data.config.layers.length; i++) {
+    var clip = data.cells[0].clip;
+    // var ellipse = data.ellipse(20, 20).move(120, 180);
+
+    var ratio = 561 / 740;
+    var ellipseShow = data.ellipse(20 * ratio, 20 * ratio).move(120 * ratio, 180 * ratio);
+    // var ellipseShow = data.ellipse(20, 20).move(120, 180);
+    clip.add(ellipseShow);
+
+    // clip.attr({
+    //   fill: '#f06'
+    // });
+    setClip(data.config.layers[i].$element, clip);
+  }
+})
+
+// At the very end, remove the loading icon
 .then(function() {
   $(data.appContainer).removeClass('loading');
 }, function(error) {
@@ -161,8 +212,6 @@ radio('cell-mouseout').subscribe(function(cell) {
     'fill-opacity': 0.2
   });
 });
-
-
 
 // var clips = SVG('clips');
 // var ellipse = clips.ellipse(500, 200).move(100, 100);
