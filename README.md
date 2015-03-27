@@ -6,14 +6,19 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
-<<<<<<< HEAD
+- Merging
+- Print.css
 - Pre-configured merge
-- White-box button
 - Add special be able to change it
-=======
+- Deploy
+
+- Saving / loading test fits
+- List of test fits
+
 - Multiline addresses
-- Support merging in data structure (not necessarily implement)
-- Deal with window resizing
+- Move unmoveable cells (e.g., reception, pantry) to own layer
+  - Add disabled layers
+  - Remove for whitebox
 - Users
   - Floored admin: can do everything
   - Org admin: can do everything within organization
@@ -24,9 +29,7 @@
 - Set up permissions for different groups
 - Google analytics
 - Other analytics?
-- Create models (orgs, buildings, floors, suite arrangements, suites)
 - Set up s3 + authentication
-- Set up user roles (floored admin, org admin, users)
 - Migrations
   - [mongodb-migrations](https://github.com/emirotin/mongodb-migrations)
   - [mongo-migrate](https://github.com/afloyd/mongo-migrate)
@@ -36,7 +39,6 @@
   - [mongoose-rolling-migration](https://github.com/kennethklee/mongoose-rolling-migration)
   - [mongoose-lazy-migration](http://cnpmjs.org/package/mongoose-lazy-migration)
 - Deploying migrations
-- Relationships
 
 ## Done
 - add the badges
@@ -52,6 +54,12 @@
 - Set up heroku
 - Set up users
 - Drop in protofit
+- Relationships
+- Create models (orgs, buildings, floors, suite arrangements, suites)
+- Deal with window resizing
+- Support merging in data structure (not necessarily implement)
+- White-box button
+- Hook up cell change buttons
 
 ## On the radar
 - Hover cell info
