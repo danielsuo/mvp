@@ -27,6 +27,11 @@
   .plan-layer
     pointer-events none
     
+  .bg
+    filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+    -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
+    z-index -1
+
   .cell
     backface-visibility hidden
     stroke #ffffff
@@ -86,8 +91,6 @@
     pointer-events none
 
   > svg 
-      filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
-      -webkit-filter drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.066))
       backface-visibility hidden
       width 100%
       height auto
@@ -118,7 +121,7 @@
     top 50%
     left 50%
     transform translateX(-50%) translateY(-50%)
-    ApercuRegular()
+    Franklin()
     font-size 0.8em
     
 #app.loading #project-north
