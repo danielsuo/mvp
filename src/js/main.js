@@ -60,13 +60,12 @@ XHR.get(data.dir + '/config.json')
 
   // Set up layout buttons
   for (var layout in data.config.layouts) {
-    (function(layout){
+    (function(layout) {
       var $li = $(document.createElement('li'));
       $li.html(data.config.layouts[layout].name).data('index', layout);
-      $li.click(function(){
+      $li.click(function() {
         radio('layout-change').broadcast(layout);
-        console.log(layout)
-      })
+      });
       $layoutList.append($li);
     })(layout);
   }
@@ -218,12 +217,13 @@ XHR.get(data.dir + '/config.json')
   var clipLayersWithState = function(state) {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
-      if (layers[i].id !== 'shell') {
-        for (var j = 0; j < state.length; j++) {
-          if (state[j] == i) {
+
+      for (var j = 0; j < state.length; j++) {
+        if (state[j] == i) {
+          if (layers[i].id !== 'shell') {
             layers[i].clip.add(data.cells[j].clip);
-            data.cells[j].path.node.dataset.layer = i;
           }
+          data.cells[j].path.node.dataset.layer = i;
         }
       }
     }
@@ -328,6 +328,10 @@ radio('cell-mouseout').subscribe(function(cell) {
 
 radio('layout-change').subscribe(function(layoutIndex) {
   data.setLayout(layoutIndex, true);
+});
+
+radio('layout-whitebox').subscribe(function() {
+  data.setLayout(data.config.layouts.length - 1, true);
 });
 
 radio('selected-update').subscribe(function(layerIndex) {
