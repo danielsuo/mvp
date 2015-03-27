@@ -232,41 +232,31 @@ XHR.get(data.dir + '/config.json')
   };
 
   data.setLayout = function(layoutIndex, update) {
-    data.state = data.config.layouts[layoutIndex].state;
+    this.state = this.config.layouts[layoutIndex].state;
+    this.currentLayout = layoutIndex;
+    this.setLayoutFromState(update);
+  };
+
+  data.setLayoutFromState = function(update) {
     if (update) clearClipsFromLayers();
     createClipsForLayers();
     transformCellClips();
-    clipLayersWithState(data.state);
-    data.currentLayout = layoutIndex;
-  };
+    clipLayersWithState(this.state);
+  }
 
   data.updateSelected = function(layerIndex) {
-    var layer = data.config.layers[layerIndex];
-    data.selected.map(function(cellIndex) {
-      data.state[cellIndex] = layerIndex;
+    var that = this;
+    var layer = this.config.layers[layerIndex];
+    this.selected.map(function(cellIndex) {
+      that.state[cellIndex] = layerIndex;
     });
 
-    console.log(data.state)
-
-    // Clear clip from a layer
-    layer.clip.remove();
-
-    // Create clip for layer
-    layer.clip = data.clip();
-    setClipCSS(layer.$element, layer.clip);
-
-    // Clip layer with state
-    for (var i = 0; i < data.state.length; i++) {
-      if (data.state[i] == layoutIndex) {
-        layer.clip.add(data.cells[i].clip);
-        data.cells[j].path.node.dataset.layer = layerIndex;
-      }
-    }
+    this.setLayoutFromState(true);
   };
 
   data.setLayout(data.currentLayout);
   $(window).resize(function() {
-    data.setLayout(data.currentLayout);
+    data.setLayout(data.currentLayout, true);
   });
 })
 
@@ -275,9 +265,6 @@ XHR.get(data.dir + '/config.json')
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
-  data.selected = [1,2,3,4,5,6,7,8]
-  radio('selected-update').broadcast(4)
-  console.log(data.config.layers[0].clip)
 }, function(error) {
   console.log(error);
 });
@@ -321,7 +308,7 @@ radio('cell-mouseout').subscribe(function(cell) {
 });
 
 radio('layout-change').subscribe(function(layoutIndex) {
-  data.setLayout(layoutIndex);
+  data.setLayout(layoutIndex, true);
 });
 
 radio('selected-update').subscribe(function(layerIndex) {
