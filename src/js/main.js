@@ -57,6 +57,7 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
   var $layoutList = $('#layout-list');
+  var $editorList = $('#editor-list');
 
   // Set up layout buttons
   for (var layout in data.config.layouts) {
@@ -65,11 +66,25 @@ XHR.get(data.dir + '/config.json')
       $li.html(data.config.layouts[layout].name).data('index', layout);
       $li.click(function(){
         radio('layout-change').broadcast(layout);
-        console.log(layout)
+        radio('selection-clear').broadcast();
       })
       $layoutList.append($li);
     })(layout);
   }
+
+  // Set up cell editor buttons
+  for (var layer in data.config.layers) {
+    (function(layer){
+      var $li = $(document.createElement('li'));
+      $li.html(data.config.layers[layer].name).data('index', layer);
+      $li.click(function(){
+        radio('selection-update').broadcast(layer);
+        console.log(layer)
+      })
+      $editorList.append($li);
+    })(layer);
+  }
+
 })
 
 // Create layers
@@ -289,6 +304,8 @@ XHR.get(data.dir + '/config.json')
 radio('cell-click').subscribe(function(cell, dragging) {
   var index = data.selected.indexOf(cell.index);
 
+  $('#actions').addClass('show-editor');
+
   if (dragging) {
 
   } else {
@@ -314,6 +331,8 @@ radio('cell-click').subscribe(function(cell, dragging) {
     var pathElement = document.getElementById(cell.path.node.id);
     pathElement.dataset.selected = 1;
   }
+
+  radio('selection-change').broadcast();
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
@@ -328,21 +347,36 @@ radio('layout-change').subscribe(function(layoutIndex) {
   data.setLayout(layoutIndex, true);
 });
 
-radio('selected-update').subscribe(function(layerIndex) {
+radio('selection-update').subscribe(function(layerIndex) {
   data.updateSelected(layerIndex);
 });
 
-radio('selected-clear').subscribe(function() {
+radio('selection-change').subscribe(function() {
+  if (data.selected.length) {
+    $('#editor').removeClass('no-selection').addClass('has-selection')
+  } else {
+    $('#editor').addClass('no-selection').removeClass('has-selection')
+  }
+});
+
+radio('selection-clear').subscribe(function() {
   data.selected = [];
 
   data.cells.map(function(cell) {
     document.getElementById(cell.path.node.id).dataset.selected = 0;
   });
+  radio('selection-change').broadcast();
 });
+
+radio
 
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
 });
 $('#editor-back-btn').click(function() {
   $('#actions').removeClass('show-editor');
+  radio('selection-clear').broadcast();
+});
+$('#editor-done-btn').click(function() {
+  radio('selection-clear').broadcast();
 });
