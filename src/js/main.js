@@ -65,6 +65,11 @@ XHR.get(data.dir + '/config.json')
       'background-image': 'url(' + layer.file_path + ')',
     });
   });
+
+  // Add background shadow
+  $('#svg-bg').css({
+    'background-image': 'url(' + data.dir + 'bg.svg)'
+  });
 })
 
 // Load cell data
@@ -249,7 +254,7 @@ radio('cell-click').subscribe(function(cell, dragging) {
   var index = data.selected.indexOf(cell.index);
 
   if (dragging) {
-    console.log('dragging')
+
   } else {
     data.multiSelectState = index > -1;
   }
@@ -273,7 +278,6 @@ radio('cell-click').subscribe(function(cell, dragging) {
     var pathElement = document.getElementById(cell.path.node.id);
     pathElement.dataset.selected = 1;
   }
-  console.log(data.selected)
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
