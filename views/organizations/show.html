@@ -4,58 +4,58 @@
 
 {% block body %}
   
-  <div class="show-page">
+  <div class="page-wrap">
 
-    <header>
-      <h1>{{ organization.name }}</h1>
-      <table>
-        <tr>
-          <td>Owner</td> <td>{{ organization.owner }}</td>
-        </tr>
-        <tr>
-          <td>Address</td> <td>{{ organization.address }}</td>
-        </tr>
-      </table>
-    </header>
+    <aside class="sidebar"></aside>
 
-    <div class="flex-row">
-      <div>
-        <h2>Buildings</h2>
-        <a href='buildings/new'>Add new</a>
+    <div class="show-page organizations">
 
+      <header>
+        <h1>{{ organization.name }}</h1>
         <table>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
+            <td><h4>Owner</h4></td> <td>{{ organization.owner }}</td>
           </tr>
-          {% for building in organization.buildings %}
-            <tr>
-              <td><a href='/buildings/{{ building._id }}'>{{ building.name }}</a></td>
-              <td>{{ organization.address }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-      </div>
-
-      <div>
-        <h2>Users</h2>
-        <a href='users/new'>Add new</a>
-
-        <table>
           <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Email</th>
+            <td><h4>Address</h4></td> <td>{{ organization.address }}</td>
           </tr>
-          {% for user in organization.users %}
-            <tr>
-              <td><a href='/users/{{ user._id }}'>{{ user.name }}</a></td>
-              <td>{{ user.role }}</td>
-              <td>{{ user.email }}</td>
-            </tr>
-          {% endfor %}
         </table>
-      </div>
+      </header>
+
+      <section>
+        <header>
+          <h3 class="grow">Buildings</h3>
+          <a href='buildings/new' class="add-btn">New Building</a>
+        </header>
+
+        {% for building in organization.buildings %}
+        <div class="building">
+          <header>
+            <a href='/buildings/{{ building._id }}/'><h2>{{ building.name }}</h2></a>
+            <p>{{ building.address }}</p>
+          </header>
+
+          <div class="floors">
+            <h4>Floors</h4>
+            <ul>
+              {% for floor in building.floors %}
+              <li class="floor">
+                {{floor.number}}
+                {% if floor.demisings.length > 0 %}
+                <ul>
+                  {% for suite in floor.demisings[0].suites %}
+                  <li><a href="/suites/{{ suite.id }}/">{{ suite.number }}</a></li>
+                  {% endfor %}
+                </ul>
+                {% endif %}   
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+
     </div>
 
   </div>

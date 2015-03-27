@@ -1,3 +1,5 @@
+require('./util/fontdeck');
+
 var SVG = require('./svg');
 var Promise = require('promise');
 var radio = require('radio');
