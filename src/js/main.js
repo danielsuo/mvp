@@ -55,6 +55,23 @@ XHR.get(data.dir + '/config.json')
   data.rsfInput.value = data.config.project.area;
 })
 
+.then(function() {
+  var $layoutList = $('#layout-list');
+
+  // Set up layout buttons
+  for (var layout in data.config.layouts) {
+    (function(layout){
+      var $li = $(document.createElement('li'));
+      $li.html(data.config.layouts[layout].name).data('index', layout);
+      $li.click(function(){
+        radio('layout-change').broadcast(layout);
+        console.log(layout)
+      })
+      $layoutList.append($li);
+    })(layout);
+  }
+})
+
 // Create layers
 .then(function() {
   data.config.layers.map(function(layer, index) {
