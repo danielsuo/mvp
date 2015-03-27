@@ -201,7 +201,9 @@ XHR.get(data.dir + '/config.json')
   getCellClips();
   setLayout(data.config.layouts[0].state);
   $(window).resize(function() {
-    var clips = getCellClips();
+    clearLayout();
+    createLayerClips();
+    getCellClips();
     setLayout(data.config.layouts[0].state);
   });
 })
