@@ -192,10 +192,12 @@ XHR.get(data.dir + '/config.json')
   var clipLayersWithLayout = function(layout) {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
-      for (var j = 0; j < layout.length; j++) {
-        if (layout[j] == i) {
-          layers[i].clip.add(data.cells[j].clip);
-          data.cells[j].path.node.dataset.layer = i;
+      if (layers[i].id !== 'shell') {
+        for (var j = 0; j < layout.length; j++) {
+          if (layout[j] == i) {
+            layers[i].clip.add(data.cells[j].clip);
+            data.cells[j].path.node.dataset.layer = i;
+          }
         }
       }
     }
@@ -204,15 +206,19 @@ XHR.get(data.dir + '/config.json')
   var clearClipsFromLayers = function() {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
-      layers[i].clip.remove();
+      if (layers[i].id !== 'shell') {
+        layers[i].clip.remove();
+      }
     }
   }
 
   var createClipsForLayers = function() {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
-      layers[i].clip = data.clip();
-      setClipCSS(layers[i].$element, layers[i].clip);
+      if (layers[i].id !== 'shell') {
+        layers[i].clip = data.clip();
+        setClipCSS(layers[i].$element, layers[i].clip);
+      }
     }
   };
 
@@ -231,7 +237,7 @@ XHR.get(data.dir + '/config.json')
 
 // At the very end, remove the loading icon
 .then(function() {
-  setTimeout(function(){
+  setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
   // $('#loading').remove();
