@@ -100,21 +100,9 @@ XHR.get(data.dir + '/config.json')
     // Sort points in clockwise order
     sortPoints(corners);
 
-    var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
-
-    transformedCorners = corners.map(function(corner) {
-      return {
-        x: corner.x * ratio,
-        y: corner.y * ratio
-      };
-    });
-
-    console.log(corners, transformedCorners)
-
     return {
       index: index,
-      corners: corners,
-      transformedCorners: transformedCorners
+      corners: corners
     };
   })
 
@@ -128,8 +116,6 @@ XHR.get(data.dir + '/config.json')
     cell.path = data.path();
     cell.path.attr({
       'fill-opacity': 0.2
-      // 'stroke': '#f06',
-      // 'stroke-weight': 5
     });
     cell.corners.map(function(corner, index) {
       if (index == 0) {
@@ -139,18 +125,6 @@ XHR.get(data.dir + '/config.json')
       }
     });
     cell.path.Z();
-
-    cell.clip = data.clip();
-    var path = data.path();
-    cell.transformedCorners.map(function(corner, index) {
-      if (index == 0) {
-        path.M(corner.x, corner.y);
-      } else {
-        path.L(corner.x, corner.y);
-      }
-    });
-    path.Z();
-    cell.clip.add(path);
 
     cell.path.click(function(event) {
       radio('cell-click').broadcast(cell);
@@ -166,33 +140,76 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
 
-  var setClip = function($element, svg) {
+  var getCellClips = function() {
+    return data.cells.map(function(cell) {
+      var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
+
+      var transformedCorners = cell.corners.map(function(corner) {
+        return {
+          x: corner.x * ratio,
+          y: corner.y * ratio
+        };
+      });
+
+      cell.clip = data.path();
+      transformedCorners.map(function(corner, index) {
+        if (index == 0) {
+          cell.clip.M(corner.x, corner.y);
+        } else {
+          cell.clip.L(corner.x, corner.y);
+        }
+      });
+      cell.clip.Z();
+      cell.clip.remove();
+    });
+  };
+
+  var setClipCSS = function($element, svg) {
     $element.css({
       '-webkit-clip-path': 'url(#' + svg.node.id + ')',
       'clip-path': 'url(#' + svg.node.id + ')'
     });
-    console.log(svg.node.id)
+  };
+
+  var setLayout = function(layout) {
+    var layers = data.config.layers;
+    for (var i = 0; i < layers.length; i++) {
+      for (var j = 0; j < layout.length; j++) {
+        if (layout[j] == i) {
+          layers[i].clip.add(data.cells[j].clip);
+        }
+      }
+    }
+  };
+
+  var clearLayout = function() {
+    var layers = data.config.layers;
+    for (var i = 0; i < layers.length; i++) {
+      layers[i].clip.remove();
+    }
   }
 
-  for (var i = 0; i < data.config.layers.length; i++) {
-    var clip = data.cells[0].clip;
-    // var ellipse = data.ellipse(20, 20).move(120, 180);
+  var createLayerClips = function() {
+    var layers = data.config.layers;
+    for (var i = 0; i < layers.length; i++) {
+      layers[i].clip = data.clip();
+      setClipCSS(layers[i].$element, layers[i].clip);
+    }
+  };
 
-    var ratio = 561 / 740;
-    var ellipseShow = data.ellipse(20 * ratio, 20 * ratio).move(120 * ratio, 180 * ratio);
-    // var ellipseShow = data.ellipse(20, 20).move(120, 180);
-    clip.add(ellipseShow);
-
-    // clip.attr({
-    //   fill: '#f06'
-    // });
-    setClip(data.config.layers[i].$element, clip);
-  }
+  createLayerClips();
+  getCellClips();
+  setLayout(data.config.layouts[0].state);
+  $(window).resize(function() {
+    var clips = getCellClips();
+    setLayout(data.config.layouts[0].state);
+  });
 })
 
 // At the very end, remove the loading icon
 .then(function() {
   $(data.appContainer).removeClass('loading');
+  // $('#loading').remove();
 }, function(error) {
   console.log(error);
 });
@@ -213,46 +230,10 @@ radio('cell-mouseout').subscribe(function(cell) {
   });
 });
 
-// var clips = SVG('clips');
-// var ellipse = clips.ellipse(500, 200).move(100, 100);
-// var clip = clips.clip().add(ellipse);
-// var clip2 = clips.clip().add(ellipse.clone());
-
-var shell = document.getElementById('shell')
-
-var setClipPath = function($element, path) {
-  $element.css({
-    '-webkit-clip-path': path,
-    'clip-path': path
-  });
-};
-
-var createClipPath = function(x, y, width, height) {
-
-}
-
-if (shell != null) {
-  // setClipPath($('#shell'), 'polygon(0px 0px, 0px 500px, 500px 500px, 500px 0px)');
-  // setClipPath($('#conference'), 'polygon(0px 0px, 0px 500px, 500px 500px, 500px 0px)');
-  // $('#breakout').css({
-  //   '-webkit-clip-path': 'url(#' + clip.node.id + ')'
-  // })
-  // $('#shell').css({
-  //   '-webkit-clip-path': 'url(#' + clip2.node.id + ')'
-  // })
-
-  // rect = clips.rect(300, 300);
-  // rect.attr({
-  //   fill: '#f06'
-  // })
-  // clip.add(rect)
-  // rect.remove()
-}
-
 
 $('#layout-next-btn').click(function(){
   $('#actions').addClass('show-editor');
-})
+});
 $('#editor-back-btn').click(function(){
   $('#actions').removeClass('show-editor');
-})
+});
