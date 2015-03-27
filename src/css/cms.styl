@@ -2,6 +2,9 @@ a
   color #7270b1
   &:hover
     color #453A8F
+    text-decoration none
+  &:active
+    text-decoration none
 
 .page-wrap
   display flex
@@ -41,11 +44,25 @@ aside.sidebar
     flex-direction row
     align-items center
     box-sizing border-box
-    padding 2rem 3rem
+    padding 1.5rem 3rem
     h3
       flex-grow 1
       color purple70
       margin 0
+    a
+      display block
+      padding .5rem
+      border-radius 2px
+      border 1px solid alpha(#A7A7C3, 0.5)
+      transition all 0.2s ease
+      &:hover
+        border-color purple60
+        background purple60
+        color #fafaff
+      &:active
+        border-color purple45
+        background purple45
+        color #fff  
 
   .building
     box-sizing border-box
@@ -61,7 +78,7 @@ aside.sidebar
       max-width 220px
       margin-right 2rem
       padding-bottom 3.25rem
-      border-bottom 2px solid purple70
+      border-bottom 2px solid alpha(#A7A7C3, 0.33)
       align-self flex-start
       h2, a h2
         margin-top 0
