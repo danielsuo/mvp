@@ -142,6 +142,8 @@ XHR.get(data.dir + '/config.json')
       cell.path.mouseover(function(event) {
         if (data.dragging) {
           radio('cell-click').broadcast(cell, true);
+        } else {
+          radio('cell-mouseover').broadcast(cell);
         }
       });
       cell.path.mouseout(function(event) {
