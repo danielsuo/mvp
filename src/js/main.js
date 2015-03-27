@@ -115,11 +115,10 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
 
+  // Create cells
   data.cells.map(function(cell) {
     cell.path = data.path();
-    cell.path.attr({
-      'fill-opacity': 0.2
-    });
+    cell.path.node.setAttribute('class', 'cell');
     cell.corners.map(function(corner, index) {
       if (index == 0) {
         cell.path.M(corner.x, corner.y);
@@ -196,6 +195,7 @@ XHR.get(data.dir + '/config.json')
       for (var j = 0; j < layout.length; j++) {
         if (layout[j] == i) {
           layers[i].clip.add(data.cells[j].clip);
+          data.cells[j].path.node.dataset.layer = i;
         }
       }
     }
@@ -231,7 +231,9 @@ XHR.get(data.dir + '/config.json')
 
 // At the very end, remove the loading icon
 .then(function() {
-  $(data.appContainer).removeClass('loading');
+  setTimeout(function(){
+    $(data.appContainer).removeClass('loading');
+  }, 750);
   // $('#loading').remove();
 }, function(error) {
   console.log(error);
@@ -252,8 +254,8 @@ radio('cell-click').subscribe(function(cell, dragging) {
   if ((!dragging && data.multiSelectState) || (index > -1 && dragging && data.multiSelectState)) {
     data.selected.splice(index, 1);
     // remove class
-    // var pathElement = document.getElementById(data.cells.paths[i].node.id);
-    // pathElement.dataset.selected = 0;
+    var pathElement = document.getElementById(cell.path.node.id);
+    pathElement.dataset.selected = 0;
   }
 
   // Highlight cell
@@ -262,22 +264,18 @@ radio('cell-click').subscribe(function(cell, dragging) {
   else if ((!dragging && !data.multiSelectState) || (index == -1 && dragging && !data.multiSelectState)) {
     data.selected.push(cell.index);
     // add class
-    // var pathElement = document.getElementById(data.cells.paths[i].node.id);
-    // pathElement.dataset.selected = 1;
+    var pathElement = document.getElementById(cell.path.node.id);
+    pathElement.dataset.selected = 1;
   }
   console.log(data.selected)
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
-  cell.path.attr({
-    'fill-opacity': 0.8
-  });
+  cell.path.node.dataset.hover = 1;
 });
 
 radio('cell-mouseout').subscribe(function(cell) {
-  cell.path.attr({
-    'fill-opacity': 0.2
-  });
+  cell.path.node.dataset.hover = 0;
 });
 
 
