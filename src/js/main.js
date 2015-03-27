@@ -242,6 +242,7 @@ XHR.get(data.dir + '/config.json')
     createClipsForLayers();
     transformCellClips();
     clipLayersWithState(this.state);
+    data.info.innerHTML = printInfo();
   }
 
   data.updateSelected = function(layerIndex) {
@@ -262,6 +263,7 @@ XHR.get(data.dir + '/config.json')
 
 // At the very end, remove the loading icon
 .then(function() {
+  data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
@@ -322,6 +324,78 @@ radio('selected-clear').subscribe(function() {
     document.getElementById(cell.path.node.id).dataset.selected = 0;
   });
 });
+
+var printInfo = function() {
+  var info = "<table>";
+
+
+  for (var i = 0; i < data.config.layers.length; i++) {
+
+    if (data.config.layers[i].id == 'shell') {
+      continue;
+    }
+
+    info += "<tr class='" + data.config.layers[i].id + "'>";
+    info += "<td>" + data.config.layers[i].name + "</td>";
+
+    if (data.config.layers[i].id === 'benching') {
+      info += "<td>" + data.getBenchingHeadcount() + "</td>"
+    } else {
+      var merged = 0;
+      if (data.config.merge && data.config.layers[i].id === 'conference' && data.config.merge.merged) {
+        merged = 1;
+      }
+      info += "<td>" + (data.state.filter(function(x) {
+        return x == i
+      }).length + merged) + "</td>";
+    }
+
+    info += "</tr>";
+  }
+
+  info += "<tr class='reception'><td>Reception</td><td>1</td></tr>"
+  info += "<tr class='pantry'><td>Pantry</td><td>1</td></tr>"
+
+  info += "<tr><td><br/></td><td></td></tr>"
+
+  var headcount = data.getHeadcount();
+  info += "<tr class='headcount'>";
+  info += "<td>Total headcount</td>";
+  info += "<td>" + headcount + "</td>";
+  info += "</tr>";
+
+  var area = data.getArea();
+  info += "<tr class='sf'>";
+  info += "<td>SF per person</td>"
+  info += "<td id='sfpp'>" + Math.round(area / headcount) + "</td>";
+  info += "</tr>";
+
+  info += "</table>"
+
+  return info;
+}
+
+data.getHeadcount = function() {
+  var headcount = 0;
+  for (var i = 0; i < this.state.length; i++) {
+    headcount += this.config.layers[this.state[i]].seats[i];
+  }
+  return headcount;
+};
+
+data.getBenchingHeadcount = function() {
+  var headcount = 0;
+  for (var i = 0; i < this.state.length; i++) {
+    if (this.state[i] === 0) {
+      headcount += this.config.layers[this.state[i]].seats[i];
+    }
+  }
+  return headcount;
+};
+
+data.getArea = function() {
+  return this.config.project.area;
+};
 
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
