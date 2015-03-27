@@ -24,6 +24,10 @@ data.measurement = document.getElementById('measurement');
 
 // Get selected cells
 data.selected = [];
+data.state = [];
+
+// Set current layout
+data.currentLayout = 0;
 
 XHR.get(data.dir + '/config.json')
 
@@ -194,12 +198,12 @@ XHR.get(data.dir + '/config.json')
     });
   };
 
-  var clipLayersWithLayout = function(layout) {
+  var clipLayersWithState = function(state) {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
       if (layers[i].id !== 'shell') {
-        for (var j = 0; j < layout.length; j++) {
-          if (layout[j] == i) {
+        for (var j = 0; j < state.length; j++) {
+          if (state[j] == i) {
             layers[i].clip.add(data.cells[j].clip);
             data.cells[j].path.node.dataset.layer = i;
           }
@@ -227,16 +231,42 @@ XHR.get(data.dir + '/config.json')
     }
   };
 
-  var setLayout = function(layout, update) {
+  data.setLayout = function(layoutIndex, update) {
+    data.state = data.config.layouts[layoutIndex].state;
     if (update) clearClipsFromLayers();
     createClipsForLayers();
     transformCellClips();
-    clipLayersWithLayout(layout);
-  }
+    clipLayersWithState(data.state);
+    data.currentLayout = layoutIndex;
+  };
 
-  setLayout(data.config.layouts[0].state);
+  data.updateSelected = function(layerIndex) {
+    var layer = data.config.layers[layerIndex];
+    data.selected.map(function(cellIndex) {
+      data.state[cellIndex] = layerIndex;
+    });
+
+    console.log(data.state)
+
+    // Clear clip from a layer
+    layer.clip.remove();
+
+    // Create clip for layer
+    layer.clip = data.clip();
+    setClipCSS(layer.$element, layer.clip);
+
+    // Clip layer with state
+    for (var i = 0; i < data.state.length; i++) {
+      if (data.state[i] == layoutIndex) {
+        layer.clip.add(data.cells[i].clip);
+        data.cells[j].path.node.dataset.layer = layerIndex;
+      }
+    }
+  };
+
+  data.setLayout(data.currentLayout);
   $(window).resize(function() {
-    setLayout(data.config.layouts[0].state);
+    data.setLayout(data.currentLayout);
   });
 })
 
@@ -245,7 +275,9 @@ XHR.get(data.dir + '/config.json')
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
-  // $('#loading').remove();
+  data.selected = [1,2,3,4,5,6,7,8]
+  radio('selected-update').broadcast(4)
+  console.log(data.config.layers[0].clip)
 }, function(error) {
   console.log(error);
 });
@@ -288,6 +320,21 @@ radio('cell-mouseout').subscribe(function(cell) {
   cell.path.node.dataset.hover = 0;
 });
 
+radio('layout-change').subscribe(function(layoutIndex) {
+  data.setLayout(layoutIndex);
+});
+
+radio('selected-update').subscribe(function(layerIndex) {
+  data.updateSelected(layerIndex);
+});
+
+radio('selected-clear').subscribe(function() {
+  data.selected = [];
+
+  data.cells.map(function(cell) {
+    document.getElementById(cell.path.node.id).dataset.selected = 0;
+  });
+});
 
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
