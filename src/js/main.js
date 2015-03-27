@@ -7,6 +7,7 @@ var XHR = require('./util/xhr');
 var _ = require('lodash');
 
 var sortPoints = require('./util/sortPoints');
+var isMobile = require('./util/mobile').any;
 
 data = SVG('svg');
 data.dir = '/data/floored/test/';
@@ -20,6 +21,9 @@ data.logo = document.getElementById('project-logo');
 data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
+
+// Get selected cells
+data.selected = [];
 
 XHR.get(data.dir + '/config.json')
 
@@ -58,9 +62,6 @@ XHR.get(data.dir + '/config.json')
 
     layer.$element = $('#' + layer.id);
     layer.$element.css({
-      // 'position': 'absolute',
-      // 'width': data.config.width,
-      // 'height': data.config.height,
       'background-image': 'url(' + layer.file_path + ')',
     });
   });
@@ -128,21 +129,35 @@ XHR.get(data.dir + '/config.json')
     });
     cell.path.Z();
 
-    cell.path.click(function(event) {
-      radio('cell-click').broadcast(cell);
-    });
-    cell.path.mouseover(function(event) {
-      radio('cell-mouseover').broadcast(cell);
-    });
-    cell.path.mouseout(function(event) {
-      radio('cell-mouseout').broadcast(cell);
-    });
+    if (isMobile) {
+      cell.path.touchstart(function(event) {
+        // Broadcast a cell click event, no dragging
+        radio('cell-click').broadcast(cell, false);
+      });
+    } else {
+      cell.path.mousedown(function(event) {
+        radio('cell-click').broadcast(cell, false);
+        data.dragging = true;
+      });
+      cell.path.mouseover(function(event) {
+        if (data.dragging) {
+          radio('cell-click').broadcast(cell, true);
+        }
+      });
+      cell.path.mouseout(function(event) {
+        radio('cell-mouseout').broadcast(cell);
+      });
+      cell.path.mouseup(function(event) {
+        radio('cell-mouseup').broadcast(cell);
+        data.dragging = false;
+      });
+    }
   })
 })
 
 .then(function() {
 
-  var getCellClips = function() {
+  var transformCellClips = function() {
     return data.cells.map(function(cell) {
       var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
 
@@ -173,7 +188,7 @@ XHR.get(data.dir + '/config.json')
     });
   };
 
-  var setLayout = function(layout) {
+  var clipLayersWithLayout = function(layout) {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
       for (var j = 0; j < layout.length; j++) {
@@ -184,14 +199,14 @@ XHR.get(data.dir + '/config.json')
     }
   };
 
-  var clearLayout = function() {
+  var clearClipsFromLayers = function() {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
       layers[i].clip.remove();
     }
   }
 
-  var createLayerClips = function() {
+  var createClipsForLayers = function() {
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
       layers[i].clip = data.clip();
@@ -199,13 +214,15 @@ XHR.get(data.dir + '/config.json')
     }
   };
 
-  createLayerClips();
-  getCellClips();
+  var setLayout = function(layout, update) {
+    if (update) clearClipsFromLayers();
+    createClipsForLayers();
+    transformCellClips();
+    clipLayersWithLayout(layout);
+  }
+
   setLayout(data.config.layouts[0].state);
   $(window).resize(function() {
-    clearLayout();
-    createLayerClips();
-    getCellClips();
     setLayout(data.config.layouts[0].state);
   });
 })
@@ -218,8 +235,35 @@ XHR.get(data.dir + '/config.json')
   console.log(error);
 });
 
-radio('cell-click').subscribe(function(cell) {
-  console.log(cell)
+radio('cell-click').subscribe(function(cell, dragging) {
+  var index = data.selected.indexOf(cell.index);
+
+  if (dragging) {
+    console.log('dragging')
+  } else {
+    data.multiSelectState = index > -1;
+  }
+
+  // Unhighlight cell
+  // if we mouse down on first cell and already selected
+  // if we mouse over other selected cells and first cell was selected to begin with
+  if ((!dragging && data.multiSelectState) || (index > -1 && dragging && data.multiSelectState)) {
+    data.selected.splice(index, 1);
+    // remove class
+    // var pathElement = document.getElementById(data.cells.paths[i].node.id);
+    // pathElement.dataset.selected = 0;
+  }
+
+  // Highlight cell
+  // if we mouse down on first cell and not already selected
+  // if we mouse over other selected cell and first cell was not selected to begin with
+  else if ((!dragging && !data.multiSelectState) || (index == -1 && dragging && !data.multiSelectState)) {
+    data.selected.push(cell.index);
+    // add class
+    // var pathElement = document.getElementById(data.cells.paths[i].node.id);
+    // pathElement.dataset.selected = 1;
+  }
+  console.log(data.selected)
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
@@ -235,9 +279,9 @@ radio('cell-mouseout').subscribe(function(cell) {
 });
 
 
-$('#layout-next-btn').click(function(){
+$('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
 });
-$('#editor-back-btn').click(function(){
+$('#editor-back-btn').click(function() {
   $('#actions').removeClass('show-editor');
 });
