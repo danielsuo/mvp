@@ -6,11 +6,14 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
-<<<<<<< HEAD
+- Merging
+- Print.css
+- Saving / loading test fits
+- List of test fits
+- Hook up cell change buttons
 - Pre-configured merge
 - White-box button
 - Add special be able to change it
-=======
 - Multiline addresses
 - Support merging in data structure (not necessarily implement)
 - Deal with window resizing
