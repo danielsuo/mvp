@@ -248,3 +248,11 @@ if (shell != null) {
   // clip.add(rect)
   // rect.remove()
 }
+
+
+$('#layout-next-btn').click(function(){
+  $('#actions').addClass('show-editor');
+})
+$('#editor-back-btn').click(function(){
+  $('#actions').removeClass('show-editor');
+})
