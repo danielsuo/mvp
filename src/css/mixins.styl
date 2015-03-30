@@ -36,8 +36,8 @@ FranklinBold()
   
 cellColors(c, def = 92, hov = 65, sel = 45)
   fill tint(c, def)
-  &:hover, &[data-hover="1"]
-    fill tint(c, hov)
-  &[data-selected="1"]
-    fill tint(c, sel)
-
+  @media only screen
+    &:hover, &[data-hover="1"]
+      fill tint(c, hov)
+    &[data-selected="1"]
+      fill tint(c, sel)
