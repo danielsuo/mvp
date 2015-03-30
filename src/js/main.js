@@ -6,6 +6,8 @@ var radio = require('radio');
 var XHR = require('./util/xhr');
 var _ = require('lodash');
 
+var Cell = require('./app/cell');
+
 var sortPoints = require('./util/sortPoints');
 var isMobile = require('./util/mobile').any;
 
@@ -28,12 +30,6 @@ data.state = [];
 
 // Set current layout
 data.currentLayout = 0;
-
-var Cell = require('./app/cell');
-
-var cell = new Cell();
-
-console.log(cell)
 
 XHR.get(data.dir + '/config.json')
 
@@ -126,52 +122,10 @@ XHR.get(data.dir + '/config.json')
 
   // Extract unique line segment ends to find corners of each cell
   data.cells = cells.roots()[0].children().map(function(cell, index) {
+    return new Cell(cell.children());
+  });
 
-    // Grab all line segment ends
-    var corners = cell.children().map(function(line) {
-      return [{
-        x: line.attr('x1'),
-        y: line.attr('y1')
-      }, {
-        x: line.attr('x2'),
-        y: line.attr('y2')
-      }];
-    });
-
-    // Flatten and remove duplicates
-    corners = _(corners).flattenDeep()
-      .remove(function(item, pos, self) {
-        for (var i = pos + 1; i < self.length; i++)
-          if (_.isEqual(item, self[i]))
-            return false;
-        return true
-      }).value();
-
-    // Sort points in clockwise order
-    sortPoints(corners);
-
-    // Get cell center. This is duplicate code from sortPoints
-    var center = corners.reduce(function(a, b) {
-      return {
-        x: a.x + b.x,
-        y: a.y + b.y
-      };
-    }, {
-      x: 0,
-      y: 0
-    });
-
-    center = {
-      x: center.x / corners.length,
-      y: center.y / corners.length
-    };
-
-    return {
-      index: index,
-      center: center,
-      corners: corners
-    };
-  })
+  console.log(data.cells)
 
   // Remove cells from DOM. We will be redrawing them later
   cells.remove();
@@ -181,68 +135,16 @@ XHR.get(data.dir + '/config.json')
 
   // Create cells
   data.cells.map(function(cell) {
-    cell.path = data.path();
-    cell.path.node.setAttribute('class', 'cell');
-    cell.corners.map(function(corner, index) {
-      if (index == 0) {
-        cell.path.M(corner.x, corner.y);
-      } else {
-        cell.path.L(corner.x, corner.y);
-      }
-    });
-    cell.path.Z();
-
-    if (isMobile) {
-      cell.path.touchstart(function(event) {
-        // Broadcast a cell click event, no dragging
-        radio('cell-click').broadcast(cell, false);
-      });
-    } else {
-      cell.path.mousedown(function(event) {
-        radio('cell-click').broadcast(cell, false);
-        data.dragging = true;
-      });
-      cell.path.mouseover(function(event) {
-        if (data.dragging) {
-          radio('cell-click').broadcast(cell, true);
-        } else {
-          radio('cell-mouseover').broadcast(cell);
-        }
-      });
-      cell.path.mouseout(function(event) {
-        radio('cell-mouseout').broadcast(cell);
-      });
-      cell.path.mouseup(function(event) {
-        radio('cell-mouseup').broadcast(cell);
-        data.dragging = false;
-      });
-    }
-  })
+    cell.createDrawingPath();
+  });
 })
 
 .then(function() {
 
   var transformCellClips = function() {
+    var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
     return data.cells.map(function(cell) {
-      var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
-
-      var transformedCorners = cell.corners.map(function(corner) {
-        return {
-          x: corner.x * ratio,
-          y: corner.y * ratio
-        };
-      });
-
-      cell.clip = data.path();
-      transformedCorners.map(function(corner, index) {
-        if (index == 0) {
-          cell.clip.M(corner.x, corner.y);
-        } else {
-          cell.clip.L(corner.x, corner.y);
-        }
-      });
-      cell.clip.Z();
-      cell.clip.remove();
+      cell.createClippingPath(ratio);
     });
   };
 
@@ -260,9 +162,9 @@ XHR.get(data.dir + '/config.json')
       for (var j = 0; j < state.length; j++) {
         if (state[j] == i) {
           if (layers[i].id !== 'shell') {
-            layers[i].clip.add(data.cells[j].clip);
+            layers[i].clip.add(data.cells[j].clippingPath);
           }
-          data.cells[j].path.node.dataset.layer = i;
+          data.cells[j].drawingPath.node.dataset.layer = i;
         }
       }
     }
@@ -328,7 +230,7 @@ XHR.get(data.dir + '/config.json')
 });
 
 radio('cell-click').subscribe(function(cell, dragging) {
-  var index = data.selected.indexOf(cell.index);
+  var index = data.selected.indexOf(cell.id);
 
   $('#actions').addClass('show-editor');
 
@@ -344,7 +246,7 @@ radio('cell-click').subscribe(function(cell, dragging) {
   if ((!dragging && data.multiSelectState) || (index > -1 && dragging && data.multiSelectState)) {
     data.selected.splice(index, 1);
     // remove class
-    var pathElement = document.getElementById(cell.path.node.id);
+    var pathElement = document.getElementById(cell.drawingPath.node.id);
     pathElement.dataset.selected = 0;
   }
 
@@ -352,9 +254,9 @@ radio('cell-click').subscribe(function(cell, dragging) {
   // if we mouse down on first cell and not already selected
   // if we mouse over other selected cell and first cell was not selected to begin with
   else if ((!dragging && !data.multiSelectState) || (index == -1 && dragging && !data.multiSelectState)) {
-    data.selected.push(cell.index);
+    data.selected.push(cell.id);
     // add class
-    var pathElement = document.getElementById(cell.path.node.id);
+    var pathElement = document.getElementById(cell.drawingPath.node.id);
     pathElement.dataset.selected = 1;
   }
 
@@ -380,11 +282,11 @@ radio('merge-possible').subscribe(function() {
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
-  cell.path.node.dataset.hover = 1;
+  cell.drawingPath.node.dataset.hover = 1;
 });
 
 radio('cell-mouseout').subscribe(function(cell) {
-  cell.path.node.dataset.hover = 0;
+  cell.drawingPath.node.dataset.hover = 0;
 });
 
 radio('layout-change').subscribe(function(layoutIndex) {
@@ -421,7 +323,7 @@ radio('selection-clear').subscribe(function() {
   data.selected = [];
 
   data.cells.map(function(cell) {
-    document.getElementById(cell.path.node.id).dataset.selected = 0;
+    document.getElementById(cell.drawingPath.node.id).dataset.selected = 0;
   });
   radio('selection-change').broadcast();
 });

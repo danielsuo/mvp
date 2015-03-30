@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var radio = require('radio');
+var isMobile = require('../util/mobile').any;
 
 var Cell = function(lines) {
   this.id = Cell.id;
@@ -150,25 +152,25 @@ Cell.prototype.createDrawingPath = function() {
   if (isMobile) {
     that.drawingPath.touchstart(function(event) {
       // Broadcast a cell click event, no dragging
-      radio('cell-click').broadcast(cell, false);
+      radio('cell-click').broadcast(that, false);
     });
   } else {
     that.drawingPath.mousedown(function(event) {
-      radio('cell-click').broadcast(cell, false);
+      radio('cell-click').broadcast(that, false);
       data.dragging = true;
     });
     that.drawingPath.mouseover(function(event) {
       if (data.dragging) {
-        radio('cell-click').broadcast(cell, true);
+        radio('cell-click').broadcast(that, true);
       } else {
-        radio('cell-mouseover').broadcast(cell);
+        radio('cell-mouseover').broadcast(that);
       }
     });
     that.drawingPath.mouseout(function(event) {
-      radio('cell-mouseout').broadcast(cell);
+      radio('cell-mouseout').broadcast(that);
     });
     that.drawingPath.mouseup(function(event) {
-      radio('cell-mouseup').broadcast(cell);
+      radio('cell-mouseup').broadcast(that);
       data.dragging = false;
     });
   }
