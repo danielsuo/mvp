@@ -1,0 +1,45 @@
+@media print
+
+  #app
+    background transparent
+
+  #panel
+    display none
+    
+  #protofit
+    width 100%
+    height 100%
+    background transparent
+    margin 0
+    border none
+    -webkit-print-color-adjust: exact
+    aside
+      width 15%
+      font-size 0.55em
+      line-height 1
+  
+  #info
+    padding 0 1em
+    table
+      width 100%
+      line-height 1rem
+      tr
+        margin-top .1rem
+    
+  #svg-wrap
+    display flex
+    flex-direction column
+    justify-content center
+    
+  #svg
+    width calc(100% - 2rem)
+    height auto
+    position inline
+    top 0
+    left 0
+    transform none
+  
+  #rsf input
+    border none
+    font-size 1.1em
+  

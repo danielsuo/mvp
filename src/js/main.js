@@ -63,6 +63,7 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
   var $layoutList = $('#layout-list');
+  var $editorList = $('#editor-list');
 
   // Set up layout buttons
   for (var layout in data.config.layouts) {
@@ -71,10 +72,25 @@ XHR.get(data.dir + '/config.json')
       $li.html(data.config.layouts[layout].name).data('index', layout);
       $li.click(function() {
         radio('layout-change').broadcast(layout);
-      });
+        radio('selection-clear').broadcast();
+      })
       $layoutList.append($li);
     })(layout);
   }
+
+  // Set up cell editor buttons
+  for (var layer in data.config.layers) {
+    (function(layer){
+      var $li = $(document.createElement('li'));
+      $li.html(data.config.layers[layer].name).data('index', layer);
+      $li.click(function(){
+        radio('selection-update').broadcast(layer);
+        console.log(layer)
+      })
+      $editorList.append($li);
+    })(layer);
+  }
+
 })
 
 // Create layers
@@ -314,6 +330,8 @@ XHR.get(data.dir + '/config.json')
 radio('cell-click').subscribe(function(cell, dragging) {
   var index = data.selected.indexOf(cell.index);
 
+  $('#actions').addClass('show-editor');
+
   if (dragging) {
 
   } else {
@@ -377,16 +395,35 @@ radio('layout-whitebox').subscribe(function() {
   data.setLayout(data.config.layouts.length - 1, true);
 });
 
-radio('selected-update').subscribe(function(layerIndex) {
+radio('selection-update').subscribe(function(layerIndex) {
   data.updateSelected(layerIndex);
 });
 
-radio('selected-clear').subscribe(function() {
+radio('print-before').subscribe(function(argument) {
+  data.setLayoutFromState(true);
+  // console.log('before')
+});
+
+radio('print-after').subscribe(function(argument) {
+  data.setLayoutFromState(true);
+  // console.log('after')
+});
+
+radio('selection-change').subscribe(function() {
+  if (data.selected.length) {
+    $('#editor').removeClass('no-selection').addClass('has-selection')
+  } else {
+    $('#editor').addClass('no-selection').removeClass('has-selection')
+  }
+});
+
+radio('selection-clear').subscribe(function() {
   data.selected = [];
 
   data.cells.map(function(cell) {
     document.getElementById(cell.path.node.id).dataset.selected = 0;
   });
+  radio('selection-change').broadcast();
 });
 
 var printInfo = function() {
@@ -461,9 +498,36 @@ data.getArea = function() {
   return this.config.project.area;
 };
 
+data.beforePrint = function() {
+  radio('print-before').broadcast();
+};
+
+data.afterPrint = function() {
+  radio('print-after').broadcast();
+};
+
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
 });
 $('#editor-back-btn').click(function() {
   $('#actions').removeClass('show-editor');
+  radio('selection-clear').broadcast();
 });
+$('#editor-done-btn').click(function() {
+  radio('selection-clear').broadcast();
+});
+
+// From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
+if (window.matchMedia) {
+  window.matchMedia('print').addListener(function(query) {
+      if (query.matches) {
+          data.beforePrint()
+      } else {
+          data.afterPrint();
+      }
+  });
+}
+
+// for old IE, etc
+window.onbeforeprint = data.beforePrint; 
+window.onafterprint = data.afterPrint;
