@@ -10,7 +10,6 @@
 - Print.css
 - Disabled cells
 - Pre-configured merge
-- Print to pdf
 - Add special be able to change it
 - Deploy
 
@@ -43,6 +42,7 @@
 - Deploying migrations
 
 ## Done
+- Print to pdf
 - add the badges
 - Set up nunjucks
 - set up nodemon
@@ -64,6 +64,7 @@
 - Hook up cell change buttons
 
 ## On the radar
+- Only chrome works
 - Hover cell info
 - Fallbacks
 - Sharing (e.g., email; printable page)

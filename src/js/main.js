@@ -1,5 +1,4 @@
 require('./util/fontdeck');
-require('bootstrap-styl');
 
 var SVG = require('./svg');
 var Promise = require('promise');
@@ -29,6 +28,12 @@ data.state = [];
 
 // Set current layout
 data.currentLayout = 0;
+
+var Cell = require('./app/cell');
+
+var cell = new Cell();
+
+console.log(cell)
 
 XHR.get(data.dir + '/config.json')
 
@@ -145,8 +150,25 @@ XHR.get(data.dir + '/config.json')
     // Sort points in clockwise order
     sortPoints(corners);
 
+    // Get cell center. This is duplicate code from sortPoints
+    var center = corners.reduce(function(a, b) {
+      return {
+        x: a.x + b.x,
+        y: a.y + b.y
+      };
+    }, {
+      x: 0,
+      y: 0
+    });
+
+    center = {
+      x: center.x / corners.length,
+      y: center.y / corners.length
+    };
+
     return {
       index: index,
+      center: center,
       corners: corners
     };
   })
@@ -336,7 +358,25 @@ radio('cell-click').subscribe(function(cell, dragging) {
     pathElement.dataset.selected = 1;
   }
 
-  radio('selection-change').broadcast();
+  // Assume for now that if center of cells are colinear, then cells are in a
+  // line and can be merged
+  if (data.selected.length > 1 && data.selected.length <= 3) {
+    var line = data.selected.reduce(function(a, b) {
+      return {
+        x: (a.x === data.cells[b].center.x ? a.x : false),
+        y: (a.y === data.cells[b].center.y ? a.y : false)
+      };
+    }, {
+      x: data.cells[data.selected[0]].center.x,
+      y: data.cells[data.selected[0]].center.y
+    });
+
+    if (line.x || line.y) radio('merge-possible').broadcast();
+  }
+});
+
+radio('merge-possible').subscribe(function() {
+  console.log('merge possible!!!!')
 });
 
 radio('cell-mouseover').subscribe(function(cell) {
