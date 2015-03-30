@@ -1,4 +1,5 @@
 require('./util/fontdeck');
+require('bootstrap-styl');
 
 var SVG = require('./svg');
 var Promise = require('promise');
@@ -358,6 +359,16 @@ radio('selection-update').subscribe(function(layerIndex) {
   data.updateSelected(layerIndex);
 });
 
+radio('print-before').subscribe(function(argument) {
+  data.setLayoutFromState(true);
+  // console.log('before')
+});
+
+radio('print-after').subscribe(function(argument) {
+  data.setLayoutFromState(true);
+  // console.log('after')
+});
+
 radio('selection-change').subscribe(function() {
   if (data.selected.length) {
     $('#editor').removeClass('no-selection').addClass('has-selection')
@@ -447,6 +458,13 @@ data.getArea = function() {
   return this.config.project.area;
 };
 
+data.beforePrint = function() {
+  radio('print-before').broadcast();
+};
+
+data.afterPrint = function() {
+  radio('print-after').broadcast();
+};
 
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
@@ -458,3 +476,18 @@ $('#editor-back-btn').click(function() {
 $('#editor-done-btn').click(function() {
   radio('selection-clear').broadcast();
 });
+
+// From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
+if (window.matchMedia) {
+  window.matchMedia('print').addListener(function(query) {
+      if (query.matches) {
+          data.beforePrint()
+      } else {
+          data.afterPrint();
+      }
+  });
+}
+
+// for old IE, etc
+window.onbeforeprint = data.beforePrint; 
+window.onafterprint = data.afterPrint;
