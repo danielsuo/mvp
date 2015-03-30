@@ -8,7 +8,9 @@
 ## TODO
 - Merging
 - Print.css
+- Disabled cells
 - Pre-configured merge
+- Print to pdf
 - Add special be able to change it
 - Deploy
 
