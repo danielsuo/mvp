@@ -62,17 +62,28 @@ Cell.merge = function(cells) {
     merged.children[id] = cell;
 
     // Remove drawing elements of children
-    cell.remove();
+    cell.demote();
   });
 
   return merged;
 };
 
-Cell.split = function() {
+Cell.split = function(merged) {
+  _.forOwn(merged.children, function(cell, id) {
+    cell.promote();
+  });
 
+  return merged.children;
 };
 
-Cell.prototype.remove = function() {
+// What happens when a cell gets unmerged
+Cell.prototype.promote = function() {
+  this.createDrawingPath();
+  this.createClippingPath(data.getClientToSVGRatio());
+};
+
+// What happens when a cell gets merged into another
+Cell.prototype.demote = function() {
   this.removeDrawingPath();
   this.removeClippingPath();
 };
@@ -225,6 +236,10 @@ Cell.prototype.removeClippingPath = function(ratio) {
 
 Cell.prototype.setData = function(attr, value) {
   this.drawingPath.node.dataset[attr] = value;
+};
+
+Cell.prototype.numChildren = function() {
+  return _.keys(this.children).length;
 };
 
 radio('cell-mouseover').subscribe(function(cell) {

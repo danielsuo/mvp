@@ -43,7 +43,7 @@ CellList.prototype.set = function(cell) {
 };
 
 CellList.prototype.remove = function(id) {
-  this.cells[id].remove();
+  this.cells[id].demote();
   delete this.selected[id];
   delete this.cells[id];
 };
@@ -68,6 +68,24 @@ CellList.prototype.mergeWithLayer = function(layerIndex) {
     this.removeSelected();
     merged.setData('layer', layerIndex);
   }
+};
+
+CellList.prototype.splitWithLayer = function(layerIndex) {
+  _.forOwn(this.selected, function(cell, id) {
+
+    if (cell.numChildren() > 1) {
+      var children = Cell.split(cell);
+
+      _.forOwn(children, function(child, childId) {
+        this.set(child);
+        child.setData('layer', layerIndex);
+      }, this);
+
+      this.remove(id);
+    }
+  }, this);
+
+  this.deselectAll();
 };
 
 CellList.prototype.updateClippingPaths = function(ratio) {
@@ -169,6 +187,15 @@ CellList.prototype.registerHandlers = function() {
 
     function() {
       this.mergeWithLayer(1);
+    },
+    this
+  ]);
+
+  // Handle merge request
+  radio('split-initiated').subscribe([
+
+    function() {
+      this.splitWithLayer(1);
     },
     this
   ]);

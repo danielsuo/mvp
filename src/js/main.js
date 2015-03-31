@@ -322,6 +322,9 @@ $('#editor-done-btn').click(function() {
 $('#merge-btn').click(function() {
   radio('merge-initiated').broadcast();
 });
+$('#split-btn').click(function() {
+  radio('split-initiated').broadcast();
+});
 
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
 if (window.matchMedia) {
