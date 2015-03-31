@@ -189,4 +189,16 @@ Cell.prototype.createClippingPath = function(ratio) {
   that.clippingPath.remove();
 };
 
+Cell.prototype.setData = function(attr, value) {
+  document.getElementById(this.drawingPath.node.id).dataset[attr] = value;
+};
+
+radio('cell-mouseover').subscribe(function(cell) {
+  cell.drawingPath.node.dataset.hover = 1;
+});
+
+radio('cell-mouseout').subscribe(function(cell) {
+  cell.drawingPath.node.dataset.hover = 0;
+});
+
 module.exports = Cell;

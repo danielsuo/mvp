@@ -26,7 +26,6 @@ data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 
 // Get selected cells
-data.selected = [];
 data.state = [];
 
 // Set current layout
@@ -122,7 +121,6 @@ XHR.get(data.dir + '/config.json')
 })
 
 .then(function() {
-
   var setClipCSS = function($element, svg) {
     $element.css({
       '-webkit-clip-path': 'url(#' + svg.node.id + ')',
@@ -204,66 +202,8 @@ XHR.get(data.dir + '/config.json')
   console.log(error);
 });
 
-radio('cell-click').subscribe(function(cell, dragging) {
-  var index = data.selected.indexOf(cell.id);
-
-  $('#actions').addClass('show-editor');
-
-  if (dragging) {
-
-  } else {
-    data.multiSelectState = index > -1;
-  }
-
-  // Unhighlight cell
-  // if we mouse down on first cell and already selected
-  // if we mouse over other selected cells and first cell was selected to begin with
-  if ((!dragging && data.multiSelectState) || (index > -1 && dragging && data.multiSelectState)) {
-    data.selected.splice(index, 1);
-    // remove class
-    var pathElement = document.getElementById(cell.drawingPath.node.id);
-    pathElement.dataset.selected = 0;
-  }
-
-  // Highlight cell
-  // if we mouse down on first cell and not already selected
-  // if we mouse over other selected cell and first cell was not selected to begin with
-  else if ((!dragging && !data.multiSelectState) || (index == -1 && dragging && !data.multiSelectState)) {
-    data.selected.push(cell.id);
-    // add class
-    var pathElement = document.getElementById(cell.drawingPath.node.id);
-    pathElement.dataset.selected = 1;
-  }
-
-  radio('selection-change').broadcast();
-
-  // Assume for now that if center of cells are colinear, then cells are in a
-  // line and can be merged
-  if (data.selected.length > 1 && data.selected.length <= 3) {
-    var line = data.selected.reduce(function(a, b) {
-      return {
-        x: (a.x === data.cells.get(b).center.x ? a.x : false),
-        y: (a.y === data.cells.get(b).center.y ? a.y : false)
-      };
-    }, {
-      x: data.cells.get(data.selected[0]).center.x,
-      y: data.cells.get(data.selected[0]).center.y
-    });
-
-    if (line.x || line.y) radio('merge-possible').broadcast();
-  }
-});
-
 radio('merge-possible').subscribe(function() {
   console.log('merge possible!!!!')
-});
-
-radio('cell-mouseover').subscribe(function(cell) {
-  cell.drawingPath.node.dataset.hover = 1;
-});
-
-radio('cell-mouseout').subscribe(function(cell) {
-  cell.drawingPath.node.dataset.hover = 0;
 });
 
 radio('layout-change').subscribe(function(layoutIndex) {
@@ -289,7 +229,7 @@ radio('print-after').subscribe(function(argument) {
 });
 
 radio('selection-change').subscribe(function() {
-  if (data.selected.length) {
+  if (data.cells.numSelected()) {
     $('#editor').removeClass('no-selection').addClass('has-selection')
   } else {
     $('#editor').addClass('no-selection').removeClass('has-selection')
@@ -297,10 +237,7 @@ radio('selection-change').subscribe(function() {
 });
 
 radio('selection-clear').subscribe(function() {
-  data.selected = [];
-
-  data.cells.clearSelection();
-  
+  data.cells.deselectAll();
   radio('selection-change').broadcast();
 });
 

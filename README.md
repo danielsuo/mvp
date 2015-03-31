@@ -9,6 +9,7 @@
 - Merging
 - Print.css
 - Disabled cells
+- Deselect cells
 - Pre-configured merge
 - Add special be able to change it
 - Deploy
