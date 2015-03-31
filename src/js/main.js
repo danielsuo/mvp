@@ -358,6 +358,8 @@ radio('cell-click').subscribe(function(cell, dragging) {
     pathElement.dataset.selected = 1;
   }
 
+  radio('selection-change').broadcast();
+
   // Assume for now that if center of cells are colinear, then cells are in a
   // line and can be merged
   if (data.selected.length > 1 && data.selected.length <= 3) {
