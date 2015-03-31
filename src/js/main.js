@@ -25,9 +25,6 @@ data.measurement = document.getElementById('measurement');
 // Get selected cells
 data.state = [];
 
-// Set current layout
-data.currentLayout = 0;
-
 XHR.get(data.dir + '/config.json')
 
 // Parse config file and configure SVG canvas
@@ -64,7 +61,7 @@ XHR.get(data.dir + '/config.json')
       var $li = $(document.createElement('li'));
       $li.html(data.config.layouts[layout].name).data('index', layout);
       $li.click(function() {
-        radio('layout-change').broadcast(layout);
+        radio('layout-update-from-preset').broadcast(layout);
         radio('selection-clear').broadcast();
       })
       $layoutList.append($li);
@@ -73,10 +70,10 @@ XHR.get(data.dir + '/config.json')
 
   // Set up cell editor buttons
   for (var layer in data.config.layers) {
-    (function(layer){
+    (function(layer) {
       var $li = $(document.createElement('li'));
       $li.html(data.config.layers[layer].name).data('index', layer);
-      $li.click(function(){
+      $li.click(function() {
         radio('selection-update').broadcast(layer);
         console.log(layer)
       })
@@ -118,6 +115,7 @@ XHR.get(data.dir + '/config.json')
 })
 
 .then(function() {
+
   var setClipCSS = function($element, svg) {
     $element.css({
       '-webkit-clip-path': 'url(#' + svg.node.id + ')',
@@ -129,14 +127,15 @@ XHR.get(data.dir + '/config.json')
     var layers = data.config.layers;
     for (var i = 0; i < layers.length; i++) {
 
-      for (var j = 0; j < state.length; j++) {
-        if (state[j] == i) {
+      _.forOwn(state, function(cell, id) {
+        id = parseInt(id);
+        if (cell.layer == i) {
           if (layers[i].id !== 'shell') {
-            layers[i].clip.add(data.cells.get(j).clippingPath);
+            layers[i].clip.add(data.cells.get(id).clippingPath);
           }
-          data.cells.get(j).drawingPath.node.dataset.layer = i;
+          data.cells.get(id).setLayer(i);
         }
-      }
+      });
     }
   };
 
@@ -160,8 +159,7 @@ XHR.get(data.dir + '/config.json')
   };
 
   data.setLayout = function(layoutIndex, update) {
-    this.state = this.config.layouts[layoutIndex].state;
-    this.currentLayout = layoutIndex;
+    this.cells.setLayout(this.config.layouts[layoutIndex].state);
     this.setLayoutFromState(update);
   };
 
@@ -169,29 +167,19 @@ XHR.get(data.dir + '/config.json')
     if (update) clearClipsFromLayers();
     createClipsForLayers();
     this.cells.updateClippingPaths(data.getClientToSVGRatio());
-    clipLayersWithState(this.state);
-    data.info.innerHTML = printInfo();
+    clipLayersWithState(this.cells.getLayout());
+    // data.info.innerHTML = printInfo();
   }
 
-  data.updateSelected = function(layerIndex) {
-    var that = this;
-    var layer = this.config.layers[layerIndex];
-    this.selected.map(function(cellIndex) {
-      that.state[cellIndex] = layerIndex;
-    });
-
-    this.setLayoutFromState(true);
-  };
-
-  data.setLayout(data.currentLayout);
+  data.setLayout(0);
   $(window).resize(function() {
-    data.setLayout(data.currentLayout, true);
+    data.setLayoutFromState(true);
   });
 })
 
 // At the very end, remove the loading icon
 .then(function() {
-  data.info.innerHTML = printInfo();
+  // data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
@@ -203,7 +191,7 @@ radio('merge-possible').subscribe(function() {
   console.log('merge possible!!!!')
 });
 
-radio('layout-change').subscribe(function(layoutIndex) {
+radio('layout-update-from-preset').subscribe(function(layoutIndex) {
   data.setLayout(layoutIndex, true);
 });
 
@@ -211,18 +199,12 @@ radio('layout-whitebox').subscribe(function() {
   data.setLayout(data.config.layouts.length - 1, true);
 });
 
+radio('layout-update-from-state').subscribe(function() {
+  data.setLayoutFromState(true);
+});
+
 radio('selection-update').subscribe(function(layerIndex) {
-  data.updateSelected(layerIndex);
-});
-
-radio('print-before').subscribe(function(argument) {
-  data.setLayoutFromState(true);
-  // console.log('before')
-});
-
-radio('print-after').subscribe(function(argument) {
-  data.setLayoutFromState(true);
-  // console.log('after')
+  data.cells.updateSelected(layerIndex);
 });
 
 var printInfo = function() {
@@ -302,11 +284,11 @@ data.getArea = function() {
 };
 
 data.beforePrint = function() {
-  radio('print-before').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 data.afterPrint = function() {
-  radio('print-after').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 $('#layout-next-btn').click(function() {
@@ -329,14 +311,14 @@ $('#split-btn').click(function() {
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
 if (window.matchMedia) {
   window.matchMedia('print').addListener(function(query) {
-      if (query.matches) {
-          data.beforePrint()
-      } else {
-          data.afterPrint();
-      }
+    if (query.matches) {
+      data.beforePrint()
+    } else {
+      data.afterPrint();
+    }
   });
 }
 
 // for old IE, etc
-window.onbeforeprint = data.beforePrint; 
+window.onbeforeprint = data.beforePrint;
 window.onafterprint = data.afterPrint;

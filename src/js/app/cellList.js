@@ -28,9 +28,9 @@ var CellList = function(cells) {
 };
 
 // Load cell data from url into SVG object
-CellList.load = function(svg, url) {
+CellList.load = function(data, url) {
   return XHR.get(url).then(function(response) {
-    return new CellList(svg.svg(response));
+    return new CellList(data.svg(response));
   });
 };
 
@@ -54,6 +54,14 @@ CellList.prototype.removeSelected = function() {
   }, this);
 };
 
+CellList.prototype.updateSelected = function(layerIndex) {
+  _.forOwn(this.selected, function(cell, id) {
+    cell.setLayer(layerIndex);
+  });
+
+  radio('layout-update-from-state').broadcast();
+};
+
 CellList.prototype.map = function(func) {
   _.forOwn(this.cells, func);
 };
@@ -66,8 +74,10 @@ CellList.prototype.mergeWithLayer = function(layerIndex) {
     var merged = Cell.merge(this.selected);
     this.set(merged);
     this.removeSelected();
-    merged.setData('layer', layerIndex);
+    merged.setLayer(layerIndex);
   }
+
+  radio('layout-update-from-state').broadcast();
 };
 
 CellList.prototype.splitWithLayer = function(layerIndex) {
@@ -78,7 +88,7 @@ CellList.prototype.splitWithLayer = function(layerIndex) {
 
       _.forOwn(children, function(child, childId) {
         this.set(child);
-        child.setData('layer', layerIndex);
+        child.setLayer(layerIndex);
       }, this);
 
       this.remove(id);
@@ -86,6 +96,7 @@ CellList.prototype.splitWithLayer = function(layerIndex) {
   }, this);
 
   this.deselectAll();
+  radio('layout-update-from-state').broadcast();
 };
 
 CellList.prototype.updateClippingPaths = function(ratio) {
@@ -122,6 +133,23 @@ CellList.prototype.isSelected = function(id) {
 
 CellList.prototype.numSelected = function(id) {
   return _.keys(this.selected).length;
+};
+
+CellList.prototype.getLayout = function() {
+  var layout = {};
+  this.map(function(cell, id) {
+    layout[id] = {
+      layer: cell.layer
+    };
+  });
+
+  return layout;
+};
+
+CellList.prototype.setLayout = function(layout) {
+  _.forOwn(layout, function(cell, id) {
+    this.get(id).layer = cell.layer;
+  }, this);
 };
 
 CellList.prototype.registerHandlers = function() {

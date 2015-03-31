@@ -6,6 +6,7 @@ var radio = require('radio');
 var isMobile = require('../util/mobile').any;
 
 var Cell = function(corners) {
+  this.layer = 0;
   this.id = Cell.id;
   Cell.id++;
 
@@ -236,6 +237,11 @@ Cell.prototype.removeClippingPath = function(ratio) {
 
 Cell.prototype.setData = function(attr, value) {
   this.drawingPath.node.dataset[attr] = value;
+};
+
+Cell.prototype.setLayer = function(layer) {
+  this.setData('layer', layer);
+  this.layer = layer;
 };
 
 Cell.prototype.numChildren = function() {

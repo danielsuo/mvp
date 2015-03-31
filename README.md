@@ -10,12 +10,17 @@
 - Print.css
 - Disabled cells
 - Deselect cells
+- Fix printinfo
+- Get/set layout with merged
+- draw merged cells
+- Merge rules
 - Pre-configured merge
 - Add special be able to change it
 - Deploy
 
 - Saving / loading test fits
 - List of test fits
+- Fix drawing of large merges
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer
