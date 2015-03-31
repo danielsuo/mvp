@@ -12,10 +12,7 @@ var CellList = function(cells) {
 
   for (var i = 0; i < cellData.length; i++) {
     // Parse cell data
-    var cell = new Cell(cellData[i].children());
-
-    // Create cell drawing paths
-    cell.createDrawingPath();
+    var cell = Cell.fromLines(cellData[i].children());
 
     // Assign cell to cell.id
     this.cells[cell.id] = cell;
@@ -45,8 +42,32 @@ CellList.prototype.set = function(cell) {
   return this.cells[cell.id] = cell;
 };
 
+CellList.prototype.remove = function(id) {
+  this.cells[id].remove();
+  delete this.selected[id];
+  delete this.cells[id];
+};
+
+CellList.prototype.removeSelected = function() {
+  _.forOwn(this.selected, function(cell, id) {
+    this.remove(id);
+  }, this);
+};
+
 CellList.prototype.map = function(func) {
   _.forOwn(this.cells, func);
+};
+
+CellList.prototype.mergeWithLayer = function(layerIndex) {
+  // For now, always can merge selected
+  var mergeable = true;
+
+  if (mergeable) {
+    var merged = Cell.merge(this.selected);
+    this.set(merged);
+    this.removeSelected();
+    merged.setData('layer', layerIndex);
+  }
 };
 
 CellList.prototype.updateClippingPaths = function(ratio) {
@@ -87,33 +108,70 @@ CellList.prototype.numSelected = function(id) {
 
 CellList.prototype.registerHandlers = function() {
   // Handle cell clicks
-  radio('cell-click').subscribe([function(cell, dragging) {
-    var selected = this.isSelected(cell.id);
+  radio('cell-click').subscribe([
 
-    $('#actions').addClass('show-editor');
+    function(cell, dragging) {
+      console.log(cell.id)
+      var selected = this.isSelected(cell.id);
 
-    if (dragging) {
+      $('#actions').addClass('show-editor');
 
-    } else {
-      this.multiSelectState = selected;
-    }
+      if (dragging) {
 
-    // Unhighlight cell
-    // if we mouse down on first cell and already selected
-    // if we mouse over other selected cells and first cell was selected to begin with
-    if ((!dragging && this.multiSelectState) || (selected && dragging && this.multiSelectState)) {
-      this.deselect(cell.id);
-    }
+      } else {
+        this.multiSelectState = selected;
+      }
 
-    // Highlight cell
-    // if we mouse down on first cell and not already selected
-    // if we mouse over other selected cell and first cell was not selected to begin with
-    else if ((!dragging && !this.multiSelectState) || (!selected && dragging && !this.multiSelectState)) {
-      this.select(cell.id);
-    }
+      // Unhighlight cell
+      // if we mouse down on first cell and already selected
+      // if we mouse over other selected cells and first cell was selected to begin with
+      if ((!dragging && this.multiSelectState) || (selected && dragging && this.multiSelectState)) {
+        this.deselect(cell.id);
+      }
 
-    radio('selection-change').broadcast();
-  }, this]);
+      // Highlight cell
+      // if we mouse down on first cell and not already selected
+      // if we mouse over other selected cell and first cell was not selected to begin with
+      else if ((!dragging && !this.multiSelectState) || (!selected && dragging && !this.multiSelectState)) {
+        this.select(cell.id);
+      }
+
+      radio('selection-change').broadcast();
+    },
+    this
+  ]);
+
+  // Handle selection change
+  radio('selection-change').subscribe([
+
+    function() {
+      if (this.numSelected()) {
+        $('#editor').removeClass('no-selection').addClass('has-selection')
+      } else {
+        $('#editor').addClass('no-selection').removeClass('has-selection')
+      }
+    },
+    this
+  ]);
+
+  // Handle selection clear
+  radio('selection-clear').subscribe([
+
+    function() {
+      this.deselectAll();
+      radio('selection-change').broadcast();
+    },
+    this
+  ]);
+
+  // Handle merge request
+  radio('merge-initiated').subscribe([
+
+    function() {
+      this.mergeWithLayer(1);
+    },
+    this
+  ]);
 };
 
 // // Assume for now that if center of cells are colinear, then cells are in a

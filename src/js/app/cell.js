@@ -1,37 +1,30 @@
+// NOTE: We rely on 'data' as a global variable. It's defined in main.js. We
+// will eventually address this. Maybe.
+
 var _ = require('lodash');
 var radio = require('radio');
 var isMobile = require('../util/mobile').any;
 
-var Cell = function(lines) {
+var Cell = function(corners) {
   this.id = Cell.id;
   Cell.id++;
 
-  this.updateCoordinatesFromLines(lines);
+  this.corners = corners;
+  this.center = this.findCenter();
+  this.sortCorners();
+  this.createDrawingPath();
 
+  this.children = {};
   return this;
 };
 
 Cell.id = 0;
 
-Cell.prototype.merge = function(otherCell) {
-  var cell = new Cell();
-
-  // Merge self and otherCell
-
-  return cell;
+Cell.fromLines = function(lines) {
+  return new Cell(Cell.extractCorners(lines));
 };
 
-Cell.prototype.split = function() {
-
-};
-
-Cell.prototype.updateCoordinatesFromLines = function(lines) {
-  this.corners = this.extractCorners(lines);
-  this.center = this.findCenter();
-  this.sortCorners();
-};
-
-Cell.prototype.extractCorners = function(lines) {
+Cell.extractCorners = function(lines) {
   // Grab all line segment ends
   var corners = lines.map(function(line) {
     return [{
@@ -52,9 +45,36 @@ Cell.prototype.extractCorners = function(lines) {
       return true
     }).value();
 
-  this.corners = corners;
-
   return corners;
+};
+
+Cell.merge = function(cells) {
+  // For now just join corners; don't bother deleting duplicate corners
+  var corners = [];
+  _.forOwn(cells, function(cell, id) {
+    corners = _.union(corners, cell.corners);
+  });
+
+  var merged = new Cell(corners);
+
+  _.forOwn(cells, function(cell, id) {
+    // Add all merging cells as children
+    merged.children[id] = cell;
+
+    // Remove drawing elements of children
+    cell.remove();
+  });
+
+  return merged;
+};
+
+Cell.split = function() {
+
+};
+
+Cell.prototype.remove = function() {
+  this.removeDrawingPath();
+  this.removeClippingPath();
 };
 
 Cell.prototype.findCenter = function() {
@@ -168,6 +188,13 @@ Cell.prototype.createDrawingPath = function() {
   }
 };
 
+Cell.prototype.removeDrawingPath = function() {
+  if (this.drawingPath) {
+    this.drawingPath.remove();
+    delete this.drawingPath;
+  }
+};
+
 Cell.prototype.createClippingPath = function(ratio) {
   var that = this;
   var transformedCorners = that.corners.map(function(corner) {
@@ -189,8 +216,15 @@ Cell.prototype.createClippingPath = function(ratio) {
   that.clippingPath.remove();
 };
 
+Cell.prototype.removeClippingPath = function(ratio) {
+  if (this.clippingPath) {
+    this.clippingPath.remove();
+    delete this.clippingPath;
+  }
+};
+
 Cell.prototype.setData = function(attr, value) {
-  document.getElementById(this.drawingPath.node.id).dataset[attr] = value;
+  this.drawingPath.node.dataset[attr] = value;
 };
 
 radio('cell-mouseover').subscribe(function(cell) {

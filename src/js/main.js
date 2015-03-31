@@ -9,9 +9,6 @@ var _ = require('lodash');
 var Cell = require('./app/cell');
 var CellList = require('./app/cellList');
 
-var sortPoints = require('./util/sortPoints');
-var isMobile = require('./util/mobile').any;
-
 data = SVG('svg');
 data.dir = '/data/floored/test/';
 data.element = document.getElementById('svg');
@@ -228,19 +225,6 @@ radio('print-after').subscribe(function(argument) {
   // console.log('after')
 });
 
-radio('selection-change').subscribe(function() {
-  if (data.cells.numSelected()) {
-    $('#editor').removeClass('no-selection').addClass('has-selection')
-  } else {
-    $('#editor').addClass('no-selection').removeClass('has-selection')
-  }
-});
-
-radio('selection-clear').subscribe(function() {
-  data.cells.deselectAll();
-  radio('selection-change').broadcast();
-});
-
 var printInfo = function() {
   var info = "<table>";
 
@@ -334,6 +318,9 @@ $('#editor-back-btn').click(function() {
 });
 $('#editor-done-btn').click(function() {
   radio('selection-clear').broadcast();
+});
+$('#merge-btn').click(function() {
+  radio('merge-initiated').broadcast();
 });
 
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
