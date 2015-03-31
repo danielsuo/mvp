@@ -6,15 +6,7 @@ var Cell = function(lines) {
   this.id = Cell.id;
   Cell.id++;
 
-  if (lines) {
-    this.updateCoordinatesFromLines(lines);
-  } else {
-    this.corners = [];
-    this.center = {
-      x: 0,
-      y: 0
-    };
-  }
+  this.updateCoordinatesFromLines(lines);
 
   return this;
 };

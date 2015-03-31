@@ -7,6 +7,7 @@ var XHR = require('./util/xhr');
 var _ = require('lodash');
 
 var Cell = require('./app/cell');
+var CellList = require('./app/cellList');
 
 var sortPoints = require('./util/sortPoints');
 var isMobile = require('./util/mobile').any;
@@ -110,43 +111,17 @@ XHR.get(data.dir + '/config.json')
   });
 })
 
-// Load cell data
+// Create new CellList from cell svg data
 .then(function() {
-  return XHR.get(data.dir + 'cells.svg');
+  return CellList.load(data, data.dir + 'cells.svg');
 })
 
-// Process cell data
+// Assign CellList to data.cells
 .then(function(cells) {
-  // Grab all cells from cells.svg. We assume they are groups of line segments.
-  var cells = data.svg(cells);
-
-  // Extract unique line segment ends to find corners of each cell
-  data.cells = cells.roots()[0].children().map(function(cell, index) {
-    return new Cell(cell.children());
-  });
-
-  console.log(data.cells)
-
-  // Remove cells from DOM. We will be redrawing them later
-  cells.remove();
+  data.cells = cells;
 })
 
 .then(function() {
-
-  // Create cells
-  data.cells.map(function(cell) {
-    cell.createDrawingPath();
-  });
-})
-
-.then(function() {
-
-  var transformCellClips = function() {
-    var ratio = document.getElementById(data.node.id).clientWidth / data.config.width;
-    return data.cells.map(function(cell) {
-      cell.createClippingPath(ratio);
-    });
-  };
 
   var setClipCSS = function($element, svg) {
     $element.css({
@@ -162,9 +137,9 @@ XHR.get(data.dir + '/config.json')
       for (var j = 0; j < state.length; j++) {
         if (state[j] == i) {
           if (layers[i].id !== 'shell') {
-            layers[i].clip.add(data.cells[j].clippingPath);
+            layers[i].clip.add(data.cells.get(j).clippingPath);
           }
-          data.cells[j].drawingPath.node.dataset.layer = i;
+          data.cells.get(j).drawingPath.node.dataset.layer = i;
         }
       }
     }
@@ -198,7 +173,7 @@ XHR.get(data.dir + '/config.json')
   data.setLayoutFromState = function(update) {
     if (update) clearClipsFromLayers();
     createClipsForLayers();
-    transformCellClips();
+    this.cells.updateClippingPaths(data.getClientToSVGRatio());
     clipLayersWithState(this.state);
     data.info.innerHTML = printInfo();
   }
@@ -265,12 +240,12 @@ radio('cell-click').subscribe(function(cell, dragging) {
   if (data.selected.length > 1 && data.selected.length <= 3) {
     var line = data.selected.reduce(function(a, b) {
       return {
-        x: (a.x === data.cells[b].center.x ? a.x : false),
-        y: (a.y === data.cells[b].center.y ? a.y : false)
+        x: (a.x === data.cells.get(b).center.x ? a.x : false),
+        y: (a.y === data.cells.get(b).center.y ? a.y : false)
       };
     }, {
-      x: data.cells[data.selected[0]].center.x,
-      y: data.cells[data.selected[0]].center.y
+      x: data.cells.get(data.selected[0]).center.x,
+      y: data.cells.get(data.selected[0]).center.y
     });
 
     if (line.x || line.y) radio('merge-possible').broadcast();
@@ -322,9 +297,8 @@ radio('selection-change').subscribe(function() {
 radio('selection-clear').subscribe(function() {
   data.selected = [];
 
-  data.cells.map(function(cell) {
-    document.getElementById(cell.drawingPath.node.id).dataset.selected = 0;
-  });
+  data.cells.clearSelection();
+  
   radio('selection-change').broadcast();
 });
 
@@ -376,6 +350,10 @@ var printInfo = function() {
   info += "</table>"
 
   return info;
+}
+
+data.getClientToSVGRatio = function() {
+  return document.getElementById(data.node.id).clientWidth / data.config.width;
 }
 
 data.getHeadcount = function() {
