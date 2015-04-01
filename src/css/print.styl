@@ -13,6 +13,7 @@
     margin 0
     border none
     -webkit-print-color-adjust: exact
+    border 1px solid rgba(0,0,8,0.15)
     aside
       width 15%
       font-size 0.55em
@@ -27,6 +28,15 @@
       line-height 1rem
       tr
         margin-top .1rem
+        
+  #project-address, #project-logo
+    opacity 1
+  
+  #protofit aside
+    border-left 1px solid rgba(0,0,8,0.15)
+
+  hr
+    border-color rgba(0,0,8,0.15)
     
   #svg-wrap
     display flex
@@ -37,8 +47,8 @@
     width calc(100% - 2rem)
     height auto
     position inline
-    top 0
-    left 0
+    top 1rem
+    left 1rem
     transform none
   
   #rsf input

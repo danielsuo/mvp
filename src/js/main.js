@@ -210,6 +210,22 @@ radio('selection-update').subscribe(function(layerIndex) {
   data.cells.updateSelected(layerIndex);
 });
 
+radio('request-change').subscribe(function() {
+  var mailto = 'mailto:protofitsupport@floored.com?Subject=Change%20Request%20for%20' +
+  encodeURIComponent(data.config.project.name) + 
+  '&Body=Hello%20Floored%2C%0A%0AI%27d%20like%20to%20request%20the%20following%20change%20for%20' +
+  encodeURIComponent(data.config.project.name) + ' at ' + encodeURIComponent(data.config.project.address) + 
+  '%3A%0A%0A%0A%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A' +
+  'Please%20do%20not%20edit%20below%20this%20line.%0A%0AModel%20ID%3A%20' +
+  encodeURIComponent(data.config.project.name)
+
+  window.location.href = mailto;
+});
+
+radio('share').subscribe(function() {
+});
+
+
 var printInfo = function() {
   var info = "<table>";
 
@@ -309,6 +325,12 @@ $('#merge-btn').click(function() {
 });
 $('#split-btn').click(function() {
   radio('split-initiated').broadcast();
+});
+$('#change-btn').click(function() {
+  radio('request-change').broadcast();
+});
+$('#share-btn').click(function() {
+  radio('share').broadcast();
 });
 
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/

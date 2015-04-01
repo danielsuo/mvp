@@ -17,6 +17,7 @@
 - Pre-configured merge
 - Add special be able to change it
 - Deploy
+- Label Special cells
 
 - Set up routes
 - Saving / loading test fits
@@ -49,6 +50,7 @@
 - Deploying migrations
 
 ## Done
+- Request change
 - logo
 - Name and address
 - Deselect cells upon selection after updating cell type
