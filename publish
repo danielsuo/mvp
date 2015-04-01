@@ -1,4 +1,5 @@
 git checkout master
+git merge v2
 git add .
 git commit -am "updates"
 git push -u publish master
