@@ -6,13 +6,16 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
+=======
+- Merge UI
 - Disabled cells
-- Deselect cells
-- Fix printinfo
-- draw merged cells
 - Add special be able to change it
-- Deploy
-- Label Special cells
+
+- Deselect cells
+- draw merged cells
+- Fix printinfo
+
+-------------------------
 
 - Set up routes
 - Saving / loading test fits
@@ -47,6 +50,8 @@
 ## Done
 - Print.css
 - Request change
+- Deploy
+- Print.css
 - Get/set layout with merged
 - Merging
 - Merge rules

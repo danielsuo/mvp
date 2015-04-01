@@ -22,9 +22,6 @@ data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 
-// Get selected cells
-data.state = [];
-
 XHR.get(data.dir + '/config.json')
 
 // Parse config file and configure SVG canvas
@@ -185,6 +182,8 @@ XHR.get(data.dir + '/config.json')
   // data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
+    
+data.conferenceTable();
   }, 750);
 }, function(error) {
   console.log(error);

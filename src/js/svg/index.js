@@ -12,6 +12,8 @@ require('./math');
 require('./easing');
 require('./export');
 
+var XHR = require('../util/xhr');
+
 SVG.load = require('./load');
 
 SVG.ConstrainedRect = SVG.invent({
@@ -334,6 +336,24 @@ SVG.Door = SVG.invent({
       var door = new SVG.Wedge(door.entryWidth, x, y, startAngle, door.swingAngle, ccw);
 
       return this.put(door);
+    }
+  }
+});
+
+SVG.ConferenceTable = SVG.invent({
+  create: 'path',
+  inherit: SVG.Path,
+  extend: {},
+  construct: {
+    conferenceTable: function(cx, cy, seats, vertical) {
+      var conferenceTable = new SVG.Path();
+
+      var that = this
+      XHR.get('/img/conf.svg').then(function(response) {
+        console.log(this.svg(response));
+      })
+
+      return this.put(conferenceTable);
     }
   }
 });
