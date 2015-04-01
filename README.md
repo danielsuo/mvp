@@ -7,8 +7,6 @@
 
 ## TODO
 =======
-- Merge UI
-- Disabled cells
 - Add special be able to change it
 
 - Deselect cells
@@ -48,6 +46,8 @@
 - Deploying migrations
 
 ## Done
+- Disabled cells
+- Merge UI
 - Print.css
 - Request change
 - Deploy

@@ -18,6 +18,18 @@ var CellList = function(cells) {
     this.cells[cell.id] = cell;
   }
 
+  // Disabled cells
+  var disabled = [];
+  for (var disabled_type in data.config.cells.disabled) {
+    for (var i = 0; i < data.config.cells.disabled[disabled_type].length; i++) {
+      var cell = data.config.cells.disabled[disabled_type][i];
+      disabled.push(cell);
+      this.cells[cell].drawingPath.node.dataset.disabled = true;
+    }
+  }
+  data.config.cells.disabled.total = disabled;
+  console.log(disabled)
+
   // Remove from DOM. We should be able to just parse SVG and load into DOM, but
   // leaving as is for now.
   cells.remove();
@@ -253,6 +265,11 @@ CellList.prototype.registerHandlers = function() {
   radio('cell-click').subscribe([
 
     function(cell, dragging) {
+
+      if (data.config.cells.disabled.total.indexOf(cell.id) > -1) {
+        // console.log('disabled')
+        return;
+      }
 
       if (this.selectionWasUpdated) {
         this.deselectAll();

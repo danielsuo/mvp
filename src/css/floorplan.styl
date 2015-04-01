@@ -59,10 +59,15 @@
       &[data-merged="1"]
         cellColors(#4F90CD)
         
-    &[data-layer="6"] //pantry / reception
+    &[data-layer="6"], &[data-disabled="true"] //pantry / reception
       // fill tint(#EC5C4E, 94%)
       fill tint(#A9519F, 94%)
       cursor default
+      &:hover, &[data-hover="1"]
+        fill tint(#A9519F, 94%)
+      &[data-selected="1"]
+        fill tint(#A9519F, 94%)
+ 
       
 
 #svg-wrap
