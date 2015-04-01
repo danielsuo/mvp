@@ -311,16 +311,23 @@ CellList.prototype.registerHandlers = function() {
   // Handle selection change
   radio('selection-change').subscribe([
     function() {
-      if (this.numSelected()) {
-        $('#editor').removeClass('no-selection').addClass('has-selection')
+      var numSelected = this.numSelected();
+      if (numSelected) {
+        $('#editor, #protofit').removeClass('no-selection').addClass('has-selection')
       } else {
-        $('#editor').addClass('no-selection').removeClass('has-selection')
+        $('#editor, #protofit').addClass('no-selection').removeClass('has-selection')
       }
-      if (this.mergeable()) {
-        $('#editor').removeClass('no-merge');
+      if (this.mergeable() && numSelected == 2) {
+        $('#editor').removeClass('no-merge-medium')
       } else {
-        $('#editor').addClass('no-merge');
+        $('#editor').addClass('no-merge-medium');
       }
+      if (this.mergeable() && numSelected == 3) {
+        $('#editor').removeClass('no-merge-large')
+      } else {
+        $('#editor').addClass('no-merge-large');
+      }
+
     },
     this
   ]);

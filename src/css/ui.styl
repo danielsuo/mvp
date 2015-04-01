@@ -54,14 +54,14 @@
 
     ul
       list-style none
-      margin 0 1rem 1rem 1rem
+      margin 0 1rem 0.5rem 1rem
       padding 0
       border 1px solid rgba(0,0,8,0.1)
       border-radius 2px
       box-shadow 0 1px 6px rgba(0,0,8,0.05)
       
     li
-      padding 1rem
+      padding 0.75rem 1rem
       margin 0
       box-sizing border-box
       background-color #fbfbff
@@ -78,84 +78,86 @@
       &:last-of-type
         border-width 0
         
-    button
-      Franklin()
-      margin 1rem
-      padding 1rem
-      border none
-      border-radius 2px
-      border 1px solid rgba(0,0,8,0.1)
-      outline none
-      font-size 1em
-      letter-spacing 0.035em
-      cursor pointer
-      transition background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease
-      &.next
-        FranklinBold()
-        background-color #7270b1
+button, .btn
+  Franklin()
+  margin 1rem
+  padding 0.75rem 1rem
+  border none
+  border-radius 2px
+  border 1px solid rgba(0,0,8,0.1)
+  outline none
+  font-size 1em
+  letter-spacing 0.035em
+  cursor pointer
+  transition background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease
+  &:active, &:focus
+    outline none !important
+  &.next
+    FranklinBold()
+    background-color #7270b1
+    color #fbfbff
+    &:hover
+      background-color #8782CF
+      
+  &.back
+    background #fbfbff
+    color #933E44
+    &:hover
+      background-color #fff
+      color #EC5C4E
+      
+  &.deselect
+    background #fbfbff
+    color #7270B1
+    &:hover
+      background-color #fff
+      color #514AAE
+      
+  &.merge
+    // display none
+    background #fbfbff
+    color #42586C
+    &:hover
+      background-color #fff
+      color #4F90CD
+      
+  &.measure
+    // display none
+    background #fbfbff
+    color #7270B1
+    margin-bottom 0
+    &[data-measuring="1"]
+      background-color #7270B1
+      color #fbfbff
+      box-shadow inset 0 2px 0 rgba(0,0,8,0.2)
+      &:hover
+        background-color #9D9BCF
         color #fbfbff
-        &:hover
-          background-color #8782CF
-          
-      &.back
-        background #fbfbff
-        color #933E44
-        &:hover
-          background-color #fff
-          color #EC5C4E
-          
-      &.deselect
-        background #fbfbff
-        color #7270B1
-        &:hover
-          background-color #fff
-          color #514AAE
-          
-      &.merge
-        // display none
-        background #fbfbff
-        color #42586C
-        &:hover
-          background-color #fff
-          color #4F90CD
-          
-      &.measure
-        // display none
-        background #fbfbff
-        color #7270B1
-        margin-bottom 0
-        &[data-measuring="1"]
-          background-color #7270B1
-          color #fbfbff
-          box-shadow inset 0 2px 0 rgba(0,0,8,0.2)
-          &:hover
-            background-color #9D9BCF
-            color #fbfbff
-        &:hover
-          background-color #fff
-          color #514AAE
-          
-      &.share
-        margin 1rem
-        box-sizing border-box
-        background #fbfbff
-        color #20671E
-        &:hover
-          background-color #fff
-          color #59B55C
-          
-      &.change
-        margin 0 1rem 1rem 1rem
-  
-      &:disabled
-        FranklinLight()
-        background-color transparent !important
-        cursor default
-        color #827CA3 !important
+    &:hover
+      background-color #fff
+      color #514AAE
+      
+  &.share
+    margin 1rem
+    box-sizing border-box
+    background #fbfbff
+    color #20671E
+    &:hover
+      background-color #fff
+      color #59B55C
+      
+  &.change
+    margin 0 1rem 1rem 1rem
+
+  &:disabled
+    FranklinLight()
+    background-color transparent !important
+    cursor default
+    color #827CA3 !important
 
           
 #editor
-  min-height 660px
+  min-height 600px
   > div 
     position relative
     > div
@@ -168,7 +170,6 @@
   .headers
     position relative
     span
-      padding 0 1rem
       box-sizing border-box
       position absolute
       width 100%
@@ -223,8 +224,7 @@
     ul
       box-shadow 0 1px 6px rgba(0,0,8,0)
       
-  &.no-merge
-   .editor-list.medium, .editor-list.large
+  &.no-merge-medium .editor-list.medium
       box-shadow 0 1px 6px rgba(0,0,8,0)
       li
         background-color transparent !important
@@ -237,6 +237,22 @@
           border-width 0 0 1px 0
         &:last-of-type
           border-width 1px 0 0 0 
+     
+  &.no-merge-large .editor-list.large
+      box-shadow 0 1px 6px rgba(0,0,8,0)
+      li
+        background-color transparent !important
+        cursor default
+        color rgba(0,0,8,0.3) !important
+        pointer-events none
+        border-color rgba(0,0,8,0.1) transparent transparent transparent
+        border-width 1px 0
+        &:first-of-type
+          border-width 0 0 1px 0
+        &:last-of-type
+          border-width 1px 0 0 0 
+          &:first-of-type
+            border-width 0
     
 
   .replace
@@ -246,6 +262,10 @@
       flex-grow 1
       display flex
       flex-direction column
+    span
+      text-align center
+      padding 1rem
+      
 
     
   .style
@@ -296,5 +316,5 @@
 @media screen and (max-height:768px)
   #actions section
     li, button
-      padding-top 0.75rem
-      padding-bottom 0.75rem
+      padding-top 0.5rem
+      padding-bottom 0.5rem

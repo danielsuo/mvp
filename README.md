@@ -10,8 +10,8 @@
 - Add special be able to change it
 
 - Deselect cells
-- draw merged cells
 - Fix printinfo
+- draw merged cells
 
 -------------------------
 
