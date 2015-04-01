@@ -49,6 +49,7 @@
 - Deploying migrations
 
 ## Done
+- Name and address
 - Deselect cells upon selection after updating cell type
 - Print to pdf
 - add the badges

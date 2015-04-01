@@ -48,6 +48,9 @@ XHR.get(data.dir + '/config.json')
   // Set up UI elements
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
   data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
+  $('#project-title').html('<h3>' + data.config.project.name + '</h3>');
+  $('#project-address').html(data.config.project.address);
+
   data.rsfInput.value = data.config.project.area;
 })
 

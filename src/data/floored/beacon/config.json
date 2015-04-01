@@ -6,9 +6,9 @@
   },
   "project": {
     "id": "test",
-    "name": "Wells Fargo Center, Suite 2600",
+    "name": "Suite 2600",
     "area": 10777,
-    "address": "1700 Lincoln Street"
+    "address": "Wells Fargo Center<br/>1700 Lincoln Street"
   },
   "north": {
     "direction": 0
