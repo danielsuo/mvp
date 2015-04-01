@@ -18,6 +18,7 @@
 - Add special be able to change it
 - Deploy
 
+- Set up routes
 - Saving / loading test fits
 - List of test fits
 - Fix drawing of large merges

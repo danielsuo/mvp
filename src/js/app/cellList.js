@@ -63,32 +63,36 @@ CellList.prototype.updateSelected = function(layerIndex) {
 };
 
 CellList.prototype.map = function(func) {
-  _.forOwn(this.cells, func);
+  _.forOwn(this.cells, func, this);
 };
 
-CellList.prototype.mergeWithLayer = function(layerIndex) {
+CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
   // For now, always can merge selected
   var mergeable = true;
 
   if (mergeable) {
-    var merged = Cell.merge(this.selected);
+    var merged = Cell.merge(cells);
     this.set(merged);
-    this.removeSelected();
+
+    _.forOwn(cells, function(cell, id) {
+      this.remove(id);
+    }, this);
+
     merged.setLayer(layerIndex);
   }
 
-  radio('layout-update-from-state').broadcast();
+  if (update) radio('layout-update-from-state').broadcast();
 };
 
-CellList.prototype.splitWithLayer = function(layerIndex) {
-  _.forOwn(this.selected, function(cell, id) {
+CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
+  _.forOwn(cells, function(cell, id) {
 
     if (cell.numChildren() > 1) {
       var children = Cell.split(cell);
 
       _.forOwn(children, function(child, childId) {
         this.set(child);
-        child.setLayer(layerIndex);
+        child.setLayer(layerIndex || child.layer);
       }, this);
 
       this.remove(id);
@@ -96,7 +100,7 @@ CellList.prototype.splitWithLayer = function(layerIndex) {
   }, this);
 
   this.deselectAll();
-  radio('layout-update-from-state').broadcast();
+  if (update) radio('layout-update-from-state').broadcast();
 };
 
 CellList.prototype.updateClippingPaths = function(ratio) {
@@ -116,9 +120,9 @@ CellList.prototype.deselect = function(id) {
 };
 
 CellList.prototype.selectAll = function() {
-  _.forOwn(this.selected, function(cell, id) {
+  this.map(function(cell, id) {
     this.select(id);
-  }, this);
+  });
 };
 
 CellList.prototype.deselectAll = function() {
@@ -136,19 +140,66 @@ CellList.prototype.numSelected = function(id) {
 };
 
 CellList.prototype.getLayout = function() {
+  // Initialize a layout object to stringify
   var layout = {};
+
+  // Process children of merged cells
+  var processChildren = function(cell, id, currLayoutObj, layoutObj) {
+
+    // If the cell has children, do something; otherwise, do nothing
+    if (_.keys(cell.children).length > 0) {
+
+      // Initialize a children object for the current cell
+      currLayoutObj.children = {};
+
+      // Loop through all the children in the cell
+      _.forOwn(cell.children, function(child, cid) {
+
+        // Add child to the layout object 
+        currLayoutObj.children[cid] = {
+          layer: child.layer
+        };
+
+        // Delete child from top-level layout
+        delete layoutObj[cid];
+
+        // Process any children of the child
+        processChildren(child, cid, currLayoutObj.children[cid], layoutObj);
+      });
+    }
+  };
+
   this.map(function(cell, id) {
     layout[id] = {
       layer: cell.layer
     };
+
+    processChildren(cell, id, layout[id], layout);
   });
 
   return layout;
 };
 
 CellList.prototype.setLayout = function(layout) {
+  this.selectAll();
+  this.splitWithLayer(this.selected, null, false);
+
+  var processChildren = function(cell, id, that) {
+    if (_.keys(cell.children).length > 0) {
+      var children = {};
+      _.forOwn(cell.children, function(child, cid) {
+        processChildren(child, cid, that);
+        children[cid] = that.get(cid);
+      });
+
+      that.mergeWithLayer(children, cell.layer, false);
+    } else {
+      that.get(id).layer = cell.layer;
+    }
+  };
+
   _.forOwn(layout, function(cell, id) {
-    this.get(id).layer = cell.layer;
+    processChildren(cell, id, this);
   }, this);
 };
 
@@ -214,7 +265,7 @@ CellList.prototype.registerHandlers = function() {
   radio('merge-initiated').subscribe([
 
     function() {
-      this.mergeWithLayer(1);
+      this.mergeWithLayer(this.selected, 1, true);
     },
     this
   ]);
@@ -223,7 +274,7 @@ CellList.prototype.registerHandlers = function() {
   radio('split-initiated').subscribe([
 
     function() {
-      this.splitWithLayer(1);
+      this.splitWithLayer(this.selected, null, true);
     },
     this
   ]);
