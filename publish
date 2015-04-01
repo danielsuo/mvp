@@ -1,2 +1,4 @@
 git checkout master
-git push -u heroku master
+git add .
+git commit -am "updates"
+git push -u publish master
