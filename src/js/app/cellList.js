@@ -59,6 +59,8 @@ CellList.prototype.updateSelected = function(layerIndex) {
     cell.setLayer(layerIndex);
   });
 
+  this.selectionWasUpdated = true;
+
   radio('layout-update-from-state').broadcast();
 };
 
@@ -208,6 +210,12 @@ CellList.prototype.registerHandlers = function() {
   radio('cell-click').subscribe([
 
     function(cell, dragging) {
+
+      if (this.selectionWasUpdated) {
+        this.deselectAll();
+        this.selectionWasUpdated = false;
+      }
+
       console.log(cell.id)
       var selected = this.isSelected(cell.id);
 
