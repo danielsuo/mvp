@@ -293,12 +293,16 @@ CellList.prototype.registerHandlers = function() {
 
   // Handle selection change
   radio('selection-change').subscribe([
-
     function() {
       if (this.numSelected()) {
         $('#editor').removeClass('no-selection').addClass('has-selection')
       } else {
         $('#editor').addClass('no-selection').removeClass('has-selection')
+      }
+      if (this.mergeable()) {
+        $('#editor').removeClass('no-merge');
+      } else {
+        $('#editor').addClass('no-merge');
       }
     },
     this

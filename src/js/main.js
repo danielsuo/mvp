@@ -81,6 +81,35 @@ XHR.get(data.dir + '/config.json')
     })(layer);
   }
 
+  var $editorListMedium = $('#editor-list-medium');
+  var $editorListLarge = $('#editor-list-large');
+
+  var $li = $('<li>Medium Conference Room</li>');
+  $li.click(function() {
+    radio('medium-conference-room');
+  })
+  $editorListMedium.append($li);
+
+  var $li = $('<li>Medium Office</li>');
+  $li.click(function() {
+    radio('medium-office');
+  })
+  $editorListMedium.append($li);
+
+  var $li = $('<li>Large Conference Room</li>');
+  $li.click(function() {
+    radio('large-conference-room');
+  })
+  $editorListLarge.append($li);
+
+  var $li = $('<li>Large Office</li>');
+  $li.click(function() {
+    radio('large-office');
+  })
+  $editorListLarge.append($li);
+
+
+
 })
 
 // Create layers

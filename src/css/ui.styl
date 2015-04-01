@@ -54,7 +54,7 @@
 
     ul
       list-style none
-      margin 0 1rem
+      margin 0 1rem 1rem 1rem
       padding 0
       border 1px solid rgba(0,0,8,0.1)
       border-radius 2px
@@ -182,6 +182,7 @@
     backface-visibility hidden
     position relative
     transition box-shadow 0.15s ease, border-color 0.15s ease
+    margin-bottom 1rem
     span
       backface-visibility hidden
       Franklin()
@@ -207,12 +208,12 @@
       transition opacity 0.15s ease 0.15s
     .replace h3
       opacity 0
-    #editor-list li, button.deselect, button.merge
+    .editor-list li, button.deselect, button.merge
       background-color transparent !important
       cursor default
       color rgba(0,0,8,0.3) !important
       pointer-events none
-    #editor-list li
+    .editor-list li
       border-color rgba(0,0,8,0.1) transparent transparent transparent
       border-width 1px 0
       &:first-of-type
@@ -221,6 +222,22 @@
         border-width 1px 0 0 0
     ul
       box-shadow 0 1px 6px rgba(0,0,8,0)
+      
+  &.no-merge
+   .editor-list.medium, .editor-list.large
+      box-shadow 0 1px 6px rgba(0,0,8,0)
+      li
+        background-color transparent !important
+        cursor default
+        color rgba(0,0,8,0.3) !important
+        pointer-events none
+        border-color rgba(0,0,8,0.1) transparent transparent transparent
+        border-width 1px 0
+        &:first-of-type
+          border-width 0 0 1px 0
+        &:last-of-type
+          border-width 1px 0 0 0 
+    
 
   .replace
     absolute100()
