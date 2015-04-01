@@ -1,7 +1,7 @@
 // NOTE: We rely on 'data' as a global variable. It's defined in main.js. We
 // will eventually address this. Maybe.
 
-var _ = require('lodash');
+var _ = require('../util/lodash');
 var radio = require('radio');
 var isMobile = require('../util/mobile').any;
 

@@ -4,7 +4,7 @@ var SVG = require('./svg');
 var Promise = require('promise');
 var radio = require('radio');
 var XHR = require('./util/xhr');
-var _ = require('lodash');
+var _ = require('./util/lodash');
 
 var Cell = require('./app/cell');
 var CellList = require('./app/cellList');
