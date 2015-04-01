@@ -2,7 +2,7 @@
   "client": {
     "id": "floored",
     "name": "Floored",
-    "logo": ["/atlantis-logo.svg"]
+    "logo": ["/logo.svg"]
   },
   "project": {
     "id": "test",
