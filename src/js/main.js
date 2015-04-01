@@ -322,3 +322,41 @@ if (window.matchMedia) {
 // for old IE, etc
 window.onbeforeprint = data.beforePrint;
 window.onafterprint = data.afterPrint;
+
+// Keyboard commands
+window.addEventListener('keyup', function(event) {
+  // if (data.modifier.shift == true && !event.shiftKey) {
+  //   data.modifier.shift = false;
+  // }
+  console.log(event.which);
+  switch (event.which) {
+    case 27: // esc
+      data.clearSelection();
+      document.getElementById('editor').className = 'no-selection';
+      data.rsfInput.blur();
+      break;
+    case 83: // s: save state
+      console.log(JSON.stringify(data.cells.getLayout()));
+      break;
+    case 77: // m: measure tool
+      data.scale.on = !data.scale.on;
+      if (data.scale.on) {
+        data.btn['measure-btn'].node.dataset.measuring = 1;    
+      } else {
+        data.btn['measure-btn'].node.dataset.measuring = 0;
+        delete data.scaleObj;
+        // delete data.scale.firstClick;
+      }
+      break;
+    case 68: // d: delete iframe
+      data.protofit.removeChild(document.getElementById('model-viewer'));
+      data.protofit.className = '';
+      break;
+    case 73: // i: info
+      console.log('No info!');
+      break;
+    case 13: // enter: unfocus input
+      data.rsfInput.blur();
+      break;
+  }
+}, false);
