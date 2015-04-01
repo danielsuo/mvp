@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var Cell = require('./cell');
-var XHR = require('../util/XHR');
+var XHR = require('../util/xhr');
 
 var radio = require('radio');
 
