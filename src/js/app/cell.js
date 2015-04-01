@@ -21,11 +21,58 @@ var Cell = function(corners) {
 
 Cell.id = 0;
 
-Cell.fromLines = function(lines) {
-  return new Cell(Cell.extractCorners(lines));
+Cell.fromSVG = function(svg) {
+  switch(svg.type) {
+    case 'g':
+      return Cell.fromLines(svg.children());
+      break;
+    case 'rect':
+      return Cell.fromRect(svg);
+      break;
+    case 'polygon':
+      return Cell.fromPolygon(svg);
+      break;
+  };
 };
 
-Cell.extractCorners = function(lines) {
+Cell.fromLines = function(lines) {
+  return new Cell(Cell.extractCornersFromLines(lines));
+};
+
+Cell.fromRect = function(rect) {
+  var tl = {
+    x: rect.x(),
+    y: rect.y()
+  };
+
+  var tr = {
+    x: rect.x() + rect.width(),
+    y: rect.y()
+  };
+
+  var bl = {
+    x: rect.x(),
+    y: rect.y() + rect.height()
+  };
+
+  var br = {
+    x: rect.x() + rect.width(),
+    y: rect.y() + rect.height()
+  };
+
+  return new Cell([tl, tr, bl, br]);
+};
+
+Cell.fromPolygon = function(polygon) {
+  return new Cell(polygon.array.value.map(function(corner) {
+    return {
+      x: corner[0],
+      y: corner[1]
+    };
+  }));
+};
+
+Cell.extractCornersFromLines = function(lines) {
   // Grab all line segment ends
   var corners = lines.map(function(line) {
     return [{

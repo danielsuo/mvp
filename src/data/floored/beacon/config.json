@@ -1,0 +1,85 @@
+{
+  "client": {
+    "id": "floored",
+    "name": "Floored",
+    "logo": ["/atlantis-logo.svg"]
+  },
+  "project": {
+    "id": "test",
+    "name": "Wells Fargo Center, Suite 2600",
+    "area": 10777,
+    "address": "1700 Lincoln Street"
+  },
+  "north": {
+    "direction": 0
+  },
+  "width": "1130",
+  "height": "610",
+  "last_updated": "",
+  "cells": {
+    "length": 46,
+    "disabled": {
+      "pantry": [36, 37],
+      "reception": [0]
+    }
+  },
+  "models": [{
+    "name": "Perimeter Offices",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices"
+  }, {
+    "name": "Perimeter Offices (Corporate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Corporate"
+  }, {
+    "name": "Perimeter Offices (Alternate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Alternate"
+  }, {
+    "name": "Open Workspace",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Open-Workspace"
+  }],
+  "layers": [{
+    "id": "benching",
+    "name": "Benching",
+    "seats": [4, 4, 4, 4, 4, 5, 4, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 6, 4, 5, 5, 5, 5, 5, 4, 5, 6, 5, 4, 5]
+  }, {
+    "id": "breakout",
+    "name": "Breakout Space",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "conference",
+    "name": "Conference Room",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "office",
+    "name": "Office",
+    "seats": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  }, {
+    "id": "special",
+    "name": "Special",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "shell",
+    "name": "Empty",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }],
+  "layouts": [{
+    "id": "perimeter-office",
+    "name": "Perimeter Offices",
+    "state": {"0":{"layer":3},"1":{"layer":3},"2":{"layer":3},"3":{"layer":3},"4":{"layer":3},"5":{"layer":3},"6":{"layer":3},"7":{"layer":3},"8":{"layer":3},"9":{"layer":3},"10":{"layer":3},"11":{"layer":3},"12":{"layer":3},"13":{"layer":3},"14":{"layer":3},"15":{"layer":3},"16":{"layer":3},"17":{"layer":3},"18":{"layer":3},"19":{"layer":3},"20":{"layer":2},"21":{"layer":3},"22":{"layer":2},"23":{"layer":2},"24":{"layer":3},"25":{"layer":3},"26":{"layer":0},"27":{"layer":0},"28":{"layer":0},"29":{"layer":0},"30":{"layer":0},"31":{"layer":0},"32":{"layer":0},"33":{"layer":0},"34":{"layer":0},"35":{"layer":5},"36":{"layer":5},"37":{"layer":5},"38":{"layer":0},"39":{"layer":0},"40":{"layer":0},"41":{"layer":3},"42":{"layer":3}}
+  }, {
+    "id": "interior-office",
+    "name": "Interior Offices",
+    "state": {"0":{"layer":0},"1":{"layer":0},"2":{"layer":0},"3":{"layer":0},"4":{"layer":0},"5":{"layer":0},"6":{"layer":0},"7":{"layer":0},"8":{"layer":0},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":0},"15":{"layer":0},"16":{"layer":0},"17":{"layer":0},"18":{"layer":0},"19":{"layer":0},"20":{"layer":1},"21":{"layer":0},"22":{"layer":1},"23":{"layer":2},"24":{"layer":0},"25":{"layer":0},"26":{"layer":3},"27":{"layer":3},"28":{"layer":3},"29":{"layer":3},"30":{"layer":3},"31":{"layer":3},"32":{"layer":3},"33":{"layer":3},"34":{"layer":3},"35":{"layer":5},"36":{"layer":5},"37":{"layer":5},"38":{"layer":3},"39":{"layer":3},"40":{"layer":3},"41":{"layer":0},"42":{"layer":0}}
+  }, {
+    "id": "open-office",
+    "name": "Open Workspace",
+    "state": {"0":{"layer":0},"1":{"layer":0},"2":{"layer":0},"3":{"layer":0},"4":{"layer":0},"5":{"layer":0},"6":{"layer":0},"7":{"layer":0},"8":{"layer":1},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":0},"15":{"layer":0},"16":{"layer":0},"17":{"layer":0},"18":{"layer":0},"19":{"layer":0},"20":{"layer":1},"21":{"layer":0},"22":{"layer":1},"23":{"layer":2},"24":{"layer":0},"25":{"layer":0},"26":{"layer":0},"27":{"layer":0},"28":{"layer":0},"29":{"layer":0},"30":{"layer":0},"31":{"layer":0},"32":{"layer":0},"33":{"layer":0},"34":{"layer":0},"35":{"layer":5},"36":{"layer":5},"37":{"layer":5},"38":{"layer":0},"39":{"layer":0},"40":{"layer":0},"41":{"layer":0},"42":{"layer":1}}
+  }, {
+    "id": "hybrid",
+    "name": "Open Workspace & Perimeter&nbsp;Offices",
+    "state": {"0":{"layer":3},"1":{"layer":3},"2":{"layer":3},"3":{"layer":3},"4":{"layer":3},"5":{"layer":3},"6":{"layer":0},"7":{"layer":3},"8":{"layer":2},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":0},"15":{"layer":0},"16":{"layer":0},"17":{"layer":0},"18":{"layer":3},"19":{"layer":3},"20":{"layer":1},"21":{"layer":3},"22":{"layer":1},"23":{"layer":2},"24":{"layer":3},"25":{"layer":2},"26":{"layer":0},"27":{"layer":0},"28":{"layer":0},"29":{"layer":0},"30":{"layer":0},"31":{"layer":0},"32":{"layer":0},"33":{"layer":0},"34":{"layer":0},"35":{"layer":5},"36":{"layer":5},"37":{"layer":5},"38":{"layer":0},"39":{"layer":0},"40":{"layer":0},"41":{"layer":3},"42":{"layer":3}}
+  }, {
+    "id": "whitebox",
+    "name": "Whitebox",
+    "state": {"0":{"layer":5},"1":{"layer":5},"2":{"layer":5},"3":{"layer":5},"4":{"layer":5},"5":{"layer":5},"6":{"layer":5},"7":{"layer":5},"8":{"layer":5},"9":{"layer":5},"10":{"layer":5},"11":{"layer":5},"12":{"layer":5},"13":{"layer":5},"14":{"layer":5},"15":{"layer":5},"16":{"layer":5},"17":{"layer":5},"18":{"layer":5},"19":{"layer":5},"20":{"layer":5},"21":{"layer":5},"22":{"layer":5},"23":{"layer":5},"24":{"layer":5},"25":{"layer":5},"26":{"layer":5},"27":{"layer":5},"28":{"layer":5},"29":{"layer":5},"30":{"layer":5},"31":{"layer":5},"32":{"layer":5},"33":{"layer":5},"34":{"layer":5},"35":{"layer":5},"36":{"layer":5},"37":{"layer":5},"38":{"layer":5},"39":{"layer":5},"40":{"layer":5},"41":{"layer":5},"42":{"layer":5}}
+  }]
+}

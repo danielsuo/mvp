@@ -10,7 +10,7 @@ var Cell = require('./app/cell');
 var CellList = require('./app/cellList');
 
 data = SVG('svg');
-data.dir = '/data/floored/test/';
+data.dir = '/data/floored/beacon/';
 data.element = document.getElementById('svg');
 data.panel = document.getElementById('panel');
 data.protofit = document.getElementById('protofit');

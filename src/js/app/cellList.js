@@ -12,7 +12,7 @@ var CellList = function(cells) {
 
   for (var i = 0; i < cellData.length; i++) {
     // Parse cell data
-    var cell = Cell.fromLines(cellData[i].children());
+    var cell = Cell.fromSVG(cellData[i]);
 
     // Assign cell to cell.id
     this.cells[cell.id] = cell;
