@@ -223,6 +223,7 @@ radio('request-change').subscribe(function() {
 });
 
 radio('share').subscribe(function() {
+  window.print();
 });
 
 

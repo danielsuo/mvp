@@ -6,7 +6,6 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
-- Print.css
 - Disabled cells
 - Deselect cells
 - Fix printinfo
@@ -46,7 +45,7 @@
 - Deploying migrations
 
 ## Done
-
+- Print.css
 - Request change
 - Get/set layout with merged
 - Merging
