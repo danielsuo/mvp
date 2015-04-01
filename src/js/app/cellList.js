@@ -1,4 +1,4 @@
-var _ = require('lodash');
+var _ = require('../util/lodash');
 var Cell = require('./cell');
 var XHR = require('../util/xhr');
 
@@ -69,10 +69,7 @@ CellList.prototype.map = function(func) {
 };
 
 CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
-  // For now, always can merge selected
-  var mergeable = true;
-
-  if (mergeable) {
+  if (this.mergeable()) {
     var merged = Cell.merge(cells);
     this.set(merged);
 
@@ -103,6 +100,52 @@ CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
 
   this.deselectAll();
   if (update) radio('layout-update-from-state').broadcast();
+};
+
+// Assume for now that if center of cells are colinear, then cells are in a
+// line and can be merged
+CellList.prototype.mergeable = function() {
+  var numSelected = this.numSelected();
+  if (numSelected > 1 && numSelected <= 3) {
+    var line = _.transform(this.selected, function(result, child, id) {
+      result.x = result.x === undefined ? child.center.x :
+        (result.x === child.center.x) ? child.center.x : false;
+      result.y = result.y === undefined ? child.center.y :
+        (result.y === child.center.y) ? child.center.y : false;
+    });
+
+    // If in a line (weirdly written in case both line.x and line.y are 0),
+    // check if adjacent
+    if ((line.x || line.y) !== false) {
+
+      var allAdjacent = true;
+
+      // Loop over all children
+      _.forOwn(this.selected, function(child, id) {
+
+        var cell = this.get(id);
+        var adjacent = false;
+
+        // Loop over all siblings
+        _.forOwn(this.selected, function(child2, id2) {
+          if (id !== id2) {
+            var cell2 = this.get(id2);
+
+            // Make sure cell 1 and cell 2 share at least 2 corners
+            if (_.intersectionObjects(cell.corners, cell2.corners).length >= 2) {
+              adjacent = true;
+            }
+          }
+        }, this);
+
+        allAdjacent &= adjacent;
+      }, this);
+
+      return allAdjacent;
+    }
+  }
+
+  return false;
 };
 
 CellList.prototype.updateClippingPaths = function(ratio) {
@@ -242,6 +285,8 @@ CellList.prototype.registerHandlers = function() {
       }
 
       radio('selection-change').broadcast();
+
+      if (this.mergeable()) radio('merge-possible').broadcast();
     },
     this
   ]);
@@ -287,21 +332,5 @@ CellList.prototype.registerHandlers = function() {
     this
   ]);
 };
-
-// // Assume for now that if center of cells are colinear, then cells are in a
-// // line and can be merged
-// if (data.selected.length > 1 && data.selected.length <= 3) {
-//   var line = data.selected.reduce(function(a, b) {
-//     return {
-//       x: (a.x === data.cells.get(b).center.x ? a.x : false),
-//       y: (a.y === data.cells.get(b).center.y ? a.y : false)
-//     };
-//   }, {
-//     x: data.cells.get(data.selected[0]).center.x,
-//     y: data.cells.get(data.selected[0]).center.y
-//   });
-
-//   if (line.x || line.y) radio('merge-possible').broadcast();
-// }
 
 module.exports = CellList;

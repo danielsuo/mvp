@@ -6,15 +6,11 @@
 - Create ```./config/env.json``` based on the provided example
 
 ## TODO
-- Merging
 - Print.css
 - Disabled cells
 - Deselect cells
 - Fix printinfo
-- Get/set layout with merged
 - draw merged cells
-- Merge rules
-- Pre-configured merge
 - Add special be able to change it
 - Deploy
 - Label Special cells
@@ -50,7 +46,12 @@
 - Deploying migrations
 
 ## Done
+
 - Request change
+- Get/set layout with merged
+- Merging
+- Merge rules
+- Pre-configured merge
 - logo
 - Name and address
 - Deselect cells upon selection after updating cell type
