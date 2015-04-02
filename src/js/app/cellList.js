@@ -18,7 +18,7 @@ var CellList = function(cells) {
     this.cells[cell.id] = cell;
   }
 
-  // Disabled cells
+  // TODO: Refactor disabled cells
   var disabled = [];
   for (var disabled_type in data.config.cells.disabled) {
     for (var i = 0; i < data.config.cells.disabled[disabled_type].length; i++) {
@@ -28,7 +28,6 @@ var CellList = function(cells) {
     }
   }
   data.config.cells.disabled.total = disabled;
-  console.log(disabled)
 
   // Remove from DOM. We should be able to just parse SVG and load into DOM, but
   // leaving as is for now.
@@ -121,9 +120,9 @@ CellList.prototype.mergeable = function() {
   if (numSelected > 1 && numSelected <= 3) {
     var line = _.transform(this.selected, function(result, child, id) {
       result.x = result.x === undefined ? child.center.x :
-        (result.x === child.center.x) ? child.center.x : false;
+        Math.abs(result.x - child.center.x) < 20 ? child.center.x : false;
       result.y = result.y === undefined ? child.center.y :
-        (result.y === child.center.y) ? child.center.y : false;
+        Math.abs(result.y - child.center.y) < 20 ? child.center.y : false;
     });
 
     // If in a line (weirdly written in case both line.x and line.y are 0),
@@ -143,8 +142,8 @@ CellList.prototype.mergeable = function() {
           if (id !== id2) {
             var cell2 = this.get(id2);
 
-            // Make sure cell 1 and cell 2 share at least 2 corners
-            if (_.intersectionObjects(cell.corners, cell2.corners).length >= 2) {
+            // Make sure cell 1 and cell 2 share at least 1 corner
+            if (_.intersectionPoints(cell.corners, cell2.corners).length >= 1) {
               adjacent = true;
             }
           }
@@ -276,7 +275,7 @@ CellList.prototype.registerHandlers = function() {
         this.selectionWasUpdated = false;
       }
 
-      console.log(cell.id)
+      console.log(cell.id, cell.corners[0], cell.corners[1], cell.corners[2], cell.corners[3])
       var selected = this.isSelected(cell.id);
 
       $('#actions').addClass('show-editor');

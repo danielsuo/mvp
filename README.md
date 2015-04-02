@@ -7,12 +7,13 @@
 
 ## TODO
 =======
-- Add special be able to change it
+- fix cells
 - Fix printinfo
 - draw merged cells
 
 -------------------------
 
+- Add special be able to change it
 - Set up routes
 - Saving / loading test fits
 - List of test fits

@@ -191,7 +191,7 @@ XHR.get(data.dir + '/config.json')
     createClipsForLayers();
     this.cells.updateClippingPaths(data.getClientToSVGRatio());
     clipLayersWithState(this.cells.getLayout());
-    // data.info.innerHTML = printInfo();
+    data.info.innerHTML = printInfo();
   }
 
   data.setLayout(0);
@@ -202,7 +202,7 @@ XHR.get(data.dir + '/config.json')
 
 // At the very end, remove the loading icon
 .then(function() {
-  // data.info.innerHTML = printInfo();
+  data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
     
@@ -265,13 +265,13 @@ var printInfo = function() {
     if (data.config.layers[i].id === 'benching') {
       info += "<td>" + data.getBenchingHeadcount() + "</td>"
     } else {
-      var merged = 0;
-      if (data.config.merge && data.config.layers[i].id === 'conference' && data.config.merge.merged) {
-        merged = 1;
-      }
-      info += "<td>" + (data.state.filter(function(x) {
-        return x == i
-      }).length + merged) + "</td>";
+      // var merged = 0;
+      // if (data.config.merge && data.config.layers[i].id === 'conference' && data.config.merge.merged) {
+      //   merged = 1;
+      // }
+      // info += "<td>" + (data.state.filter(function(x) {
+      //   return x == i
+      // }).length + merged) + "</td>";
     }
 
     info += "</tr>";
@@ -304,20 +304,26 @@ data.getClientToSVGRatio = function() {
 }
 
 data.getHeadcount = function() {
-  var headcount = 0;
-  for (var i = 0; i < this.state.length; i++) {
-    headcount += this.config.layers[this.state[i]].seats[i];
-  }
+  var headcount = this.getBenchingHeadcount();
+  
+  _.forOwn(data.cells.getLayout(), function(cell, id) {
+    if (cell.layer === 3) {
+      headcount++;
+    }
+  });
+
   return headcount;
 };
 
 data.getBenchingHeadcount = function() {
   var headcount = 0;
-  for (var i = 0; i < this.state.length; i++) {
-    if (this.state[i] === 0) {
-      headcount += this.config.layers[this.state[i]].seats[i];
+
+  _.forOwn(data.cells.getLayout(), function(cell, id) {
+    if (cell.layer === 0) {
+      headcount += this.config.layers[cell.layer].seats[parseInt(id)];
     }
-  }
+  }, this);
+
   return headcount;
 };
 
