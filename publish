@@ -3,10 +3,4 @@ git add .
 git commit -m "$1"
 git push origin v2
 
-git checkout master
-git merge v2
-git add .
-git commit -am "updates"
-git push -u publish master
-
-git checkout v2
+git push publish v2:master

@@ -344,8 +344,8 @@ CellList.prototype.registerHandlers = function() {
   // Handle merge request
   radio('merge-initiated').subscribe([
 
-    function() {
-      this.mergeWithLayer(this.selected, 1, true);
+    function(layer) {
+      this.mergeWithLayer(this.selected, layer, true);
     },
     this
   ]);

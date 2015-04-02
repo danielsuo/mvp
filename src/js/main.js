@@ -86,19 +86,19 @@ XHR.get(data.dir + '/config.json')
 
   var $li = $('<li>Medium Conference Room</li>');
   $li.click(function() {
-    radio('medium-office');
+    radio('merge-initiated').broadcast(2);
   })
   $editorListMedium.append($li);
 
   var $li = $('<li>Executive Office</li>');
   $li.click(function() {
-    radio('large-office');
+    radio('merge-initiated').broadcast(3);
   })
   $editorListMedium.append($li);
 
   var $li = $('<li>Large Conference Room</li>');
   $li.click(function() {
-    radio('large-conference-room');
+    radio('merge-initiated').broadcast(2);
   })
   $editorListLarge.append($li);
 
