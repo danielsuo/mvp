@@ -379,7 +379,7 @@ window.addEventListener('keyup', function(event) {
   console.log(event.which);
   switch (event.which) {
     case 27: // esc
-      data.clearSelection();
+      data.cells.deselectAll();
       document.getElementById('editor').className = 'no-selection';
       data.rsfInput.blur();
       break;
@@ -407,4 +407,22 @@ window.addEventListener('keyup', function(event) {
       data.rsfInput.blur();
       break;
   }
+}, false);
+
+data.mousedown(function(event) {
+  event.stopPropagation();
+});
+
+data.touchstart(function(event) {
+  event.stopPropagation();
+});
+
+document.getElementById('protofit').addEventListener('mousedown', function(event) {
+  data.cells.deselectAll();
+  document.getElementById('editor').className = 'no-selection';
+}, false);
+
+document.getElementById('protofit').addEventListener('touchstart', function(event) {
+  data.clearSelection();
+  document.getElementById('editor').className = 'no-selection';
 }, false);

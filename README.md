@@ -8,8 +8,6 @@
 ## TODO
 =======
 - Add special be able to change it
-
-- Deselect cells
 - Fix printinfo
 - draw merged cells
 
@@ -46,6 +44,7 @@
 - Deploying migrations
 
 ## Done
+- Deselect cells
 - Disabled cells
 - Merge UI
 - Print.css

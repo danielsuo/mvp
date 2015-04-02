@@ -349,8 +349,8 @@ SVG.ConferenceTable = SVG.invent({
       var conferenceTable = new SVG.Path();
 
       var that = this
-      XHR.get('/img/conf.svg').then(function(response) {
-        console.log(this.svg(response));
+      XHR.get('/img/conference-large.svg').then(function(response) {
+        console.log(that.svg(response));
       })
 
       return this.put(conferenceTable);
