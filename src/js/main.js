@@ -74,8 +74,7 @@ XHR.get(data.dir + '/config.json')
       var $li = $(document.createElement('li'));
       $li.html(data.config.layers[layer].name).data('index', layer);
       $li.click(function() {
-        data.cells.splitWithLayer(data.cells.selected, layer);
-        radio('selection-update').broadcast(layer);
+        data.cells.splitWithLayer(data.cells.selected, layer, true);
       })
       $editorList.append($li);
     })(layer);
@@ -101,8 +100,6 @@ XHR.get(data.dir + '/config.json')
     radio('merge-initiated').broadcast(2);
   })
   $editorListLarge.append($li);
-
-
 
 })
 
@@ -226,10 +223,6 @@ radio('layout-whitebox').subscribe(function() {
 
 radio('layout-update-from-state').subscribe(function() {
   data.setLayoutFromState(true);
-});
-
-radio('selection-update').subscribe(function(layerIndex) {
-  data.cells.updateSelected(layerIndex);
 });
 
 radio('request-change').subscribe(function() {

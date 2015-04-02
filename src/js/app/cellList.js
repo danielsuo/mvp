@@ -94,8 +94,11 @@ CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
   if (update) radio('layout-update-from-state').broadcast();
 };
 
+// TODO: recursive split?
 CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
   _.forOwn(cells, function(cell, id) {
+
+    cell.setLayer(layerIndex || cell.layer);
 
     if (cell.numChildren() > 1) {
       var children = Cell.split(cell);

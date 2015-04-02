@@ -7,7 +7,7 @@
 
 ## TODO
 =======
-- fix cells
+- Show reception / pantry
 - Fix printinfo
 - draw merged cells
 
@@ -18,6 +18,8 @@
 - Saving / loading test fits
 - List of test fits
 - Fix drawing of large merges
+- Recursive splitting
+- Fix being able to merge multiple tiles
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer
@@ -45,6 +47,7 @@
 - Deploying migrations
 
 ## Done
+- fix cells
 - Deselect cells
 - Disabled cells
 - Merge UI
