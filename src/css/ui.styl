@@ -28,6 +28,12 @@
   transform translateX(0)
   transition transform 0.5s ease
   user-select none
+  // &::-webkit-scrollbar
+  //   width: 12px
+  // &::-webkit-scrollbar-track
+  //   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  //   -webkit-border-radius: 10px;
+  //   border-radius: 10px;
   
   &.show-benching
     transform translateX(-33.33%)
@@ -100,7 +106,7 @@ button, .btn
       background-color #8782CF
       
   &.back
-    background #fbfbff
+    background rgba(250,250,255,0.55)
     color #933E44
     &:hover
       background-color #fff
