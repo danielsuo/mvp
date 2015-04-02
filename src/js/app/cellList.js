@@ -70,7 +70,8 @@ CellList.prototype.map = function(func) {
 };
 
 CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
-  if (this.mergeable()) {
+  console.log(cells)
+  if (this.mergeable(cells)) {
     var merged = Cell.merge(cells);
     this.set(merged);
 
@@ -88,14 +89,16 @@ CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
 CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
   _.forOwn(cells, function(cell, id) {
 
-    cell.setLayer(layerIndex === undefined ? cell.layer : layerIndex);
+    var layerIndexDefined = layerIndex === undefined || layerIndex === null;
+
+    cell.setLayer(layerIndexDefined ? cell.layer : layerIndex);
 
     if (cell.numChildren() > 1) {
       var children = Cell.split(cell);
 
       _.forOwn(children, function(child, childId) {
         this.set(child);
-        child.setLayer(layerIndex === undefined ? child.layer : layerIndex);
+        child.setLayer(layerIndexDefined ? child.layer : layerIndex);
       }, this);
 
       this.remove(id);
@@ -108,10 +111,10 @@ CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
 
 // Assume for now that if center of cells are colinear, then cells are in a
 // line and can be merged
-CellList.prototype.mergeable = function() {
-  var numSelected = this.numSelected();
-  if (numSelected > 1 && numSelected <= 3) {
-    var line = _.transform(this.selected, function(result, child, id) {
+CellList.prototype.mergeable = function(cells) {
+  var numToMerge = _.keys(cells).length
+  if (numToMerge > 1 && numToMerge <= 3) {
+    var line = _.transform(cells, function(result, child, id) {
       result.x = result.x === undefined ? child.center.x :
         Math.abs(result.x - child.center.x) < 20 ? child.center.x : false;
       result.y = result.y === undefined ? child.center.y :
@@ -125,13 +128,13 @@ CellList.prototype.mergeable = function() {
       var allAdjacent = true;
 
       // Loop over all children
-      _.forOwn(this.selected, function(child, id) {
+      _.forOwn(cells, function(child, id) {
 
         var cell = this.get(id);
         var adjacent = false;
 
         // Loop over all siblings
-        _.forOwn(this.selected, function(child2, id2) {
+        _.forOwn(cells, function(child2, id2) {
           if (id !== id2) {
             var cell2 = this.get(id2);
 
@@ -248,7 +251,6 @@ CellList.prototype.setLayout = function(layout) {
   };
 
   _.forOwn(layout, function(cell, id) {
-    this.get(id).setLayer(cell.layer);
     processChildren(cell, id, this);
   }, this);
 };

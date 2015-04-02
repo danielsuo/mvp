@@ -164,6 +164,7 @@ radio('layout-update-from-state').subscribe(function() {
   data.cells.paintLayout(data.layers);
 });
 
+// TODO: refactor this; can't read it at all
 radio('request-change').subscribe(function() {
   var mailto = 'mailto:protofitsupport@floored.com?Subject=Change%20Request%20for%20' +
     encodeURIComponent(data.config.project.name) +
