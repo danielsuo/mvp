@@ -9,6 +9,8 @@ var _ = require('./util/lodash');
 var Cell = require('./app/cell');
 var CellList = require('./app/cellList');
 
+var Layer = require('./app/layer');
+
 data = SVG('svg');
 data.dir = '/data/floored/beacon/';
 data.element = document.getElementById('svg');
@@ -49,6 +51,10 @@ XHR.get(data.dir + '/config.json')
   $('#project-address').html(data.config.project.address);
 
   data.rsfInput.value = data.config.project.area;
+
+  data.layers = data.config.layers.map(function(layer, index) {
+    return new Layer(index, layer.id, layer.name);
+  });
 })
 
 .then(function() {
@@ -69,16 +75,12 @@ XHR.get(data.dir + '/config.json')
   }
 
   // Set up cell editor buttons
-  for (var layer in data.config.layers) {
-    (function(layer) {
-      var $li = $(document.createElement('li'));
-      $li.html(data.config.layers[layer].name).data('index', layer);
-      $li.click(function() {
-        data.cells.splitWithLayer(data.cells.selected, layer, true);
-      })
-      $editorList.append($li);
-    })(layer);
-  }
+  data.layers.map(function(layer) {
+    layer.createButton($editorList, function() {
+      console.log(layer.index)
+      data.cells.splitWithLayer(data.cells.selected, layer.index, true);
+    });
+  });
 
   var $editorListMedium = $('#editor-list-medium');
   var $editorListLarge = $('#editor-list-large');
@@ -105,17 +107,8 @@ XHR.get(data.dir + '/config.json')
 
 // Create layers
 .then(function() {
-  data.config.layers.map(function(layer, index) {
-    layer.file_path = data.dir + layer.id + '.svg';
-    layer.element = document.createElement('div');
-    layer.element.id = layer.id;
-
-    document.getElementById('svg').appendChild(layer.element);
-
-    layer.$element = $('#' + layer.id);
-    layer.$element.css({
-      'background-image': 'url(' + layer.file_path + ')',
-    });
+  data.layers.map(function(layer) {
+    layer.draw();
   });
 
   // Add background shadow
@@ -136,64 +129,26 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
 
-  var setClipCSS = function($element, svg) {
-    $element.css({
-      '-webkit-clip-path': 'url(#' + svg.node.id + ')',
-      'clip-path': 'url(#' + svg.node.id + ')'
-    });
-  };
-
-  var clipLayersWithState = function(state) {
-    var layers = data.config.layers;
-    for (var i = 0; i < layers.length; i++) {
-
-      _.forOwn(state, function(cell, id) {
-        id = parseInt(id);
-        if (cell.layer == i) {
-          if (layers[i].id !== 'shell') {
-            layers[i].clip.add(data.cells.get(id).clippingPath);
-          }
-          data.cells.get(id).setLayer(i);
-        }
-      });
-    }
-  };
-
-  var clearClipsFromLayers = function() {
-    var layers = data.config.layers;
-    for (var i = 0; i < layers.length; i++) {
-      if (layers[i].id !== 'shell') {
-        layers[i].clip.remove();
-      }
-    }
-  }
-
-  var createClipsForLayers = function() {
-    var layers = data.config.layers;
-    for (var i = 0; i < layers.length; i++) {
-      if (layers[i].id !== 'shell') {
-        layers[i].clip = data.clip();
-        setClipCSS(layers[i].$element, layers[i].clip);
-      }
-    }
-  };
-
-  data.setLayout = function(layoutIndex, update) {
+  data.setLayout = function(layoutIndex) {
     this.cells.setLayout(this.config.layouts[layoutIndex].state);
-    this.setLayoutFromState(update);
+    this.setLayoutFromState();
   };
 
-  data.setLayoutFromState = function(update) {
-    if (update) clearClipsFromLayers();
-    createClipsForLayers();
-    this.cells.updateClippingPaths(data.getClientToSVGRatio());
-    clipLayersWithState(this.cells.getLayout());
-    data.info.innerHTML = printInfo();
+  data.setLayoutFromState = function() {
+    this.layers.map(function(layer) {
+      layer.clear();
+
+    });
+
+    data.cells.clipLayers(this.layers);
+    Layer.forceCSSUpdate();
   }
 
+  data.cells.updateClippingPaths(data.getClientToSVGRatio());
   data.setLayout(0);
   $(window).resize(function() {
-    data.setLayoutFromState(true);
+    data.cells.updateClippingPaths(data.getClientToSVGRatio());
+    data.setLayoutFromState();
   });
 })
 
@@ -214,15 +169,15 @@ radio('merge-possible').subscribe(function() {
 });
 
 radio('layout-update-from-preset').subscribe(function(layoutIndex) {
-  data.setLayout(layoutIndex, true);
+  data.setLayout(layoutIndex);
 });
 
 radio('layout-whitebox').subscribe(function() {
-  data.setLayout(data.config.layouts.length - 1, true);
+  data.setLayout(data.config.layouts.length - 1);
 });
 
 radio('layout-update-from-state').subscribe(function() {
-  data.setLayoutFromState(true);
+  data.setLayoutFromState();
 });
 
 radio('request-change').subscribe(function() {

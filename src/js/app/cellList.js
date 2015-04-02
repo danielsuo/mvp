@@ -98,14 +98,14 @@ CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
 CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
   _.forOwn(cells, function(cell, id) {
 
-    cell.setLayer(layerIndex || cell.layer);
+    cell.setLayer(layerIndex === undefined ? cell.layer : layerIndex);
 
     if (cell.numChildren() > 1) {
       var children = Cell.split(cell);
 
       _.forOwn(children, function(child, childId) {
         this.set(child);
-        child.setLayer(layerIndex || child.layer);
+        child.setLayer(layerIndex === undefined ? child.layer : layerIndex);
       }, this);
 
       this.remove(id);
@@ -253,13 +253,35 @@ CellList.prototype.setLayout = function(layout) {
 
       that.mergeWithLayer(children, cell.layer, false);
     } else {
-      that.get(id).layer = cell.layer;
+      that.get(id).setLayer(cell.layer);
     }
   };
 
   _.forOwn(layout, function(cell, id) {
+    this.get(id).setLayer(cell.layer);
     processChildren(cell, id, this);
   }, this);
+};
+
+CellList.prototype.getClippingPaths = function() {
+  // Only return top-level clips
+  var clippingPaths = {};
+
+  this.map(function(child, id) {
+    clippingPaths[id] = child.clippingPath;
+  });
+
+  return clippingPaths;
+};
+
+CellList.prototype.clipLayers = function(layers) {
+  this.map(function(cell, id) {
+    var layer = layers[cell.layer];
+
+    if (!layer.disabled) {
+      layer.clip(cell.clippingPath);
+    }
+  });
 };
 
 CellList.prototype.registerHandlers = function() {
@@ -312,6 +334,7 @@ CellList.prototype.registerHandlers = function() {
 
   // Handle selection change
   radio('selection-change').subscribe([
+
     function() {
       var numSelected = this.numSelected();
       if (numSelected) {
