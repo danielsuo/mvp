@@ -128,27 +128,11 @@ XHR.get(data.dir + '/config.json')
 })
 
 .then(function() {
-
-  data.setLayout = function(layoutIndex) {
-    this.cells.setLayout(this.config.layouts[layoutIndex].state);
-    this.setLayoutFromState();
-  };
-
-  data.setLayoutFromState = function() {
-    this.layers.map(function(layer) {
-      layer.clear();
-
-    });
-
-    data.cells.clipLayers(this.layers);
-    Layer.forceCSSUpdate();
-  }
-
   data.cells.updateClippingPaths(data.getClientToSVGRatio());
-  data.setLayout(0);
+  radio('layout-update-from-preset').broadcast(0);
   $(window).resize(function() {
     data.cells.updateClippingPaths(data.getClientToSVGRatio());
-    data.setLayoutFromState();
+    radio('layout-update-from-state').broadcast();
   });
 })
 
@@ -169,15 +153,15 @@ radio('merge-possible').subscribe(function() {
 });
 
 radio('layout-update-from-preset').subscribe(function(layoutIndex) {
-  data.setLayout(layoutIndex);
+  data.cells.paintLayoutFromPreset(data.config.layouts[layoutIndex].state, data.layers);
 });
 
 radio('layout-whitebox').subscribe(function() {
-  data.setLayout(data.config.layouts.length - 1);
+  data.cells.paintLayoutFromPreset(data.config.layouts[data.config.layouts.length - 1].state, data.layers);
 });
 
 radio('layout-update-from-state').subscribe(function() {
-  data.setLayoutFromState();
+  data.cells.paintLayout(data.layers);
 });
 
 radio('request-change').subscribe(function() {

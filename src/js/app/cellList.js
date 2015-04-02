@@ -65,16 +65,6 @@ CellList.prototype.removeSelected = function() {
   }, this);
 };
 
-CellList.prototype.updateSelected = function(layerIndex) {
-  _.forOwn(this.selected, function(cell, id) {
-    cell.setLayer(layerIndex);
-  });
-
-  this.selectionWasUpdated = true;
-
-  radio('layout-update-from-state').broadcast();
-};
-
 CellList.prototype.map = function(func) {
   _.forOwn(this.cells, func, this);
 };
@@ -263,6 +253,20 @@ CellList.prototype.setLayout = function(layout) {
   }, this);
 };
 
+CellList.prototype.paintLayoutFromPreset = function(preset, layers) {
+  this.setLayout(preset);
+  this.paintLayout(layers)
+};
+
+CellList.prototype.paintLayout = function(layers) {
+  layers.map(function(layer) {
+    layer.clear();
+  });
+
+  this.clipLayers(layers);
+  this.forceCSSUpdate();
+};
+
 CellList.prototype.getClippingPaths = function() {
   // Only return top-level clips
   var clippingPaths = {};
@@ -384,6 +388,18 @@ CellList.prototype.registerHandlers = function() {
     },
     this
   ]);
+};
+
+// This is unbelievably hacky. We could just remove / recreate the clips each
+// time.
+CellList.prototype.forceCSSUpdate = function() {
+  var force = document.createElement('div');
+  var svg = document.getElementById('svg');
+
+  svg.appendChild(force);
+  setTimeout(function() {
+    svg.removeChild(force);
+  }, 1000);
 };
 
 module.exports = CellList;

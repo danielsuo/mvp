@@ -113,6 +113,8 @@ Cell.merge = function(cells) {
     cell.demote();
   });
 
+  merged.promote();
+
   return merged;
 };
 

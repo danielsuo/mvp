@@ -16,18 +16,6 @@ var Layer = function(index, id, name) {
   return this;
 };
 
-// This is unbelievably hacky. We could just remove / recreate the clips each
-// time.
-Layer.forceCSSUpdate = function() {
-  var force = document.createElement('div');
-  var svg = document.getElementById('svg');
-
-  svg.appendChild(force);
-  setTimeout(function() {
-    svg.removeChild(force);
-  }, 1000);
-};
-
 Layer.prototype.draw = function() {
   this.element = document.createElement('div');
   this.element.id = this.id;
