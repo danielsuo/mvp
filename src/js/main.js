@@ -74,8 +74,8 @@ XHR.get(data.dir + '/config.json')
       var $li = $(document.createElement('li'));
       $li.html(data.config.layers[layer].name).data('index', layer);
       $li.click(function() {
+        data.cells.splitWithLayer(data.cells.selected, layer);
         radio('selection-update').broadcast(layer);
-        console.log(layer)
       })
       $editorList.append($li);
     })(layer);
@@ -205,8 +205,8 @@ XHR.get(data.dir + '/config.json')
   data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
-    
-data.conferenceTable();
+
+    data.conferenceTable();
   }, 750);
 }, function(error) {
   console.log(error);
@@ -234,12 +234,12 @@ radio('selection-update').subscribe(function(layerIndex) {
 
 radio('request-change').subscribe(function() {
   var mailto = 'mailto:protofitsupport@floored.com?Subject=Change%20Request%20for%20' +
-  encodeURIComponent(data.config.project.name) + 
-  '&Body=Hello%20Floored%2C%0A%0AI%27d%20like%20to%20request%20the%20following%20change%20for%20' +
-  encodeURIComponent(data.config.project.name) + ' at ' + encodeURIComponent(data.config.project.address) + 
-  '%3A%0A%0A%0A%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A' +
-  'Please%20do%20not%20edit%20below%20this%20line.%0A%0AModel%20ID%3A%20' +
-  encodeURIComponent(data.config.project.name)
+    encodeURIComponent(data.config.project.name) +
+    '&Body=Hello%20Floored%2C%0A%0AI%27d%20like%20to%20request%20the%20following%20change%20for%20' +
+    encodeURIComponent(data.config.project.name) + ' at ' + encodeURIComponent(data.config.project.address) +
+    '%3A%0A%0A%0A%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A' +
+    'Please%20do%20not%20edit%20below%20this%20line.%0A%0AModel%20ID%3A%20' +
+    encodeURIComponent(data.config.project.name)
 
   window.location.href = mailto;
 });
@@ -305,7 +305,7 @@ data.getClientToSVGRatio = function() {
 
 data.getHeadcount = function() {
   var headcount = this.getBenchingHeadcount();
-  
+
   _.forOwn(data.cells.getLayout(), function(cell, id) {
     if (cell.layer === 3) {
       headcount++;
@@ -395,7 +395,7 @@ window.addEventListener('keyup', function(event) {
     case 77: // m: measure tool
       data.scale.on = !data.scale.on;
       if (data.scale.on) {
-        data.btn['measure-btn'].node.dataset.measuring = 1;    
+        data.btn['measure-btn'].node.dataset.measuring = 1;
       } else {
         data.btn['measure-btn'].node.dataset.measuring = 0;
         delete data.scaleObj;
