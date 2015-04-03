@@ -67,6 +67,15 @@ XHR.get(data.dir + '/config.json')
     }),
     XHR.get('/img/conference-small.svg').then(function(response) {
       data.conferenceSmall = data.createDef(response);
+    }),
+    XHR.get('/img/desk-cluster-small.svg').then(function(response) {
+      data.deskSmall = data.createDef(response);
+    }),
+    XHR.get('/img/desk-cluster-large.svg').then(function(response) {
+      data.deskLarge = data.createDef(response);
+    }),
+    XHR.get('/img/table-cluster.svg').then(function(response) {
+      data.table = data.createDef(response);
     })
   ]);
 })

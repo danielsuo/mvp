@@ -167,12 +167,17 @@ Cell.prototype.draw = function() {
 
     this.contents.add(conferenceTable);
   } else if (this.layer === 3) { // Office
-
+    var desk = data.use(data.deskSmall);
+    desk.move(center.x - data.deskSmall.width() / 2, center.y - data.deskSmall.height() / 2);
+    this.contents.add(desk);
   }
 
   var walls = this.drawingPath.clone();
 
   walls.node.removeAttribute('class');
+  $(walls.node).css({
+    'pointer-events': 'none'
+  });
 
   walls.attr({
     'fill-opacity': 0,

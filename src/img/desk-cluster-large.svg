@@ -3,7 +3,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="44.46px" height="45.27px" viewBox="0 0 44.46 45.27" enable-background="new 0 0 44.46 45.27" xml:space="preserve">
-<line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="23.53" y1="43.3" x2="15.1" y2="41.51"/>
+<g>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="23.53" y1="43.3" x2="15.1" y2="41.51"/>
 <rect x="15.54" y="35.6" transform="matrix(-0.208 0.9781 -0.9781 -0.208 63.0211 28.7903)" fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" width="8.62" height="8.62"/>
 <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="42.33" y1="41.67" x2="33.84" y2="43.17"/>
 <rect x="33.32" y="35.55" transform="matrix(0.1738 0.9848 -0.9848 0.1738 70.3457 -4.1303)" fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" width="8.62" height="8.62"/>
@@ -17,4 +18,5 @@
 <rect x="0.25" y="15.76" fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" width="43.96" height="15.52"/>
 <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="0.25,15.76 
 	0.25,0.25 13.18,0.25 13.18,15.76 "/>
+</g>
 </svg>
