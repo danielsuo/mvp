@@ -340,22 +340,4 @@ SVG.Door = SVG.invent({
   }
 });
 
-SVG.ConferenceTable = SVG.invent({
-  create: 'path',
-  inherit: SVG.Path,
-  extend: {},
-  construct: {
-    conferenceTable: function(cx, cy, seats, vertical) {
-      var conferenceTable = new SVG.Path();
-
-      var that = this
-      XHR.get('/img/conference-large.svg').then(function(response) {
-        console.log(that.svg(response));
-      })
-
-      return this.put(conferenceTable);
-    }
-  }
-});
-
 module.exports = SVG;

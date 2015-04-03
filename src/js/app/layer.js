@@ -7,7 +7,8 @@ var Layer = function(index, id, name) {
   this.name = name;
 
   this.file_path = data.dir + this.id + '.svg';
-  this.disabled = ['shell'].indexOf(id) > -1;
+  this.disabled = ['shell', 'static'].indexOf(id) > -1;
+  this.noButton = ['static'].indexOf(id) > -1;
 
   this.clippingPath = data.clip();
 
@@ -33,10 +34,12 @@ Layer.prototype.draw = function() {
 };
 
 Layer.prototype.createButton = function(parent, func) {
-  var $li = $(document.createElement('li'));
-  $li.html(this.name).data('index', this.index);
-  $li.click(func);
-  parent.append($li);
+  if (!this.noButton) {
+    var $li = $(document.createElement('li'));
+    $li.html(this.name).data('index', this.index);
+    $li.click(func);
+    parent.append($li);
+  }
 };
 
 Layer.prototype.setClip = function() {

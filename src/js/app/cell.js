@@ -11,7 +11,7 @@ var Cell = function(corners) {
   Cell.id++;
 
   this.corners = corners;
-  this.center = this.findCenter();
+  this.center = this.findCenter(this.corners);
   this.sortCorners();
   this.createDrawingPath();
 
@@ -22,7 +22,7 @@ var Cell = function(corners) {
 Cell.id = 0;
 
 Cell.fromSVG = function(svg) {
-  switch(svg.type) {
+  switch (svg.type) {
     case 'g':
       return Cell.fromLines(svg.children());
       break;
@@ -126,6 +126,69 @@ Cell.split = function(merged) {
   return merged.children;
 };
 
+Cell.prototype.merged = function() {
+  return _.keys(this.children).length > 0;
+};
+
+Cell.prototype.draw = function() {
+  this.contents = data.nested();
+
+  var bbox = this.drawingPath.bbox();
+
+  var bboxCorners = [{
+    x: bbox.x,
+    y: bbox.y
+  }, {
+    x: bbox.x + bbox.width,
+    y: bbox.y
+  }, {
+    x: bbox.x + bbox.width,
+    y: bbox.y + bbox.height
+  }, {
+    x: bbox.x,
+    y: bbox.y + bbox.height
+  }];
+
+  var center = this.findCenter(bboxCorners)
+
+  var widthLarger = bbox.width > bbox.height;
+  var major = widthLarger ? bbox.width : bbox.height;
+  var minor = widthLarger ? bbox.height : bbox.width;
+
+  if (this.layer === 2) { // Conference room
+
+    var use = major / data.conferenceLarge.width() > 1.2 ? data.conferenceLarge : data.conferenceSmall;
+    var conferenceTable = data.use(use);
+
+    conferenceTable.move(center.x - use.width() / 2,
+      center.y - use.height() / 2);
+
+    if (!widthLarger) conferenceTable.rotate(90, center.x, center.y);
+
+    this.contents.add(conferenceTable);
+  } else if (this.layer === 3) { // Office
+
+  }
+
+  var walls = this.drawingPath.clone();
+
+  walls.node.removeAttribute('class');
+
+  walls.attr({
+    'fill-opacity': 0,
+    'stroke': '#999',
+    'stroke-weight': 0.5
+  });
+};
+
+Cell.prototype.erase = function() {
+  if (this.contents) {
+    this.contents.clear();
+    this.contents.remove();
+    delete this.contents;
+  }
+};
+
 // What happens when a cell gets unmerged
 Cell.prototype.promote = function() {
   this.createDrawingPath();
@@ -136,10 +199,12 @@ Cell.prototype.promote = function() {
 Cell.prototype.demote = function() {
   this.removeDrawingPath();
   this.removeClippingPath();
+  this.erase();
 };
 
-Cell.prototype.findCenter = function() {
-  var center = this.corners.reduce(function(a, b) {
+Cell.prototype.findCenter = function(corners) {
+
+  var center = corners.reduce(function(a, b) {
     return {
       x: a.x + b.x,
       y: a.y + b.y
@@ -150,8 +215,8 @@ Cell.prototype.findCenter = function() {
   });
 
   return {
-    x: center.x / this.corners.length,
-    y: center.y / this.corners.length
+    x: center.x / corners.length,
+    y: center.y / corners.length
   };
 };
 

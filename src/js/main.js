@@ -57,6 +57,20 @@ XHR.get(data.dir + '/config.json')
   });
 })
 
+// Set up defs for all data objects
+
+.then(function() {
+
+  return Promise.all([
+    XHR.get('/img/conference-large.svg').then(function(response) {
+      data.conferenceLarge = data.createDef(response);
+    }),
+    XHR.get('/img/conference-small.svg').then(function(response) {
+      data.conferenceSmall = data.createDef(response);
+    })
+  ]);
+})
+
 .then(function() {
   var $layoutList = $('#layout-list');
   var $editorList = $('#editor-list');
@@ -141,8 +155,6 @@ XHR.get(data.dir + '/config.json')
   data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
-
-    data.conferenceTable();
   }, 750);
 }, function(error) {
   console.log(error);
@@ -231,6 +243,14 @@ var printInfo = function() {
 
   return info;
 }
+
+data.createDef = function(response) {
+  var def = this.defs().svg(response).roots()[0].children()[0];
+  def.width(def.bbox().width)
+  def.height(def.bbox().height);
+
+  return def;
+};
 
 data.getClientToSVGRatio = function() {
   return document.getElementById(data.node.id).clientWidth / data.config.width;

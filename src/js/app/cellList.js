@@ -70,7 +70,6 @@ CellList.prototype.map = function(func) {
 };
 
 CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
-  console.log(cells)
   if (this.mergeable(cells)) {
     var merged = Cell.merge(cells);
     this.set(merged);
@@ -265,7 +264,7 @@ CellList.prototype.paintLayout = function(layers) {
     layer.clear();
   });
 
-  this.clipLayers(layers);
+  this.drawCells(layers);
   this.forceCSSUpdate();
 };
 
@@ -280,11 +279,15 @@ CellList.prototype.getClippingPaths = function() {
   return clippingPaths;
 };
 
-CellList.prototype.clipLayers = function(layers) {
+CellList.prototype.drawCells = function(layers) {
   this.map(function(cell, id) {
     var layer = layers[cell.layer];
 
-    if (!layer.disabled) {
+    if (cell.merged()) {
+      cell.erase();
+      cell.draw();
+    }
+    else if (!layer.disabled) {
       layer.clip(cell.clippingPath);
     }
   });
@@ -332,8 +335,6 @@ CellList.prototype.registerHandlers = function() {
       }
 
       radio('selection-change').broadcast();
-
-      if (this.mergeable()) radio('merge-possible').broadcast();
     },
     this
   ]);
@@ -343,17 +344,18 @@ CellList.prototype.registerHandlers = function() {
 
     function() {
       var numSelected = this.numSelected();
+      var mergeable = this.mergeable(this.selected);
       if (numSelected) {
         $('#editor, #protofit').removeClass('no-selection').addClass('has-selection')
       } else {
         $('#editor, #protofit').addClass('no-selection').removeClass('has-selection')
       }
-      if (this.mergeable() && numSelected == 2) {
+      if (mergeable && numSelected == 2) {
         $('#editor').removeClass('no-merge-medium')
       } else {
         $('#editor').addClass('no-merge-medium');
       }
-      if (this.mergeable() && numSelected == 3) {
+      if (mergeable && numSelected == 3) {
         $('#editor').removeClass('no-merge-large')
       } else {
         $('#editor').addClass('no-merge-large');

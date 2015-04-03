@@ -7,12 +7,13 @@
 
 ## TODO
 =======
-- Show reception / pantry
 - Fix printinfo
+- Add cell for reception
 - draw merged cells
 
 -------------------------
 
+- Figure out real world coordinates
 - Add special be able to change it
 - Set up routes
 - Saving / loading test fits
@@ -47,6 +48,7 @@
 - Deploying migrations
 
 ## Done
+- Show reception / pantry
 - fix cells
 - Deselect cells
 - Disabled cells
