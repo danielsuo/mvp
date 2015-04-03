@@ -168,7 +168,30 @@ Cell.prototype.draw = function() {
     this.contents.add(conferenceTable);
   } else if (this.layer === 3) { // Office
     var desk = data.use(data.deskSmall);
-    desk.move(center.x - data.deskSmall.width() / 2, center.y - data.deskSmall.height() / 2);
+    desk.width(data.deskSmall.width());
+    desk.height(data.deskSmall.height());
+
+    var table = data.use(data.table);
+    table.width(data.table.width());
+    table.height(data.table.height());
+
+    if (widthLarger) {
+      var delta = bbox.width / 2 - bbox.width / 6;
+      desk.center(center.x + delta, center.y);
+      desk.rotate(90, desk.cx(), desk.cy());
+
+      var tdelta = bbox.width / 2 - table.width() / 2 - bbox.width / 10;
+      table.center(center.x - tdelta, center.y);
+    } else {
+      var delta = bbox.height / 2 - bbox.height / 6;
+      desk.center(center.x, center.y + delta);
+      desk.rotate(180, desk.cx(), desk.cy());
+
+      var tdelta = bbox.height / 2 - table.height() / 2 - bbox.height / 10;
+      table.center(center.x, center.y - tdelta);
+    }
+
+    this.contents.add(table);
     this.contents.add(desk);
   }
 

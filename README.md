@@ -16,6 +16,7 @@
 
 - Add doors
 - Center to visual center
+- Merge to merge
 - Figure out real world coordinates
 - Add special be able to change it
 - Set up routes

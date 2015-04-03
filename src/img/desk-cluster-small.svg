@@ -4,11 +4,9 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="31.53px" height="42.38px" viewBox="0 0 31.53 42.38" enable-background="new 0 0 31.53 42.38" xml:space="preserve">
 <g>
-  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="16.2" y1="10.6" x2="7.58" y2="10.6"/>
-  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="7.58,15.77 
-  	7.58,8.87 16.2,8.87 16.2,15.77 "/>
-  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="31.28,15.77 
-  	31.28,0.25 23.53,0.25 23.53,15.77 "/>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="19.825" y1="10.6" x2="11.205" y2="10.6"/>
+  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="11.205,15.77 
+  	11.205,8.87 19.825,8.87 19.825,15.77 "/>
   <rect x="0.25" y="15.77" fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" width="31.03" height="12.93"/>
   <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="3.53" y1="38.24" x2="11.85" y2="40.47"/>
   <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="11.41" y1="42.13" x2="3.08" y2="39.9"/>

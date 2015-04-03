@@ -3,20 +3,22 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="30.22px" height="30.22px" viewBox="0 0 30.22 30.22" enable-background="new 0 0 30.22 30.22" xml:space="preserve">
-<g><line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="19.43" y1="28.23" x2="10.81" y2="28.24"/>
-<polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="10.8,23.07 
-	10.81,29.97 19.43,29.95 19.43,23.06 "/>
-<line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="19.41" y1="1.97" x2="10.79" y2="1.98"/>
-<polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="10.8,7.15 
-	10.79,0.26 19.41,0.25 19.41,7.14 "/>
-<line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="1.99" y1="19.42" x2="1.98" y2="10.81"/>
-<polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="7.15,10.81 
-	0.25,10.8 0.27,19.43 7.16,19.42 "/>
-<path fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" d="M21.5,8.7
-	c-3.54-3.53-9.26-3.53-12.8,0.01c-3.53,3.54-3.53,9.26,0.01,12.8"/>
-<path fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" d="M8.71,21.51
-	c3.54,3.53,9.27,3.53,12.8-0.01c3.53-3.54,3.53-9.27-0.01-12.8"/>
-<line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="28.25" y1="19.41" x2="28.24" y2="10.78"/>
-<polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="23.07,10.79 
-	29.96,10.79 29.97,19.4 23.07,19.4 "/></g>
+<g>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="19.43" y1="28.23" x2="10.81" y2="28.24"/>
+  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="10.8,23.07 
+  	10.81,29.97 19.43,29.95 19.43,23.06 "/>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="19.41" y1="1.97" x2="10.79" y2="1.98"/>
+  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="10.8,7.15 
+  	10.79,0.26 19.41,0.25 19.41,7.14 "/>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="1.99" y1="19.42" x2="1.98" y2="10.81"/>
+  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="7.15,10.81 
+  	0.25,10.8 0.27,19.43 7.16,19.42 "/>
+  <path fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" d="M21.5,8.7
+  	c-3.54-3.53-9.26-3.53-12.8,0.01c-3.53,3.54-3.53,9.26,0.01,12.8"/>
+  <path fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" d="M8.71,21.51
+  	c3.54,3.53,9.27,3.53,12.8-0.01c3.53-3.54,3.53-9.27-0.01-12.8"/>
+  <line fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" x1="28.25" y1="19.41" x2="28.24" y2="10.78"/>
+  <polyline fill="none" stroke="#231F20" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="23.07,10.79 
+  	29.96,10.79 29.97,19.4 23.07,19.4 "/>
+</g>
 </svg>
