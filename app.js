@@ -16,6 +16,8 @@ var MongoStore = require('connect-mongo')(session);
 
 var db = require('./db');
 
+require('./config/admin');
+
 var app = express();
 
 // view engine setup

@@ -8,6 +8,7 @@
 ## TODO
 =======
 - Need cell for reception
+- Protofit brandmark everywhere
 
 - Editing
 - Load font faster
@@ -27,6 +28,7 @@
 - Fix drawing of large merges
 - Recursive splitting
 - Fix being able to merge multiple tiles
+- Pretty urls
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer

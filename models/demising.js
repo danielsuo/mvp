@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var relationship = require('mongoose-relationship')
+var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
 
 var demisingSchema = mongoose.Schema({

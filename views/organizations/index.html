@@ -6,7 +6,7 @@
   <div class="show-page">
     <header>
       <h1>Organizations</h1>
-      <a href='floors/new'>Add new</a>
+
     </header>
 
     <div>
@@ -21,6 +21,8 @@
             <td><a href='{{ organization._id }}/'>{{ organization.name }}</a></td>
             <td>{{ organization.owner }}</td>
             <td>{{ organization.address }}</td>
+            <td><a href='{{ organization._id }}/buildings/new'>Add new building</a></td>
+            <td><a href='{{ organization._id }}/users/new'>Add new user</a></td>
           </tr>
         {% endfor %}
       </table>

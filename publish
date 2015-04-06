@@ -4,3 +4,6 @@ git commit -m "$1"
 git push origin v2
 
 git push publish v2:master
+
+# git push publish v2:production
+# Set heroku config vars (see env.json.example)

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var relationship = require('mongoose-relationship')
+var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
 var deepPopulate = require('mongoose-deep-populate');
 
@@ -25,6 +25,10 @@ var organizationSchema = mongoose.Schema({
   buildings: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Building'
+  }],
+  users: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
   }]
 });
 
