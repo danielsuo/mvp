@@ -364,3 +364,7 @@ document.getElementById('protofit').addEventListener('touchstart', function(even
   data.clearSelection();
   document.getElementById('editor').className = 'no-selection';
 }, false);
+
+data.rsfInput.onchange = function(event) {
+  document.getElementById('sfpp').innerHTML = Math.round(event.target.valueAsNumber / data.cells.getHeadcount());
+}

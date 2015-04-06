@@ -8,9 +8,6 @@
 ## TODO
 =======
 
--------------------------
-
-
 - Refactor layers to use ID and not array index
 - Refactor disabled cell
 - Refactor seating
