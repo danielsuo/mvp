@@ -84,7 +84,7 @@ module.exports = function(app, user, passport) {
     });
   });
 
-  app.get('/beacon', function(req, res) {
+  app.get('/testfits/5522b67c716c341100ee015c', function(req, res) {
     res.render('test.html', {});
   });
 

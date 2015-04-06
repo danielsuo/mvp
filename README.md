@@ -7,7 +7,10 @@
 
 ## TODO
 =======
+- Need cell for reception
 
+- Editing
+- Load font faster
 - Refactor layers to use ID and not array index
 - Refactor disabled cell
 - Refactor seating
@@ -51,6 +54,8 @@
 - Deploying migrations
 
 ## Done
+- Make sure special is getting correct color
+- Check on n00b cell
 - Fix printinfo
 - Take out 'static'
 - Add cell for reception
@@ -93,6 +98,7 @@
 - Hook up cell change buttons
 
 ## On the radar
+- Publish vs draft? Who gets to see my work?
 - Only chrome works
 - Hover cell info
 - Fallbacks
