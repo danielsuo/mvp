@@ -1,16 +1,17 @@
 // NOTE: We use data as a global object. To fix eventually.
 var _ = require('../util/lodash');
 
-var Layer = function(index, id, name) {
+var Layer = function(layer, index) {
   this.index = index;
-  this.id = id;
-  this.name = name;
+  this.id = layer.id;
+  this.name = layer.name;
 
   this.file_path = data.dir + this.id + '.svg';
-  this.disabled = ['shell', 'static'].indexOf(id) > -1;
-  this.noButton = ['static'].indexOf(id) > -1;
+  this.disabled = ['shell', 'static'].indexOf(this.id) > -1;
+  this.noButton = ['static'].indexOf(this.id) > -1;
 
   this.clippingPath = data.clip();
+  this.seats = layer.seats;
 
   // TODO: need seats
 
@@ -55,6 +56,16 @@ Layer.prototype.clip = function(clip) {
 
 Layer.prototype.clear = function() {
   this.clippingPath.clear();
+};
+
+Layer.prototype.getNumSeats = function(id) {
+  if (parseInt(id) < this.seats.length) {
+    return this.seats[id];
+  } else {
+    if (this.index === 3) // Office
+      return 1;
+  }
+  return 0;
 };
 
 module.exports = Layer;

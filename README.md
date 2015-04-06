@@ -7,13 +7,15 @@
 
 ## TODO
 =======
-- Fix printinfo
-- Add cell for reception
-- draw merged cells
 
 -------------------------
 
 
+- Refactor layers to use ID and not array index
+- Refactor disabled cell
+- Refactor seating
+- Refactor cell state (e.g., combine static, layer, disabled)
+- Remove merge cell borders when unmerged
 - Add doors
 - Center to visual center
 - Merge to merge
@@ -52,6 +54,10 @@
 - Deploying migrations
 
 ## Done
+- Fix printinfo
+- Take out 'static'
+- Add cell for reception
+- draw merged cells
 - Show reception / pantry
 - fix cells
 - Deselect cells

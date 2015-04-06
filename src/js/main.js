@@ -53,7 +53,7 @@ XHR.get(data.dir + '/config.json')
   data.rsfInput.value = data.config.project.area;
 
   data.layers = data.config.layers.map(function(layer, index) {
-    return new Layer(index, layer.id, layer.name);
+    return new Layer(layer, index);
   });
 })
 
@@ -90,7 +90,7 @@ XHR.get(data.dir + '/config.json')
       var $li = $(document.createElement('li'));
       $li.html(data.config.layouts[layout].name).data('index', layout);
       $li.click(function() {
-        radio('layout-update-from-preset').broadcast(layout);
+        radio('layout-update-from-state').broadcast(layout);
         radio('selection-clear').broadcast();
       })
       $layoutList.append($li);
@@ -100,7 +100,6 @@ XHR.get(data.dir + '/config.json')
   // Set up cell editor buttons
   data.layers.map(function(layer) {
     layer.createButton($editorList, function() {
-      console.log(layer.index)
       data.cells.splitWithLayer(data.cells.selected, layer.index, true);
     });
   });
@@ -152,7 +151,7 @@ XHR.get(data.dir + '/config.json')
 
 .then(function() {
   data.cells.updateClippingPaths(data.getClientToSVGRatio());
-  radio('layout-update-from-preset').broadcast(0);
+  radio('layout-update-from-state').broadcast(0);
   $(window).resize(function() {
     data.cells.updateClippingPaths(data.getClientToSVGRatio());
     radio('layout-update-from-state').broadcast();
@@ -161,7 +160,6 @@ XHR.get(data.dir + '/config.json')
 
 // At the very end, remove the loading icon
 .then(function() {
-  data.info.innerHTML = printInfo();
   setTimeout(function() {
     $(data.appContainer).removeClass('loading');
   }, 750);
@@ -173,16 +171,18 @@ radio('merge-possible').subscribe(function() {
   console.log('merge possible!!!!')
 });
 
-radio('layout-update-from-preset').subscribe(function(layoutIndex) {
-  data.cells.paintLayoutFromPreset(data.config.layouts[layoutIndex].state, data.layers);
-});
-
 radio('layout-whitebox').subscribe(function() {
   data.cells.paintLayoutFromPreset(data.config.layouts[data.config.layouts.length - 1].state, data.layers);
 });
 
-radio('layout-update-from-state').subscribe(function() {
-  data.cells.paintLayout(data.layers);
+radio('layout-update-from-state').subscribe(function(layoutIndex) {
+  if (layoutIndex !== undefined) {
+    data.cells.paintLayoutFromPreset(data.config.layouts[layoutIndex].state, data.layers);
+  } else {
+    data.cells.paintLayout(data.layers);
+  }
+
+  data.info.innerHTML = printInfo();
 });
 
 // TODO: refactor this; can't read it at all
@@ -209,7 +209,7 @@ var printInfo = function() {
 
   for (var i = 0; i < data.config.layers.length; i++) {
 
-    if (data.config.layers[i].id == 'shell') {
+    if (['shell', 'static'].indexOf(data.config.layers[i].id) > -1) {
       continue;
     }
 
@@ -217,15 +217,9 @@ var printInfo = function() {
     info += "<td>" + data.config.layers[i].name + "</td>";
 
     if (data.config.layers[i].id === 'benching') {
-      info += "<td>" + data.getBenchingHeadcount() + "</td>"
+      info += "<td>" + data.cells.getBenchingHeadcount() + "</td>"
     } else {
-      // var merged = 0;
-      // if (data.config.merge && data.config.layers[i].id === 'conference' && data.config.merge.merged) {
-      //   merged = 1;
-      // }
-      // info += "<td>" + (data.state.filter(function(x) {
-      //   return x == i
-      // }).length + merged) + "</td>";
+      info += "<td>" + data.cells.getNumCellsByLayer(i) + "</td>";
     }
 
     info += "</tr>";
@@ -236,7 +230,7 @@ var printInfo = function() {
 
   info += "<tr><td><br/></td><td></td></tr>"
 
-  var headcount = data.getHeadcount();
+  var headcount = data.cells.getHeadcount();
   info += "<tr class='headcount'>";
   info += "<td>Total headcount</td>";
   info += "<td>" + headcount + "</td>";
@@ -263,30 +257,6 @@ data.createDef = function(response) {
 
 data.getClientToSVGRatio = function() {
   return document.getElementById(data.node.id).clientWidth / data.config.width;
-}
-
-data.getHeadcount = function() {
-  var headcount = this.getBenchingHeadcount();
-
-  _.forOwn(data.cells.getLayout(), function(cell, id) {
-    if (cell.layer === 3) {
-      headcount++;
-    }
-  });
-
-  return headcount;
-};
-
-data.getBenchingHeadcount = function() {
-  var headcount = 0;
-
-  _.forOwn(data.cells.getLayout(), function(cell, id) {
-    if (cell.layer === 0) {
-      headcount += this.config.layers[cell.layer].seats[parseInt(id)];
-    }
-  }, this);
-
-  return headcount;
 };
 
 data.getArea = function() {

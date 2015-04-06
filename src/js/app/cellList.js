@@ -211,6 +211,8 @@ CellList.prototype.getLayout = function() {
           layer: child.layer
         };
 
+        if (child.disabled) currLayoutObj.children[cid].disabled = true;
+
         // Delete child from top-level layout
         delete layoutObj[cid];
 
@@ -224,6 +226,8 @@ CellList.prototype.getLayout = function() {
     layout[id] = {
       layer: cell.layer
     };
+
+    if (cell.disabled) layout[id].disabled = true;
 
     processChildren(cell, id, layout[id], layout);
   });
@@ -246,6 +250,8 @@ CellList.prototype.setLayout = function(layout) {
       that.mergeWithLayer(children, cell.layer, false);
     } else {
       that.get(id).setLayer(cell.layer);
+      if (cell.disabled) that.get(id).disable();
+      that.get(id).seats = data.layers[cell.layer].getNumSeats(id);
     }
   };
 
@@ -263,6 +269,8 @@ CellList.prototype.paintLayout = function(layers) {
   layers.map(function(layer) {
     layer.clear();
   });
+
+  this.setSeats(layers);
 
   this.drawCells(layers);
   this.forceCSSUpdate();
@@ -286,8 +294,7 @@ CellList.prototype.drawCells = function(layers) {
     if (cell.merged()) {
       cell.erase();
       cell.draw();
-    }
-    else if (!layer.disabled) {
+    } else if (!layer.disabled) {
       layer.clip(cell.clippingPath);
     }
   });
@@ -404,6 +411,35 @@ CellList.prototype.forceCSSUpdate = function() {
   setTimeout(function() {
     svg.removeChild(force);
   }, 1000);
+};
+
+
+// Seating functions
+CellList.prototype.setSeats = function(layers) {
+  this.map(function(cell, id) {
+    cell.seats = layers[cell.layer].getNumSeats(id);
+  });
+};
+
+CellList.prototype.getHeadcount = function(layerIndices) {
+  var headcount = 0;
+  this.map(function(cell, id) {
+    if (layerIndices === undefined || layerIndices.indexOf(cell.layer) > -1)
+      headcount += cell.seats;
+  });
+  return headcount;
+};
+
+CellList.prototype.getBenchingHeadcount = function() {
+  return this.getHeadcount([0]); // Benching
+};
+
+CellList.prototype.getNumCellsByLayer = function(layerIndex) {
+  var num = 0;
+  this.map(function(cell, id) {
+    if (cell.layer === layerIndex) num++;
+  });
+  return num;
 };
 
 module.exports = CellList;

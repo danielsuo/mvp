@@ -14,6 +14,8 @@ var Cell = function(corners) {
   this.center = this.findCenter(this.corners);
   this.sortCorners();
   this.createDrawingPath();
+  this.disabled = false;
+  this.seats = 0;
 
   this.children = {};
   return this;
@@ -384,6 +386,18 @@ Cell.prototype.setData = function(attr, value) {
 Cell.prototype.setLayer = function(layer) {
   this.setData('layer', layer);
   this.layer = layer;
+};
+
+Cell.prototype.disable = function() {
+  this.disabled = true;
+  this.setData('disabled', true);
+};
+
+Cell.prototype.enable = function() {
+  this.disabled = false;
+
+  // TODO: This might not work
+  this.setData('disabled', false);
 };
 
 Cell.prototype.numChildren = function() {
