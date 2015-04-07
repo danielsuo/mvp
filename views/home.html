@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+  
+  <div class="page-wrap">
+
+    <aside class="sidebar"></aside>
+
+    <div class="show-page organizations">
+
+      <header>
+        <h1>{{ organization.name }}</h1>
+        <table>
+          <tr>
+            <td><h4>Owner</h4></td> <td>{{ organization.owner }}</td>
+          </tr>
+          <tr>
+            <td><h4>Address</h4></td> <td>{{ organization.address }}</td>
+          </tr>
+        </table>
+      </header>
+
+      <section>
+        <header>
+          <h3 class="grow">Buildings</h3>
+<!--           <a href='buildings/new' class="add-btn">New Building</a> -->
+        </header>
+
+        {% for building in organization.buildings %}
+        <div class="building">
+          <header>
+            <a href='/buildings/{{ building._id }}/'><h2>{{ building.name }}</h2></a>
+            <p>{{ building.address }}</p>
+          </header>
+
+          <div class="floors">
+            <h4>Floors</h4>
+            <ul>
+              {% for floor in building.floors %}
+              <li class="floor">
+                {{floor.number}}
+                {% if floor.demisings.length > 0 %}
+                <ul>
+                  {% for suite in floor.demisings[0].suites %}
+                  <li><a href="/app/{{ suite.id }}/">{{ suite.number }}</a></li>
+                  {% endfor %}
+                </ul>
+                {% endif %}   
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+
+    </div>
+
+  </div>
+
+{% endblock %}

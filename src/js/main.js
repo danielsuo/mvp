@@ -12,6 +12,11 @@ var CellList = require('./app/cellList');
 var Layer = require('./app/layer');
 
 data = SVG('svg');
+
+var re = /\/app\/(\w+)\/?/;
+data.id = window.location.pathname.match(re)[1];
+console.log(data.id)
+
 data.dir = '/data/floored/beacon/';
 data.element = document.getElementById('svg');
 data.panel = document.getElementById('panel');

@@ -1,9 +1,22 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 
 var suiteSchema = mongoose.Schema({
   number: {
+    type: String,
+    forms: {
+      all: {}
+    }
+  },
+  name: {
+    type: String,
+    forms:{
+      all: {}
+    }
+  },
+  directory: {
     type: String,
     forms: {
       all: {}
@@ -27,6 +40,8 @@ suiteSchema.plugin(relationship, {
 suiteSchema.statics.createForm = function(extra) {
   return forms.create(this, extra);
 };
+
+suiteSchema.plugin(deepPopulate);
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('Suite', suiteSchema);

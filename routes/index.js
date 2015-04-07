@@ -2,6 +2,8 @@ var isLoggedIn = require('./util/isLoggedIn');
 var isAdmin = require('./util/isAdmin');
 
 var Organization = require('../models/organization');
+var Suite = require('../models/suite');
+var User = require('../models/user');
 
 module.exports = function(app, user, passport) {
 
@@ -9,7 +11,11 @@ module.exports = function(app, user, passport) {
   // HOME PAGE (with login links) ========
   // =====================================
   app.get('/', function(req, res) {
-    res.render('index.html'); // load the index.html file
+    if (req.isAuthenticated()) {
+      res.redirect('/home');
+    } else {
+      res.render('index.html'); // load the index.html file
+    }
   });
 
   // =====================================
@@ -38,51 +44,12 @@ module.exports = function(app, user, passport) {
       Organization.findById(req.user.organizations[0])
         .deepPopulate('buildings.floors.demisings.suites.testfits')
         .exec(function(err, organization) {
-          res.render('organizations/show.html', {
+          res.render('home.html', {
             organization: organization
           });
         });
     }
   });
-
-  // =====================================
-  // SIGNUP ==============================
-  // =====================================
-  // show the signup form
-  // app.get('/signup', function(req, res) {
-
-  //   // render the page and pass in any flash data if it exists
-  //   res.render('signup.html', {
-  //     message: req.flash('signupMessage')
-  //   });
-  // });
-
-  // process the signup form
-  // app.post('/signup', passport.authenticate('local-signup', {
-  //   successRedirect: '/profile', // redirect to the secure profile section
-  //   failureRedirect: '/signup', // redirect back to the signup page if there is an error
-  //   failureFlash: true // allow flash messages
-  // }));
-
-  // =====================================
-  // PROFILE  ============================
-  // =====================================
-  // we will want this protected so you have to be logged in to visit
-  // we will use route middleware to verify this (the isLoggedIn function)
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //   res.render('profile.html', {
-  //     user: req.user // get the user out of session and pass to template
-  //   });
-  // });
-
-  // =====================================
-  // PROTOFIT ============================
-  // =====================================
-  // app.get('/app', isLoggedIn, function(req, res) {
-  //   res.render('app.html', {
-  //     user: req.user
-  //   });
-  // });
 
   // =====================================
   // LOGOUT ==============================
@@ -92,17 +59,34 @@ module.exports = function(app, user, passport) {
     res.redirect('/');
   });
 
-  // =====================================
-  // Routes ==============================
-  // =====================================
   app.get('/test', function(req, res) {
-    res.render('test.html', {
+    res.render('app.html', {
 
     });
   });
 
-  app.get('/testfits/5522b67c716c341100ee015c', function(req, res) {
-    res.render('test.html', {});
+  app.get('/app/:id', isLoggedIn, function(req, res) {
+    Suite.findById(req.params.id)
+      .deepPopulate('demising.floor.building.organizations.users')
+      .exec(function(err, suite) {
+        var inOrganization = false;
+        var organizations = suite.demising.floor.building.organizations;
+        for (var i = 0; i < organizations.length; i++) {
+          var users = organizations[i].users;
+          for (var j = 0; j < users.length; j++) {
+            if (users[j].email === req.user.email) {
+              inOrganization = true;
+            }
+          }
+        }
+        if (inOrganization) {
+          res.render('app.html', {
+
+          });
+        } else {
+          res.redirect('/');
+        }
+      })
   });
 
   app.use('/users', isAdmin, require('./users'));
@@ -112,9 +96,44 @@ module.exports = function(app, user, passport) {
   app.use('/demisings', isAdmin, require('./demisings'));
   app.use('/suites', isAdmin, require('./suites'));
   app.use('/testfits', isAdmin, require('./testfits'));
-
-  // var models = ['organization', 'building', 'floor', 'demising', 'suite'];
-  // for (var i = 0; i < models.length; i++) {
-  //   app.use('/' + require('pluralize')(models[i]), require('./util/models')(models[i]));
-  // }
 };
+
+
+// =====================================
+// SIGNUP ==============================
+// =====================================
+// show the signup form
+// app.get('/signup', function(req, res) {
+
+//   // render the page and pass in any flash data if it exists
+//   res.render('signup.html', {
+//     message: req.flash('signupMessage')
+//   });
+// });
+
+// process the signup form
+// app.post('/signup', passport.authenticate('local-signup', {
+//   successRedirect: '/profile', // redirect to the secure profile section
+//   failureRedirect: '/signup', // redirect back to the signup page if there is an error
+//   failureFlash: true // allow flash messages
+// }));
+
+// =====================================
+// PROFILE  ============================
+// =====================================
+// we will want this protected so you have to be logged in to visit
+// we will use route middleware to verify this (the isLoggedIn function)
+// app.get('/profile', isLoggedIn, function(req, res) {
+//   res.render('profile.html', {
+//     user: req.user // get the user out of session and pass to template
+//   });
+// });
+
+// =====================================
+// PROTOFIT ============================
+// =====================================
+// app.get('/app', isLoggedIn, function(req, res) {
+//   res.render('app.html', {
+//     user: req.user
+//   });
+// });

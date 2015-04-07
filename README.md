@@ -7,10 +7,20 @@
 
 ## TODO
 =======
-- Need cell for reception
-- Protofit brandmark everywhere
+### This week
+- Protofit brandmark everywhere / nav bar
+- /app
+- /404
+- /home
+- /login
+- /
+- Saving / loading test fits
+  - Redesign app layout
+  - List of test fits
+- Better CMS editing
+- Add special be able to change it
 
-- Editing
+- Need cell for reception
 - Load font faster
 - Refactor layers to use ID and not array index
 - Refactor disabled cell
@@ -21,14 +31,11 @@
 - Center to visual center
 - Merge to merge
 - Figure out real world coordinates
-- Add special be able to change it
-- Set up routes
-- Saving / loading test fits
-- List of test fits
 - Fix drawing of large merges
 - Recursive splitting
 - Fix being able to merge multiple tiles
 - Pretty urls
+- Cache user organization so we don't check each time something happens
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer
@@ -56,6 +63,8 @@
 - Deploying migrations
 
 ## Done
+- Merge the merge conference buttons
+- Set up routes
 - Make sure special is getting correct color
 - Check on n00b cell
 - Fix printinfo
