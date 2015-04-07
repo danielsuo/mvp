@@ -359,15 +359,10 @@ CellList.prototype.registerHandlers = function() {
       } else {
         $('#editor, #protofit').addClass('no-selection').removeClass('has-selection')
       }
-      if (mergeable && numSelected == 2) {
+      if (mergeable && (numSelected == 2 || numSelected == 3)) {
         $('#editor').removeClass('no-merge-medium')
       } else {
         $('#editor').addClass('no-merge-medium');
-      }
-      if (mergeable && numSelected == 3) {
-        $('#editor').removeClass('no-merge-large')
-      } else {
-        $('#editor').addClass('no-merge-large');
       }
 
     },
