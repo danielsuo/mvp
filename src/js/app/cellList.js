@@ -288,6 +288,7 @@ CellList.prototype.getClippingPaths = function() {
 };
 
 CellList.prototype.drawCells = function(layers) {
+  var ratio = data.getClientToSVGRatio();
   this.map(function(cell, id) {
     var layer = layers[cell.layer];
 
@@ -295,6 +296,7 @@ CellList.prototype.drawCells = function(layers) {
       cell.erase();
       cell.draw();
     } else if (!layer.disabled) {
+      cell.createClippingPath(ratio);
       layer.clip(cell.clippingPath);
     }
   });

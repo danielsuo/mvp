@@ -264,11 +264,11 @@ data.getArea = function() {
 };
 
 data.beforePrint = function() {
-  // radio('layout-update-from-state').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 data.afterPrint = function() {
-  // radio('layout-update-from-state').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 $('#layout-next-btn').click(function() {
