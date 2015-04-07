@@ -93,6 +93,29 @@ module.exports = function(app, user, passport) {
 
   // TODO: refactor; shouldn't get suite multiple times, not check whether user
   // is in org etc. Generally horrible things.
+
+  // TODO: add in validation; these routes are really insecure, generally speaking
+
+  // New test fit
+  app.post('/app/:id/new', isLoggedIn, function(req, res) {
+
+  });
+
+  // View test fit
+  app.get('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+
+  });
+
+  // Update / save test fit
+  app.put('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+
+  });
+
+  // Delete a test fit
+  app.delete('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+
+  });
+
   app.get('/config/:id', isLoggedIn, function(req, res) {
     Suite.findById(req.params.id)
       .exec(function(err, suite) {

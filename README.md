@@ -20,6 +20,7 @@
 - Better CMS editing
 - Add special be able to change it
 
+- Link to specific testfit
 - Need cell for reception
 - Load font faster
 - Refactor layers to use ID and not array index
