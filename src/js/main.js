@@ -110,9 +110,8 @@ XHR.get(data.dir + '/config.json')
   });
 
   var $editorListMedium = $('#editor-list-medium');
-  var $editorListLarge = $('#editor-list-large');
 
-  var $li = $('<li>Medium Conference Room</li>');
+  var $li = $('<li>Big Conference Room</li>');
   $li.click(function() {
     radio('merge-initiated').broadcast(2);
   })
@@ -123,13 +122,6 @@ XHR.get(data.dir + '/config.json')
     radio('merge-initiated').broadcast(3);
   })
   $editorListMedium.append($li);
-
-  var $li = $('<li>Large Conference Room</li>');
-  $li.click(function() {
-    radio('merge-initiated').broadcast(2);
-  })
-  $editorListLarge.append($li);
-
 })
 
 // Create layers
@@ -269,11 +261,11 @@ data.getArea = function() {
 };
 
 data.beforePrint = function() {
-  // radio('layout-update-from-state').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 data.afterPrint = function() {
-  // radio('layout-update-from-state').broadcast();
+  radio('layout-update-from-state').broadcast();
 };
 
 $('#layout-next-btn').click(function() {

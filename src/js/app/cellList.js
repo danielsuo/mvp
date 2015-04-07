@@ -288,6 +288,7 @@ CellList.prototype.getClippingPaths = function() {
 };
 
 CellList.prototype.drawCells = function(layers) {
+  var ratio = data.getClientToSVGRatio();
   this.map(function(cell, id) {
     var layer = layers[cell.layer];
 
@@ -295,6 +296,7 @@ CellList.prototype.drawCells = function(layers) {
       cell.erase();
       cell.draw();
     } else if (!layer.disabled) {
+      cell.createClippingPath(ratio);
       layer.clip(cell.clippingPath);
     }
   });
@@ -357,15 +359,10 @@ CellList.prototype.registerHandlers = function() {
       } else {
         $('#editor, #protofit').addClass('no-selection').removeClass('has-selection')
       }
-      if (mergeable && numSelected == 2) {
+      if (mergeable && (numSelected == 2 || numSelected == 3)) {
         $('#editor').removeClass('no-merge-medium')
       } else {
         $('#editor').addClass('no-merge-medium');
-      }
-      if (mergeable && numSelected == 3) {
-        $('#editor').removeClass('no-merge-large')
-      } else {
-        $('#editor').addClass('no-merge-large');
       }
 
     },
