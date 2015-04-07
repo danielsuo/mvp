@@ -1,3 +1,5 @@
+var path = require('path');
+
 var isLoggedIn = require('./util/isLoggedIn');
 var isAdmin = require('./util/isAdmin');
 
@@ -87,6 +89,15 @@ module.exports = function(app, user, passport) {
           res.redirect('/');
         }
       })
+  });
+
+  // TODO: refactor; shouldn't get suite multiple times, not check whether user
+  // is in org etc. Generally horrible things.
+  app.get('/config/:id', isLoggedIn, function(req, res) {
+    Suite.findById(req.params.id)
+      .exec(function(err, suite) {
+        res.sendFile(path.join(__dirname, '../public', suite.directory, 'config.json'));
+      });
   });
 
   app.use('/users', isAdmin, require('./users'));

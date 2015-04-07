@@ -6,7 +6,7 @@ var Layer = function(layer, index) {
   this.id = layer.id;
   this.name = layer.name;
 
-  this.file_path = data.dir + this.id + '.svg';
+  this.file_path = data.config.directory + this.id + '.svg';
   this.disabled = ['shell', 'static'].indexOf(this.id) > -1;
   this.noButton = ['static'].indexOf(this.id) > -1;
 

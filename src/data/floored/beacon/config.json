@@ -1,4 +1,5 @@
 {
+  "directory": "/data/floored/beacon/",
   "client": {
     "id": "floored",
     "name": "Floored",

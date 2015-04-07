@@ -17,7 +17,6 @@ var re = /\/app\/(\w+)\/?/;
 data.id = window.location.pathname.match(re)[1];
 console.log(data.id)
 
-data.dir = '/data/floored/beacon/';
 data.element = document.getElementById('svg');
 data.panel = document.getElementById('panel');
 data.protofit = document.getElementById('protofit');
@@ -29,7 +28,7 @@ data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 
-XHR.get(data.dir + '/config.json')
+XHR('/config/' + data.id).get()
 
 // Parse config file and configure SVG canvas
 .then(function(response) {
@@ -51,7 +50,7 @@ XHR.get(data.dir + '/config.json')
 
   // Set up UI elements
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
-  data.logo.setAttribute('style', 'background-image: url("' + data.dir + data.config.client.logo + '")');
+  data.logo.setAttribute('style', 'background-image: url("' + data.config.directory + data.config.client.logo + '")');
   $('#project-title').html('<h3>' + data.config.project.name + '</h3>');
   $('#project-address').html(data.config.project.address);
 
@@ -67,19 +66,19 @@ XHR.get(data.dir + '/config.json')
 .then(function() {
 
   return Promise.all([
-    XHR.get('/img/conference-large.svg').then(function(response) {
+    XHR('/img/conference-large.svg').get().then(function(response) {
       data.conferenceLarge = data.createDef(response);
     }),
-    XHR.get('/img/conference-small.svg').then(function(response) {
+    XHR('/img/conference-small.svg').get().then(function(response) {
       data.conferenceSmall = data.createDef(response);
     }),
-    XHR.get('/img/desk-cluster-small.svg').then(function(response) {
+    XHR('/img/desk-cluster-small.svg').get().then(function(response) {
       data.deskSmall = data.createDef(response);
     }),
-    XHR.get('/img/desk-cluster-large.svg').then(function(response) {
+    XHR('/img/desk-cluster-large.svg').get().then(function(response) {
       data.deskLarge = data.createDef(response);
     }),
-    XHR.get('/img/table-cluster.svg').then(function(response) {
+    XHR('/img/table-cluster.svg').get().then(function(response) {
       data.table = data.createDef(response);
     })
   ]);
@@ -132,13 +131,13 @@ XHR.get(data.dir + '/config.json')
 
   // Add background shadow
   $('#svg-bg').css({
-    'background-image': 'url(' + data.dir + 'bg.svg)'
+    'background-image': 'url(' + data.config.directory + 'bg.svg)'
   });
 })
 
 // Create new CellList from cell svg data
 .then(function() {
-  return CellList.load(data, data.dir + 'cells.svg');
+  return CellList.load(data, data.config.directory + 'cells.svg');
 })
 
 // Assign CellList to data.cells

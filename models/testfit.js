@@ -11,6 +11,7 @@ var testfitSchema = mongoose.Schema({
   },
   createdAt: Date,
   updatedAt: Date,
+  layout: {},
   suite: {
     type: mongoose.Schema.ObjectId,
     ref: 'Suite',

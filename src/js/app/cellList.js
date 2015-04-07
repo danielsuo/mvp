@@ -40,7 +40,7 @@ var CellList = function(cells) {
 
 // Load cell data from url into SVG object
 CellList.load = function(data, url) {
-  return XHR.get(url).then(function(response) {
+  return XHR(url).get().then(function(response) {
     return new CellList(data.svg(response));
   });
 };

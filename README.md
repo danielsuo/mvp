@@ -36,6 +36,7 @@
 - Fix being able to merge multiple tiles
 - Pretty urls
 - Cache user organization so we don't check each time something happens
+- Create CellList, Cell, Layout, and Layer schema?
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer
