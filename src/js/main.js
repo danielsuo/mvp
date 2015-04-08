@@ -278,9 +278,9 @@ data.afterPrint = function() {
 };
 
 $('#panel .list button.new').click(function() {
-  // $('#panel').addClass('show-new');
+  $('#panel').addClass('show-new');
   // TODO: don't start from current condition
-  data.currentTestfit = data.layouts.add('Untitled', data.layouts.get(0).state);
+  // data.currentTestfit = data.layouts.add('Untitled', data.layouts.get(0).state);
 });
 $('#panel .new button.close').click(function() {
   $('#panel').removeClass('show-new');

@@ -355,14 +355,14 @@ CellList.prototype.registerHandlers = function() {
       var numSelected = this.numSelected();
       var mergeable = this.mergeable(this.selected);
       if (numSelected) {
-        $('#editor, #protofit').removeClass('no-selection').addClass('has-selection')
+        $('#panel .editor, #protofit').removeClass('no-selection').addClass('has-selection')
       } else {
-        $('#editor, #protofit').addClass('no-selection').removeClass('has-selection')
+        $('#panel .editor, #protofit').addClass('no-selection').removeClass('has-selection')
       }
       if (mergeable && (numSelected == 2 || numSelected == 3)) {
-        $('#editor').removeClass('no-merge-medium')
+        $('#panel .editor').removeClass('no-merge-big')
       } else {
-        $('#editor').addClass('no-merge-medium');
+        $('#panel .editor').addClass('no-merge-big');
       }
 
     },

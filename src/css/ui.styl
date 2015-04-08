@@ -61,6 +61,7 @@
       letter-spacing 0.2em
       font-size 0.875em
       text-align center
+      min-height 3rem
 
     > div 
       flex-grow 1
@@ -88,9 +89,9 @@
     ul
       list-style none
       margin 0 0 1rem 0
-      padding 0
       border 1px solid rgba(0,0,8,0.1)
       border-width 1px 0
+      padding 0
       background-color #fafafe
       &:last-of-type
         margin-bottom 0
@@ -164,85 +165,6 @@
           transform translateY(-50%)
           transition opacity 0.15s ease
         
-button, .btn
-  Franklin()
-  margin .5rem
-  padding 0.75rem 1rem
-  border none
-  border-radius 2px
-  border 1px solid rgba(0,0,8,0.1)
-  outline none
-  font-size 1em
-  letter-spacing 0.035em
-  cursor pointer
-  transition background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease
-  &:active, &:focus
-    outline none !important
-  &.next
-    FranklinBold()
-    background-color #7270b1
-    color #fbfbff
-    &:hover
-      background-color #8782CF
-
-  &:disabled
-    FranklinLight()
-    background-color transparent !important
-    cursor default
-    color #827CA3 !important
-
-  circle()
-    margin 0
-    padding 0
-    width 2rem
-    height 2rem
-    transition all 0.15s ease
-    border-radius 50%
-    position relative
-    background transparent
-    &:before, &:after
-      content ''
-      position absolute
-      width 1rem
-      height 1px
-      top 50%
-      left 50%
-    &:before
-      transform translateX(-50%) translateY(-50%)
-    &:after
-      transform translateX(-50%) translateY(-50%) rotate(90deg)
-        
-  &.x
-    circle()
-    &:before, &:after
-      background #854E50
-    &:before
-      transform translateX(-50%) translateY(-50%) rotate(45deg)
-    &:after
-      transform translateX(-50%) translateY(-50%) rotate(135deg)
-    &:hover
-      background #FEEBE5
-      border-color #FEEBE5
-    &:active
-      background #EC5C4E
-      border-color transparent
-      &:before, &:after
-        height 2px
-        background #fff
-
-  &.plus
-    circle()
-    &:before, &:after
-      background #4A6650
-    &:hover
-      background #E6F6E6
-      border-color #E6F6E6
-    &:active
-      background #59B55C
-      border-color transparent
-      &:before, &:after
-        height 2px
-        background #fff
 
           
 &.editor
@@ -275,54 +197,36 @@ button, .btn
       transition opacity 0.15s ease 0.15s
               
   &.no-selection
-    .headers span
-      transition opacity 0.15s ease 0.15s
-    .replace h3
-      opacity 0
-    .editor-list li, button.deselect, button.merge
+    .headers
+      span
+        transition opacity 0.15s ease 0.15s
+      h3
+        opacity 0
+    li, button.deselect, button.merge
       background-color transparent !important
       cursor default
       color rgba(0,0,8,0.3) !important
       pointer-events none
-    .editor-list li
+    li
       border-color rgba(0,0,8,0.1) transparent transparent transparent
       border-width 1px 0
       &:first-of-type
         border-width 0 0 1px 0
       &:last-of-type
         border-width 1px 0 0 0
-    ul
-      box-shadow 0 1px 6px rgba(0,0,8,0)
       
-  &.no-merge-medium .editor-list.medium
-      box-shadow 0 1px 6px rgba(0,0,8,0)
-      li
-        background-color transparent !important
-        cursor default
-        color rgba(0,0,8,0.3) !important
-        pointer-events none
-        border-color rgba(0,0,8,0.1) transparent transparent transparent
-        border-width 1px 0
-        &:first-of-type
-          border-width 0 0 1px 0
-        &:last-of-type
-          border-width 1px 0 0 0 
-     
-  &.no-merge-large .editor-list.large
-      box-shadow 0 1px 6px rgba(0,0,8,0)
-      li
-        background-color transparent !important
-        cursor default
-        color rgba(0,0,8,0.3) !important
-        pointer-events none
-        border-color rgba(0,0,8,0.1) transparent transparent transparent
-        border-width 1px 0
-        &:first-of-type
-          border-width 0 0 1px 0
-        &:last-of-type
-          border-width 1px 0 0 0 
-          &:first-of-type
-            border-width 0
+  &.no-merge-big .big li
+    background-color transparent !important
+    cursor default
+    color rgba(0,0,8,0.3) !important
+    pointer-events none
+    border-color rgba(0,0,8,0.1) transparent transparent transparent
+    border-width 1px 0
+    &:first-of-type
+      border-width 0 0 1px 0
+    &:last-of-type
+      border-width 1px 0 0 0 
+
     
 
   .replace

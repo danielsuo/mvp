@@ -43,3 +43,93 @@ hr
   border none
   border-top 1px dotted rgba(0,0,8,0.1)
   margin 0
+  
+button, .btn
+  Franklin()
+  margin .5rem
+  padding 0.75rem 1rem
+  border none
+  border-radius 2px
+  border 1px solid rgba(0,0,8,0.1)
+  outline none
+  font-size 1em
+  letter-spacing 0.035em
+  cursor pointer
+  transition background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease
+  &:active, &:focus
+    outline none !important
+  &.next
+    FranklinBold()
+    background-color #7270b1
+    color #fbfbff
+    min-height 3rem
+    &:hover
+      background-color #8782CF
+
+  &.deselect, &.share, &.change
+    background #fbfbff
+    color #7270B1
+    &:hover
+      background-color #fff
+      color #514AAE
+      
+
+
+  &:disabled
+    FranklinLight()
+    background-color transparent !important
+    cursor default
+    color #827CA3 !important
+
+  circle()
+    margin 0
+    padding 0
+    width 2rem
+    height 2rem
+    transition all 0.15s ease
+    border-radius 50%
+    position relative
+    background transparent
+    &:before, &:after
+      content ''
+      position absolute
+      width 1rem
+      height 1px
+      top 50%
+      left 50%
+    &:before
+      transform translateX(-50%) translateY(-50%)
+    &:after
+      transform translateX(-50%) translateY(-50%) rotate(90deg)
+        
+  &.x
+    circle()
+    &:before, &:after
+      background #854E50
+    &:before
+      transform translateX(-50%) translateY(-50%) rotate(45deg)
+    &:after
+      transform translateX(-50%) translateY(-50%) rotate(135deg)
+    &:hover
+      background #FEEBE5
+      border-color #FEEBE5
+    &:active
+      background #EC5C4E
+      border-color transparent
+      &:before, &:after
+        height 2px
+        background #fff
+
+  &.plus
+    circle()
+    &:before, &:after
+      background #4A6650
+    &:hover
+      background #E6F6E6
+      border-color #E6F6E6
+    &:active
+      background #59B55C
+      border-color transparent
+      &:before, &:after
+        height 2px
+        background #fff
