@@ -113,16 +113,58 @@
       &:hover, &.active
         background-color #fff
         color #7270b1
+        .btn.delete
+          opacity 1
+          transform translateY(-50%)
+
       &.active
         FranklinBold()
       &:last-of-type:after
         background transparent
+        
+      .btn.delete
+        position absolute
+        top 50%
+        right 1rem
+        margin 0
+        width 2rem
+        height 2rem
+        padding 0
+        margin 0
+        opacity 0
+        transform translateX(50%) translateY(-50%)
+        transition all 0.15s ease
+        border-radius 50%
+        line-height 2rem
+        div
+          position absolute
+          width 1rem
+          height 1px
+          background #854E50
+          top 50%
+          left 50%
+          &:first-child
+            transform translateX(-50%) translateY(-50%) rotate(45deg)
+          &:last-child
+            transform translateX(-50%) translateY(-50%) rotate(135deg)
+        &:hover
+          background #FEEBE5
+          border-color #FEEBE5
+        &:active
+          background #EC5C4E
+          border-color #fff
+          div
+            height 2px
+            background #fff
+          
+          
     
     &.new
       absolute100()
       width 50%
       display none
       background-color #EFEFF6
+
 
       
     &.editor

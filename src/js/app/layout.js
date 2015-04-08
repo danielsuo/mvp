@@ -27,7 +27,7 @@ Layout.prototype.createButton = function(parent) {
   $li.html(this.name).data('index', this.index);
 
   if (!this.preset) {
-    var $deleteBtn = $('<div class="btn delete">X</div>');
+    var $deleteBtn = $('<div class="btn delete"><div></div><div></div></div>');
     $deleteBtn.click(function(){
       that.delete();
       //TODO: unfuck this
