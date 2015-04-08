@@ -43,9 +43,6 @@ XHR('/config/' + data.id).get()
 .then(function(response) {
   data.config = JSON.parse(response);
 
-  // Give the SVG a size
-  data.viewbox(0, 0, data.config.width, data.config.height);
-
   // Make sure we preserve the aspect ratio and hug (0, 0)
   data.attr({
     'preserveAspectRatio': 'xMinYMin'

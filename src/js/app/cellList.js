@@ -9,6 +9,13 @@ var CellList = function(cells) {
   this.selected = {};
 
   var cellData = cells.roots()[0].children();
+  var viewbox = cells.roots()[0].viewbox();
+
+  // Give the SVG a size
+  data.viewbox(viewbox.x, viewbox.y, viewbox.width, viewbox.height);
+
+  data.config.width = viewbox.width;
+  data.config.height = viewbox.height;
 
   for (var i = 0; i < cellData.length; i++) {
     // Parse cell data

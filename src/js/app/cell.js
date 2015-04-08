@@ -254,21 +254,29 @@ Cell.prototype.sortCorners = function() {
   var that = this;
 
   that.corners.sort(function(a, b) {
-    if (a.x - that.center.x >= 0 && b.x - that.center.x < 0) {
+    ax = Math.floor(a.x * 100);
+    ay = Math.floor(a.y * 100);
+    bx = Math.floor(b.x * 100);
+    by = Math.floor(b.y * 100);
+
+    cx = Math.floor(that.center.x * 100);
+    cy = Math.floor(that.center.y * 100);
+
+    if (ax - cx >= 0 && bx - cx < 0) {
       return 1;
     }
-    if (a.x - that.center.x < 0 && b.x - that.center.x >= 0) {
+    if (ax - cx < 0 && bx - cx >= 0) {
       return -1;
     }
-    if (a.x - that.center.x == 0 && b.x - that.center.x == 0) {
-      if (a.y - that.center.y >= 0 || b.y - that.center.y >= 0) {
-        return a.y > b.y ? 1 : -1;
+    if (ax - cx == 0 && bx - cx == 0) {
+      if (ay - cy >= 0 || by - cy >= 0) {
+        return ay > by ? 1 : -1;
       }
-      return b.y > a.y ? 1 : -1;
+      return by > ay ? 1 : -1;
     }
 
     // compute the cross product of vectors (center -> a) x (center -> b)
-    var det = (a.x - that.center.x) * (b.y - that.center.y) - (b.x - that.center.x) * (a.y - that.center.y);
+    var det = (ax - cx) * (by - cy) - (bx - cx) * (ay - cy);
     if (det < 0) {
       return 1;
     }
@@ -278,8 +286,8 @@ Cell.prototype.sortCorners = function() {
 
     // points a and b are on the same line from the center
     // check which point is closer to the center
-    var d1 = (a.x - that.center.x) * (a.x - that.center.x) + (a.y - that.center.y) * (a.y - that.center.y);
-    var d2 = (b.x - that.center.x) * (b.x - that.center.x) + (b.y - that.center.y) * (b.y - that.center.y);
+    var d1 = (ax - cx) * (ax - cx) + (ay - cy) * (ay - cy);
+    var d2 = (bx - cx) * (bx - cx) + (by - cy) * (by - cy);
     return d1 > d2 ? 1 : -1;
   });
 
@@ -292,9 +300,43 @@ Cell.prototype.sortCorners = function() {
       return that.corners[x];
     });
 
-    if ((pts[1].x == pts[2].x || pts[1].y == pts[2].y) && // 1st and 2nd points are on horizontal or vertical line
-      (pts[0].x == pts[2].x || pts[0].y == pts[2].y) && // 0th and 2nd points are on horizontal or vertical line
-      (pts[1].x == pts[3].x || pts[1].y == pts[3].y) // 1st and 3rd points are on horizontal or vertical line
+    if ((Math.abs(pts[1].x - pts[2].x) < 0.0001 || Math.abs(pts[1].y - pts[2].y) < 0.0001) && // 1st and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[0].x - pts[2].x) < 0.0001 || Math.abs(pts[0].y - pts[2].y) < 0.0001) && // 0th and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[1].x - pts[3].x) < 0.0001 || Math.abs(pts[1].y - pts[3].y) < 0.0001) // 1st and 3rd points are on horizontal or vertical line
+    ) {
+      that.corners[indices[1]] = that.corners.splice(indices[2], 1, that.corners[indices[1]])[0];
+    }
+  }
+
+  for (var i = 0; i < that.corners.length; i++) {
+    var indices = [0, 1, 2, 3].map(function(x) {
+      return (i + x) % that.corners.length;
+    });
+
+    var pts = indices.map(function(x) {
+      return that.corners[x];
+    });
+
+    if ((Math.abs(pts[0].x - pts[1].x) < 0.0001 || Math.abs(pts[0].y - pts[1].y) < 0.0001) && // 1st and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[3].x - pts[1].x) < 0.0001 || Math.abs(pts[3].y - pts[1].y) < 0.0001) && // 0th and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[2].x - pts[0].x) < 0.0001 || Math.abs(pts[2].y - pts[0].y) < 0.0001) // 1st and 3rd points are on horizontal or vertical line
+    ) {
+      that.corners[indices[1]] = that.corners.splice(indices[2], 1, that.corners[indices[1]])[0];
+    }
+  }
+
+  for (var i = 0; i < that.corners.length; i++) {
+    var indices = [0, 1, 2, 3].map(function(x) {
+      return (i + x) % that.corners.length;
+    });
+
+    var pts = indices.map(function(x) {
+      return that.corners[x];
+    });
+
+    if ((Math.abs(pts[1].x - pts[2].x) < 0.0001 || Math.abs(pts[1].y - pts[2].y) < 0.0001) && // 1st and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[0].x - pts[2].x) < 0.0001 || Math.abs(pts[0].y - pts[2].y) < 0.0001) && // 0th and 2nd points are on horizontal or vertical line
+      (Math.abs(pts[1].x - pts[3].x) < 0.0001 || Math.abs(pts[1].y - pts[3].y) < 0.0001) // 1st and 3rd points are on horizontal or vertical line
     ) {
       that.corners[indices[1]] = that.corners.splice(indices[2], 1, that.corners[indices[1]])[0];
     }
