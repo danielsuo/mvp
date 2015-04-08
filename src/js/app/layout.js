@@ -35,7 +35,7 @@ Layout.prototype.createButton = function(parent) {
 
 Layout.prototype.update = function(layout) {
   this.state = layout;
-  XHR('/app/' + data.id + '/new').put(JSON.stringify(result.serialize()));
+  XHR('/app/' + data.id + '/testfits' + this.id).put(JSON.stringify(result.serialize()));
 };
 
 Layout.prototype.delete = function() {
