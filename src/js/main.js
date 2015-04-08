@@ -107,10 +107,10 @@ XHR('/config/' + data.id).get()
   var $editorListBig = $('#panel .editor ul').last();
 
   // Set up layout buttons
-  data.layouts.createButtons($savedTestfitList);
+  data.layouts.createButtons($savedTestfitList, true);
 
   // Set up new testfit buttons
-  // data.layouts.createButtons($newTestfitList);
+  data.layouts.createButtons($newTestfitList);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {

@@ -321,7 +321,7 @@ CellList.prototype.registerHandlers = function() {
       console.log(cell.id, cell.corners[0], cell.corners[1], cell.corners[2], cell.corners[3])
       var selected = this.isSelected(cell.id);
 
-      $('#actions').addClass('show-editor');
+      $('#panel').addClass('show-editor');
 
       if (dragging) {
 

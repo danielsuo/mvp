@@ -21,7 +21,7 @@ Layout.create = function(name, layout) {
     });
 };
 
-Layout.prototype.createButton = function(parent) {
+Layout.prototype.createButton = function(parent, deleteEnabled) {
   var that = this;
 
   var $li = $(document.createElement('li'));
@@ -29,7 +29,7 @@ Layout.prototype.createButton = function(parent) {
   $li.html(that.name).data('index', that.index);
 
 
-  if (!that.preset) {
+  if (deleteEnabled && !that.preset) {
     var $deleteBtn = $('<div class="btn x"></div>');
     $deleteBtn.click(function(){
       that.delete();
@@ -41,6 +41,8 @@ Layout.prototype.createButton = function(parent) {
   }
 
   $li.click(function() {
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
     radio('layout-update-from-state').broadcast(that);
     radio('selection-clear').broadcast();
   });

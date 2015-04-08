@@ -26,10 +26,10 @@ LayoutList.prototype.get = function(i) {
   return this.layouts[i];
 };
 
-LayoutList.prototype.createButtons = function(parent) {
+LayoutList.prototype.createButtons = function(parent, deleteEnabled) {
   this.parent = parent;
   _.forOwn(this.layouts, function(layout, id) {
-    layout.createButton(parent)
+    layout.createButton(parent, deleteEnabled)
   });
 };
 
