@@ -109,7 +109,7 @@ XHR('/config/' + data.id).get()
   data.layouts.createButtons($savedTestfitList);
 
   // Set up new testfit buttons
-  data.layouts.createButtons($newTestfitList);
+  // data.layouts.createButtons($newTestfitList);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -280,7 +280,7 @@ data.afterPrint = function() {
 $('#panel .list button.new').click(function() {
   // $('#panel').addClass('show-new');
   // TODO: don't start from current condition
-  data.currentTestfit = data.layouts.create('Untitled', data.layouts.get(0));
+  data.currentTestfit = data.layouts.add('Untitled', data.layouts.get(0).state);
 });
 $('#panel .new button.close').click(function() {
   $('#panel').removeClass('show-new');

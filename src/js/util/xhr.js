@@ -63,6 +63,10 @@ module.exports = function(url) {
           reject(this.statusText);
         }
 
+        if (data) {
+          client.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        }
+        
         client.send(data);
       })
     }
