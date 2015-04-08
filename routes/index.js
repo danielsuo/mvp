@@ -100,7 +100,7 @@ module.exports = function(app, user, passport) {
   // TODO: add in validation; these routes are really insecure, generally speaking
 
   // New test fit
-  app.post('/app/:id/new', function(req, res, next) {
+  app.post('/app/:id/new', isLoggedIn, function(req, res, next) {
     req.body.suite = [mongoose.Types.ObjectId(req.params.id)];
     Testfit.create(req.body, function(err, testfit) {
       if (err) return next(err);
