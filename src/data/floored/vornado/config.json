@@ -1,0 +1,107 @@
+{
+  "directory": "/data/floored/vornado/",
+  "client": {
+    "id": "floored",
+    "name": "Floored",
+    "logo": ["/logo.svg"]
+  },
+  "project": {
+    "id": "test",
+    "name": "Seventh Floor",
+    "area": 44968,
+    "address": "90 Park Avenue"
+  },
+  "north": {
+    "direction": 120
+  },
+  "width": "1734",
+  "height": "1566",
+  "last_updated": "",
+  "cells": {
+    "length": 46,
+    "disabled": {
+      "pantry": [36, 37],
+      "reception": []
+    }
+  },
+  "models": [{
+    "name": "Perimeter Offices",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices"
+  }, {
+    "name": "Perimeter Offices (Corporate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Corporate"
+  }, {
+    "name": "Perimeter Offices (Alternate)",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices-Alternate"
+  }, {
+    "name": "Open Workspace",
+    "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Open-Workspace"
+  }],
+  "layers": [{
+    "id": "benching",
+    "name": "Benching",
+    "seats": 
+      [4, 4, 4, 4, 4,
+       4, 4, 5, 4, 4,
+       4, 6, 4, 4, 6,
+       6, 4, 4, 4, 4,
+       6, 6, 6, 6, 6,
+       4, 4, 4, 6, 4,
+       4, 7, 6, 4, 4,
+       4, 4, 4, 4, 4,
+       4, 4]         
+  }, {
+    "id": "breakout",
+    "name": "Breakout Space",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "conference",
+    "name": "Conference Room",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "office",
+    "name": "Office",
+    "seats": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  }, {
+    "id": "special",
+    "name": "Special",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "static",
+    "name": "Static",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }, {
+    "id": "shell",
+    "name": "Empty",
+    "seats": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  }],
+  "layouts": [{
+    "id": "current",
+    "name": "Current Condition",
+    "state": {"2":{"layer":3},"3":{"layer":3},"4":{"layer":3},"7":{"layer":2},"8":{"layer":3},"9":{"layer":3},"10":{"layer":3},"11":{"layer":3},"14":{"layer":2},"15":{"layer":3},"16":{"layer":3},"17":{"layer":3},"25":{"layer":4},"26":{"layer":3},"27":{"layer":3},"28":{"layer":3},"29":{"layer":3},"30":{"layer":3},"31":{"layer":3},"32":{"layer":3},"33":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":6},"39":{"layer":3},"40":{"layer":3},"41":{"layer":3},"42":{"layer":2,"children":{"22":{"layer":6},"23":{"layer":6},"24":{"layer":6}}},"43":{"layer":2,"children":{"18":{"layer":6},"19":{"layer":6}}},"44":{"layer":2,"children":{"34":{"layer":6},"38":{"layer":6}}},"45":{"layer":3,"children":{"12":{"layer":6},"13":{"layer":6}}},"46":{"layer":3,"children":{"0":{"layer":6},"1":{"layer":6}}},"51":{"layer":2,"children":{"20":{"layer":6},"21":{"layer":6}}},"52":{"layer":3,"children":{"5":{"layer":6},"6":{"layer":6}}}}
+  }, {
+    "id": "finance",
+    "name": "Finance",
+    "state": {"0":{"layer":0},"1":{"layer":0},"2":{"layer":0},"3":{"layer":0},"4":{"layer":0},"5":{"layer":0},"6":{"layer":0},"7":{"layer":2},"8":{"layer":0},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":2},"15":{"layer":3},"16":{"layer":3},"17":{"layer":3},"18":{"layer":3},"19":{"layer":2},"20":{"layer":0},"21":{"layer":0},"22":{"layer":0},"23":{"layer":0},"24":{"layer":0},"25":{"layer":4},"26":{"layer":0},"27":{"layer":0},"28":{"layer":0},"29":{"layer":0},"30":{"layer":0},"31":{"layer":0},"32":{"layer":3},"33":{"layer":3},"34":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":6},"38":{"layer":2},"39":{"layer":0},"40":{"layer":0},"41":{"layer":0}}
+  }, {
+    "id": "tech",
+    "name": "Tech / Creative",
+    "state": {"0":{"layer":0},"1":{"layer":0},"2":{"layer":1},"3":{"layer":0},"4":{"layer":0},"5":{"layer":0},"6":{"layer":1},"7":{"layer":2},"8":{"layer":1},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":2},"15":{"layer":1},"16":{"layer":0},"17":{"layer":0},"18":{"layer":0},"19":{"layer":2},"20":{"layer":1},"21":{"layer":0},"22":{"layer":0},"23":{"layer":0},"24":{"layer":1},"25":{"layer":4},"26":{"layer":0},"27":{"layer":0},"28":{"layer":1},"29":{"layer":0},"30":{"layer":0},"31":{"layer":1},"32":{"layer":2},"33":{"layer":3},"34":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":6},"38":{"layer":2},"39":{"layer":1},"40":{"layer":0},"41":{"layer":1}}
+  }, {
+    "id": "law",
+    "name": "Law",
+    "state": {"0":{"layer":3},"1":{"layer":3},"2":{"layer":3},"3":{"layer":3},"4":{"layer":3},"5":{"layer":3},"6":{"layer":3},"7":{"layer":3},"8":{"layer":3},"9":{"layer":3},"10":{"layer":3},"11":{"layer":3},"12":{"layer":3},"13":{"layer":3},"14":{"layer":3},"15":{"layer":3},"16":{"layer":3},"17":{"layer":3},"18":{"layer":3},"19":{"layer":1},"20":{"layer":0},"21":{"layer":0},"22":{"layer":0},"23":{"layer":0},"24":{"layer":0},"25":{"layer":4},"26":{"layer":3},"27":{"layer":3},"28":{"layer":2},"29":{"layer":2},"30":{"layer":2},"31":{"layer":2},"32":{"layer":2},"33":{"layer":3},"34":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":6},"38":{"layer":3},"39":{"layer":3},"40":{"layer":3},"41":{"layer":3}}
+  }, {
+    "id": "interior",
+    "name": "Corporate: Interior Offices",
+    "state": {"0":{"layer":0},"1":{"layer":0},"2":{"layer":0},"3":{"layer":0},"4":{"layer":0},"5":{"layer":0},"6":{"layer":0},"7":{"layer":2},"8":{"layer":1},"9":{"layer":0},"10":{"layer":0},"11":{"layer":0},"12":{"layer":0},"13":{"layer":0},"14":{"layer":2},"15":{"layer":0},"16":{"layer":0},"17":{"layer":0},"18":{"layer":0},"19":{"layer":2},"20":{"layer":3},"21":{"layer":3},"22":{"layer":3},"23":{"layer":3},"24":{"layer":3},"25":{"layer":4},"26":{"layer":3},"27":{"layer":3},"28":{"layer":2},"29":{"layer":3},"30":{"layer":3},"31":{"layer":3},"32":{"layer":2},"33":{"layer":3},"34":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":3},"38":{"layer":3},"39":{"layer":1},"40":{"layer":0},"41":{"layer":0}}
+  }, {
+    "id": "perimeter",
+    "name": "Corporate: Perimeter Offices",
+    "state": {"0":{"layer":3},"1":{"layer":3},"2":{"layer":3},"3":{"layer":3},"4":{"layer":3},"5":{"layer":3},"6":{"layer":3},"7":{"layer":2},"8":{"layer":3},"9":{"layer":3},"10":{"layer":3},"11":{"layer":3},"12":{"layer":3},"13":{"layer":3},"14":{"layer":2},"15":{"layer":3},"16":{"layer":3},"17":{"layer":3},"18":{"layer":3},"19":{"layer":2},"20":{"layer":0},"21":{"layer":0},"22":{"layer":0},"23":{"layer":0},"24":{"layer":0},"25":{"layer":4},"26":{"layer":0},"27":{"layer":0},"28":{"layer":0},"29":{"layer":0},"30":{"layer":0},"31":{"layer":1},"32":{"layer":2},"33":{"layer":3},"34":{"layer":3},"35":{"layer":6},"36":{"layer":6},"37":{"layer":3},"38":{"layer":2},"39":{"layer":3},"40":{"layer":3},"41":{"layer":3}}
+  }, {
+    "id": "whitebox",
+    "name": "Whitebox",
+    "state": {"0":{"layer":6},"1":{"layer":6},"2":{"layer":6},"3":{"layer":6},"4":{"layer":6},"5":{"layer":6},"6":{"layer":6},"7":{"layer":6},"8":{"layer":6},"9":{"layer":6},"10":{"layer":6},"11":{"layer":6},"12":{"layer":6},"13":{"layer":6},"14":{"layer":6},"15":{"layer":6},"16":{"layer":6},"17":{"layer":6},"18":{"layer":6},"19":{"layer":6},"20":{"layer":6},"21":{"layer":6},"22":{"layer":6},"23":{"layer":6},"24":{"layer":6},"25":{"layer":6},"26":{"layer":6},"27":{"layer":6},"28":{"layer":6},"29":{"layer":6},"30":{"layer":6},"31":{"layer":6},"32":{"layer":6},"33":{"layer":6},"34":{"layer":6},"35":{"layer":6},"36":{"layer":6},"37":{"layer":6},"38":{"layer":6},"39":{"layer":6},"40":{"layer":6}, "41":{"layer":6}}
+  }]
+}
