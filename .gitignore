@@ -1,6 +1,17 @@
 .DS_Store
+<<<<<<< HEAD
 node_modules
 public
 env.json
 
 npm-debug.log*
+=======
+*.log
+*~
+
+node_modules
+site
+
+*py.class
+/processing*
+>>>>>>> master

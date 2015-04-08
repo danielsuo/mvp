@@ -1,0 +1,177 @@
+#protofit aside
+    order 2
+    color #6C668B
+    width 25%
+    display flex
+    flex-direction column
+    justify-content space-between
+    box-sizing border-box
+    border-left 1px dotted rgba(0,0,8,0.1)
+    hr
+      margin 1.25rem 0
+    .grow
+      flex-grow 1
+
+#project-title
+  ApercuLight()
+  h3
+    font-size 1.05em
+    padding-bottom 0.5rem
+    line-height 1.3em
+
+#project-address
+  text-align center
+  ApercuLight()
+  opacity .5
+  
+#project-logo
+  height 54px
+  margin 0 1rem
+  opacity 0.65
+  background-size contain
+  background-repeat no-repeat
+  background-position center center
+  transition opacity 0.33s ease-out .4s
+
+#app.loading #project-logo
+  opacity 0
+
+.logo-hr
+  transition opacity 0.33s ease-out .4s
+#app.loading .logo-hr
+  opacity 0  
+
+#rsf
+  box-sizing border-box
+  transition opacity 0.33s ease-out .5s
+  > div   
+    padding 0 1rem
+    display flex
+    justify-content space-between
+  
+  span
+    display block
+    flex-grow 1
+    letter-spacing 0.125em
+    
+
+  input
+    border none
+    max-width 50%
+    background transparent
+    border-bottom 1px dotted rgba(113, 111, 176, 0.3)
+    ApercuLight()
+    color #6C668B
+    transition color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease
+    font-size 1rem
+    font-feature-settings 'pnum' 1
+    -webkit-font-feature-settings 'pnum' 1
+    -moz-font-feature-settings 'pnum' 1
+    text-align right
+    border-radius 2px
+    &:hover
+      color #7270B1
+      background #fff
+      border-bottom 1px solid rgba(113, 111, 176, 0.6)
+      outline none
+      cursor pointer
+      ApercuRegular()
+    &:focus
+      color #7270B1
+      background #fff
+      border-bottom 1px solid #7270b1
+      outline none
+      ApercuBold()
+      text-align left  
+
+#app.loading #rsf
+  opacity 0
+
+#info
+  padding 0 1rem
+  box-sizing border-box
+  text-align center
+  color #6C668B
+
+  table
+    width 100%
+    color #6C668B
+    line-height 1.2rem
+    font-feature-settings 'pnum' 1, 'liga' 0
+    -webkit-font-feature-settings 'pnum' 1, 'liga' 0
+    -moz-font-feature-settings 'pnum' 1, 'liga' 0
+    tr
+      display flex
+      margin-top .33rem
+      justify-content space-between
+    td:first-of-type  
+      padding-right .25rem
+    td:last-of-type
+      text-align right
+      box-sizing border-box
+      min-width 1.66rem
+      
+  .benching td:last-of-type 
+    background tint(#80808C, 70)
+    
+  .breakout td:last-of-type 
+    background tint(#59B55C, 92)
+    
+  .conference td:last-of-type
+    background tint(#4F90CD, 92)
+    
+  .office td:last-of-type
+    background tint(#FCBC3B, 97)
+
+  .special td:last-of-type
+    background tint(#FF6C3A, 92)
+
+  .shell td:last-of-type
+    background tint(#7270B1, 92)
+    
+  .reception, .pantry
+    td:last-of-type
+      background tint(#A9519F, 94%)
+      
+#measurement
+  text-align center
+  
+
+#powered-by
+  padding-bottom 1.5rem
+  text-align center
+  
+  .uppercase
+    ApercuLight()
+    text-transform uppercase
+    letter-spacing 0.2em
+    font-size 0.825em
+    opacity .45
+
+  .logotype
+    ApercuBold()
+    letter-spacing -0.02em
+    font-size 1.1em
+    opacity .40
+
+
+@media screen and (max-height:768px)
+  #protofit aside
+    font-size 0.9em
+    hr
+      margin .5rem 0
+    #powered-by
+      padding-bottom 1rem
+      hr
+        visibility hidden
+      .logotype
+        padding 0 1rem
+  #info
+    table
+      font-size 1em
+      tr
+        margin-top .25rem
+
+  #project-title h3
+    padding-top 0.5rem
+    padding-bottom 0.25rem
