@@ -10,6 +10,7 @@ var Layout = function(name, state, preset) {
 };
 
 Layout.prototype.createButton = function(parent, func) {
+  if (!parent) return
   var $li = $(document.createElement('li'));
   $li.html(this.name).data('index', this.index);
   $li.click(func);

@@ -41,20 +41,17 @@ LayoutList.prototype.loadFromUserDefined = function(suiteId) {
 
 LayoutList.prototype.create = function(name, layoutState) {
   this.layouts.push(Layout.create(name, layoutState));
+
+  return this.layouts.length - 1;
 };
 
-LayoutList.prototype.update = function(id) {
-
+LayoutList.prototype.update = function(index) {
+  this.layouts[index].update();
 };
 
-LayoutList.prototype.delete = function(id) {
-  for (var i = 0; i < this.layouts.length; i++) {
-    if (this.layouts[i].id === id) {
-      this.layouts[i].delete();
-      this.layouts.splice(i, 1);
-      return;
-    }
-  }
+LayoutList.prototype.delete = function(index) {
+  this.layouts[index].delete();
+  this.layouts.splice(index, 1);
 };
 
 module.exports = LayoutList;

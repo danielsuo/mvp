@@ -35,6 +35,8 @@ data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 
+data.currentTestfit = 0;
+
 XHR('/config/' + data.id).get()
 
 // Parse config file and configure SVG canvas
@@ -100,12 +102,14 @@ XHR('/config/' + data.id).get()
   var $savedTestfitList = $('#panel .list ul');
   var $newTestfitList = $('#panel .new ul');
 
-
   // var $layoutList = $('#layout-list');
   var $editorList = $('#panel .editor ul');
 
   // Set up layout buttons
   data.layouts.createButtons($savedTestfitList);
+
+  // Set up new testfit buttons
+  data.layouts.createButtons($newTestfitList);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -153,7 +157,7 @@ XHR('/config/' + data.id).get()
 
 .then(function() {
   data.cells.updateClippingPaths(data.getClientToSVGRatio());
-  radio('layout-update-from-state').broadcast(data.layouts.get(0));
+  radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
   $(window).resize(function() {
     data.cells.updateClippingPaths(data.getClientToSVGRatio());
     radio('layout-update-from-state').broadcast();
@@ -274,7 +278,9 @@ data.afterPrint = function() {
 };
 
 $('#panel .list button.new').click(function() {
-  $('#panel').addClass('show-new');
+  // $('#panel').addClass('show-new');
+  // TODO: don't start from current condition
+  data.currentTestfit = data.layouts.create('Untitled', data.layouts.get(0));
 });
 $('#panel .new button.close').click(function() {
   $('#panel').removeClass('show-new');
