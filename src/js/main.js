@@ -103,7 +103,8 @@ XHR('/config/' + data.id).get()
   var $newTestfitList = $('#panel .new ul');
 
   // var $layoutList = $('#layout-list');
-  var $editorList = $('#panel .editor ul');
+  var $editorList = $('#panel .editor ul').first();
+  var $editorListBig = $('#panel .editor ul').last();
 
   // Set up layout buttons
   data.layouts.createButtons($savedTestfitList);
@@ -118,19 +119,17 @@ XHR('/config/' + data.id).get()
     });
   });
 
-  var $editorListMedium = $('#editor-list-medium');
-
   var $li = $('<li>Big Conference Room</li>');
   $li.click(function() {
     radio('merge-initiated').broadcast(2);
   })
-  $editorListMedium.append($li);
+  $editorListBig.append($li);
 
   var $li = $('<li>Executive Office</li>');
   $li.click(function() {
     radio('merge-initiated').broadcast(3);
   })
-  $editorListMedium.append($li);
+  $editorListBig.append($li);
 })
 
 // Create layers

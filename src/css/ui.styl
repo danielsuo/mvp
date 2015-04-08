@@ -140,8 +140,6 @@
       display none
       background-color #EFEFF6
 
-
-      
     &.editor
       min-height 600px
       > div 
@@ -150,10 +148,13 @@
           display flex
           flex-direction column
 
+      p 
+        text-align center
+
       h3, button.deselect
         transition opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease
       
-      .headers
+      header
         position relative
         span
           box-sizing border-box
@@ -165,103 +166,44 @@
           transform translateY(-50%)
           transition opacity 0.15s ease
         
-
+      &.has-selection
+        header span
+          opacity 0
+        h3
+          transition opacity 0.15s ease 0.15s
+                  
+      &.no-selection
+        header
+          span
+            transition opacity 0.15s ease 0.15s
+          h3
+            opacity 0
+        li, button.deselect, button.merge
+          background-color transparent !important
+          cursor default
+          color rgba(0,0,8,0.3) !important
+          pointer-events none
+        li
+          border-color rgba(0,0,8,0.1) transparent transparent transparent
+          border-width 1px 0
+          &:first-of-type
+            border-width 0 0 1px 0
+          &:last-of-type
+            border-width 1px 0 0 0
           
-&.editor
-  min-height 600px
-  > div 
-    position relative
-    > div
-      display flex
-      flex-direction column
+      &.no-merge-big .big li
+        background-color transparent !important
+        cursor default
+        color rgba(0,0,8,0.3) !important
+        pointer-events none
+        border-color rgba(0,0,8,0.1) transparent transparent transparent
+        border-width 1px 0
+        &:first-of-type
+          border-width 0 0 1px 0
+        &:last-of-type
+          border-width 1px 0 0 0 
+        
 
-  h3, button.deselect
-    transition opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease
-  
-  .headers
-    position relative
-    span
-      box-sizing border-box
-      position absolute
-      width 100%
-      text-align center
-      Franklin()
-      top 50%
-      transform translateY(-50%)
-      transition opacity 0.15s ease
-  
-  &.has-selection
-    .headers span
-      opacity 0
-    h3
-      transition opacity 0.15s ease 0.15s
-              
-  &.no-selection
-    .headers
-      span
-        transition opacity 0.15s ease 0.15s
-      h3
-        opacity 0
-    li, button.deselect, button.merge
-      background-color transparent !important
-      cursor default
-      color rgba(0,0,8,0.3) !important
-      pointer-events none
-    li
-      border-color rgba(0,0,8,0.1) transparent transparent transparent
-      border-width 1px 0
-      &:first-of-type
-        border-width 0 0 1px 0
-      &:last-of-type
-        border-width 1px 0 0 0
-      
-  &.no-merge-big .big li
-    background-color transparent !important
-    cursor default
-    color rgba(0,0,8,0.3) !important
-    pointer-events none
-    border-color rgba(0,0,8,0.1) transparent transparent transparent
-    border-width 1px 0
-    &:first-of-type
-      border-width 0 0 1px 0
-    &:last-of-type
-      border-width 1px 0 0 0 
-
-    
-
-  .replace
-    absolute100()
-    transition opacity 0.15s ease 0.15s
-    .grow
-      flex-grow 1
-      display flex
-      flex-direction column
-    span
-      text-align center
-      padding 1rem
-      
-
-    
-  .style
-    absolute100()
-    opacity 0
-    pointer-events none
-    transition opacity 0.15s ease
-    
-  .two-up
-    display flex
-    flex-grow 0
-    
-
-#app.three-d #editor
-  .replace
-    opacity 0
-    pointer-events none
-    transition opacity 0.15s ease
-  .style 
-    opacity 1
-    pointer-events all
-    transition opacity 0.15s ease 0.15s
       
 #loading
   position absolute
