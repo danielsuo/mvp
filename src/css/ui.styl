@@ -73,7 +73,6 @@
       margin .5rem
       padding 0
       border-radius 50%
-      background transparent
       font-size 1rem
       FranklinBold()
       
@@ -83,6 +82,9 @@
     button.close
       left 0
       
+    .scroll
+      overflow scroll
+
     ul
       list-style none
       margin 0 0 1rem 0
@@ -113,7 +115,7 @@
       &:hover, &.active
         background-color #fff
         color #7270b1
-        .btn.delete
+        .btn.x
           opacity 1
           transform translateY(-50%)
 
@@ -122,41 +124,13 @@
       &:last-of-type:after
         background transparent
         
-      .btn.delete
+      .btn.x
         position absolute
         top 50%
         right 1rem
         margin 0
-        width 2rem
-        height 2rem
-        padding 0
-        margin 0
         opacity 0
         transform translateX(50%) translateY(-50%)
-        transition all 0.15s ease
-        border-radius 50%
-        line-height 2rem
-        div
-          position absolute
-          width 1rem
-          height 1px
-          background #854E50
-          top 50%
-          left 50%
-          &:first-child
-            transform translateX(-50%) translateY(-50%) rotate(45deg)
-          &:last-child
-            transform translateX(-50%) translateY(-50%) rotate(135deg)
-        &:hover
-          background #FEEBE5
-          border-color #FEEBE5
-        &:active
-          background #EC5C4E
-          border-color #fff
-          div
-            height 2px
-            background #fff
-          
           
     
     &.new
@@ -210,62 +184,65 @@ button, .btn
     color #fbfbff
     &:hover
       background-color #8782CF
-      
-  &.back
-    background rgba(250,250,255,0.55)
-    color #933E44
-    &:hover
-      background-color #fff
-      color #EC5C4E
-      
-  &.deselect
-    background #fbfbff
-    color #7270B1
-    &:hover
-      background-color #fff
-      color #514AAE
-      
-  &.merge
-    // display none
-    background #fbfbff
-    color #42586C
-    &:hover
-      background-color #fff
-      color #4F90CD
-      
-  &.measure
-    // display none
-    background #fbfbff
-    color #7270B1
-    margin-bottom 0
-    &[data-measuring="1"]
-      background-color #7270B1
-      color #fbfbff
-      box-shadow inset 0 2px 0 rgba(0,0,8,0.2)
-      &:hover
-        background-color #9D9BCF
-        color #fbfbff
-    &:hover
-      background-color #fff
-      color #514AAE
-      
-  &.share
-    margin 1rem
-    box-sizing border-box
-    background #fbfbff
-    color #20671E
-    &:hover
-      background-color #fff
-      color #59B55C
-      
-  &.change
-    margin 0 1rem 1rem 1rem
 
   &:disabled
     FranklinLight()
     background-color transparent !important
     cursor default
     color #827CA3 !important
+
+  circle()
+    margin 0
+    padding 0
+    width 2rem
+    height 2rem
+    transition all 0.15s ease
+    border-radius 50%
+    position relative
+    background transparent
+    &:before, &:after
+      content ''
+      position absolute
+      width 1rem
+      height 1px
+      top 50%
+      left 50%
+    &:before
+      transform translateX(-50%) translateY(-50%)
+    &:after
+      transform translateX(-50%) translateY(-50%) rotate(90deg)
+        
+  &.x
+    circle()
+    &:before, &:after
+      background #854E50
+    &:before
+      transform translateX(-50%) translateY(-50%) rotate(45deg)
+    &:after
+      transform translateX(-50%) translateY(-50%) rotate(135deg)
+    &:hover
+      background #FEEBE5
+      border-color #FEEBE5
+    &:active
+      background #EC5C4E
+      border-color transparent
+      &:before, &:after
+        height 2px
+        background #fff
+
+  &.plus
+    circle()
+    &:before, &:after
+      background #4A6650
+    &:hover
+      background #E6F6E6
+      border-color #E6F6E6
+    &:active
+      background #59B55C
+      border-color transparent
+      &:before, &:after
+        height 2px
+        background #fff
 
           
 &.editor
