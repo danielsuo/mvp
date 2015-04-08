@@ -7,15 +7,19 @@ var LayoutList = function() {
   this.layouts = [];
   this.parent;
 
-  radio('layout-remove').subscribe([function(id) {
-    for (var i = 0; i < this.layouts.length; i++) {
-      if (this.layouts[i].id === id) {
-        this.layouts.splice(i, 1);
-        return;
+  radio('layout-remove').subscribe([
+
+    function(id) {
+      for (var i = 0; i < this.layouts.length; i++) {
+        if (this.layouts[i].id === id) {
+          this.layouts.splice(i, 1);
+          return;
+        }
       }
-    }
-    console.log(this.layouts.length)
-  }, this])
+      console.log(this.layouts.length)
+    },
+    this
+  ])
 };
 
 LayoutList.prototype.get = function(i) {
@@ -38,6 +42,7 @@ LayoutList.prototype.loadFromPresets = function(layouts) {
 
 LayoutList.prototype.loadFromUserDefined = function(suiteId) {
   var that = this;
+
   XHR('/app/' + suiteId + '/testfits').get()
     .then(function(response) {
       var layouts = JSON.parse(response);
@@ -50,11 +55,14 @@ LayoutList.prototype.loadFromUserDefined = function(suiteId) {
 };
 
 LayoutList.prototype.add = function(name, layoutState) {
-  var layout = Layout.create(name, layoutState);
-  layout.createButton(this.parent);
+  var that = this;
 
-  this.layouts.push(layout);
-  return this.layouts.length - 1;
+  return Layout.create(name, layoutState)
+    .then(function(layout) {
+      layout.createButton(that.parent);
+      that.layouts.push(layout);
+      return that.layouts.length - 1;
+    });
 };
 
 LayoutList.prototype.update = function(index, layout) {
