@@ -6,6 +6,16 @@ var radio = require('radio');
 var LayoutList = function() {
   this.layouts = [];
   this.parent;
+
+  radio('layout-remove').subscribe([function(id) {
+    for (var i = 0; i < this.layouts.length; i++) {
+      if (this.layouts[i].id === id) {
+        this.layouts.splice(i, 1);
+        return;
+      }
+    }
+    console.log(this.layouts.length)
+  }, this])
 };
 
 LayoutList.prototype.get = function(i) {
@@ -53,8 +63,8 @@ LayoutList.prototype.update = function(index, layout) {
 
 LayoutList.prototype.remove = function(index) {
   $('#' + this.layouts[index].id).remove();
-  this.layouts[index].delete();
-  this.layouts.splice(index, 1);
+  // this.layouts[index].delete();
+  // this.layouts.splice(index, 1);
 };
 
 module.exports = LayoutList;

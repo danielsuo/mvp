@@ -23,15 +23,17 @@ Layout.prototype.createButton = function(parent) {
   var that = this;
 
   var $li = $(document.createElement('li'));
-  $li.attr('id', this.id);
-  $li.html(this.name).data('index', this.index);
+  $li.attr('id', that.id);
+  $li.html(that.name).data('index', that.index);
 
-  if (!this.preset) {
+
+  if (!that.preset) {
     var $deleteBtn = $('<div class="btn delete"><div></div><div></div></div>');
     $deleteBtn.click(function(){
       that.delete();
-      //TODO: unfuck this
+      // TODO: unfuck that
       $(this).parent().remove();
+      radio('layout-remove').broadcast(that.id);
     })
     $li.append($deleteBtn);
   }
@@ -50,12 +52,8 @@ Layout.prototype.update = function(layout) {
 };
 
 Layout.prototype.delete = function() {
-  if (!this.preset) {
-    XHR('/app/' + data.id + '/testfits/' + this.id).delete()
-      .then(function() {
-        console.log('deleted');
-      });
-  }
+  XHR('/app/' + data.id + '/testfits/' + this.id).delete();
+  // $.delete('/app/' + data.id + '/testfits/' + this.id)
 };
 
 Layout.prototype.serialize = function() {
