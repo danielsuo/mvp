@@ -20,11 +20,22 @@ Layout.create = function(name, layout) {
 };
 
 Layout.prototype.createButton = function(parent) {
+  var that = this;
+
   var $li = $(document.createElement('li'));
   $li.attr('id', this.id);
   $li.html(this.name).data('index', this.index);
 
-  var that = this;
+  if (!this.preset) {
+    var $deleteBtn = $('<div class="btn delete">X</div>');
+    $deleteBtn.click(function(){
+      that.delete();
+      //TODO: unfuck this
+      $(this).parent().remove();
+    })
+    $li.append($deleteBtn);
+  }
+
   $li.click(function() {
     radio('layout-update-from-state').broadcast(that);
     radio('selection-clear').broadcast();
