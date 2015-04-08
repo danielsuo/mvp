@@ -1,35 +1,12 @@
 var Promise = require('promise');
 
-// module.exports = {
-//   get: function(url) {
-//     return new Promise(function(resolve, reject) {
-//       var req = new XMLHttpRequest();
-//       req.open('GET', url);
-
-//       req.onload = function() {
-//         if (req.status == 200) {
-//           resolve(req.response);
-//         } else {
-//           reject(Error(req.statusText));
-//         }
-//       };
-
-//       req.onerror = function() {
-//         reject(Error("Network Error"));
-//       };
-
-//       req.send();
-//     });
-//   }
-// };
-
 module.exports = function(url) {
 
   // A small example of object
   var core = {
 
     // Method that performs the ajax request
-    ajax: function(method, url, data, args) {
+    ajax: function(method, url, payload, args) {
 
       // Establishing a promise in return
       return new Promise(function(resolve, reject) {
@@ -47,7 +24,7 @@ module.exports = function(url) {
           }
         }
 
-        client.open(method, uri);
+        client.open(method, uri, true);
 
         client.onload = function() {
           if (this.status == 200) {
@@ -63,11 +40,11 @@ module.exports = function(url) {
           reject(this.statusText);
         }
 
-        if (data) {
+        if (payload) {
           client.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         }
-        
-        client.send(data);
+
+        client.send(payload);
       })
     }
   }
@@ -75,16 +52,16 @@ module.exports = function(url) {
   // Adapter pattern
   return {
     'get': function(args) {
-      return core.ajax('GET', url, data, args);
+      return core.ajax('GET', url, null, args);
     },
-    'post': function(data, args) {
-      return core.ajax('POST', url, data, args);
+    'post': function(payload, args) {
+      return core.ajax('POST', url, payload, args);
     },
-    'put': function(data, args) {
-      return core.ajax('PUT', url, data, args);
+    'put': function(payload, args) {
+      return core.ajax('PUT', url, payload, args);
     },
     'delete': function(args) {
-      return core.ajax('DELETE', url, data, args);
+      return core.ajax('DELETE', url, null, args);
     }
   };
 }

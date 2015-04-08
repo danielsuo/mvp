@@ -135,9 +135,10 @@ module.exports = function(app, user, passport) {
   });
 
   // Delete a testfit
-  app.delete('/app/:id/testfits/:tid', isLoggedIn, function(req, res) {
+  app.delete('/app/:id/testfits/:tid', function(req, res) {
+    console.log(req.params.tid)
     Testfit.findByIdAndRemove(req.params.tid, function(err, testfit) {
-
+      res.json(true)
     });
   });
 

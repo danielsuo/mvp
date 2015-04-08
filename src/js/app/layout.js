@@ -14,9 +14,11 @@ var Layout = function(name, state, preset) {
 Layout.create = function(name, layout) {
   var result = new Layout(name, layout);
 
-  XHR('/app/' + data.id + '/new').post(JSON.stringify(result.serialize()));
-
-  return result;
+  return XHR('/app/' + data.id + '/new').post(JSON.stringify(result.serialize()))
+    .then(function(testfit) {
+      result.id = JSON.parse(testfit)._id;
+      return result;
+    });
 };
 
 Layout.prototype.createButton = function(parent) {
@@ -53,7 +55,6 @@ Layout.prototype.update = function(layout) {
 
 Layout.prototype.delete = function() {
   XHR('/app/' + data.id + '/testfits/' + this.id).delete();
-  // $.delete('/app/' + data.id + '/testfits/' + this.id)
 };
 
 Layout.prototype.serialize = function() {
