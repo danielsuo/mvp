@@ -6,14 +6,14 @@ var isLoggedIn = require('./util/isLoggedIn');
 
 var Testfit = require('../models/testfit');
 
-// router.get('/', isLoggedIn, function(req, res, next) {
-//   Organization.find(function(err, organizations) {
-//     if (err) return next(err);
-//     res.render('organizations/index.html', {
-//       organizations: organizations
-//     });
-//   })
-// });
+router.get('/', isLoggedIn, function(req, res, next) {
+  Testfit.find(function(err, testfits) {
+    if (err) return next(err);
+    res.render('testfits/index.html', {
+      testfits: testfits
+    });
+  })
+});
 
 // router.get('/list', isLoggedIn, function(req, res, next) {
 //   Organization.find(function(err, organizations) {
@@ -38,7 +38,6 @@ var Testfit = require('../models/testfit');
 router.get('/:id', isLoggedIn, function(req, res, next) {
   Testfit.findById(req.params.id)
     .exec(function(err, testfit) {
-      console.log(testfit)
       if (err) return next(err);
       res.render('testfits/show.html', {
         testfit: testfit

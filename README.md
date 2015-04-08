@@ -12,14 +12,18 @@
 - /app
 - /404
 - /home
-- /login
-- /
+- / + /login
 - Saving / loading test fits
   - Redesign app layout
   - List of test fits
 - Better CMS editing
 - Add special be able to change it
+- protofit-dev, protofit-staging, protofit
+- Project creation script
+- Checkout PDF drawing
 
+- Refactor front-end data model to mirror backend data model
+- Refactor server and client-side routes
 - Link to specific testfit
 - Need cell for reception
 - Load font faster

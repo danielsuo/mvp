@@ -3,8 +3,11 @@ var path = require('path');
 var isLoggedIn = require('./util/isLoggedIn');
 var isAdmin = require('./util/isAdmin');
 
+var mongoose = require('mongoose');
+
 var Organization = require('../models/organization');
 var Suite = require('../models/suite');
+var Testfit = require('../models/testfit');
 var User = require('../models/user');
 
 module.exports = function(app, user, passport) {
@@ -97,23 +100,45 @@ module.exports = function(app, user, passport) {
   // TODO: add in validation; these routes are really insecure, generally speaking
 
   // New test fit
-  app.post('/app/:id/new', isLoggedIn, function(req, res) {
-
+  app.post('/app/:id/new', function(req, res, next) {
+    req.body.suite = [mongoose.Types.ObjectId(req.params.id)];
+    Testfit.create(req.body, function(err, testfit) {
+      if (err) return next(err);
+      res.json(testfit)
+    });
   });
 
-  // View test fit
+  // Get list of all test fits
+  app.get('/app/:id/testfit', isLoggedIn, function(req, res) {
+    Suite.findById(req.params.id)
+      .populate('testfits')
+      .exec(function(err, suite) {
+        res.json(suite.testfits);
+      });
+  });
+
+  // Get testfit layout
   app.get('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
-
+    Testfit.findById(req.params.tid)
+      .exec(function(err, testfit) {
+        res.json(testfit.layout)
+      });
   });
 
-  // Update / save test fit
-  app.put('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
-
+  // Update / save testfit layout
+  app.put('/app/:id/testfit/:tid', isLoggedIn, function(req, res, next) {
+    Testfit.findById(req.params.tid)
+      .exec(function(err, testfit) {
+        if (err) next(err);
+        testfit.layout = req.body;
+      });
   });
 
-  // Delete a test fit
+  // Delete a testfit
   app.delete('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+    Testfit.findByIdAndRemove(req.params.tid, function(err, testfit) {
 
+    });
   });
 
   app.get('/config/:id', isLoggedIn, function(req, res) {

@@ -1,3 +1,10 @@
+// NOTE: A number of shitty things are happening in this code base
+
+// - We have this global variable 'data' that holds everything
+// - Our server-side and client-side data models are completely different
+// - We draw cells in two very different ways
+
+
 require('./util/fontdeck');
 
 var SVG = require('./svg');
@@ -10,12 +17,12 @@ var Cell = require('./app/cell');
 var CellList = require('./app/cellList');
 
 var Layer = require('./app/layer');
+var LayoutList = require('./app/layoutList');
 
 data = SVG('svg');
 
 var re = /\/app\/(\w+)\/?/;
 data.id = window.location.pathname.match(re)[1];
-console.log(data.id)
 
 data.element = document.getElementById('svg');
 data.panel = document.getElementById('panel');
@@ -59,6 +66,10 @@ XHR('/config/' + data.id).get()
   data.layers = data.config.layers.map(function(layer, index) {
     return new Layer(layer, index);
   });
+
+  data.layouts = new LayoutList();
+  data.layouts.loadFromPresets(data.config.layouts);
+  data.layouts.loadFromUserDefined(data.id);
 })
 
 // Set up defs for all data objects
@@ -89,17 +100,7 @@ XHR('/config/' + data.id).get()
   var $editorList = $('#editor-list');
 
   // Set up layout buttons
-  for (var layout in data.config.layouts) {
-    (function(layout) {
-      var $li = $(document.createElement('li'));
-      $li.html(data.config.layouts[layout].name).data('index', layout);
-      $li.click(function() {
-        radio('layout-update-from-state').broadcast(layout);
-        radio('selection-clear').broadcast();
-      })
-      $layoutList.append($li);
-    })(layout);
-  }
+  data.layouts.createButtons($layoutList);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -147,7 +148,7 @@ XHR('/config/' + data.id).get()
 
 .then(function() {
   data.cells.updateClippingPaths(data.getClientToSVGRatio());
-  radio('layout-update-from-state').broadcast(0);
+  radio('layout-update-from-state').broadcast(data.layouts.get(0));
   $(window).resize(function() {
     data.cells.updateClippingPaths(data.getClientToSVGRatio());
     radio('layout-update-from-state').broadcast();
@@ -171,9 +172,9 @@ radio('layout-whitebox').subscribe(function() {
   data.cells.paintLayoutFromPreset(data.config.layouts[data.config.layouts.length - 1].state, data.layers);
 });
 
-radio('layout-update-from-state').subscribe(function(layoutIndex) {
-  if (layoutIndex !== undefined) {
-    data.cells.paintLayoutFromPreset(data.config.layouts[layoutIndex].state, data.layers);
+radio('layout-update-from-state').subscribe(function(layout) {
+  if (layout !== undefined) {
+    data.cells.paintLayoutFromPreset(layout.state, data.layers);
   } else {
     data.cells.paintLayout(data.layers);
   }

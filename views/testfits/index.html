@@ -1,0 +1,25 @@
+{% extends "layouts/main.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+  <div class="show-page">
+    <header>
+      <h1>Testfits</h1>
+
+    </header>
+
+    <div>
+      <table>
+        <tr>
+          <th>Name</th>
+        </tr>
+        {% for testfit in testfits %}
+          <tr>
+            <td><a href='{{ testfit._id }}/'>{{ testfit.name }}</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

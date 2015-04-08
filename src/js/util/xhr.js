@@ -29,7 +29,7 @@ module.exports = function(url) {
   var core = {
 
     // Method that performs the ajax request
-    ajax: function(method, url, args) {
+    ajax: function(method, url, data, args) {
 
       // Establishing a promise in return
       return new Promise(function(resolve, reject) {
@@ -39,7 +39,7 @@ module.exports = function(url) {
         var uri = url;
 
         if (args && (method === 'POST' || method === 'PUT')) {
-          url += '?'
+          uri += '?'
           for (key in args) {
             if (args.hasOwnProperty(key)) {
               uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]) + '&';
@@ -47,7 +47,7 @@ module.exports = function(url) {
           }
         }
 
-        client.open(method, url);
+        client.open(method, uri);
 
         client.onload = function() {
           if (this.status == 200) {
@@ -63,7 +63,7 @@ module.exports = function(url) {
           reject(this.statusText);
         }
 
-        client.send();
+        client.send(data);
       })
     }
   }
@@ -71,16 +71,16 @@ module.exports = function(url) {
   // Adapter pattern
   return {
     'get': function(args) {
-      return core.ajax('GET', url, args);
+      return core.ajax('GET', url, data, args);
     },
-    'post': function(args) {
-      return core.ajax('POST', url, args);
+    'post': function(data, args) {
+      return core.ajax('POST', url, data, args);
     },
-    'put': function(args) {
-      return core.ajax('PUT', url, args);
+    'put': function(data, args) {
+      return core.ajax('PUT', url, data, args);
     },
     'delete': function(args) {
-      return core.ajax('DELETE', url, args);
+      return core.ajax('DELETE', url, data, args);
     }
   };
 }
