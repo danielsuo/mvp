@@ -105,21 +105,7 @@ XHR('/config/' + data.id).get()
   var $editorList = $('#panel .editor ul');
 
   // Set up layout buttons
-<<<<<<< HEAD
-  data.layouts.createButtons($layoutList);
-=======
-  for (var layout in data.config.layouts) {
-    (function(layout) {
-      var $li = $(document.createElement('li'));
-      $li.html(data.config.layouts[layout].name).data('index', layout);
-      $li.click(function() {
-        radio('layout-update-from-state').broadcast(layout);
-        radio('selection-clear').broadcast();
-      })
-      $savedTestfitList.append($li);
-    })(layout);
-  }
->>>>>>> jake
+  data.layouts.createButtons($savedTestfitList);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
