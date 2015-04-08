@@ -21,6 +21,7 @@ Layout.create = function(name, layout) {
 
 Layout.prototype.createButton = function(parent) {
   var $li = $(document.createElement('li'));
+  $li.attr('id', this.id);
   $li.html(this.name).data('index', this.index);
 
   var that = this;
