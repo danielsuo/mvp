@@ -51,7 +51,8 @@ LayoutList.prototype.update = function(index) {
   this.layouts[index].update();
 };
 
-LayoutList.prototype.delete = function(index) {
+LayoutList.prototype.remove = function(index) {
+  $('#' + this.layouts[index].id).remove();
   this.layouts[index].delete();
   this.layouts.splice(index, 1);
 };
