@@ -52,7 +52,7 @@
 <rect x="1204.8" y="799" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="161.4" height="71.7"/>
 <rect x="1204.8" y="717.55" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="161.4" height="81.45"/>
 <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="1402.2,329.8 1402.2,298.6 
-	1504.8,298.6 1504.8,236.2 1497.23,236.2 1497.23,220 1366.2,220 1366.2,329.8 "/>
+	1504.8,298.6 1504.8,220 1366.2,220 1366.2,329.8 "/>
 <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="132.08,135.39 231,135.39 231,148 
 	267,148 267,43.6 132.08,43.6 "/>
 <rect x="267" y="43.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="72.9" height="104.4"/>
@@ -71,9 +71,9 @@
 <rect x="765.6" y="225.1" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="72" height="104.7"/>
 <rect x="673.2" y="221.2" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="92.4" height="108.6"/>
 <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="673.2,148 644.4,148 644.4,43.6 
-	790.2,43.6 790.2,65.2 811.5,65.2 811.5,128.95 673.2,128.95 "/>
+	811.5,43.6 811.5,128.95 673.2,128.95 "/>
 <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="673.2,221.2 765.6,221.2 
-	765.6,225.1 795.6,225.1 795.6,200.5 810,200.5 810,128.95 673.2,128.95 "/>
+	765.6,225.1 810,225.1 810,128.95 673.2,128.95 "/>
 <rect x="558" y="43.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="86.4" height="104.4"/>
 <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="132.08,1410.4 231,1410.4 
 	231,1399.52 263.48,1399.52 263.48,1489.6 132.08,1489.6 "/>
@@ -91,8 +91,7 @@
 <rect x="1295.06" y="1399.52" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="74.66" height="90.07"/>
 <rect x="263.48" y="1399.52" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="74.66" height="90.07"/>
 <rect x="338.14" y="1399.52" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="74.66" height="90.07"/>
-<polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="506.93,1495.6 412.8,1495.6 
-	412.8,1366.6 514.8,1366.6 514.8,1485.92 506.93,1485.92 "/>
+<rect x="412.8" y="1366.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102" height="129"/>
 <rect x="267" y="285.97" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="161.4" height="80.43"/>
 <rect x="128.4" y="366.4" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102.6" height="72"/>
 <rect x="1402.2" y="298.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102.6" height="67.8"/>
@@ -122,6 +121,5 @@
 <rect x="128.4" y="1134.1" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102.6" height="75.3"/>
 <rect x="128.4" y="205.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102.6" height="80.37"/>
 <rect x="128.4" y="285.97" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102.6" height="80.43"/>
-<polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="1126.28,1495.6 1220.4,1495.6 
-	1220.4,1366.6 1118.4,1366.6 1118.4,1485.92 1126.28,1485.92 "/>
+<rect x="1118.4" y="1366.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" width="102" height="129"/>
 </svg>
