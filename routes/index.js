@@ -109,7 +109,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Get list of all test fits
-  app.get('/app/:id/testfit', isLoggedIn, function(req, res) {
+  app.get('/app/:id/testfits', isLoggedIn, function(req, res) {
     Suite.findById(req.params.id)
       .populate('testfits')
       .exec(function(err, suite) {
@@ -118,7 +118,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Get testfit layout
-  app.get('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+  app.get('/app/:id/testfits/:tid', isLoggedIn, function(req, res) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
         res.json(testfit.layout)
@@ -126,7 +126,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Update / save testfit layout
-  app.put('/app/:id/testfit/:tid', isLoggedIn, function(req, res, next) {
+  app.put('/app/:id/testfits/:tid', isLoggedIn, function(req, res, next) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
         if (err) next(err);
@@ -135,7 +135,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Delete a testfit
-  app.delete('/app/:id/testfit/:tid', isLoggedIn, function(req, res) {
+  app.delete('/app/:id/testfits/:tid', isLoggedIn, function(req, res) {
     Testfit.findByIdAndRemove(req.params.tid, function(err, testfit) {
 
     });

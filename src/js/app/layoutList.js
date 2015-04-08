@@ -5,6 +5,7 @@ var radio = require('radio');
 
 var LayoutList = function() {
   this.layouts = [];
+  this.parent;
 };
 
 LayoutList.prototype.get = function(i) {
@@ -12,11 +13,9 @@ LayoutList.prototype.get = function(i) {
 };
 
 LayoutList.prototype.createButtons = function(parent) {
+  this.parent = parent;
   _.forOwn(this.layouts, function(layout, id) {
-    layout.createButton(parent, function() {
-      radio('layout-update-from-state').broadcast(layout);
-      radio('selection-clear').broadcast();
-    })
+    layout.createButton(parent)
   });
 };
 
@@ -28,20 +27,23 @@ LayoutList.prototype.loadFromPresets = function(layouts) {
 };
 
 LayoutList.prototype.loadFromUserDefined = function(suiteId) {
-  XHR('/app/' + suiteId + '/testfit').get()
+  var that = this;
+  XHR('/app/' + suiteId + '/testfits').get()
     .then(function(response) {
       var layouts = JSON.parse(response);
       for (var i = 0; i < layouts.length; i++) {
         var layout = new Layout(layouts[i].name, layouts[i].layout, false);
         layout.id = layouts[i]._id;
-        this.layouts.push(layout);
+        that.layouts.push(layout);
       }
     });
 };
 
-LayoutList.prototype.create = function(name, layoutState) {
-  this.layouts.push(Layout.create(name, layoutState));
+LayoutList.prototype.add = function(name, layoutState) {
+  var layout = Layout.create(name, layoutState);
+  layout.createButton(this.parent);
 
+  this.layouts.push(layout);
   return this.layouts.length - 1;
 };
 
