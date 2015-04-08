@@ -47,8 +47,8 @@ LayoutList.prototype.add = function(name, layoutState) {
   return this.layouts.length - 1;
 };
 
-LayoutList.prototype.update = function(index) {
-  this.layouts[index].update();
+LayoutList.prototype.update = function(index, layout) {
+  this.layouts[index].update(layout);
 };
 
 LayoutList.prototype.remove = function(index) {

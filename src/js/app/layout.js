@@ -33,7 +33,8 @@ Layout.prototype.createButton = function(parent) {
   parent.append($li);
 };
 
-Layout.prototype.update = function() {
+Layout.prototype.update = function(layout) {
+  this.state = layout;
   XHR('/app/' + data.id + '/new').put(JSON.stringify(result.serialize()));
 };
 
