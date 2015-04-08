@@ -96,11 +96,30 @@ XHR('/config/' + data.id).get()
 })
 
 .then(function() {
-  var $layoutList = $('#layout-list');
-  var $editorList = $('#editor-list');
+
+  var $savedTestfitList = $('#panel .list ul');
+  var $newTestfitList = $('#panel .new ul');
+
+
+  // var $layoutList = $('#layout-list');
+  var $editorList = $('#panel .editor ul');
 
   // Set up layout buttons
+<<<<<<< HEAD
   data.layouts.createButtons($layoutList);
+=======
+  for (var layout in data.config.layouts) {
+    (function(layout) {
+      var $li = $(document.createElement('li'));
+      $li.html(data.config.layouts[layout].name).data('index', layout);
+      $li.click(function() {
+        radio('layout-update-from-state').broadcast(layout);
+        radio('selection-clear').broadcast();
+      })
+      $savedTestfitList.append($li);
+    })(layout);
+  }
+>>>>>>> jake
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -268,6 +287,19 @@ data.afterPrint = function() {
   radio('layout-update-from-state').broadcast();
 };
 
+$('#panel .list button.new').click(function() {
+  $('#panel').addClass('show-new');
+});
+$('#panel .new button.close').click(function() {
+  $('#panel').removeClass('show-new');
+});
+$('#panel button.next').click(function() {
+  $('#panel').removeClass('show-new');
+  $('#panel').addClass('show-editor');
+});
+
+
+
 $('#layout-next-btn').click(function() {
   $('#actions').addClass('show-editor');
 });
@@ -354,12 +386,12 @@ data.touchstart(function(event) {
 
 document.getElementById('protofit').addEventListener('mousedown', function(event) {
   data.cells.deselectAll();
-  document.getElementById('editor').className = 'no-selection';
+  // document.getElementById('editor').className = 'no-selection';
 }, false);
 
 document.getElementById('protofit').addEventListener('touchstart', function(event) {
   data.clearSelection();
-  document.getElementById('editor').className = 'no-selection';
+  // document.getElementById('editor').className = 'no-selection';
 }, false);
 
 data.rsfInput.onchange = function(event) {

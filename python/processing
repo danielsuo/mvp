@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/Applications/processing-py/processing-py.sh $1
