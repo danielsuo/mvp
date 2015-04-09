@@ -57,6 +57,7 @@ router.get('/:id/demisings/new', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/demisings/new', isLoggedIn, function(req, res, next) {
   req.body.floor = mongoose.Types.ObjectId(req.params.id);
+  req.body.createdAt = req.body.updatedAt = new Date();
   Demising.create(req.body, function(err, demising) {
     if (err) return next(err);
     res.redirect('/floors/' + req.params.id + '/');

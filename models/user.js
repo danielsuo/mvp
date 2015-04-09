@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
+var findOrCreate = require('mongoose-findorcreate')
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
@@ -42,6 +43,8 @@ var userSchema = mongoose.Schema({
 userSchema.plugin(relationship, {
   relationshipPathName: 'organizations'
 });
+
+userSchema.plugin(findOrCreate);
 
 // methods ======================
 // generating a hash

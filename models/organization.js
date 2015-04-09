@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
 var deepPopulate = require('mongoose-deep-populate');
+var findOrCreate = require('mongoose-findorcreate')
 
 var organizationSchema = mongoose.Schema({
   name: {
@@ -22,6 +23,8 @@ var organizationSchema = mongoose.Schema({
       all: {}
     }
   },
+  createdAt: Date,
+  updatedAt: Date,
   buildings: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Building'
@@ -32,11 +35,12 @@ var organizationSchema = mongoose.Schema({
   }]
 });
 
+organizationSchema.plugin(deepPopulate);
+organizationSchema.plugin(findOrCreate);
+
 organizationSchema.statics.createForm = function(extra) {
   return forms.create(this, extra);
 };
-
-organizationSchema.plugin(deepPopulate);
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('Organization', organizationSchema);

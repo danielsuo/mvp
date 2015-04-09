@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
+var findOrCreate = require('mongoose-findorcreate')
 
 var testfitSchema = mongoose.Schema({
   name: {
@@ -22,6 +23,8 @@ var testfitSchema = mongoose.Schema({
 testfitSchema.plugin(relationship, {
   relationshipPathName: 'suite'
 });
+
+testfitSchema.plugin(findOrCreate);
 
 testfitSchema.statics.createForm = function(extra) {
   return forms.create(this, extra);

@@ -163,10 +163,10 @@ module.exports = function(app, user, passport) {
     });
   });
 
-  app.get('/config/:id', isLoggedIn, function(req, res) {
+  app.get('/config/:id', function(req, res) {
     Suite.findById(req.params.id)
       .exec(function(err, suite) {
-        res.sendFile(path.join(__dirname, '../public', suite.directory, 'config.json'));
+        res.json(suite.config);
       });
   });
 

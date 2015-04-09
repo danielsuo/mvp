@@ -1,16 +1,31 @@
 {
   "version": 1,
   "directory": "/data/floored/vornado/",
-  "client": {
-    "id": "floored",
-    "name": "Floored",
+  "organizations": [{
+    "name": "Vornado Realty Trust",
+    "address": "888 Seventh Ave #44 New York, NY",
     "logo": ["/logo.svg"]
-  },
-  "project": {
-    "id": "test",
-    "name": "Seventh Floor",
-    "area": 44968,
+  }],
+  "building": {
+    "name": "90 Park Avenue",
     "address": "90 Park Avenue"
+  },
+  "floor": {
+    "number": 7
+  },
+  "demising": {
+    "name": "Main"
+  },
+  "suite": {
+    "number": 7,
+    "name": "Seventh Floor",
+    "directory": "/data/floored/vornado/",
+    "area": 44968
+  },
+  "user": {
+    "email": "vornado@floored.com",
+    "role": "user",
+    "name": "Vornado"
   },
   "north": {
     "direction": -120

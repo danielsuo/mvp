@@ -58,11 +58,11 @@ XHR('/config/' + data.id).get()
 
   // Set up UI elements
   data.northArrow.setAttribute('style', 'transform: rotate(' + data.config.north.direction + 'deg)');
-  data.logo.setAttribute('style', 'background-image: url("' + data.config.directory + data.config.client.logo + '")');
-  $('#project-title').html('<h3>' + data.config.project.name + '</h3>');
-  $('#project-address').html(data.config.project.address);
+  data.logo.setAttribute('style', 'background-image: url("' + data.config.directory + data.config.organizations[0].logo + '")');
+  $('#project-title').html('<h3>' + data.config.suite.name + '</h3>');
+  $('#project-address').html(data.config.building.address);
 
-  data.rsfInput.value = data.config.project.area;
+  data.rsfInput.value = data.config.suite.area;
 
   data.layers = data.config.layers.map(function(layer, index) {
     return new Layer(layer, index);
@@ -200,12 +200,12 @@ radio('layout-update-from-state').subscribe(function(layout) {
 // TODO: refactor this; can't read it at all
 radio('request-change').subscribe(function() {
   var mailto = 'mailto:protofitsupport@floored.com?Subject=Change%20Request%20for%20' +
-    encodeURIComponent(data.config.project.name) +
+    encodeURIComponent(data.config.suite.name) +
     '&Body=Hello%20Floored%2C%0A%0AI%27d%20like%20to%20request%20the%20following%20change%20for%20' +
-    encodeURIComponent(data.config.project.name) + ' at ' + encodeURIComponent(data.config.project.address) +
+    encodeURIComponent(data.config.suite.name) + ' at ' + encodeURIComponent(data.config.building.address) +
     '%3A%0A%0A%0A%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A' +
     'Please%20do%20not%20edit%20below%20this%20line.%0A%0AModel%20ID%3A%20' +
-    encodeURIComponent(data.config.project.name)
+    encodeURIComponent(data.config.suite.name)
 
   window.location.href = mailto;
 });
@@ -272,7 +272,7 @@ data.getClientToSVGRatio = function() {
 };
 
 data.getArea = function() {
-  return this.config.project.area;
+  return this.config.suite.area;
 };
 
 data.beforePrint = function() {

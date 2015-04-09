@@ -23,6 +23,7 @@ router.get('/new', isLoggedIn, function(req, res, next) {
 });
 
 router.post('/new', isLoggedIn, function(req, res, next) {
+  req.body.createdAt = req.body.updatedAt = new Date();
   User.create(req.body, function(err, user) {
     console.log(err)
     if (err) return next(err);
@@ -32,14 +33,12 @@ router.post('/new', isLoggedIn, function(req, res, next) {
 
 router.get('/:id', isLoggedIn, function(req, res, next) {
   User.findById(req.params.id)
-    // .populate('floors')
-    .exec(function(err, user) {
-      console.log(user)
-      if (err) return next(err);
-      res.render('users/show.html', {
-        user: user
-      })
+  .exec(function(err, user) {
+    if (err) return next(err);
+    res.render('users/show.html', {
+      user: user
     })
+  })
 });
 
 module.exports = router;

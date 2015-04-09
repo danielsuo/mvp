@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
+var findOrCreate = require('mongoose-findorcreate')
 
 var buildingSchema = mongoose.Schema({
   name: {
@@ -15,6 +16,8 @@ var buildingSchema = mongoose.Schema({
       all: {}
     }
   },
+  createdAt: Date,
+  updatedAt: Date,
   organizations: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Organization',
@@ -29,6 +32,8 @@ var buildingSchema = mongoose.Schema({
 buildingSchema.plugin(relationship, {
   relationshipPathName: 'organizations'
 });
+
+buildingSchema.plugin(findOrCreate);
 
 buildingSchema.statics.createForm = function(extra) {
   return forms.create(this, extra);

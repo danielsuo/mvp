@@ -57,6 +57,7 @@ router.get('/:id/testfits/new', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/testfits/new', isLoggedIn, function(req, res, next) {
   req.body.suite = mongoose.Types.ObjectId(req.params.id);
+  req.body.createdAt = req.body.updatedAt = new Date();
   Testfit.create(req.body, function(err, testfit) {
     if (err) return next(err);
     res.redirect('/suites/' + req.params.id + '/');
