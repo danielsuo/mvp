@@ -22,13 +22,19 @@
 - Project creation script
 - Checkout PDF drawing
 
+- Cell types in layout
+- Upgrade existing plans
+  - ESB
+  - Beacon
+- Refactor whitebox and layers
+- Investigate line weights
 - Refactor front-end data model to mirror backend data model
+- Walls as own layer
 - Refactor server and client-side routes
 - Link to specific testfit
 - Need cell for reception
 - Load font faster
 - Refactor layers to use ID and not array index
-- Refactor disabled cell
 - Refactor seating
 - Refactor cell state (e.g., combine static, layer, disabled)
 - Remove merge cell borders when unmerged
@@ -69,6 +75,7 @@
 - Deploying migrations
 
 ## Done
+- Refactor disabled cell
 - Merge the merge conference buttons
 - Set up routes
 - Make sure special is getting correct color

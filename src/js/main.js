@@ -266,7 +266,7 @@ data.createDef = function(response) {
 };
 
 data.getClientToSVGRatio = function() {
-  return document.getElementById(data.node.id).clientWidth / data.config.width;
+  return document.getElementById(data.node.id).clientWidth / data.viewbox().width;
 };
 
 data.getArea = function() {
