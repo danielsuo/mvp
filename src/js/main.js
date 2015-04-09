@@ -321,7 +321,7 @@ $('#panel .new button.close').click(function() {
   cancelNewTestFit();
 });
 
-$('#panel button.next').click(function() {
+$('#panel section.list button.edit').click(function() {
   $('#panel').removeClass('show-new');
   $('#panel').addClass('show-editor');
 });
