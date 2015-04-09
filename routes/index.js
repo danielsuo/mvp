@@ -139,6 +139,7 @@ module.exports = function(app, user, passport) {
   app.put('/app/:id/testfits/:tid/edit/name', isLoggedIn, function(req, res, next) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
+        if (err) next(err);
         testfit.name = req.body.name;
         testfit.updatedAt = new Date();
         testfit.save();
@@ -149,6 +150,7 @@ module.exports = function(app, user, passport) {
   app.put('/app/:id/testfits/:tid/edit/layout', isLoggedIn, function(req, res, next) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
+        if (err) next(err);
         testfit.layout = req.body.layout;
         testfit.updatedAt = new Date();
         testfit.save();

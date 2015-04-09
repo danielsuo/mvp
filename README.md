@@ -15,6 +15,8 @@
 - / + /login
 - Saving / loading test fits
 - Add home page
+- Split up preset vs layout; can't edit preset?
+- Edit name not working
 
 - Create bounding for SVG so it doesn't squash other stuff
 - Empty cell highlighting

@@ -54,6 +54,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
 
 Layout.prototype.updateLayout = function(layout) {
   this.state = layout;
+  console.log(this.id)
   XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/layout')
     .put(JSON.stringify({
       layout: this.state

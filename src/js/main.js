@@ -284,10 +284,10 @@ var beginNewTestFit = function() {
   $(data.appContainer).addClass('new-testfit')
 
   data.previousTestfit = data.currentTestfit;
-  data.currentTestfit = 0;
+  data.currentTestfit = data.layouts.length;
 
   // show whitebox
-  radio('layout-update-from-state').broadcast(data.layouts.get(0));
+  radio('layout-update-from-state').broadcast(data.layouts.get(5));
 }
 
 var cancelNewTestFit = function() {
@@ -296,7 +296,7 @@ var cancelNewTestFit = function() {
 
 
   data.currentTestfit = data.previousTestfit;
-  data.previousTestfit = 0;
+  data.previousTestfit = data.layouts.length;
 
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
@@ -317,7 +317,7 @@ $('#panel .new button.close').click(function() {
 
 $('#panel .new button.edit').click(function() {
   // Save new test fit
-  data.layouts.add('Untitled new test fit', data.layouts.get(0).state).then(function(layoutIndex) {
+  data.layouts.add('Untitled new test fit', data.layouts.get(data.currentTestfit).state).then(function(layoutIndex) {
     data.currentTestfit = layoutIndex;
   });
 
@@ -336,7 +336,9 @@ $('#panel .editor button.cancel').click(function() {
 $('#panel .editor button.save').click(function() {
   $('#panel').removeClass('show-editor');
   // data.layouts.get(data.currentTestfit).updateLayout(data.cells.get(layout)
-  data.layouts.get(data.currentTestfit).updateLayout(data.cells.getLayout());
+  var layout = data.cells.getLayout();
+  console.log(data.layouts.get(data.currentTestfit))
+  data.layouts.get(data.currentTestfit).updateLayout(layout);
   radio('selection-clear').broadcast();
 });
 
@@ -352,7 +354,7 @@ $('#share-btn').click(function() {
   radio('share').broadcast();
 });
 
-data.$nameInput.blur(function(){
+data.$nameInput.blur(function() {
   data.layouts.get(data.currentTestfit).updateName(this.value)
 });
 

@@ -48,10 +48,15 @@ LayoutList.prototype.loadFromUserDefined = function(suiteId) {
       for (var i = 0; i < layouts.length; i++) {
         var layout = new Layout(layouts[i].name, layouts[i].layout, false);
         layout.id = layouts[i]._id;
+        layout.createButton(that.parent, true);
         that.layouts.push(layout);
       }
     });
 };
+
+setTimeout(function() {
+  console.log(data.layouts.get(7))
+}, 5000)
 
 LayoutList.prototype.add = function(name, layoutState) {
   var that = this;
