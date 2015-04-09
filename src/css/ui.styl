@@ -16,42 +16,31 @@
   -webkit-font-feature-settings 'liga' 0
   -moz-font-feature-settings 'liga' 0
   
-  &.show-new section.new
-    display flex
+  &.show-new, &.show-editor
+    .list
+      filter brightness(0.5)
+      -webkit-filter brightness(0.5)
     
   &.show-editor
-    > div 
-      transform translateX(-50%)
+    section.editor
+      transform none
+      box-shadow 0 0 32px rgba(0,0,8,0.5)
+
+  &.show-new
+    section.new
+      transform none
+      box-shadow 0 0 32px rgba(0,0,8,0.5)
   
   h3
     font-size 0.875em
 
-  > div 
-    overflow scroll
-    display flex
-    flex-grow 1
-    width 200%
-    transform translateX(0)
-    transition transform 0.5s ease
-    user-select none
-    // &::-webkit-scrollbar
-    //   width: 12px
-    // &::-webkit-scrollbar-track
-    //   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    //   -webkit-border-radius: 10px;
-    //   border-radius: 10px;
-  
-    &.show-benching
-      transform translateX(-33.33%)
-    &.show-editor
-      transform translateX(-50%)
-
   section
-    width 50%
+    absolute100()
     box-sizing border-box
     display flex
     flex-direction column
-    position relative
+    background lightGrey
+    user-select none
     
     h3
       margin 0
@@ -82,6 +71,7 @@
       
     button.close
       left 0
+      opacity 1
       
     .scroll
       overflow scroll
@@ -133,16 +123,27 @@
         opacity 0
         transform translateX(50%) translateY(-50%)
           
-    
+    &.list
+      transition -webkit-filter 0.4s ease, filter 0.4s ease
+  
+    &.new, &.editor
+      transform translateY(100%)
+      transition transform 0.66s ease, box-shadow 0.66s ease
+      box-shadow 0 0 0 rgba(0,0,8,0.5)
+
     &.new
-      absolute100()
-      width 50%
-      display none
+      // display none
       background-color #EFEFF6
       header
         text-align center
+        h3
+          min-height 2.5rem
+          padding-bottom 0
+        p
+          margin-top 0
 
     &.editor
+      // display none
       min-height 600px
       > div 
         position relative

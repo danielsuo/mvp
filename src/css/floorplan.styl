@@ -1,9 +1,19 @@
-#app.three-d
-  #svg
-    display none
-  #project-north
-    display none
-
+#app
+  &.three-d
+    #svg
+      display none
+    #project-north
+      display none
+  &.new-testfit
+    #protofit
+      pointer-events none
+      box-shadow none
+      &:before
+        content ''
+        absolute100()
+        z-index 10
+        background purple25
+        opacity 0.25
 
 #protofit
   display flex

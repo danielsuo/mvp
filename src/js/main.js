@@ -187,6 +187,9 @@ radio('layout-update-from-state').subscribe(function(layout) {
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
     data.$nameInput.val(layout.name);
+    for (var i in layout.buttons) {
+      layout.buttons[i].addClass('active').siblings().removeClass('active');
+    }
   } else {
     data.cells.paintLayout(data.layers);
   }
@@ -284,6 +287,7 @@ var beginNewTestFit = function() {
   // show new panel
   $('#panel .new li').removeClass('active')
   $('#panel').addClass('show-new');
+  $(data.appContainer).addClass('new-testfit')
 
   data.previousTestfit = data.currentTestfit;
   data.currentTestfit = 0;
@@ -293,14 +297,15 @@ var beginNewTestFit = function() {
 
   // not saved until customized or named
   data.unsavedNewTestFit = true;
-  data.$nameInput.val('Untitled test fit').focus()
-
+  data.$nameInput.val('Untitled test fit');
 }
 
 var cancelNewTestFit = function() {
   data.unsavedNewTestFit = false;  
 
   $('#panel').removeClass('show-new');
+  $(data.appContainer).removeClass('new-testfit')
+
 
   data.currentTestfit = data.previousTestfit;
   data.previousTestfit = 0;
@@ -323,14 +328,15 @@ $('#panel button.next').click(function() {
 
 
 
-$('#layout-next-btn').click(function() {
-  $('#actions').addClass('show-editor');
-});
-$('#editor-back-btn').click(function() {
-  $('#actions').removeClass('show-editor');
+$('#panel .editor button.cancel').click(function() {
+  $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
-$('#editor-done-btn').click(function() {
+$('#panel .editor button.save').click(function() {
+  $('#panel').removeClass('show-editor');
+  radio('selection-clear').broadcast();
+});
+$('button.deselect').click(function() {
   radio('selection-clear').broadcast();
 });
 $('#merge-btn').click(function() {
