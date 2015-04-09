@@ -14,7 +14,7 @@
 - /home
 - / + /login
 - Saving / loading test fits
-- Add 'suite' in front of suite number in show
+- Add home page
 
 - Create bounding for SVG so it doesn't squash other stuff
 - Empty cell highlighting
@@ -78,6 +78,7 @@
 - Deploying migrations
 
 ## Done
+- Add 'suite' in front of suite number in show
 - Project creation script
 - Redesign app layout
 - List of test fits
