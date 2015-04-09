@@ -180,7 +180,7 @@ radio('layout-whitebox').subscribe(function() {
 radio('layout-update-from-state').subscribe(function(layout) {
   if (data.unsavedNewTestFit) {
     data.unsavedNewTestFit = false;
-    data.layouts.add('Untitled', data.layouts.get(6).state).then(function(layoutIndex) {
+    data.layouts.add('Untitled', data.layouts.get(0).state).then(function(layoutIndex) {
       data.currentTestfit = layoutIndex;
     });
   }
@@ -289,7 +289,7 @@ var beginNewTestFit = function() {
   data.currentTestfit = 0;
 
   // show whitebox
-  radio('layout-update-from-state').broadcast(data.layouts.get(6));
+  radio('layout-update-from-state').broadcast(data.layouts.get(0));
 
   // not saved until customized or named
   data.unsavedNewTestFit = true;
@@ -344,6 +344,10 @@ $('#change-btn').click(function() {
 });
 $('#share-btn').click(function() {
   radio('share').broadcast();
+});
+
+data.$nameInput.blur(function(){
+  data.layouts.get(data.currentTestfit).updateName(this.value)
 });
 
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/

@@ -8,6 +8,7 @@ var Layout = function(name, state, preset) {
   this.id = encodeURI(this.name);
   this.state = state;
   this.preset = preset === undefined ? false : preset;
+  this.buttons = []
 };
 
 // TODO: do something if this fails to save in db
@@ -48,6 +49,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
   });
 
   parent.append($li);
+  this.buttons.push($li);
 };
 
 Layout.prototype.updateLayout = function(layout) {
@@ -60,6 +62,10 @@ Layout.prototype.updateLayout = function(layout) {
 
 Layout.prototype.updateName = function(name) {
   this.name = name;
+  for (var i in this.buttons) {
+    var $button = this.buttons[i]
+    $button.html(name);
+  }
   XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/name')
     .put(JSON.stringify({
       name: this.name
