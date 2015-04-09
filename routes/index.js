@@ -136,7 +136,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Update a testfit's name
-  app.put('/app/:id/testfits/:tid/edit/name', function(req, res, next) {
+  app.put('/app/:id/testfits/:tid/edit/name', isLoggedIn, function(req, res, next) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
         testfit.name = req.body.name;
@@ -146,7 +146,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Update a testfit's layout
-  app.put('/app/:id/testfits/:tid/edit/layout', function(req, res, next) {
+  app.put('/app/:id/testfits/:tid/edit/layout', isLoggedIn, function(req, res, next) {
     Testfit.findById(req.params.tid)
       .exec(function(err, testfit) {
         testfit.layout = req.body.layout;
@@ -156,7 +156,7 @@ module.exports = function(app, user, passport) {
   });
 
   // Delete a testfit
-  app.delete('/app/:id/testfits/:tid', function(req, res) {
+  app.delete('/app/:id/testfits/:tid', isLoggedIn, function(req, res) {
     console.log(req.params.tid)
     Testfit.findByIdAndRemove(req.params.tid, function(err, testfit) {
       res.json(true)
