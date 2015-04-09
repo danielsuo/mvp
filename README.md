@@ -18,12 +18,14 @@
   - List of test fits
 - Better CMS editing
 - Add special be able to change it
-- protofit-dev, protofit-staging, protofit
 - Project creation script
 - Checkout PDF drawing
+- Fix drawing paths
+- Create bounding for SVG so it doesn't squash other stuff
 
 - Cell types in layout
 - Upgrade existing plans
+- Don't deselect all when replacing one cell with another?
   - ESB
   - Beacon
 - Refactor whitebox and layers
@@ -75,6 +77,8 @@
 - Deploying migrations
 
 ## Done
+- Update furniture blocks
+- protofit-dev, protofit-staging, protofit
 - Refactor disabled cell
 - Merge the merge conference buttons
 - Set up routes

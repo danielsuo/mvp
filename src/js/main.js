@@ -76,19 +76,16 @@ XHR('/config/' + data.id).get()
 .then(function() {
 
   return Promise.all([
-    XHR('/img/conference-large.svg').get().then(function(response) {
+    XHR('/img/conference-16.svg').get().then(function(response) {
       data.conferenceLarge = data.createDef(response);
     }),
-    XHR('/img/conference-small.svg').get().then(function(response) {
+    XHR('/img/conference-10.svg').get().then(function(response) {
       data.conferenceSmall = data.createDef(response);
     }),
-    XHR('/img/desk-cluster-small.svg').get().then(function(response) {
+    XHR('/img/desk.svg').get().then(function(response) {
       data.deskSmall = data.createDef(response);
     }),
-    XHR('/img/desk-cluster-large.svg').get().then(function(response) {
-      data.deskLarge = data.createDef(response);
-    }),
-    XHR('/img/table-cluster.svg').get().then(function(response) {
+    XHR('/img/table.svg').get().then(function(response) {
       data.table = data.createDef(response);
     })
   ]);
