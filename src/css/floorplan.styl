@@ -1,9 +1,19 @@
-#app.three-d
-  #svg
-    display none
-  #project-north
-    display none
-
+#app
+  &.three-d
+    #svg
+      display none
+    #project-north
+      display none
+  &.new-testfit
+    #protofit
+      pointer-events none
+      box-shadow none
+      &:before
+        content ''
+        absolute100()
+        z-index 10
+        background purple25
+        opacity 0.25
 
 #protofit
   display flex
@@ -145,10 +155,10 @@
 #app.loading #svg
   opacity 0
 
-#protofit.has-selection #editor-done-btn
+#protofit.has-selection button.deselect
   opacity 1
   
-#editor-done-btn
+button.deselect
   margin 0
   position absolute
   bottom .5rem

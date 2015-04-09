@@ -180,13 +180,16 @@ radio('layout-whitebox').subscribe(function() {
 radio('layout-update-from-state').subscribe(function(layout) {
   if (data.unsavedNewTestFit) {
     data.unsavedNewTestFit = false;
-    data.layouts.add('Untitled', data.layouts.get(6).state).then(function(layoutIndex) {
+    data.layouts.add('Untitled', data.layouts.get(0).state).then(function(layoutIndex) {
       data.currentTestfit = layoutIndex;
     });
   }
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
     data.$nameInput.val(layout.name);
+    for (var i in layout.buttons) {
+      layout.buttons[i].addClass('active').siblings().removeClass('active');
+    }
   } else {
     data.cells.paintLayout(data.layers);
   }
@@ -284,23 +287,25 @@ var beginNewTestFit = function() {
   // show new panel
   $('#panel .new li').removeClass('active')
   $('#panel').addClass('show-new');
+  $(data.appContainer).addClass('new-testfit')
 
   data.previousTestfit = data.currentTestfit;
   data.currentTestfit = 0;
 
   // show whitebox
-  radio('layout-update-from-state').broadcast(data.layouts.get(6));
+  radio('layout-update-from-state').broadcast(data.layouts.get(0));
 
   // not saved until customized or named
   data.unsavedNewTestFit = true;
-  data.$nameInput.val('Untitled test fit').focus()
-
+  data.$nameInput.val('Untitled test fit');
 }
 
 var cancelNewTestFit = function() {
   data.unsavedNewTestFit = false;  
 
   $('#panel').removeClass('show-new');
+  $(data.appContainer).removeClass('new-testfit')
+
 
   data.currentTestfit = data.previousTestfit;
   data.previousTestfit = 0;
@@ -321,29 +326,29 @@ $('#panel button.next').click(function() {
   $('#panel').addClass('show-editor');
 });
 
-
-
-$('#layout-next-btn').click(function() {
-  $('#actions').addClass('show-editor');
-});
-$('#editor-back-btn').click(function() {
-  $('#actions').removeClass('show-editor');
+$('#panel .editor button.cancel').click(function() {
+  $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
-$('#editor-done-btn').click(function() {
+$('#panel .editor button.save').click(function() {
+  $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
-$('#merge-btn').click(function() {
-  radio('merge-initiated').broadcast();
+
+$('button.deselect').click(function() {
+  radio('selection-clear').broadcast();
 });
-$('#split-btn').click(function() {
-  radio('split-initiated').broadcast();
-});
+
 $('#change-btn').click(function() {
   radio('request-change').broadcast();
 });
+
 $('#share-btn').click(function() {
   radio('share').broadcast();
+});
+
+data.$nameInput.blur(function(){
+  data.layouts.get(data.currentTestfit).updateName(this.value)
 });
 
 // From http://tjvantoll.com/2012/06/15/detecting-print-requests-with-javascript/
