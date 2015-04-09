@@ -12,7 +12,7 @@
     "address": "90 Park Avenue"
   },
   "north": {
-    "direction": 120
+    "direction": -120
   },
   "width": "1734",
   "height": "1566",

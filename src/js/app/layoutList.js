@@ -58,7 +58,7 @@ LayoutList.prototype.add = function(name, layoutState) {
 
   return Layout.create(name, layoutState)
     .then(function(layout) {
-      layout.createButton(that.parent);
+      layout.createButton(that.parent, true);
       that.layouts.push(layout);
       return that.layouts.length - 1;
     });

@@ -34,6 +34,7 @@ data.logo = document.getElementById('project-logo');
 data.rsfInput = document.getElementById('rsf-input');
 data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
+data.$nameInput = $('#protofit input.name');
 
 data.currentTestfit = 0;
 data.previousTestfit = 0;
@@ -188,6 +189,7 @@ radio('layout-update-from-state').subscribe(function(layout) {
   }
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
+    data.$nameInput.val(layout.name);
   } else {
     data.cells.paintLayout(data.layers);
   }
@@ -294,6 +296,8 @@ var beginNewTestFit = function() {
 
   // not saved until customized or named
   data.unsavedNewTestFit = true;
+  data.$nameInput.val('Untitled test fit').focus()
+
 }
 
 var cancelNewTestFit = function() {

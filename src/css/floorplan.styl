@@ -6,8 +6,8 @@
 
 
 #protofit
-  position absolute
   display flex
+  position absolute
   width 80%
   height 100%
   margin 0
@@ -18,7 +18,48 @@
   border-left 1px solid rgba(0,0,8,0.1)
   overflow hidden
   user-select none
+  
+  .input-wrap
+    width 100%
+    height 3rem
+    position relative
+    font-size 1.5rem
+    transition all 0.15s ease
+    &:after
+      content ''
+      position absolute
+      width calc(100% - 4rem)
+      height 1px
+      bottom 0
+      left 2rem
+      background rgba(0,0,8,0.075)
+    &:hover, &.active
+      background #fff
+     
+  input.name
+    absolute100()
+    padding .5rem 2rem
+    background transparent
+    outline none
+    box-shadow none
+    border none
+    color purple70
+    &:after
+      content ''
+      width 50%
+      height 100%
+      background red
+    &:hover
+      color purple60
+      cursor pointer
+    &:focus, &:active
+      outline none
+      color purple60
+      FranklinMedium()
     
+    
+
+
   iframe
     width 100%
     height 100%
@@ -74,12 +115,13 @@
   width 100%
   height 100%
   box-sizing border-box 
-  padding 2rem
+  padding 0
   position relative
   
 
 #svg
   width calc(100% - 4em)
+  box-sizing border-box 
   height auto
   opacity 1
   transition opacity 0.66s ease 0.2s
