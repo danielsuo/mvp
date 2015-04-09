@@ -31,7 +31,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
 
   if (deleteEnabled && !that.preset) {
     var $deleteBtn = $('<div class="btn x"></div>');
-    $deleteBtn.click(function(){
+    $deleteBtn.click(function() {
       that.delete();
       // TODO: unfuck that
       $(this).parent().remove();
@@ -50,9 +50,20 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
   parent.append($li);
 };
 
-Layout.prototype.update = function(layout) {
+Layout.prototype.updateLayout = function(layout) {
   this.state = layout;
-  XHR('/app/' + data.id + '/testfits' + this.id).put(JSON.stringify(result.serialize()));
+  XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/layout')
+    .put(JSON.stringify({
+      layout: this.state
+    }));
+};
+
+Layout.prototype.updateName = function(name) {
+  this.name = name;
+  XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/name')
+    .put(JSON.stringify({
+      name: this.name
+    }));
 };
 
 Layout.prototype.delete = function() {
