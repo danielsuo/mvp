@@ -49,6 +49,7 @@
 - Pretty urls
 - Cache user organization so we don't check each time something happens
 - Create CellList, Cell, Layout, and Layer schema?
+- Flash on save success/fail
 
 - Multiline addresses
 - Move unmoveable cells (e.g., reception, pantry) to own layer
