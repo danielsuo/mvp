@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "directory": "/data/floored/vornado/",
+  "directory": "/data/vornado/90-park/",
   "organizations": [{
     "name": "Vornado Realty Trust",
     "address": "888 Seventh Ave #44 New York, NY",
@@ -19,7 +19,6 @@
   "suite": {
     "number": 7,
     "name": "Seventh Floor",
-    "directory": "/data/floored/vornado/",
     "area": 44968
   },
   "user": {
