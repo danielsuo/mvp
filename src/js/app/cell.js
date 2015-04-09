@@ -34,6 +34,9 @@ Cell.fromSVG = function(svg) {
     case 'polygon':
       return Cell.fromPolygon(svg);
       break;
+    case 'polyline':
+      return Cell.fromPolyline(svg);
+      break;
   };
 };
 
@@ -74,6 +77,17 @@ Cell.fromPolygon = function(polygon) {
   }));
 };
 
+Cell.fromPolyline = function(polyline) {
+  var corners = polyline.array.value.map(function(corner) {
+    return {
+      x: corner[0],
+      y: corner[1]
+    };
+  });
+
+  return new Cell(Cell.removeDuplicateCorners(corners));
+};
+
 Cell.extractCornersFromLines = function(lines) {
   // Grab all line segment ends
   var corners = lines.map(function(line) {
@@ -86,7 +100,10 @@ Cell.extractCornersFromLines = function(lines) {
     }];
   });
 
-  // Flatten and remove duplicates
+  return Cell.removeDuplicateCorners(corners);
+};
+
+Cell.removeDuplicateCorners = function(corners) {
   corners = _(corners).flattenDeep()
     .remove(function(item, pos, self) {
       for (var i = pos + 1; i < self.length; i++)
@@ -94,9 +111,8 @@ Cell.extractCornersFromLines = function(lines) {
           return false;
       return true
     }).value();
-
   return corners;
-};
+}
 
 Cell.merge = function(cells) {
   // For now just join corners; don't bother deleting duplicate corners
@@ -397,8 +413,8 @@ Cell.prototype.createClippingPath = function(ratio) {
   var that = this;
   var transformedCorners = that.corners.map(function(corner) {
     return {
-      x: corner.x * ratio,
-      y: corner.y * ratio
+      x: (corner.x - data.viewbox().x) * ratio,
+      y: (corner.y - data.viewbox().y) * ratio
     };
   });
 

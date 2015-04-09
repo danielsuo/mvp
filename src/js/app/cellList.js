@@ -19,22 +19,11 @@ var CellList = function(cells) {
 
   for (var i = 0; i < cellData.length; i++) {
     // Parse cell data
-    var cell = Cell.fromSVG(cellData[i]);
+    var cell = Cell.fromSVG(cellData[i].children()[0]);
 
     // Assign cell to cell.id
     this.cells[cell.id] = cell;
   }
-
-  // TODO: Refactor disabled cells
-  var disabled = [];
-  for (var disabled_type in data.config.cells.disabled) {
-    for (var i = 0; i < data.config.cells.disabled[disabled_type].length; i++) {
-      var cell = data.config.cells.disabled[disabled_type][i];
-      disabled.push(cell);
-      this.cells[cell].drawingPath.node.dataset.disabled = true;
-    }
-  }
-  data.config.cells.disabled.total = disabled;
 
   // Remove from DOM. We should be able to just parse SVG and load into DOM, but
   // leaving as is for now.
@@ -297,6 +286,8 @@ CellList.prototype.getClippingPaths = function() {
 CellList.prototype.drawCells = function(layers) {
   var ratio = data.getClientToSVGRatio();
   this.map(function(cell, id) {
+    if (cell.disabled) return;
+
     var layer = layers[cell.layer];
 
     if (cell.merged()) {
@@ -315,7 +306,7 @@ CellList.prototype.registerHandlers = function() {
 
     function(cell, dragging) {
 
-      if (data.config.cells.disabled.total.indexOf(cell.id) > -1) {
+      if (cell.disabled) {
         // console.log('disabled')
         return;
       }
