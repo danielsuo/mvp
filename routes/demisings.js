@@ -57,6 +57,7 @@ router.get('/:id/suites/new', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/suites/new', isLoggedIn, function(req, res, next) {
   req.body.demising = mongoose.Types.ObjectId(req.params.id);
+  req.body.createdAt = req.body.updatedAt = new Date();
   Suite.create(req.body, function(err, suite) {
     if (err) return next(err);
     res.redirect('/demisings/' + req.params.id + '/');

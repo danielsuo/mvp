@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var relationship = require('mongoose-relationship');
 var forms = require('forms-mongoose');
+var findOrCreate = require('mongoose-findorcreate')
 
 var demisingSchema = mongoose.Schema({
   name: {
@@ -9,6 +10,8 @@ var demisingSchema = mongoose.Schema({
       all: {}
     }
   },
+  createdAt: Date,
+  updatedAt: Date,
   floor: {
     type: mongoose.Schema.ObjectId,
     ref: 'Floor',
@@ -23,6 +26,8 @@ var demisingSchema = mongoose.Schema({
 demisingSchema.plugin(relationship, {
   relationshipPathName: 'floor'
 });
+
+demisingSchema.plugin(findOrCreate);
 
 demisingSchema.statics.createForm = function(extra) {
   return forms.create(this, extra);

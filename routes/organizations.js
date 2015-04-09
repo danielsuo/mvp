@@ -59,6 +59,7 @@ router.get('/:id/edit', isLoggedIn, function(req, res, next) {
 });
 
 router.post('/:id/edit', isLoggedIn, function(req, res, next) {
+  req.body.updatedAt = new Date();
   Organization.findById(req.params.id, function(err, organization) {
     if (err) return next(err);
     organization.name = req.body.name;
@@ -80,6 +81,7 @@ router.get('/:id/buildings/new', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/buildings/new', isLoggedIn, function(req, res, next) {
   req.body.organizations = [mongoose.Types.ObjectId(req.params.id)];
+  req.body.createdAt = req.body.updatedAt = new Date();
   Building.create(req.body, function(err, building) {
     if (err) return next(err);
     res.redirect('/organizations/' + req.params.id + '/');
@@ -101,30 +103,18 @@ router.post('/:id/users/new', isLoggedIn, function(req, res, next) {
       var newUser = new User();
       newUser.email = req.body.email;
       newUser.password = newUser.generateHash(req.body.password);
+      console.log(newUser.password)
       newUser.role = newUser.role;
       newUser.organizations = [mongoose.Types.ObjectId(req.params.id)];
       newUser.name = req.body.name;
+      newUser.createdAt = newUser.updatedAt = new Date();
 
       newUser.save(function(err) {
         if (err) throw err;
-        console.log(newUser);
         res.redirect('/organizations/' + req.params.id + '/');
       });
     }
-  })
-  // console.log(req.body)
-  // req.body.organizations = ;
-  //   console.log(req.body)
-  //   console.log(User)
-  // req.body.password = User.generateHash(req.body.password);
-  //   console.log(req.body)
-  // console.log('hello')
-  // User.create(req.body, function(err, user) {
-  //   console.log(err)
-  //   if (err) return next(err);
-  //   console.log(req.params.id)
-  //   res.redirect('/organizations/' + req.params.id + '/');
-  // });
+  });
 });
 
 router.put('/:id', isLoggedIn, function(req, res, next) {

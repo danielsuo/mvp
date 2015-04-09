@@ -57,6 +57,7 @@ router.get('/:id/floors/new', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/floors/new', isLoggedIn, function(req, res, next) {
   req.body.building = mongoose.Types.ObjectId(req.params.id);
+  req.body.createdAt = req.body.updatedAt = new Date();
   Floor.create(req.body, function(err, floor) {
     if (err) return next(err);
     res.redirect('/buildings/' + req.params.id + '/');
