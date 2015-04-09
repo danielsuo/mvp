@@ -36,6 +36,7 @@ data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 
 data.currentTestfit = 0;
+data.previousTestfit = 0;
 
 XHR('/config/' + data.id).get()
 
@@ -65,10 +66,6 @@ XHR('/config/' + data.id).get()
   data.layers = data.config.layers.map(function(layer, index) {
     return new Layer(layer, index);
   });
-
-  data.layouts = new LayoutList();
-  data.layouts.loadFromPresets(data.config.layouts);
-  data.layouts.loadFromUserDefined(data.id);
 })
 
 // Set up defs for all data objects
@@ -99,12 +96,17 @@ XHR('/config/' + data.id).get()
   var $savedTestfitList = $('#panel .list ul');
   var $newTestfitList = $('#panel .new ul');
 
+  data.layouts = new LayoutList();
+  data.layouts.parent = $savedTestfitList;
+  data.layouts.loadFromPresets(data.config.layouts);
+  data.layouts.loadFromUserDefined(data.id);
+
   // var $layoutList = $('#layout-list');
   var $editorList = $('#panel .editor ul').first();
   var $editorListBig = $('#panel .editor ul').last();
 
   // Set up layout buttons
-  data.layouts.createButtons($savedTestfitList, true);
+  data.layouts.createButtons(data.layouts.parent, true);
 
   // Set up new testfit buttons
   data.layouts.createButtons($newTestfitList);
@@ -178,6 +180,12 @@ radio('layout-whitebox').subscribe(function() {
 });
 
 radio('layout-update-from-state').subscribe(function(layout) {
+  if (data.unsavedNewTestFit) {
+    data.unsavedNewTestFit = false;
+    data.layouts.add('Untitled', data.layouts.get(6).state).then(function(layoutIndex) {
+      data.currentTestfit = layoutIndex;
+    });
+  }
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
   } else {
@@ -273,17 +281,40 @@ data.afterPrint = function() {
   radio('layout-update-from-state').broadcast();
 };
 
-$('#panel .list button.new').click(function() {
+var beginNewTestFit = function() {
+  // show new panel
+  $('#panel .new li').removeClass('active')
   $('#panel').addClass('show-new');
-  // TODO: don't start from current condition
-  data.layouts.add('Untitled', data.layouts.get(0).state).then(function(layoutIndex) {
-    data.currentTestfit = layoutIndex;
-  });
+
+  data.previousTestfit = data.currentTestfit;
+  data.currentTestfit = 0;
+
+  // show whitebox
+  radio('layout-update-from-state').broadcast(data.layouts.get(6));
+
+  // not saved until customized or named
+  data.unsavedNewTestFit = true;
+}
+
+var cancelNewTestFit = function() {
+  data.unsavedNewTestFit = false;  
+
+  $('#panel').removeClass('show-new');
+
+  data.currentTestfit = data.previousTestfit;
+  data.previousTestfit = 0;
+
+  radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
+}
+
+$('#panel .list button.new').click(function() {
+  beginNewTestFit();
 });
 
 $('#panel .new button.close').click(function() {
-  $('#panel').removeClass('show-new');
+  cancelNewTestFit();
 });
+
 $('#panel button.next').click(function() {
   $('#panel').removeClass('show-new');
   $('#panel').addClass('show-editor');

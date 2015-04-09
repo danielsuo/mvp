@@ -27,7 +27,6 @@ LayoutList.prototype.get = function(i) {
 };
 
 LayoutList.prototype.createButtons = function(parent, deleteEnabled) {
-  this.parent = parent;
   _.forOwn(this.layouts, function(layout, id) {
     layout.createButton(parent, deleteEnabled)
   });
