@@ -18,8 +18,8 @@
   
   &.show-new, &.show-editor
     .list
-      filter brightness(0.5)
-      -webkit-filter brightness(0.5)
+      filter brightness(0.4)
+      -webkit-filter brightness(0.4)
     
   &.show-editor
     section.editor
@@ -106,7 +106,7 @@
       &:hover, &.active
         background-color #fff
         color #7270b1
-        .btn.x
+      &:hover .btn.x
           opacity 1
           transform translateY(-50%)
 
@@ -124,7 +124,7 @@
         transform translateX(50%) translateY(-50%)
           
     &.list
-      transition -webkit-filter 0.4s ease, filter 0.4s ease
+      transition -webkit-filter 0.66s ease, filter 0.66s ease
   
     &.new, &.editor
       transform translateY(100%)

@@ -326,8 +326,6 @@ $('#panel button.next').click(function() {
   $('#panel').addClass('show-editor');
 });
 
-
-
 $('#panel .editor button.cancel').click(function() {
   $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
@@ -336,18 +334,15 @@ $('#panel .editor button.save').click(function() {
   $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
+
 $('button.deselect').click(function() {
   radio('selection-clear').broadcast();
 });
-$('#merge-btn').click(function() {
-  radio('merge-initiated').broadcast();
-});
-$('#split-btn').click(function() {
-  radio('split-initiated').broadcast();
-});
+
 $('#change-btn').click(function() {
   radio('request-change').broadcast();
 });
+
 $('#share-btn').click(function() {
   radio('share').broadcast();
 });
