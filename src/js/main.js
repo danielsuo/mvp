@@ -178,12 +178,6 @@ radio('layout-whitebox').subscribe(function() {
 });
 
 radio('layout-update-from-state').subscribe(function(layout) {
-  if (data.unsavedNewTestFit) {
-    data.unsavedNewTestFit = false;
-    data.layouts.add('Untitled', data.layouts.get(0).state).then(function(layoutIndex) {
-      data.currentTestfit = layoutIndex;
-    });
-  }
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
     data.$nameInput.val(layout.name);
@@ -294,15 +288,9 @@ var beginNewTestFit = function() {
 
   // show whitebox
   radio('layout-update-from-state').broadcast(data.layouts.get(0));
-
-  // not saved until customized or named
-  data.unsavedNewTestFit = true;
-  data.$nameInput.val('Untitled test fit');
 }
 
 var cancelNewTestFit = function() {
-  data.unsavedNewTestFit = false;  
-
   $('#panel').removeClass('show-new');
   $(data.appContainer).removeClass('new-testfit')
 
@@ -317,11 +305,25 @@ $('#panel .list button.new').click(function() {
   beginNewTestFit();
 });
 
+
+$('#panel section.list button.edit').click(function() {
+  $('#panel').removeClass('show-new');
+  $('#panel').addClass('show-editor');
+});
+
 $('#panel .new button.close').click(function() {
   cancelNewTestFit();
 });
 
-$('#panel section.list button.edit').click(function() {
+$('#panel .new button.edit').click(function() {
+  // Save new test fit
+  data.layouts.add('Untitled new test fit', data.layouts.get(0).state).then(function(layoutIndex) {
+    data.currentTestfit = layoutIndex;
+  });
+
+  $(data.appContainer).removeClass('new-testfit')
+  data.$nameInput.focus()
+
   $('#panel').removeClass('show-new');
   $('#panel').addClass('show-editor');
 });
@@ -330,8 +332,11 @@ $('#panel .editor button.cancel').click(function() {
   $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
+
 $('#panel .editor button.save').click(function() {
   $('#panel').removeClass('show-editor');
+  // data.layouts.get(data.currentTestfit).updateLayout(data.cells.get(layout)
+  data.layouts.get(data.currentTestfit).updateLayout(data.cells.getLayout());
   radio('selection-clear').broadcast();
 });
 
