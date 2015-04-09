@@ -14,14 +14,13 @@
 - /home
 - / + /login
 - Saving / loading test fits
-  - Redesign app layout
-  - List of test fits
 - Better CMS editing
 - Add special be able to change it
 - Project creation script
 - Checkout PDF drawing
 - Fix drawing paths
 - Create bounding for SVG so it doesn't squash other stuff
+- Empty cell highlighting
 
 - Cell types in layout
 - Upgrade existing plans
@@ -77,6 +76,8 @@
 - Deploying migrations
 
 ## Done
+- Redesign app layout
+- List of test fits
 - Update furniture blocks
 - protofit-dev, protofit-staging, protofit
 - Refactor disabled cell

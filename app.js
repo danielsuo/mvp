@@ -16,6 +16,7 @@ var MongoStore = require('connect-mongo')(session);
 
 var db = require('./db');
 
+require('./db/init');
 require('./config/admin');
 
 var app = express();

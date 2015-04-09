@@ -131,6 +131,27 @@ module.exports = function(app, user, passport) {
       .exec(function(err, testfit) {
         if (err) next(err);
         testfit.layout = req.body;
+        testfit.updatedAt = new Date();
+      });
+  });
+
+  // Update a testfit's name
+  app.put('/app/:id/testfits/:tid/edit/name', function(req, res, next) {
+    Testfit.findById(req.params.tid)
+      .exec(function(err, testfit) {
+        testfit.name = req.body.name;
+        testfit.updatedAt = new Date();
+        testfit.save();
+      });
+  });
+
+  // Update a testfit's layout
+  app.put('/app/:id/testfits/:tid/edit/layout', function(req, res, next) {
+    Testfit.findById(req.params.tid)
+      .exec(function(err, testfit) {
+        testfit.layout = req.body.layout;
+        testfit.updatedAt = new Date();
+        testfit.save();
       });
   });
 

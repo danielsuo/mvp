@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "directory": "/data/floored/vornado/",
   "client": {
     "id": "floored",
@@ -14,16 +15,7 @@
   "north": {
     "direction": 120
   },
-  "width": "1734",
-  "height": "1566",
   "last_updated": "",
-  "cells": {
-    "length": 46,
-    "disabled": {
-      "pantry": [36, 37],
-      "reception": []
-    }
-  },
   "models": [{
     "name": "Perimeter Offices",
     "url": "http://depot.floored.com/scenes/10-East-53rd-St_Protofit-Edition_Perimeter-Offices"
