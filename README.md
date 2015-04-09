@@ -78,6 +78,8 @@
 - Deploying migrations
 
 ## Done
+- Cell counts
+- Fix whitebox
 - Add 'suite' in front of suite number in show
 - Project creation script
 - Redesign app layout

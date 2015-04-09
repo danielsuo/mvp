@@ -111,9 +111,9 @@ CellList.prototype.mergeable = function(cells) {
   if (numToMerge > 1 && numToMerge <= 3) {
     var line = _.transform(cells, function(result, child, id) {
       result.x = result.x === undefined ? child.center.x :
-        Math.abs(result.x - child.center.x) < 20 ? child.center.x : false;
+        Math.abs(result.x - child.center.x) < 1 ? child.center.x : false;
       result.y = result.y === undefined ? child.center.y :
-        Math.abs(result.y - child.center.y) < 20 ? child.center.y : false;
+        Math.abs(result.y - child.center.y) < 1 ? child.center.y : false;
     });
 
     // If in a line (weirdly written in case both line.x and line.y are 0),
