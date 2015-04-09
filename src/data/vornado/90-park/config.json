@@ -13,7 +13,7 @@
     "address": "90 Park Avenue"
   },
   "north": {
-    "direction": 120
+    "direction": -120
   },
   "last_updated": "",
   "models": [{

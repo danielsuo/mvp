@@ -3,6 +3,11 @@
 {% block head %}{% endblock %}
 
 {% block body %}
+<!-- <header id="site-header">
+  <div class="logo"></div>
+  <input type="text" />
+</header> -->
+
 <div id="app" class="loading">
 
   <div id="panel">
@@ -51,11 +56,15 @@
 
   <div id="protofit">
 
-    <div id="svg-wrap">
-      <div id='svg'>  
-        <div id='svg-bg' class='bg'></div>
+      <div id="svg-wrap">
+        <div class="input-wrap">
+          <input type="text" name="testfit-name" class="name">
+        </div>
+        <div id='svg'>  
+          <div id='svg-bg' class='bg'></div>
+        </div>
       </div>
-    </div>
+
 
     <button id="editor-done-btn" class="btn deselect">Deselect All</button>
 
