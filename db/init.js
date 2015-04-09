@@ -2,6 +2,7 @@ var walk = require('walk');
 var fs = require('fs');
 var path = require('path');
 var mongoose = require('mongoose')
+var _ = require('lodash');
 
 var db = require('./');
 
@@ -55,7 +56,9 @@ var findOrCreate = function(config, parent, modelName) {
     var parentId = mongoose.Types.ObjectId(parent._id);
     config[modelName][parentName] = modelName == 'building' ? [parentId] : parentId;
 
-    if (modelName === 'suite') config[modelName].config = config;
+    if (modelName === 'suite') {
+      config[modelName].config = _.clone(config, true);
+    }
 
     models[modelName].create(config[modelName], function(err, object) {
       if (childName) findOrCreate(config, object, childName);
