@@ -14,12 +14,14 @@
 - /home
 - / + /login
 - Saving / loading test fits
-- Better CMS editing
-- Add special be able to change it
-- Checkout PDF drawing
-- Fix drawing paths
+- Add home page
+
 - Create bounding for SVG so it doesn't squash other stuff
 - Empty cell highlighting
+- Fix drawing paths
+- Better CMS editing
+- Checkout PDF drawing
+- Add special be able to change it
 
 - Cell types in layout
 - Upgrade existing plans
@@ -76,6 +78,9 @@
 - Deploying migrations
 
 ## Done
+- Cell counts
+- Fix whitebox
+- Add 'suite' in front of suite number in show
 - Project creation script
 - Redesign app layout
 - List of test fits

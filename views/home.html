@@ -44,7 +44,7 @@
                 {% if floor.demisings.length > 0 %}
                 <ul>
                   {% for suite in floor.demisings[0].suites %}
-                  <li><a href="/app/{{ suite.id }}/">{{ suite.number }}</a></li>
+                  <li><a href="/app/{{ suite.id }}/">Suite {{ suite.number }}</a></li>
                   {% endfor %}
                 </ul>
                 {% endif %}   

@@ -17,12 +17,6 @@ var suiteSchema = mongoose.Schema({
       all: {}
     }
   },
-  directory: {
-    type: String,
-    forms: {
-      all: {}
-    }
-  },
   area: {
     type: Number,
     forms: {
