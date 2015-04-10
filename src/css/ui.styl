@@ -93,6 +93,7 @@
     button.close
       left 0
       opacity 1
+      transform rotate(-90deg)
       
     .scroll
       overflow scroll
@@ -148,6 +149,8 @@
     &.list
       transition -webkit-filter 0.66s ease, filter 0.66s ease
       .scroll
+        ul:first-of-type
+          border-top 0
         h3, ul:last-of-type
           display none
   

@@ -310,7 +310,7 @@ var cancelNewTestFit = function() {
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
 
-$('#panel header button.back').click(function() {
+$('#panel .list button.back').click(function() {
   window.location.href = "/home"
 });
 
