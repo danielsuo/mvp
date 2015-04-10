@@ -4,7 +4,8 @@ var Layout = require('./layout');
 var radio = require('radio');
 
 var LayoutList = function() {
-  this.layouts = [];
+  this.layouts = {};
+  this.initial;
   this.parent;
 
   radio('layout-remove').subscribe([
@@ -22,8 +23,8 @@ var LayoutList = function() {
   ])
 };
 
-LayoutList.prototype.get = function(i) {
-  return this.layouts[i];
+LayoutList.prototype.get = function(id) {
+  return this.layouts[id];
 };
 
 LayoutList.prototype.createButtons = function(parent, deleteEnabled) {
@@ -35,7 +36,8 @@ LayoutList.prototype.createButtons = function(parent, deleteEnabled) {
 LayoutList.prototype.loadFromPresets = function(layouts) {
   for (var i = 0; i < layouts.length; i++) {
     var layout = new Layout(layouts[i].name, layouts[i].state, true);
-    this.layouts.push(layout);
+    this.layouts[layout.id] = layout;
+    if (i == 0) this.initial = layout.id;
   }
 };
 
@@ -47,25 +49,31 @@ LayoutList.prototype.loadFromUserDefined = function(suiteId) {
       var layouts = JSON.parse(response);
       for (var i = 0; i < layouts.length; i++) {
         var layout = new Layout(layouts[i].name, layouts[i].layout, false);
-        layout.id = layouts[i]._id;
+        layout.dbid = layouts[i]._id;
         layout.createButton(that.parent, true);
-        that.layouts.push(layout);
+        that.layouts[layout[id]] = layout;
       }
     });
 };
 
-setTimeout(function() {
-  console.log(data.layouts.get(7))
-}, 5000)
-
-LayoutList.prototype.add = function(name, layoutState) {
+// Create a temporary object
+LayoutList.prototype.draft = function(name, layoutState) {
   var that = this;
 
-  return Layout.create(name, layoutState)
-    .then(function(layout) {
-      layout.createButton(that.parent, true);
-      that.layouts.push(layout);
-      return that.layouts.length - 1;
+  var layout = Layout.draft(name, layoutState);
+  layout.createButton(this.parent, true);
+  this.layouts[layout.id] = layout;
+
+  return layout;
+};
+
+LayoutList.prototype.commit = function(id) {
+  var that = this;
+
+  // Save to database;
+  that.layouts[id].commit().then(
+    function(dbid) {
+      that.layouts[id].dbid = dbid;
     });
 };
 
@@ -73,10 +81,10 @@ LayoutList.prototype.update = function(index, layout) {
   this.layouts[index].update(layout);
 };
 
-LayoutList.prototype.remove = function(index) {
-  $('#' + this.layouts[index].id).remove();
-  // this.layouts[index].delete();
-  // this.layouts.splice(index, 1);
+LayoutList.prototype.remove = function(id) {
+  $('#' + this.layouts[id].id).remove();
+  this.layouts[id].delete();
+  delete this.layouts[id];
 };
 
 module.exports = LayoutList;

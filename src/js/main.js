@@ -36,9 +36,6 @@ data.appContainer = document.getElementById('app');
 data.measurement = document.getElementById('measurement');
 data.$nameInput = $('#protofit input.name');
 
-data.currentTestfit = 0;
-data.previousTestfit = 0;
-
 XHR('/config/' + data.id).get()
 
 // Parse config file and configure SVG canvas
@@ -152,6 +149,9 @@ XHR('/config/' + data.id).get()
 })
 
 .then(function() {
+
+  data.currentTestfit = data.previousTestfit = data.layouts.initial;
+
   data.cells.updateClippingPaths(data.getClientToSVGRatio());
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
   $(window).resize(function() {
@@ -171,10 +171,6 @@ XHR('/config/' + data.id).get()
 
 radio('merge-possible').subscribe(function() {
   console.log('merge possible!!!!')
-});
-
-radio('layout-whitebox').subscribe(function() {
-  data.cells.paintLayoutFromPreset(data.config.layouts[data.config.layouts.length - 1].state, data.layers);
 });
 
 radio('layout-update-from-state').subscribe(function(layout) {
@@ -285,10 +281,12 @@ var beginNewTestFit = function() {
   $(data.appContainer).addClass('new-testfit')
 
   data.previousTestfit = data.currentTestfit;
-  data.currentTestfit = data.layouts.length;
 
   // show whitebox
-  radio('layout-update-from-state').broadcast(data.layouts.get(5));
+  var layout = data.layouts.draft('Untitled', data.layouts.get('whitebox').state);
+  data.currentTestfit = layout.id;
+
+  radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
 
 var cancelNewTestFit = function() {
@@ -302,6 +300,7 @@ var cancelNewTestFit = function() {
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
 
+// Plus button to create new testfit
 $('#panel .list button.new').click(function() {
   beginNewTestFit();
 });
@@ -316,11 +315,10 @@ $('#panel .new button.close').click(function() {
   cancelNewTestFit();
 });
 
+// Create new testfit button on new test fit panel
 $('#panel .new button.edit').click(function() {
   // Save new test fit
-  data.layouts.add('Untitled new test fit', data.layouts.get(data.currentTestfit).state).then(function(layoutIndex) {
-    data.currentTestfit = layoutIndex;
-  });
+  data.layouts.commit(data.currentTestfit);
 
   $(data.appContainer).removeClass('new-testfit')
   data.$nameInput.focus()
