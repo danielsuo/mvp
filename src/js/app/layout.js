@@ -42,7 +42,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
   }
 
   $li.click(function() {
-    $(this).siblings().removeClass('active');
+    $(this).parent().parent().find('li').removeClass('active');
     $(this).addClass('active');
     radio('layout-update-from-state').broadcast(that);
     radio('selection-clear').broadcast();

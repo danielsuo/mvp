@@ -182,7 +182,8 @@ radio('layout-update-from-state').subscribe(function(layout) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
     data.$nameInput.val(layout.name);
     for (var i in layout.buttons) {
-      layout.buttons[i].addClass('active').siblings().removeClass('active');
+      layout.buttons[i].parent().parent().find('li').removeClass('active');
+      layout.buttons[i].addClass('active');
     }
   } else {
     data.cells.paintLayout(data.layers);
