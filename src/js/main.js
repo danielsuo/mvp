@@ -101,10 +101,10 @@ XHR('/config/' + data.id).get()
   var $editorListBig = $('#panel .editor ul').last();
 
   // Set up layout buttons
-  data.layouts.createButtons(data.layouts.parent, true);
+  data.layouts.createButtons(data.layouts.parent, true, false);
 
   // Set up new testfit buttons
-  data.layouts.createButtons($newTestfitList);
+  data.layouts.createButtons($newTestfitList, false, true);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -173,10 +173,10 @@ radio('merge-possible').subscribe(function() {
   console.log('merge possible!!!!')
 });
 
-radio('layout-update-from-state').subscribe(function(layout) {
+radio('layout-update-from-state').subscribe(function(layout, newTestfit) {
   if (layout !== undefined) {
     data.cells.paintLayoutFromPreset(layout.state, data.layers);
-    data.$nameInput.val(layout.name);
+    if (newTestfit === undefined || !newTestfit) data.$nameInput.val(layout.name);
     for (var i in layout.buttons) {
       layout.buttons[i].parent().parent().find('li').removeClass('active');
       layout.buttons[i].addClass('active');
@@ -288,7 +288,7 @@ var beginNewTestFit = function() {
   data.previousTestfit = data.currentTestfit;
 
   // show whitebox
-  var layout = data.layouts.draft('Untitled', data.layouts.get('whitebox').state);
+  var layout = data.layouts.draft('Untitled', data.layouts.get(data.layouts.initial).state);
   data.currentTestfit = layout.id;
 
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
@@ -298,9 +298,9 @@ var cancelNewTestFit = function() {
   $('#panel').removeClass('show-new');
   $(data.appContainer).removeClass('new-testfit')
 
+  data.layouts.remove(data.currentTestfit);
 
   data.currentTestfit = data.previousTestfit;
-  data.previousTestfit = data.layouts.length;
 
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
@@ -339,9 +339,8 @@ $('#panel .editor button.cancel').click(function() {
 
 $('#panel .editor button.save').click(function() {
   $('#panel').removeClass('show-editor');
-  // data.layouts.get(data.currentTestfit).updateLayout(data.cells.get(layout)
+
   var layout = data.cells.getLayout();
-  console.log(data.layouts.get(data.currentTestfit))
   data.layouts.get(data.currentTestfit).updateLayout(layout);
   radio('selection-clear').broadcast();
 });

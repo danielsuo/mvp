@@ -27,9 +27,9 @@ LayoutList.prototype.get = function(id) {
   return this.layouts[id];
 };
 
-LayoutList.prototype.createButtons = function(parent, deleteEnabled) {
+LayoutList.prototype.createButtons = function(parent, deleteEnabled, newTestfit) {
   _.forOwn(this.layouts, function(layout, id) {
-    layout.createButton(parent, deleteEnabled)
+    layout.createButton(parent, deleteEnabled, newTestfit);
   });
 };
 
@@ -51,7 +51,7 @@ LayoutList.prototype.loadFromUserDefined = function(suiteId) {
         var layout = new Layout(layouts[i].name, layouts[i].layout, false);
         layout.dbid = layouts[i]._id;
         layout.createButton(that.parent, true);
-        that.layouts[layout[id]] = layout;
+        that.layouts[layout.id] = layout;
       }
     });
 };

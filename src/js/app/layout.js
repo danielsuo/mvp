@@ -34,7 +34,7 @@ Layout.prototype.commit = function() {
     });
 };
 
-Layout.prototype.createButton = function(parent, deleteEnabled) {
+Layout.prototype.createButton = function(parent, deleteEnabled, newTestfit) {
   var that = this;
 
   var $li = $(document.createElement('li'));
@@ -57,14 +57,19 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
     $(this).parent().parent().find('li').removeClass('active');
     $(this).addClass('active');
 
+    if (newTestfit) {
+      data.layouts.get(data.currentTestfit).state = that.state;
+    } else {
+      data.currentTestfit = that.id;
+    }
+    
     if (that.preset) {
       $('#panel .list button.edit').attr('disabled', true)
     } else {
       $('#panel .list button.edit').removeAttr('disabled')
     }
-    data.currentTestfit = this.id;
     
-    radio('layout-update-from-state').broadcast(that);
+    radio('layout-update-from-state').broadcast(that, newTestfit);
     radio('selection-clear').broadcast();
   });
 
@@ -78,7 +83,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
 
 Layout.prototype.updateLayout = function(layout) {
   this.state = layout;
-  console.log(this.id)
+  console.log(this.dbid)
   XHR('/app/' + data.id + '/testfits/' + this.dbid + '/edit/layout')
     .put(JSON.stringify({
       layout: this.state
