@@ -16,7 +16,30 @@
   -webkit-font-feature-settings 'liga' 0
   -moz-font-feature-settings 'liga' 0
   
+  > header
+    height 3rem
+    FranklinBold()
+    font-size 1.25rem
+    box-sizing border-box
+    padding 0 1rem
+    line-height 3rem
+    color purple60
+    border-bottom 1px solid rgba(0,0,8,0.075)
+    user-select none
+    position relative
+    z-index 2
+    text-align center
+    transition background-color 0.6s ease
+    
+    button.back
+      position absolute
+      left .5rem 
+      top 50%
+      transform translateY(-50%)
+  
   &.show-new, &.show-editor
+    > header 
+      background-color darkGrey
     .list
       filter brightness(0.6)
       -webkit-filter brightness(0.6)
@@ -24,18 +47,20 @@
   &.show-editor
     section.editor
       transform none
-      box-shadow 0 0 32px rgba(0,0,8,0.5)
+      // box-shadow 0 0 32px rgba(0,0,8,0.5)
 
   &.show-new
     section.new
       transform none
-      box-shadow 0 0 32px rgba(0,0,8,0.5)
+      // box-shadow 0 0 32px rgba(0,0,8,0.5)
   
   h3
     font-size 0.875em
 
   section
     absolute100()
+    height calc(100% - 3rem)
+    top 3rem
     box-sizing border-box
     display flex
     flex-direction column

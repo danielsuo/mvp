@@ -133,3 +133,26 @@ button, .btn
       &:before, &:after
         height 2px
         background #fff
+
+  &.back
+    circle()
+    border-color transparent
+    &:hover
+      background purple70
+      &:before
+        border-width 2px 0 0 2px
+        border-color #fafaff
+    &:active
+      background purple60
+      &:before
+        border-width 2px 0 0 2px
+        border-color #fff
+    &:before
+      width 0.75rem
+      height 0.75rem
+      background transparent
+      border 1px solid purple60
+      border-width 1px 0 0 1px
+      transform translateX(-30%) translateY(-50%) rotate(-45deg) 
+    &:after
+      content none

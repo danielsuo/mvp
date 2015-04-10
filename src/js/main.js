@@ -305,6 +305,10 @@ var cancelNewTestFit = function() {
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));
 }
 
+$('#panel header button.back').click(function() {
+  window.location.href = "/home"
+});
+
 // Plus button to create new testfit
 $('#panel .list button.new').click(function() {
   beginNewTestFit();
