@@ -11,7 +11,6 @@
 - Protofit brandmark everywhere / nav bar
 - /404
 
-- Be able to select after making new test fit
 - Don't deselect after editing
 - Flash after print 
 - PDF blackness
@@ -76,6 +75,7 @@
 - Deploying migrations
 
 ## Done
+- Be able to select after making new test fit
 - /app
 - /home
 - Saving / loading test fits
