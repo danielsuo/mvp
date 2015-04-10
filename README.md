@@ -11,6 +11,7 @@
 - Protofit brandmark everywhere / nav bar
 - /404
 
+- Don't crash when deleting current testfit
 - Don't deselect after editing
 - Flash after print 
 - PDF blackness

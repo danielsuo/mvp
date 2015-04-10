@@ -112,7 +112,7 @@ aside.sidebar
           border-width 1px 0
         > ul
           font-size 1.125em
-          margin-left 1.5rem
+          margin-left 1rem
           width 100%
           > li
             box-sizing border-box
@@ -126,4 +126,16 @@ aside.sidebar
             &:last-of-type
               border-width 0
             a
+              padding 0.5rem
               color purple45
+              transition all 0.15s ease
+              box-sizing border-box
+              border-radius 2px
+              &:hover
+                background #fff
+                color purple60
+                box-shadow 0 1px 2px rgba(0,0,8,.075)
+              &:active
+                background purple60
+                color #fff
+                box-shadow 0 1px 2px rgba(0,0,8,.075)
