@@ -5,20 +5,32 @@ var radio = require('radio');
 
 var Layout = function(name, state, preset) {
   this.name = name;
-  this.id = encodeURI(this.name);
+  this.id = encodeURI(this.name).toLowerCase();
+
+  // database-assigned id for user-defined
+  this.dbid;
+
   this.state = state;
   this.preset = preset === undefined ? false : preset;
+
+  if (!this.preset) {
+    this.id += String(Layout.count++);
+  }
+
   this.buttons = []
 };
 
-// TODO: do something if this fails to save in db
-Layout.create = function(name, layout) {
-  var result = new Layout(name, layout);
+Layout.count = 0;
 
-  return XHR('/app/' + data.id + '/new').post(JSON.stringify(result.serialize()))
+// TODO: do something if this fails to save in db
+Layout.draft = function(name, layout) {
+  return new Layout(name, layout);
+};
+
+Layout.prototype.commit = function() {
+  return XHR('/app/' + data.id + '/new').post(JSON.stringify(this.serialize()))
     .then(function(testfit) {
-      result.id = JSON.parse(testfit)._id;
-      return result;
+      return JSON.parse(testfit)._id;
     });
 };
 
@@ -44,6 +56,9 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
   $li.click(function() {
     $(this).siblings().removeClass('active');
     $(this).addClass('active');
+
+    data.currentTestfit = this.id;
+    
     radio('layout-update-from-state').broadcast(that);
     radio('selection-clear').broadcast();
   });
@@ -59,7 +74,7 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
 Layout.prototype.updateLayout = function(layout) {
   this.state = layout;
   console.log(this.id)
-  XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/layout')
+  XHR('/app/' + data.id + '/testfits/' + this.dbid + '/edit/layout')
     .put(JSON.stringify({
       layout: this.state
     }));
@@ -71,14 +86,16 @@ Layout.prototype.updateName = function(name) {
     var $button = this.buttons[i]
     $button.html(name);
   }
-  XHR('/app/' + data.id + '/testfits/' + this.id + '/edit/name')
+  XHR('/app/' + data.id + '/testfits/' + this.dbid + '/edit/name')
     .put(JSON.stringify({
       name: this.name
     }));
 };
 
 Layout.prototype.delete = function() {
-  XHR('/app/' + data.id + '/testfits/' + this.id).delete();
+  if (this.dbid) {
+    XHR('/app/' + data.id + '/testfits/' + this.dbid).delete();
+  }
 };
 
 Layout.prototype.serialize = function() {
