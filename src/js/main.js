@@ -444,3 +444,9 @@ document.getElementById('protofit').addEventListener('touchstart', function(even
 data.rsfInput.onchange = function(event) {
   document.getElementById('sfpp').innerHTML = Math.round(event.target.valueAsNumber / data.cells.getHeadcount());
 }
+
+data.$nameInput.keyup(function(event) {
+  if (event.keyCode === 13 || event.keyCode === 27) { // enter and escape
+    this.blur();
+  }
+});
