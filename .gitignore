@@ -1,11 +1,9 @@
 .DS_Store
-<<<<<<< HEAD
 node_modules
 public
 env.json
 
 npm-debug.log*
-=======
 *.log
 *~
 
@@ -14,4 +12,5 @@ site
 
 *py.class
 /processing*
->>>>>>> master
+
+patch.txt

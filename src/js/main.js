@@ -163,7 +163,10 @@ XHR('/config/' + data.id).get()
 // At the very end, remove the loading icon
 .then(function() {
   setTimeout(function() {
-    $(data.appContainer).removeClass('loading');
+    $('#panel .list li').first().click();
+    setTimeout(function() {
+      $(data.appContainer).removeClass('loading');
+    }, 100)
   }, 750);
 }, function(error) {
   console.log(error);
@@ -441,3 +444,9 @@ document.getElementById('protofit').addEventListener('touchstart', function(even
 data.rsfInput.onchange = function(event) {
   document.getElementById('sfpp').innerHTML = Math.round(event.target.valueAsNumber / data.cells.getHeadcount());
 }
+
+data.$nameInput.keyup(function(event) {
+  if (event.keyCode === 13 || event.keyCode === 27) { // enter and escape
+    this.blur();
+  }
+});
