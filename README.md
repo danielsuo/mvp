@@ -11,11 +11,15 @@
 - Protofit brandmark everywhere / nav bar
 - /404
 
+- Be able to select after making new test fit
+- Don't deselect after editing
+- Flash after print 
+- PDF blackness
 - Create bounding for SVG so it doesn't squash other stuff
 - Fix drawing paths
 - Better CMS editing
 - Checkout PDF drawing
-- Add special be able to change it
+- Add special be able to change it 
 
 - Cell types in layout
 - Upgrade existing plans

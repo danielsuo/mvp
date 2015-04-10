@@ -183,10 +183,10 @@ radio('layout-update-from-state').subscribe(function(layout, newTestfit) {
     }
     if (layout.preset) {
       $('#panel .list button.edit').attr('disabled', true)
-      $('#protofit').addClass('no-pointer-events')
+      // $('#protofit').addClass('no-pointer-events')
     } else {
       $('#panel .list button.edit').removeAttr('disabled')
-      $('#protofit').removeClass('no-pointer-events')
+      // $('#protofit').removeClass('no-pointer-events')
     }
   } else {
     data.cells.paintLayout(data.layers);
