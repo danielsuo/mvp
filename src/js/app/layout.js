@@ -65,8 +65,10 @@ Layout.prototype.createButton = function(parent, deleteEnabled, newTestfit) {
     
     if (that.preset) {
       $('#panel .list button.edit').attr('disabled', true)
+      $('#protofit').addClass('no-pointer-events')
     } else {
       $('#panel .list button.edit').removeAttr('disabled')
+      $('#protofit').removeClass('no-pointer-events')
     }
     
     radio('layout-update-from-state').broadcast(that, newTestfit);
