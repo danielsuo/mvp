@@ -31,7 +31,9 @@
   user-select none
   
   &.no-pointer-events
-    pointer-events none
+    #svg, input.name
+      pointer-events none
+    
   
   .input-wrap
     width 100%
@@ -137,7 +139,7 @@
   
 
 #svg
-  width calc(100% - 4em)
+  width calc(100% - 16em) //TODO: fix!
   box-sizing border-box 
   height auto
   opacity 1
