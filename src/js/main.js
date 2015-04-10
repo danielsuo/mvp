@@ -181,6 +181,11 @@ radio('layout-update-from-state').subscribe(function(layout) {
       layout.buttons[i].parent().parent().find('li').removeClass('active');
       layout.buttons[i].addClass('active');
     }
+    if (layout.preset) {
+      $('#panel .list button.edit').attr('disabled', true)
+    } else {
+      $('#panel .list button.edit').removeAttr('disabled')
+    }
   } else {
     data.cells.paintLayout(data.layers);
   }

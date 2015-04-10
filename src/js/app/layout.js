@@ -57,6 +57,11 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
     $(this).parent().parent().find('li').removeClass('active');
     $(this).addClass('active');
 
+    if (that.preset) {
+      $('#panel .list button.edit').attr('disabled', true)
+    } else {
+      $('#panel .list button.edit').removeAttr('disabled')
+    }
     data.currentTestfit = this.id;
     
     radio('layout-update-from-state').broadcast(that);
