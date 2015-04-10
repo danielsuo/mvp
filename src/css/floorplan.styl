@@ -9,12 +9,8 @@
       pointer-events none
       box-shadow none
       border-color rgba(0,0,8,0.3)
-      &:before
-        content ''
-        absolute100()
-        z-index 10
-        background purple25
-        opacity 0.25
+      filter brightness(0.75)
+      -webkit-filter brightness(0.75)
 
 #protofit
   display flex
@@ -29,6 +25,7 @@
   border-left 1px solid rgba(0,0,8,0.1)
   overflow hidden
   user-select none
+  transition filter 0.6s ease, -webkit-filter 0.6s ease
   
   &.no-pointer-events
     #svg, input.name

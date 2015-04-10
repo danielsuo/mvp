@@ -281,7 +281,7 @@ data.beforePrint = function() {
 };
 
 data.afterPrint = function() {
-  radio('layout-update-from-state').broadcast();
+  // radio('layout-update-from-state').broadcast();
 };
 
 var beginNewTestFit = function() {
@@ -341,7 +341,7 @@ $('#panel .new button.edit').click(function() {
   $('#panel').addClass('show-editor');
 });
 
-$('#panel .editor button.cancel').click(function() {
+$('#panel .editor button.cancel, #panel .editor button.close').click(function() {
   $('#panel').removeClass('show-editor');
   radio('selection-clear').broadcast();
 });
