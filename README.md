@@ -12,14 +12,12 @@
 - /app
 - /404
 - /home
-- / + /login
 - Saving / loading test fits
 - Add home page
 - Split up preset vs layout; can't edit preset?
 - Edit name not working
 
 - Create bounding for SVG so it doesn't squash other stuff
-- Empty cell highlighting
 - Fix drawing paths
 - Better CMS editing
 - Checkout PDF drawing
@@ -80,6 +78,8 @@
 - Deploying migrations
 
 ## Done
+- Empty cell highlighting
+- / + /login
 - Cell counts
 - Fix whitebox
 - Add 'suite' in front of suite number in show

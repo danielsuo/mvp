@@ -48,7 +48,11 @@ Layout.prototype.createButton = function(parent, deleteEnabled) {
     radio('selection-clear').broadcast();
   });
 
-  parent.append($li);
+  if (that.preset) {
+    parent.find('ul').last().append($li);
+  } else {
+    parent.find('ul').first().append($li);
+  }
   this.buttons.push($li);
 };
 

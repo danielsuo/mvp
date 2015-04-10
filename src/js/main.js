@@ -91,8 +91,8 @@ XHR('/config/' + data.id).get()
 
 .then(function() {
 
-  var $savedTestfitList = $('#panel .list ul');
-  var $newTestfitList = $('#panel .new ul');
+  var $savedTestfitList = $('#panel .list');
+  var $newTestfitList = $('#panel .new');
 
   data.layouts = new LayoutList();
   data.layouts.parent = $savedTestfitList;
