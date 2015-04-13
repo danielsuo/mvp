@@ -1,15 +1,30 @@
 {
-  "directory": "/data/floored/beacon/",
-  "client": {
-    "id": "floored",
-    "name": "Floored",
+  "version": 1,
+  "directory": "/data/beacon/wells-fargo/",
+  "organizations": [{
+    "name": "Beacon Capital Partners",
+    "address": "200 State Street, 5th Floor, Boston, MA",
     "logo": ["/logo.svg"]
+  }],
+  "building": {
+    "name": "Wells Fargo Center",
+    "address": "1700 Lincoln Street"
   },
-  "project": {
-    "id": "test",
-    "name": "Suite 2600",
-    "area": 10777,
-    "address": "Wells Fargo Center, 1700 Lincoln Street"
+  "floor": {
+    "number": 26
+  },
+  "demising": {
+    "name": "Main"
+  },
+  "suite": {
+    "number": 2600,
+    "name": 2600,
+    "area": 10777
+  },
+  "user": {
+    "email": "beacon@floored.com",
+    "role": "user",
+    "name": "Beacon"
   },
   "north": {
     "direction": 0

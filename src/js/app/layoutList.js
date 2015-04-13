@@ -33,6 +33,9 @@ LayoutList.prototype.createButtons = function(parent, deleteEnabled, newTestfit)
   });
 };
 
+// TODO: createTestfitButtons
+// TODO: viewTestfitButtons
+
 LayoutList.prototype.loadFromPresets = function(layouts) {
   for (var i = 0; i < layouts.length; i++) {
     var layout = new Layout(layouts[i].name, layouts[i].state, true);

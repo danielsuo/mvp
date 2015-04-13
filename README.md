@@ -8,19 +8,33 @@
 ## TODO
 =======
 ### This week
+- 3D link
+- Cubicle layer
+- Add special be able to change it
+- Add routes for editing special in layout
+- Buffer / store changes until hit save
+- Prepopulate user-defined testfits when onboarding new suite
+- Don't deselect after editing
+- Browser compatibility
+- Make sure delete buttons get appropriately populated
+- Duplicate test fit
+- Screen resizing
+- iPad
+- No internet case
+- Testfit viewing route
+- CMS tools
+  - Save as preset
+  - Enter number of seats
+- DXF -> SVG processing
+
 - Protofit brandmark everywhere / nav bar
 - /404
-
 - Don't crash when deleting current testfit
-- Don't deselect after editing
 - Flash after print 
 - PDF blackness
 - Create bounding for SVG so it doesn't squash other stuff
 - Fix drawing paths
 - Better CMS editing
-- Checkout PDF drawing
-- Add special be able to change it 
-
 - Cell types in layout
 - Upgrade existing plans
 - Don't deselect all when replacing one cell with another?
@@ -76,6 +90,7 @@
 - Deploying migrations
 
 ## Done
+- Upgrade beacon
 - Be able to select after making new test fit
 - /app
 - /home
