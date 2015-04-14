@@ -62,9 +62,9 @@ var findOrCreate = function(config, parent, modelName) {
 
     models[modelName].create(config[modelName], function(err, object) {
       if (childName) findOrCreate(config, object, childName);
-      // if (modelName === 'suite') {
-      //   findOrCreateTestfits(config, object);
-      // }
+      if (modelName === 'suite') {
+        findOrCreateTestfits(config, object);
+      }
     });
   } else { // Else, find
     if (childName) findOrCreate(config, parent[pluralName][index], childName);
@@ -82,18 +82,24 @@ var Testfit = require('../models/testfit');
 
 var findOrCreateTestfits = function(config, suite) {
   for (var i = 0; i < config.layouts.length; i++) {
-    var testfitExists = false;
-    for (var j = 0; j < suite.testfits.length; j++) {
-      if (suite.testfits[j].name === config.layouts[i].name) testfitExists = true;
-    }
-    if (!testfitExists) {
-      var testfit = new Testfit();
-      testfit.suite = mongoose.Types.ObjectId(suite._id);
-      testfit.name = config.layouts[i].name;
-      testfit.layout = config.layouts[i].state;
-      testfit.createdAt = testfit.updatedAt = new Date();
-      testfit.save();
-    }
+    var testfit = new Testfit();
+    testfit.suite = mongoose.Types.ObjectId(suite._id);
+    testfit.name = config.layouts[i].name;
+    testfit.layout = config.layouts[i].state;
+    testfit.createdAt = testfit.updatedAt = new Date();
+    testfit.save();
+    // var testfitExists = false;
+    // for (var j = 0; j < suite.testfits.length; j++) {
+    //   if (suite.testfits[j].name === config.layouts[i].name) testfitExists = true;
+    // }
+    // if (!testfitExists) {
+    //   var testfit = new Testfit();
+    //   testfit.suite = mongoose.Types.ObjectId(suite._id);
+    //   testfit.name = config.layouts[i].name;
+    //   testfit.layout = config.layouts[i].state;
+    //   testfit.createdAt = testfit.updatedAt = new Date();
+    //   testfit.save();
+    // }
   }
 }
 

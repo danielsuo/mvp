@@ -10,10 +10,11 @@
 ### This week
 - 3D link
 - Cubicle layer
+- Update legend (e.g,. work, collab, support, ratios, other metrics)
+- Logout button
 - Add special be able to change it
 - Add routes for editing special in layout
 - Buffer / store changes until hit save
-- Prepopulate user-defined testfits when onboarding new suite
 - Don't deselect after editing
 - Browser compatibility
 - Make sure delete buttons get appropriately populated
@@ -90,6 +91,7 @@
 - Deploying migrations
 
 ## Done
+- Prepopulate user-defined testfits when onboarding new suite
 - Upgrade beacon
 - Be able to select after making new test fit
 - /app
