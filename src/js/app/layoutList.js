@@ -7,6 +7,16 @@ var LayoutList = function() {
   this.layouts = {};
   this.initial;
   this.parent;
+};
+
+LayoutList.prototype.get = function(id) {
+  return this.layouts[id];
+};
+
+LayoutList.prototype.createButtons = function(parent, deleteEnabled, newTestfit) {
+  _.forOwn(this.layouts, function(layout, id) {
+    layout.createButton(parent, deleteEnabled, newTestfit);
+  });
 
   radio('layout-remove').subscribe([
 
@@ -21,16 +31,6 @@ var LayoutList = function() {
     },
     this
   ])
-};
-
-LayoutList.prototype.get = function(id) {
-  return this.layouts[id];
-};
-
-LayoutList.prototype.createButtons = function(parent, deleteEnabled, newTestfit) {
-  _.forOwn(this.layouts, function(layout, id) {
-    layout.createButton(parent, deleteEnabled, newTestfit);
-  });
 };
 
 // TODO: createTestfitButtons

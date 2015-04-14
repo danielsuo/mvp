@@ -8,21 +8,30 @@
 ## TODO
 =======
 ### This week
+
+#### Jake
+- Screen resizing
 - 3D link
-- Cubicle layer
-- Update legend (e.g,. work, collab, support, ratios, other metrics)
 - Logout button
 - Add special be able to change it
-- Add routes for editing special in layout
+
+#### Daniel
+- Remove save fail route
 - Buffer / store changes until hit save
-- Don't deselect after editing
-- Browser compatibility
-- Make sure delete buttons get appropriately populated
 - Duplicate test fit
-- Screen resizing
+- Update legend (e.g,. work, collab, support, ratios, other metrics)
+- Add routes for editing special in layout
+- Don't deselect after editing
+- Make sure delete buttons get appropriately populated
+- Testfit viewing route
+- Guarantee prepopulate order
+
+#### Both
+- Cubicle layer
+- Browser compatibility
 - iPad
 - No internet case
-- Testfit viewing route
+
 - CMS tools
   - Save as preset
   - Enter number of seats
