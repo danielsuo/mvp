@@ -34,35 +34,29 @@ Layout.prototype.commit = function() {
     });
 };
 
-Layout.prototype.createButton = function(parent, deleteEnabled, newTestfit) {
+Layout.prototype.createButton = function(parent, func) {
   var that = this;
 
   var $li = $(document.createElement('li'));
   $li.attr('id', that.id);
   $li.html(that.name).data('index', that.index);
 
+  that.button = $li;
 
-  if (deleteEnabled && !that.preset) {
-    var $deleteBtn = $('<div class="btn x"></div>');
-    $deleteBtn.click(function() {
-      that.delete();
-      // TODO: unfuck that
-      $(this).parent().remove();
-      radio('layout-remove').broadcast(that.id);
-    })
-    $li.append($deleteBtn);
+  if (!that.preset) {
+    that.enableDeleteButton();
   }
 
   $li.click(function() {
     $(this).parent().parent().find('li').removeClass('active');
     $(this).addClass('active');
 
-    if (newTestfit) {
+    if (that.preset) {
       data.layouts.get(data.currentTestfit).state = that.state;
     } else {
       data.currentTestfit = that.id;
     }
-    
+
     if (that.preset) {
       $('#panel .list button.edit').attr('disabled', true)
       // $('#protofit').addClass('no-pointer-events')
@@ -70,8 +64,8 @@ Layout.prototype.createButton = function(parent, deleteEnabled, newTestfit) {
       $('#panel .list button.edit').removeAttr('disabled')
       // $('#protofit').removeClass('no-pointer-events')
     }
-    
-    radio('layout-update-from-state').broadcast(that, newTestfit);
+
+    radio('layout-update-from-state').broadcast(that, that.preset);
     radio('selection-clear').broadcast();
   });
 
@@ -80,7 +74,17 @@ Layout.prototype.createButton = function(parent, deleteEnabled, newTestfit) {
   } else {
     parent.find('ul').first().append($li);
   }
-  this.buttons.push($li);
+};
+
+Layout.prototype.enableDeleteButton = function() {
+  if (this.button) {
+    var that = this;
+    var $deleteBtn = $('<div class="btn x"></div>');
+    $deleteBtn.click(function() {
+      that.delete();
+    });
+    this.button.append($deleteBtn);
+  };
 };
 
 Layout.prototype.updateLayout = function(layout) {
@@ -94,6 +98,7 @@ Layout.prototype.updateLayout = function(layout) {
 
 Layout.prototype.updateName = function(name) {
   this.name = name;
+  this.button.html(name);
   for (var i in this.buttons) {
     var $button = this.buttons[i]
     $button.html(name);
@@ -108,6 +113,12 @@ Layout.prototype.delete = function() {
   if (this.dbid) {
     XHR('/app/' + data.id + '/testfits/' + this.dbid).delete();
   }
+
+  if (this.button) {
+    this.button.remove();
+  }
+
+  radio('layout-remove').broadcast(this.id);
 };
 
 Layout.prototype.serialize = function() {

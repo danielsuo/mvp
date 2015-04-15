@@ -308,7 +308,7 @@ CellList.prototype.registerHandlers = function() {
     function(cell, dragging) {
 
       if (cell.disabled) {
-        // console.log('disabled')
+        console.log('disabled')
         return;
       }
 

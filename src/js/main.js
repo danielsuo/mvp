@@ -88,23 +88,15 @@ XHR('/config/' + data.id).get()
 
 .then(function() {
 
-  var $savedTestfitList = $('#panel .list');
+  var $viewTestfitList = $('#panel .list');
   var $newTestfitList = $('#panel .new');
 
-  data.layouts = new LayoutList();
-  data.layouts.parent = $savedTestfitList;
+  data.layouts = new LayoutList($viewTestfitList, $newTestfitList);
   data.layouts.loadFromPresets(data.config.layouts);
   data.layouts.loadFromUserDefined(data.id);
 
-  // var $layoutList = $('#layout-list');
   var $editorList = $('#panel .editor ul').first();
   var $editorListBig = $('#panel .editor ul').last();
-
-  // Set up layout buttons
-  data.layouts.createButtons(data.layouts.parent, true, false);
-
-  // Set up new testfit buttons
-  data.layouts.createButtons($newTestfitList, false, true);
 
   // Set up cell editor buttons
   data.layers.map(function(layer) {
@@ -293,7 +285,7 @@ var beginNewTestFit = function() {
   data.previousTestfit = data.currentTestfit;
 
   // show whitebox
-  var layout = data.layouts.draft('Untitled', data.layouts.get(data.layouts.initial).state);
+  var layout = data.layouts.draft('Untitled', data.layouts.getPreset(data.layouts.initial).state);
   data.currentTestfit = layout.id;
 
   radio('layout-update-from-state').broadcast(data.layouts.get(data.currentTestfit));

@@ -15,8 +15,11 @@
 - Logout button
 - Add special be able to change it
 - Show more building data in the right-hand panel (right now, just suite name)
+- Figure out why export to 0 width happens
 
 #### Daniel
+- Refactor list of buttons
+- Cells not disabling
 - Visiting routes (via refresh) doesn't crash app if doesn't exist
 - Remove save fail route
 - Buffer / store changes until hit save
