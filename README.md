@@ -10,7 +10,9 @@
 ### This week
 
 #### Jake
+- Make sure delete buttons get appropriately populated (delete button is created, but removed when we hit 'create new testfit'; suspect it has something to do with adding/removing classes)
 - Screen resizing
+- Duplicate test fit
 - 3D link
 - Logout button
 - Add special be able to change it
@@ -18,18 +20,15 @@
 - Figure out why export to 0 width happens
 
 #### Daniel
-- Refactor list of buttons
-- Cells not disabling
 - Visiting routes (via refresh) doesn't crash app if doesn't exist
 - Remove save fail route
 - Buffer / store changes until hit save
-- Duplicate test fit
 - Update legend (e.g,. work, collab, support, ratios, other metrics)
 - Add routes for editing special in layout
 - Don't deselect after editing
-- Make sure delete buttons get appropriately populated
 - Testfit viewing route
 - Guarantee prepopulate order
+- If don't choose a layout when creating new, shouldn't set to whitebox
 
 #### Both
 - Cubicle layer
@@ -105,6 +104,8 @@
 - Deploying migrations
 
 ## Done
+- Cells not disabling
+- Refactor list of buttons
 - Prepopulate user-defined testfits when onboarding new suite
 - Upgrade beacon
 - Be able to select after making new test fit

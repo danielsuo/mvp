@@ -284,7 +284,7 @@ var beginNewTestFit = function() {
 
   data.previousTestfit = data.currentTestfit;
 
-  // show whitebox
+  // show 'initial' layout
   var layout = data.layouts.draft('Untitled', data.layouts.getPreset(data.layouts.initial).state);
   data.currentTestfit = layout.id;
 

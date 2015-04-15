@@ -16,8 +16,6 @@ var Layout = function(name, state, preset) {
   if (!this.preset) {
     this.id += String(Layout.count++);
   }
-
-  this.buttons = []
 };
 
 Layout.count = 0;
@@ -34,7 +32,7 @@ Layout.prototype.commit = function() {
     });
 };
 
-Layout.prototype.createButton = function(parent, func) {
+Layout.prototype.createListButton = function(parent, func) {
   var that = this;
 
   var $li = $(document.createElement('li'));
@@ -44,7 +42,8 @@ Layout.prototype.createButton = function(parent, func) {
   that.button = $li;
 
   if (!that.preset) {
-    that.enableDeleteButton();
+    that.createDeleteButton(that.button);
+    that.createDuplicateButton(that.button);
   }
 
   $li.click(function() {
@@ -76,20 +75,34 @@ Layout.prototype.createButton = function(parent, func) {
   }
 };
 
-Layout.prototype.enableDeleteButton = function() {
-  if (this.button) {
-    var that = this;
-    var $deleteBtn = $('<div class="btn x"></div>');
-    $deleteBtn.click(function() {
-      that.delete();
-    });
-    this.button.append($deleteBtn);
-  };
+Layout.prototype.createDeleteButton = function(parent) {
+  var that = this;
+
+  var $deleteBtn = $('<div class="btn x"></div>');
+  $deleteBtn.click(function() {
+    that.delete();
+  });
+
+  parent.append($deleteBtn);
+};
+
+Layout.prototype.createDuplicateButton = function(parent) {
+  var that = this;
+
+  var $duplicateBtn = $('<div class="btn duplicate"></div>');
+  $duplicateBtn.click(function() {
+    radio('layout-duplicate').broadcast(that.id);
+  })
+
+  parent.append($duplicateBtn);
+};
+
+Layout.prototype.createEditButton = function(parent) {
+
 };
 
 Layout.prototype.updateLayout = function(layout) {
   this.state = layout;
-  console.log(this.dbid)
   XHR('/app/' + data.id + '/testfits/' + this.dbid + '/edit/layout')
     .put(JSON.stringify({
       layout: this.state
