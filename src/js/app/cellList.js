@@ -81,7 +81,7 @@ CellList.prototype.mergeWithLayer = function(cells, layerIndex, update) {
 };
 
 // TODO: recursive split?
-CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
+CellList.prototype.splitWithLayer = function(cells, layerIndex, update, leaveSelectedOnFinish) {
   _.forOwn(cells, function(cell, id) {
 
     var layerIndexDefined = layerIndex === undefined || layerIndex === null;
@@ -100,7 +100,7 @@ CellList.prototype.splitWithLayer = function(cells, layerIndex, update) {
     }
   }, this);
 
-  this.deselectAll();
+  if (leaveSelectedOnFinish === undefined || !leaveSelectedOnFinish) this.deselectAll();
   if (update) radio('layout-update-from-state').broadcast();
 };
 

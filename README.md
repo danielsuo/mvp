@@ -25,7 +25,6 @@
 - Buffer / store changes until hit save
 - Update legend (e.g,. work, collab, support, ratios, other metrics)
 - Add routes for editing special in layout
-- Don't deselect after editing
 - Testfit viewing route
 - Guarantee prepopulate order
 - If don't choose a layout when creating new, shouldn't set to whitebox
@@ -104,6 +103,7 @@
 - Deploying migrations
 
 ## Done
+- Don't deselect after editing
 - Cells not disabling
 - Refactor list of buttons
 - Prepopulate user-defined testfits when onboarding new suite

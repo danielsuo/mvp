@@ -101,7 +101,7 @@ XHR('/config/' + data.id).get()
   // Set up cell editor buttons
   data.layers.map(function(layer) {
     layer.createButton($editorList, function() {
-      data.cells.splitWithLayer(data.cells.selected, layer.index, true);
+      data.cells.splitWithLayer(data.cells.selected, layer.index, true, true);
     });
   });
 
