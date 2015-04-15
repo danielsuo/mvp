@@ -14,8 +14,10 @@
 - 3D link
 - Logout button
 - Add special be able to change it
+- Show more building data in the right-hand panel (right now, just suite name)
 
 #### Daniel
+- Visiting routes (via refresh) doesn't crash app if doesn't exist
 - Remove save fail route
 - Buffer / store changes until hit save
 - Duplicate test fit
